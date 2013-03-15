@@ -1,0 +1,92 @@
+tile.MeteorOre.name=Meteor
+tile.Meteor.name=Gefallene Meteor
+tile.MeteorRare.name=Selten Gafallene Meteor
+tile.MeteorShield.name=Meteor Schild
+tile.ProtectedLandTester.name=Geschützt Land Tester
+tile.Frezarite.name=Frezarite
+tile.Kreknorite.name=Kreknorite
+
+item.MeteorChips.name=Meteor Span
+item.RedMeteorGem.name=Rot Meteor Juwel
+item.MeteorSummoner.random.name=Meteor Beschwörer
+item.MeteorSummoner.meteorite.name=Meteorite Meteor Beschwörer
+item.MeteorSummoner.frezarite.name=Frezarite Meteor Beschwörer
+item.MeteorSummoner.kreknorite.name=Kreknorite Meteor Beschwörer
+item.MeteorSummoner.unknown.name=Unbekannt Meteor Beschwörer
+item.MeteorSummoner.kitty.name=Kätzchen Komet Beschwörer
+item.MeteoriteHelmet.name=Meteorite Helm
+item.MeteoriteChest.name=Meteorite Brustplatte
+item.MeteoriteLegs.name=Meteorite Leggings
+item.MeteoriteBoots.name=Meteorite Boots
+item.MeteoriteAxe.name=Meteorite Beil
+item.MeteoriteSpade.name=Meteorite Schaufel
+item.MeteoriteSword.name=Meteorite Klinge
+item.MeteoritePickaxe.name=Meteorite Spitzhacke
+item.MeteoriteHoe.name=Meteorite Hacke
+item.FrezariteHelmet.name=Frezarite Helm
+item.FrezariteChest.name=Frezarite Brustplatte
+item.FrezariteLegs.name=Frezarite Leggings
+item.FrezariteBoots.name=Frezarite Boots
+item.FrezariteCrystal.name=Frezarite Kristallglas
+item.FrezaritePickaxe.name=Frezarite Spitzhacke
+item.FrezariteSpade.name=Frezarite Schaufel
+item.FrezariteSword.name=Frezarite Klinge
+item.FrezariteAxe.name=Frezarite Beil
+item.FrezariteHoe.name=Frezarite Hacke
+item.KreknoriteChip.name=Kreknorite Span
+item.KreknoriteHelmet.name=Kreknorite Helm
+item.KreknoriteChest.name=Kreknorite Brustplatte
+item.KreknoriteLegs.name=Kreknorite Leggings
+item.KreknoriteBoots.name=Kreknorite Boots
+item.KreknoriteSword.name=Kreknorite Klinge
+item.VanillaIceCream.name=Vanille-Speiseeis
+item.ChocolateIceCream.name=Schokolade Speiseeis
+item.MeteorDetectorProximity.name=Meteor Nähe Detektor
+item.MeteorDetectorTime.name=Meteor Zeit Detektor
+item.MeteorDetectorCrash.name=Meteor Absturz Detektor
+
+entity.AlienCreeper.name=Ausländer Schlingpflanze
+entity.CometKitty.name=Komet Kätzchen 
+
+MeteorShield.charging=Meteor Abschirmen Laden!
+MeteorShield.noUpgrade=Aufrüstung dieses Meteor Schild tut nichts!
+# Example for below: Meteor Schild spielt nun bei 80%
+MeteorShield.PowerUpgradePercentage=Meteor Schild spielt nun bei
+MeteorShield.meteorBlocked=Ihre Plattform Schild geschützt euer Land aus einem Meteor
+
+ProtectionTorch.landOwnership=Dieses Land ist geschützt durch:
+
+enchantment.Magnetization=Magnetisierung
+enchantment.ColdTouch=kalte Berührung
+enchantment.addEnch.one=Mit der rechten Maustaste klicken, während in der Hand
+enchantment.addEnch.two=um Verzauberung hinzufügen
+enchantment.frezAxe.one=erhöht Unterwasser
+enchantment.frezAxe.two=Schnittgeschwindigkeit
+enchantment.frezHoe.one=automatisch Gewässern
+enchantment.frezHoe.two=Ackerland, wenn verwendet
+enchantment.frezPickaxe.one=erhöht Unterwasser
+enchantment.frezPickaxe.two=Bergbau-Geschwindigkeit
+enchantment.frezSpade.one=erhöht Unterwasser
+enchantment.frezSpade.two=graben Geschwindigkeit
+enchantment.frezSword.one=Friert Gegner, verursacht
+enchantment.frezSword.two=sie zu verlangsamen.
+
+Meteor.netherPortalCreation=Ein Portal zu den Nether wurde erstellt!
+Meteor.kittiesDetected.one=Living Entities im Luftraum erkannt!
+Meteor.kittiesDetected.two=Bereiten Sie sich auf vielfältige Auswirkungen!
+
+MeteorSummoner.incomingMeteor=Eingehende Meteor!!!
+MeteorSummoner.wrongDimension=Kann nicht beschwören Meteore in dieser Dimension.
+MeteorSummoner.landProtected=Dieses Land wird von einem anderen Spieler geschützt!
+
+achievement.pageMeteors=Sinkende Meteors
+achievement.shieldCrafted=Wir Covered
+achievement.shieldCrafted.desc=Craft ein Meteor Schild mit Meteoriten Chips.
+achievement.meteorBlocked=Meteor zerstört!
+achievement.meteorBlocked.desc=Verwenden Sie ein Meteor Shield einen Meteor zerstören Land zu blockieren.
+achievement.shieldFullyUpgraded=Verbessern vollendet
+achievement.shieldFullyUpgraded.desc=Rüsten Sie einen Meteor Schild mit seltenen Rot Meteor Edelsteine.
+achievement.attractedDrop=Magnetisierten!
+achievement.attractedDrop.desc=Attract magnetischen Materialien mit Meteorite Rüstungen oder Werkzeuge.
+achievement.craftedKreknoSword=Flammen von Wut
+achievement.craftedKreknoSword.desc=Handwerk eine Kreknorite Flammenschwert mit Kreknorite Chips.

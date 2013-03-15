@@ -1,0 +1,19 @@
+[
+{
+  "modid" : "Meteors",
+  "name" : "Falling Meteors",
+  "version" : "2.9.2.1",
+  "mcversion" : "1.4.7",
+  "url" : "http://bit.ly/KyDD0g",
+  "credits": "Programming/textures: AlexDGr8r. Other Textures: Firecat1311, SLuRsniper24",
+  "authors": [
+     "AlexDGr8r"
+  ],
+  "description": "Adds Falling Meteors to the game that are made up of three types of materials to use in crafting tools, armor, and other meteor-related items.",
+  "logoFile" : "logo.png",
+  "updateUrl" : "",
+  "parent" : "",
+  "screenshots": [
+  ]
+}
+] 

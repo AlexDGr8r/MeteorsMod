@@ -1,0 +1,92 @@
+tile.MeteorOre.name=Meteor
+tile.Meteor.name=Fallen Meteor
+tile.MeteorRare.name=Rare Fallen Meteor
+tile.MeteorShield.name=Meteor Shield
+tile.ProtectedLandTester.name=Protected Land Tester
+tile.Frezarite.name=Frezarite
+tile.Kreknorite.name=Kreknorite
+
+item.MeteorChips.name=Meteor Chip
+item.RedMeteorGem.name=Red Meteor Gem
+item.MeteorSummoner.random.name=Meteor Summoner
+item.MeteorSummoner.meteorite.name=Meteorite Meteor Summoner
+item.MeteorSummoner.frezarite.name=Frezarite Meteor Summoner
+item.MeteorSummoner.kreknorite.name=Kreknorite Meteor Summoner
+item.MeteorSummoner.unknown.name=Unknown Meteor Summoner
+item.MeteorSummoner.kitty.name=Kitty Comet Summoner
+item.MeteoriteHelmet.name=Meteorite Helmet
+item.MeteoriteChest.name=Meteorite Chestplate
+item.MeteoriteLegs.name=Meteorite Leggings
+item.MeteoriteBoots.name=Meteorite Boots
+item.MeteoriteAxe.name=Meteorite Axe
+item.MeteoriteSpade.name=Meteorite Spade
+item.MeteoriteSword.name=Meteorite Sword
+item.MeteoritePickaxe.name=Meteorite Pickaxe
+item.MeteoriteHoe.name=Meteorite Hoe
+item.FrezariteHelmet.name=Frezarite Helmet
+item.FrezariteChest.name=Frezarite Chestplate
+item.FrezariteLegs.name=Frezarite Leggings
+item.FrezariteBoots.name=Frezarite Boots
+item.FrezariteCrystal.name=Frezarite Crystal
+item.FrezaritePickaxe.name=Frezarite Pickaxe
+item.FrezariteSpade.name=Frezarite Spade
+item.FrezariteSword.name=Frezarite Sword
+item.FrezariteAxe.name=Frezarite Axe
+item.FrezariteHoe.name=Frezarite Hoe
+item.KreknoriteChip.name=Kreknorite Chip
+item.KreknoriteHelmet.name=Kreknorite Helmet
+item.KreknoriteChest.name=Kreknorite Chestplate
+item.KreknoriteLegs.name=Kreknorite Leggings
+item.KreknoriteBoots.name=Kreknorite Boots
+item.KreknoriteSword.name=Kreknorite Sword
+item.VanillaIceCream.name=Vanilla Ice Cream
+item.ChocolateIceCream.name=Chocolate Ice Cream
+item.MeteorDetectorProximity.name=Meteor Proximity Detector
+item.MeteorDetectorTime.name=Meteor Time Detector
+item.MeteorDetectorCrash.name=Meteor Crash Detector
+
+entity.AlienCreeper.name=Alien Creeper
+entity.CometKitty.name=Comet Kitty
+
+MeteorShield.charging=Meteor Shield Charging!
+MeteorShield.noUpgrade=Upgrading this Meteor Shield does nothing!
+# Example for below: Meteor Shield now at 80%
+MeteorShield.PowerUpgradePercentage=Meteor Shield now at
+MeteorShield.meteorBlocked=Your Meteor Shield protected your land from a meteor.
+
+ProtectionTorch.landOwnership=This land is protected by:
+
+enchantment.Magnetization=Magnetization
+enchantment.ColdTouch=Cold Touch
+enchantment.addEnch.one=Right-click while in hand
+enchantment.addEnch.two=to add enchantment
+enchantment.frezAxe.one=Increases underwater
+enchantment.frezAxe.two=cutting speed
+enchantment.frezHoe.one=Automatically waters
+enchantment.frezHoe.two=farmland when used
+enchantment.frezPickaxe.one=Increases underwater
+enchantment.frezPickaxe.two=mining speed
+enchantment.frezSpade.one=Increases underwater
+enchantment.frezSpade.two=digging speed
+enchantment.frezSword.one=Freezes enemies, causing
+enchantment.frezSword.two=them to slow down.
+
+Meteor.netherPortalCreation=A portal to the Nether has been created!
+Meteor.kittiesDetected.one=Living Entities detected in airspace!
+Meteor.kittiesDetected.two=Prepare for multiple impacts!
+
+MeteorSummoner.incomingMeteor=Incoming Meteor!!!
+MeteorSummoner.wrongDimension=Cannot summon meteors in this dimension.
+MeteorSummoner.landProtected=This land is protected by another player!
+
+achievement.pageMeteors=Falling Meteors
+achievement.shieldCrafted=We're Covered
+achievement.shieldCrafted.desc=Craft a Meteor Shield using meteorite chips.
+achievement.meteorBlocked=Meteor Destroyed!
+achievement.meteorBlocked.desc=Use a Meteor Shield to block a meteor from destroying land.
+achievement.shieldFullyUpgraded=Upgrade Complete
+achievement.shieldFullyUpgraded.desc=Fully upgrade a Meteor Shield using rare Red Meteor Gems.
+achievement.attractedDrop=Magnetized
+achievement.attractedDrop.desc=Attract magnetic materials using Meteorite armor or tools.
+achievement.craftedKreknoSword=Flames of Fury
+achievement.craftedKreknoSword.desc=Craft a Kreknorite Flame Sword using Kreknorite Chips.
