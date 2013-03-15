@@ -10,8 +10,8 @@ public class EntityAlienCreeper extends EntityCreeper
 	{
 		super(world);
 		this.tasks.addTask(3, new EntityAIAvoidEntity(this, EntityCometKitty.class, 6.0F, 0.25F, 0.3F));
-        texture = "/meteor/textures/meteorcreeper.png";
-        isImmuneToFire = true;
+		texture = "/meteor/textures/meteorcreeper.png";
+		isImmuneToFire = true;
 	}
 
 	@Override

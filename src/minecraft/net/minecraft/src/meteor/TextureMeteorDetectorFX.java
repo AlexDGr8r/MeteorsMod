@@ -246,28 +246,28 @@ public class TextureMeteorDetectorFX extends TextureFX
 
 		for (int var9 = 0; var9 < 256; var9++) {
 			int var10 = this.compassIconImageData[var9] >> 24 & 0xFF;
-			int var11 = this.compassIconImageData[var9] >> 16 & 0xFF;
-			int var12 = this.compassIconImageData[var9] >> 8 & 0xFF;
-			int var13 = this.compassIconImageData[var9] >> 0 & 0xFF;
+		int var11 = this.compassIconImageData[var9] >> 16 & 0xFF;
+		int var12 = this.compassIconImageData[var9] >> 8 & 0xFF;
+		int var13 = this.compassIconImageData[var9] >> 0 & 0xFF;
 
-			if ((var11 == var13) && (var12 == 0) && (var13 > 0))
-			{
-				double var14 = -(var9 % 16 / 15.0D - 0.5D);
-				double var16 = var9 / 16 / 15.0D - 0.5D;
-				int var18 = var11;
-				int var19 = (int)((var14 * var7 + var16 * var5 + 0.5D) * 16.0D);
-				int var20 = (int)((var16 * var7 - var14 * var5 + 0.5D) * 16.0D);
-				int var21 = (var19 & 0xF) + (var20 & 0xF) * 16;
-				var10 = this.dialImageData[var21] >> 24 & 0xFF;
-				var11 = (this.dialImageData[var21] >> 16 & 0xFF) * var11 / 255;
-				var12 = (this.dialImageData[var21] >> 8 & 0xFF) * var18 / 255;
-				var13 = (this.dialImageData[var21] >> 0 & 0xFF) * var18 / 255;
-			}
+		if ((var11 == var13) && (var12 == 0) && (var13 > 0))
+		{
+			double var14 = -(var9 % 16 / 15.0D - 0.5D);
+			double var16 = var9 / 16 / 15.0D - 0.5D;
+			int var18 = var11;
+			int var19 = (int)((var14 * var7 + var16 * var5 + 0.5D) * 16.0D);
+			int var20 = (int)((var16 * var7 - var14 * var5 + 0.5D) * 16.0D);
+			int var21 = (var19 & 0xF) + (var20 & 0xF) * 16;
+			var10 = this.dialImageData[var21] >> 24 & 0xFF;
+			var11 = (this.dialImageData[var21] >> 16 & 0xFF) * var11 / 255;
+			var12 = (this.dialImageData[var21] >> 8 & 0xFF) * var18 / 255;
+			var13 = (this.dialImageData[var21] >> 0 & 0xFF) * var18 / 255;
+		}
 
-			this.imageData[(var9 * 4 + 0)] = ((byte)var11);
-			this.imageData[(var9 * 4 + 1)] = ((byte)var12);
-			this.imageData[(var9 * 4 + 2)] = ((byte)var13);
-			this.imageData[(var9 * 4 + 3)] = ((byte)var10);
+		this.imageData[(var9 * 4 + 0)] = ((byte)var11);
+		this.imageData[(var9 * 4 + 1)] = ((byte)var12);
+		this.imageData[(var9 * 4 + 2)] = ((byte)var13);
+		this.imageData[(var9 * 4 + 3)] = ((byte)var10);
 		}
 	}
 

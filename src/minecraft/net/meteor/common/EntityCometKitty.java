@@ -32,20 +32,20 @@ public class EntityCometKitty extends EntityOcelot
 	public EntityOcelot spawnBabyAnimal(EntityAgeable par1EntityAgeable)
 	{
 		EntityOcelot var2;
-        if (this.worldObj.rand.nextBoolean()) {
-        	var2 = new EntityOcelot(this.worldObj);
-        } else {
-        	var2 = new EntityCometKitty(this.worldObj);
-        }
+		if (this.worldObj.rand.nextBoolean()) {
+			var2 = new EntityOcelot(this.worldObj);
+		} else {
+			var2 = new EntityCometKitty(this.worldObj);
+		}
 
-        if (this.isTamed())
-        {
-            var2.setOwner(this.getOwnerName());
-            var2.setTamed(true);
-            var2.setTameSkin(this.getTameSkin());
-        }
+		if (this.isTamed())
+		{
+			var2.setOwner(this.getOwnerName());
+			var2.setTamed(true);
+			var2.setTameSkin(this.getTameSkin());
+		}
 
-        return var2;
+		return var2;
 	}
 
 	@Override

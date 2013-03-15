@@ -11,17 +11,17 @@ import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class RenderMeteor extends Render {
-	
+
 	ModelMeteor modelMeteor;
-	
+
 	public RenderMeteor() {
 		modelMeteor = new ModelMeteor();
 	}
-	
+
 	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1) {
 		renderMeteor((EntityMeteor)entity, d, d1, d2, f, f1);
 	}
-	
+
 	public void renderMeteor(EntityMeteor entityMeteor, double d, double d1, double d2, float f, float f1) {
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float)d, (float)d1, (float)d2);
@@ -31,5 +31,5 @@ public class RenderMeteor extends Render {
 		modelMeteor.renderWithSize(entityMeteor, 0.0625F);
 		GL11.glPopMatrix();
 	}
-	
+
 }

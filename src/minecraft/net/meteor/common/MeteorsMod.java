@@ -41,10 +41,10 @@ import cpw.mods.fml.relauncher.Side;
 public class MeteorsMod
 implements ICraftingHandler, IFuelHandler, IWorldGenerator
 {
-	public static boolean loggable = true;
-	public static boolean forModpack = false;
+	public static boolean loggable = true;		// For Debugging Purposes Only
+	public static boolean forModpack = false;	// TODO Change this for publishing modpack
 	private static Configuration config;
-	private static int[] IDs = new int[43];
+	private static int[] IDs = new int[43];		// Array Full
 
 	public static String textureFile = "/meteor/textures/meteorItems.png";
 	public static Logger log = FMLLog.getLogger();

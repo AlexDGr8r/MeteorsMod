@@ -129,5 +129,5 @@ public class BlockMeteorShieldTorch extends BlockTorch
 	{
 		return LangLocalization.get(this.getBlockName() + ".name");
 	}
-	
+
 }

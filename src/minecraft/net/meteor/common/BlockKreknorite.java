@@ -60,35 +60,35 @@ public class BlockKreknorite extends BlockMeteor
 	private void checkForHarden(World world, int i, int j, int k)
 	{
 		if (world.getBlockId(i, j, k) != blockID)
-        {
-            return;
-        }
-        boolean flag = false;
-        if (flag || world.getBlockMaterial(i, j, k - 1) == Material.water)
-        {
-            flag = true;
-        }
-        if (flag || world.getBlockMaterial(i, j, k + 1) == Material.water)
-        {
-            flag = true;
-        }
-        if (flag || world.getBlockMaterial(i - 1, j, k) == Material.water)
-        {
-            flag = true;
-        }
-        if (flag || world.getBlockMaterial(i + 1, j, k) == Material.water)
-        {
-            flag = true;
-        }
-        if (flag || world.getBlockMaterial(i, j + 1, k) == Material.water)
-        {
-            flag = true;
-        }
-        if (flag)
-        {
-            world.setBlockWithNotify(i, j, k, Block.obsidian.blockID);
-            triggerLavaMixEffects(world, i, j, k);
-        }
+		{
+			return;
+		}
+		boolean flag = false;
+		if (flag || world.getBlockMaterial(i, j, k - 1) == Material.water)
+		{
+			flag = true;
+		}
+		if (flag || world.getBlockMaterial(i, j, k + 1) == Material.water)
+		{
+			flag = true;
+		}
+		if (flag || world.getBlockMaterial(i - 1, j, k) == Material.water)
+		{
+			flag = true;
+		}
+		if (flag || world.getBlockMaterial(i + 1, j, k) == Material.water)
+		{
+			flag = true;
+		}
+		if (flag || world.getBlockMaterial(i, j + 1, k) == Material.water)
+		{
+			flag = true;
+		}
+		if (flag)
+		{
+			world.setBlockWithNotify(i, j, k, Block.obsidian.blockID);
+			triggerLavaMixEffects(world, i, j, k);
+		}
 	}
 
 	protected void triggerLavaMixEffects(World world, int i, int j, int k)

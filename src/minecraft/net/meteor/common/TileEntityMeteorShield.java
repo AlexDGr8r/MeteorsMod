@@ -193,5 +193,5 @@ public class TileEntityMeteorShield extends TileEntity
 		writeToNBT(var1);
 		return new Packet132TileEntityData(this.xCoord, this.yCoord, this.zCoord, 1, var1);
 	}
-	
+
 }

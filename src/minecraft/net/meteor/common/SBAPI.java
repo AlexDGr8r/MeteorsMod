@@ -12,7 +12,7 @@ import net.minecraft.world.World;
  * @version 1.1
  */
 public class SBAPI {
-	
+
 	/**
 	 * Add this variable to the metadata if you want the door block to be the top part of a door.
 	 */
@@ -169,7 +169,7 @@ public class SBAPI {
 	 * Add this variable to the metadata to make wool Black.
 	 */
 	public static int WoolBlack = 15;
-	
+
 	/** Place block at defined coordinates. Has support for automatic placing of the second block of Doors and Beds.
 	 * @param world 	World to modify block in
 	 * @param x			X Value of block
@@ -234,7 +234,7 @@ public class SBAPI {
 		}
 		world.setBlockAndMetadataWithNotify(x, y, z, block, mData);
 	}
-	
+
 	/** Place block at defined coordinates. Has support for automatic placing of the second block of Doors and Beds.
 	 * @param world 	World to modify block in
 	 * @param x			X Value of block
@@ -246,7 +246,7 @@ public class SBAPI {
 	public static void placeBlock(World world, int x, int y, int z, int block) {
 		placeBlock(world, x, y, z, block, 0);
 	}
-	
+
 	private static boolean getBedPlacementDirectionNorthOrSouth(int mData) {
 		switch (mData) {
 		case 0:
@@ -259,7 +259,7 @@ public class SBAPI {
 			return false;
 		}
 	}
-	
+
 	/** Generates a flat floor of blocks and isn't hollow.
 	 * @param world 	World to modify blocks in 
 	 * @param y			The Y value for the floor
@@ -297,7 +297,7 @@ public class SBAPI {
 			}
 		}
 	}
-	
+
 	/**Generates a flat floor of blocks and isn't hollow.
 	 * @param world 	World to modify blocks in 
 	 * @param y			The Y value for the floor
@@ -311,7 +311,7 @@ public class SBAPI {
 	public static void generateFloor(World world, int y, int x1, int z1, int x2, int z2, int block) {
 		generateFloor(world, y, x1, z1, x2, z2, block, 0);
 	}
-	
+
 	/** Generates a flat floor of blocks and is hollow.
 	 * @param world 	World to modify blocks in 
 	 * @param y			The Y value for the floor
@@ -334,7 +334,7 @@ public class SBAPI {
 				placeBlock(world, startX, y, z2, block, mData);
 			}
 		}
-		
+
 		if (z1 <= z2) {
 			for (int startZ = z1; startZ <= z2; startZ++) {
 				placeBlock(world, x1, y, startZ, block, mData);
@@ -347,7 +347,7 @@ public class SBAPI {
 			}
 		}
 	}
-	
+
 	/**Generates a flat floor of blocks and is hollow.
 	 * @param world 	World to modify blocks in 
 	 * @param y			The Y value for the floor
@@ -361,7 +361,7 @@ public class SBAPI {
 	public static void generateHollowFloor(World world, int y, int x1, int z1, int x2, int z2, int block) {
 		generateHollowFloor(world, y, x1, z1, x2, z2, block, 0);
 	}
-	
+
 	/** Generates a vertical wall in the East or West direction and isn't hollow.
 	 * @param world		World to modify blocks in 
 	 * @param x			The X value of the wall
@@ -376,7 +376,7 @@ public class SBAPI {
 	public static void generateEastWestWall(World world, int x, int y1, int z1, int y2, int z2, int block, int mData) {
 		generateXWall(world, x, y1, z1, y2, z2, block, mData);
 	}
-	
+
 	/**Generates a vertical wall in the East or West direction and isn't hollow.
 	 * @param world		World to modify blocks in 
 	 * @param x			The X value of the wall
@@ -390,7 +390,7 @@ public class SBAPI {
 	public static void generateEastWestWall(World world, int x, int y1, int z1, int y2, int z2, int block) {
 		generateXWall(world, x, y1, z1, y2, z2, block, 0);
 	}
-	
+
 	/** Generates a vertical wall in the East or West direction and is hollow.
 	 * @param world		World to modify blocks in 
 	 * @param x			The X value of the wall
@@ -405,7 +405,7 @@ public class SBAPI {
 	public static void generateHollowEastWestWall(World world, int x, int y1, int z1, int y2, int z2, int block, int mData) {
 		generateHollowXWall(world, x, y1, z1, y2, z2, block, mData);
 	}
-	
+
 	/**Generates a vertical wall in the East or West direction and is hollow.
 	 * @param world		World to modify blocks in 
 	 * @param x			The X value of the wall
@@ -419,7 +419,7 @@ public class SBAPI {
 	public static void generateHollowEastWestWall(World world, int x, int y1, int z1, int y2, int z2, int block) {
 		generateHollowXWall(world, x, y1, z1, y2, z2, block, 0);
 	}
-	
+
 	/** Generates a vertical wall in the North or South direction and isn't hollow.
 	 * @param world		World to modify blocks in 
 	 * @param z			The Z value of the wall
@@ -434,7 +434,7 @@ public class SBAPI {
 	public static void generateNorthSouthWall(World world, int z, int x1, int y1, int x2, int y2, int block, int mData) {
 		generateZWall(world, z, x1, y1, x2, y2, block, mData);
 	}
-	
+
 	/** Generates a vertical wall in the North or South direction and isn't hollow.
 	 * @param world		World to modify blocks in 
 	 * @param z			The Z value of the wall
@@ -448,7 +448,7 @@ public class SBAPI {
 	public static void generateNorthSouthWall(World world, int z, int x1, int y1, int x2, int y2, int block) {
 		generateZWall(world, z, x1, y1, x2, y2, block, 0);
 	}
-	
+
 	/** Generates a vertical wall in the North or South direction and is hollow. 
 	 * @param world		World to modify blocks in 
 	 * @param z			The Z value of the wall
@@ -463,7 +463,7 @@ public class SBAPI {
 	public static void generateHollowNorthSouthWall(World world, int z, int x1, int y1, int x2, int y2, int block, int mData) {
 		generateHollowZWall(world, z, x1, y1, x2, y2, block, mData);
 	}
-	
+
 	/**Generates a vertical wall in the North or South direction and is hollow. 
 	 * @param world		World to modify blocks in 
 	 * @param z			The Z value of the wall
@@ -477,7 +477,7 @@ public class SBAPI {
 	public static void generateHollowNorthSouthWall(World world, int z, int x1, int y1, int x2, int y2, int block) {
 		generateHollowZWall(world, z, x1, y1, x2, y2, block, 0);
 	}
-	
+
 	/** Generates a vertical wall in the East or West direction and isn't hollow.
 	 * @param world		World to modify blocks in 
 	 * @param x			The X value of the wall
@@ -515,7 +515,7 @@ public class SBAPI {
 			}
 		}
 	}
-	
+
 	/**Generates a vertical wall in the East or West direction and isn't hollow.
 	 * @param world		World to modify blocks in 
 	 * @param x			The X value of the wall
@@ -529,7 +529,7 @@ public class SBAPI {
 	public static void generateXWall(World world, int x, int y1, int z1, int y2, int z2, int block) {
 		generateXWall(world, x, y1, z1, y2, z2, block, 0);
 	}
-	
+
 	/** Generates a vertical wall in the North or South direction and isn't hollow.
 	 * @param world		World to modify blocks in 
 	 * @param z			The Z value of the wall
@@ -567,7 +567,7 @@ public class SBAPI {
 			}
 		}
 	}
-	
+
 	/**Generates a vertical wall in the North or South direction and isn't hollow.
 	 * @param world		World to modify blocks in 
 	 * @param z			The Z value of the wall
@@ -581,7 +581,7 @@ public class SBAPI {
 	public static void generateZWall(World world, int z, int x1, int y1, int x2, int y2, int block) {
 		generateZWall(world, z, x1, y1, x2, y2, block, 0);
 	}
-	
+
 	/** Generates a vertical wall in the East or West direction and is hollow.
 	 * @param world		World to modify blocks in 
 	 * @param x			The X value of the wall
@@ -604,7 +604,7 @@ public class SBAPI {
 				placeBlock(world, x, startY, z2, block, mData);
 			}
 		}
-		
+
 		if (z1 >= z2) {
 			for (int startZ = z1; startZ >= z2; startZ--) {
 				placeBlock(world, x, y1, startZ, block, mData);
@@ -617,7 +617,7 @@ public class SBAPI {
 			}
 		}
 	}
-	
+
 	/**Generates a vertical wall in the East or West direction and is hollow.
 	 * @param world		World to modify blocks in 
 	 * @param x			The X value of the wall
@@ -631,7 +631,7 @@ public class SBAPI {
 	public static void generateHollowXWall(World world, int x, int y1, int z1, int y2, int z2, int block) {
 		generateHollowXWall(world, x, y1, z1, y2, z2, block, 0);
 	}
-	
+
 	/** Generates a vertical wall in the North or South direction and is hollow.
 	 * @param world		World to modify blocks in 
 	 * @param z			The Z value of the wall
@@ -654,7 +654,7 @@ public class SBAPI {
 				placeBlock(world, x2, startY, z, block, mData);
 			}
 		}
-		
+
 		if (x1 >= x2) {
 			for (int startX = x1; startX >= x2; startX--) {
 				placeBlock(world, startX, y1, z, block, mData);
@@ -667,7 +667,7 @@ public class SBAPI {
 			}
 		}
 	}
-	
+
 	/**Generates a vertical wall in the North or South direction and is hollow.
 	 * @param world		World to modify blocks in 
 	 * @param z			The Z value of the wall
@@ -681,7 +681,7 @@ public class SBAPI {
 	public static void generateHollowZWall(World world, int z, int x1, int y1, int x2, int y2, int block) {
 		generateHollowZWall(world, z, x1, y1, x2, y2, block, 0);
 	}
-	
+
 	/** Automatically determines the direction of a wall. Then generates that wall if able to. Automatically makes the
 	 *  wall not hollow.
 	 * @param world		World to modify blocks in 
@@ -700,7 +700,7 @@ public class SBAPI {
 	public static boolean generateWall(World world, int x1, int y1, int z1, int x2, int y2, int z2, int block, int mData) {
 		return generateWall(world, x1, y1, z1, x2, y2, z2, block, mData, false);
 	}
-	
+
 	/**Automatically determines the direction of a wall. Then generates that wall if able to. Automatically makes the
 	 *  wall not hollow.
 	 * @param world		World to modify blocks in 
@@ -718,7 +718,7 @@ public class SBAPI {
 	public static boolean generateWall(World world, int x1, int y1, int z1, int x2, int y2, int z2, int block) {
 		return generateWall(world, x1, y1, z1, x2, y2, z2, block, 0);
 	}
-	
+
 	/** Automatically determines the direction of a wall. Then generates that wall if able to.
 	 * @param world		World to modify blocks in 
 	 * @param x1		The first X coordinate
@@ -750,8 +750,8 @@ public class SBAPI {
 		}
 		return false;
 	}
-	
-	
+
+
 	/** Automatically determines how to create a cuboid of blocks based off of coordinates given. Then generates that cuboid.
 	 *  Also automatically causes cuboid to not be hollow.
 	 * @param world		World to modify blocks in 
@@ -769,7 +769,7 @@ public class SBAPI {
 	public static void generateCuboid(World world, int x1, int y1, int z1, int x2, int y2, int z2, int block, int mData) {
 		generateCuboid(world, x1, y1, z1, x2, y2, z2, block, mData, false);
 	}
-	
+
 	/**Automatically determines how to create a cuboid of blocks based off of coordinates given. Then generates that cuboid.
 	 *  Also automatically causes cuboid to not be hollow.
 	 * @param world		World to modify blocks in 
@@ -786,7 +786,7 @@ public class SBAPI {
 	public static void generateCuboid(World world, int x1, int y1, int z1, int x2, int y2, int z2, int block) {
 		generateCuboid(world, x1, y1, z1, x2, y2, z2, block, 0);
 	}
-	
+
 	/** Automatically determines how to create a cuboid of blocks based off of coordinates given. Then generates that cuboid.
 	 * @param world		World to modify blocks in 
 	 * @param x1		The first X coordinate
