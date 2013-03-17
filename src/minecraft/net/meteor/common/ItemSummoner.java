@@ -2,6 +2,7 @@ package net.meteor.common;
 
 import java.util.List;
 
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -13,6 +14,12 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemSummoner extends ItemMeteorsMod
 {
 	private String[] names = { "random", "meteorite", "frezarite", "kreknorite", "unknown", "kitty" };
+	
+	private Icon metIcon;
+	private Icon frezIcon;
+	private Icon krekIcon;
+	private Icon unkIcon;
+	private Icon kittyIcon;
 
 	public ItemSummoner(int i) {
 		super(i);
@@ -41,7 +48,31 @@ public class ItemSummoner extends ItemMeteorsMod
 	@Override
 	public Icon getIconFromDamage(int i)
 	{
-		return this.iconIndex + i;
+		switch (i) {
+		case 1:
+			return this.metIcon;
+		case 2:
+			return this.frezIcon;
+		case 3:
+			return this.krekIcon;
+		case 4:
+			return this.unkIcon;
+		case 5:
+			return this.kittyIcon;
+		default:
+			return this.iconIndex;
+		}
+	}
+	
+	@SideOnly(Side.CLIENT)
+	@Override
+    public void func_94581_a(IconRegister par1IconRegister) {
+		this.iconIndex = par1IconRegister.func_94245_a("summoner");
+		this.metIcon = par1IconRegister.func_94245_a("sum_met");
+		this.frezIcon = par1IconRegister.func_94245_a("sum_frez");
+		this.krekIcon = par1IconRegister.func_94245_a("sum_krek");
+		this.unkIcon = par1IconRegister.func_94245_a("sum_unk");
+		this.kittyIcon = par1IconRegister.func_94245_a("sum_kitty");
 	}
 
 	@Override

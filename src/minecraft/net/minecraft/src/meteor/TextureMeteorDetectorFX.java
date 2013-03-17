@@ -12,7 +12,6 @@ import net.meteor.common.CommonProxy;
 import net.meteor.common.MeteorsMod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderEngine;
-import net.minecraft.client.renderer.texturefx.TextureFX;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MathHelper;
 

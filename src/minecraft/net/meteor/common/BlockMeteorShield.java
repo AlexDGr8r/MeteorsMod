@@ -4,10 +4,13 @@ import java.util.Random;
 
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Icon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -16,15 +19,22 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockMeteorShield extends BlockContainer
 {
-	public BlockMeteorShield(int i, int j)
+	
+	private Icon topUnlit;
+	private Icon bottom;
+	private Icon gemSide;
+	private Icon noGemSide;
+	private Icon crackedSide;
+	
+	public BlockMeteorShield(int i)
 	{
-		super(i, j, Material.rock);
+		super(i, Material.rock);
 		this.setLightOpacity(0);
 		setTickRandomly(true);
-		setTextureFile(MeteorsMod.textureFile);
 	}
 
-	public void onBlockPlacedBy(World par1World, int par2, int par3, int par4, EntityLiving par5EntityLiving)
+	@Override
+	public void onBlockPlacedBy(World par1World, int par2, int par3, int par4, EntityLiving par5EntityLiving, ItemStack itemstack)
 	{
 		if ((par5EntityLiving instanceof EntityPlayer)) {
 			EntityPlayer player = (EntityPlayer)par5EntityLiving;
@@ -34,6 +44,7 @@ public class BlockMeteorShield extends BlockContainer
 		}
 	}
 
+	@Override
 	public void breakBlock(World par1World, int par2, int par3, int par4, int par5, int par6)
 	{
 		int meta = par6;
@@ -45,42 +56,55 @@ public class BlockMeteorShield extends BlockContainer
 		super.breakBlock(par1World, par2, par3, par4, par5, par6);
 	}
 
-	public int getBlockTextureFromSideAndMetadata(int i, int j)
+	@Override
+	public Icon getBlockTextureFromSideAndMetadata(int i, int j)
 	{
 		if (i == 1) {
 			if (j > 0) {
-				return this.blockIndexInTexture;
+				return this.field_94336_cN;
 			}
-			return 83;
+			return this.topUnlit;
 		}
 		if (i == 0)
-			return 85;
+			return this.bottom;
 		if (j == 5)
-			return 90;
+			return this.crackedSide;
 		if ((i == 2) && (j > 1))
-			return 88;
+			return this.gemSide;
 		if ((i == 3) && (j > 2))
-			return 88;
+			return this.gemSide;
 		if ((i == 4) && (j > 3))
-			return 88;
+			return this.gemSide;
 		if ((i == 5) && (j > 4)) {
-			return 88;
+			return this.gemSide;
 		}
-		return 89;
+		return this.noGemSide;
+	}
+	
+	@SideOnly(Side.CLIENT)
+	@Override
+    public void func_94332_a(IconRegister par1IconRegister) {
+		this.field_94336_cN = par1IconRegister.func_94245_a("shieldTop_lit");
+		this.topUnlit = par1IconRegister.func_94245_a("shieldTop_unlit");
+		this.bottom = par1IconRegister.func_94245_a("shieldBottom");
+		this.crackedSide = par1IconRegister.func_94245_a("shieldSideCracked");
+		this.gemSide = par1IconRegister.func_94245_a("sideGem");
+		this.noGemSide = par1IconRegister.func_94245_a("sideNoGem");
 	}
 
+	@Override
 	public void updateTick(World world, int i, int j, int k, Random random)
 	{
 		int meta = world.getBlockMetadata(i, j, k);
 		if (meta <= 0) {
-			world.setBlockMetadata(i, j, k, 1);
-			world.markBlockForUpdate(i, j, k);
+			world.setBlockMetadataWithNotify(i, j, k, 1, 2);
 		} else if (meta > 5) {
-			world.setBlockMetadata(i, j, k, 5);
+			world.setBlockMetadataWithNotify(i, j, k, 5, 2);
 		}
 	}
 
 	@SideOnly(Side.CLIENT)
+	@Override
 	public void randomDisplayTick(World world, int i, int j, int k, Random random)
 	{
 		if (world.getBlockMetadata(i, j, k) >= 1) {
@@ -101,6 +125,7 @@ public class BlockMeteorShield extends BlockContainer
 			}
 	}
 
+	@Override
 	public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer player, int par6, float par7, float par8, float par9)
 	{
 		ItemStack cItem = player.inventory.getCurrentItem();
@@ -157,7 +182,7 @@ public class BlockMeteorShield extends BlockContainer
 				} else {
 					meta++;
 				}
-				world.setBlockMetadataWithNotify(i, j, k, meta);
+				world.setBlockMetadataWithNotify(i, j, k, meta, 2);
 				world.markBlockForUpdate(i, j, k);
 				world.playSoundEffect(i + 0.5D, j + 0.5D, k + 0.5D, "shield.powerup", 1.0F, meta / 10.0F + 0.5F);
 				if (!player.capabilities.isCreativeMode) cItem.stackSize--;
@@ -171,17 +196,19 @@ public class BlockMeteorShield extends BlockContainer
 		return false;
 	}
 
+	@Override
 	public TileEntity createNewTileEntity(World var1)
 	{
 		return new TileEntityMeteorShield();
 	}
 
-	public int getLightValue(World world, int x, int y, int z)
+	@Override
+	public int getLightValue(IBlockAccess bAccess, int x, int y, int z)
 	{
-		if (world.getBlockMetadata(x, y, z) == 5) {
+		if (bAccess.getBlockMetadata(x, y, z) == 5) {
 			return 15;
 		}
-		return super.getLightValue(world, x, y, z);
+		return super.getLightValue(bAccess, x, y, z);
 	}
 
 	@Override

@@ -35,7 +35,6 @@ public class ClientProxy extends CommonProxy
 
 	public void loadStuff()
 	{
-		MinecraftForgeClient.preloadTexture(MeteorsMod.textureFile);
 		MinecraftForgeClient.preloadTexture("/meteor/textures/particles.png");
 		Minecraft game = Minecraft.getMinecraft();
 		TextureFXManager.instance().addAnimation(new TextureMeteorDetectorFX(game, 0));
@@ -44,7 +43,7 @@ public class ClientProxy extends CommonProxy
 		RenderingRegistry.registerEntityRenderingHandler(EntityMeteor.class, new RenderMeteor());
 		RenderingRegistry.registerEntityRenderingHandler(EntityAlienCreeper.class, new RenderAlienCreeper());
 		RenderingRegistry.registerEntityRenderingHandler(EntityCometKitty.class, new RenderOcelot(new ModelCometKitty(), 0.4F));
-		RenderingRegistry.registerEntityRenderingHandler(EntitySummoner.class, new RenderSummoner(MeteorsMod.itemMeteorSummoner.getIconFromDamage(0)));
+		RenderingRegistry.registerEntityRenderingHandler(EntitySummoner.class, new RenderSummoner());
 	}
 
 	public void loadSounds()

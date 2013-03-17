@@ -27,7 +27,6 @@ public class CrashMeteorite extends WorldGenerator
 	{
 		int meteor = this.meteorType.getMaterialID();
 		int rareMeteor = this.meteorType.getRareMaterialID();
-		world.editingBlocks = true;
 
 		//Initial spreading
 		for (int y = j + 4 * this.crashSize; y >= j - 4 * this.crashSize; y--) {
@@ -36,10 +35,9 @@ public class CrashMeteorite extends WorldGenerator
 					if ((!world.isAirBlock(startX, y, startZ)) && (meteorsAboveAndBelow(world, startX, y, startZ) == 0) && (random.nextInt(10) + 1 > 7) && (checkBlockIDs(world, startX, y, startZ))) {
 						int theBlock = random.nextInt(45) == 25 ? rareMeteor : meteor;
 						if (theBlock == Block.ice.blockID || theBlock == Block.lavaStill.blockID) {
-							world.setBlockWithNotify(startX, y, startZ, theBlock);
-							world.markBlockForUpdate(startX, y, startZ);
+							world.setBlockAndMetadataWithNotify(startX, y, startZ, theBlock, 0, 2);
 						} else {
-							world.setBlockAndMetadataWithNotify(startX, y, startZ, theBlock, random.nextInt(4) + 1);
+							world.setBlockAndMetadataWithNotify(startX, y, startZ, theBlock, random.nextInt(4) + 1, 3);
 						}
 					}
 				}
@@ -54,10 +52,9 @@ public class CrashMeteorite extends WorldGenerator
 					if ((!world.isAirBlock(startX, y, startZ)) && (meteorsAboveAndBelow(world, startX, y, startZ) == 0) && (checkBlockIDs(world, startX, y, startZ))) {
 						int theBlock = random.nextInt(45) == 25 ? rareMeteor : meteor;
 						if (theBlock == Block.ice.blockID || theBlock == Block.lavaStill.blockID) {
-							world.setBlockWithNotify(startX, y, startZ, theBlock);
-							world.markBlockForUpdate(startX, y, startZ);
+							world.setBlockAndMetadataWithNotify(startX, y, startZ, theBlock, 0, 2);
 						} else {
-							world.setBlockAndMetadataWithNotify(startX, y, startZ, theBlock, random.nextInt(4) + 1);
+							world.setBlockAndMetadataWithNotify(startX, y, startZ, theBlock, random.nextInt(4) + 1, 3);
 						}
 					}
 				}
@@ -67,7 +64,6 @@ public class CrashMeteorite extends WorldGenerator
 		}
 
 		afterCraterFormed(world, random, i, j, k);
-		world.editingBlocks = false;
 
 		return true;
 	}
