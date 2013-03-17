@@ -5,16 +5,18 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.monster.EntityBlaze;
+import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 
 public class BlockKreknorite extends BlockMeteor
 {
-	public BlockKreknorite(int i, int j)
+	public BlockKreknorite(int i)
 	{
-		super(i, j);
+		super(i);
 	}
 
-	public int a(int i, Random random, int j)
+	@Override
+	public int idDropped(int i, Random random, int j)
 	{
 		return MeteorsMod.itemKreknoChip.itemID;
 	}
@@ -35,9 +37,9 @@ public class BlockKreknorite extends BlockMeteor
 	{
 		int meta = world.getBlockMetadata(i, j, k);
 		if (meta > 0) {
-			world.setBlockMetadata(i, j, k, --meta);
+			world.setBlockMetadataWithNotify(i, j, k, --meta, 2);
 			if (meta <= 0) {
-				world.setBlockWithNotify(i, j, k, Block.obsidian.blockID);
+				world.setBlockAndMetadataWithNotify(i, j, k, Block.obsidian.blockID, 0, 2);
 				triggerLavaMixEffects(world, i, j, k);
 			} else {
 				checkForHarden(world, i, j, k);
@@ -86,7 +88,7 @@ public class BlockKreknorite extends BlockMeteor
 		}
 		if (flag)
 		{
-			world.setBlockWithNotify(i, j, k, Block.obsidian.blockID);
+			world.setBlockAndMetadataWithNotify(i, j, k, Block.obsidian.blockID, 0, 2);
 			triggerLavaMixEffects(world, i, j, k);
 		}
 	}
@@ -101,8 +103,8 @@ public class BlockKreknorite extends BlockMeteor
 	}
 
 	@Override
-	public int getBlockTextureFromSideAndMetadata(int i, int j)
+	public Icon getBlockTextureFromSideAndMetadata(int i, int j)
 	{
-		return this.blockIndexInTexture;
+		return this.field_94336_cN;
 	}
 }

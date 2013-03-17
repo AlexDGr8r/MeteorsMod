@@ -59,9 +59,11 @@ implements ITickHandler
 				int j1 = MathHelper.floor_double(player.posY - 2.0D);
 				int k1 = MathHelper.floor_double(player.posZ);
 				for (int x = l - 2; x < l + 2; x++) {
-					for (int z = k1 - 2; z < k1 + 2; z++)
-						if ((world.getBlockId(x, j1, z) == Block.waterStill.blockID) || (world.getBlockId(x, j1, z) == Block.waterMoving.blockID))
-							world.setBlock(x, j1, z, Block.ice.blockID);
+					for (int z = k1 - 2; z < k1 + 2; z++) {
+						if ((world.getBlockId(x, j1, z) == Block.waterStill.blockID) || (world.getBlockId(x, j1, z) == Block.waterMoving.blockID)) {
+							world.setBlockAndMetadataWithNotify(x, j1, z, Block.ice.blockID, 0, 2);
+						}
+					}		
 				}
 			}
 			else
@@ -71,7 +73,7 @@ implements ITickHandler
 					int j1 = MathHelper.floor_double(player.posY - 2.0D);
 					int k1 = MathHelper.floor_double(player.posZ + (j / 2 % 2 * 2 - 1) * 0.25F);
 					if ((world.getBlockId(l, j1, k1) == Block.waterStill.blockID) || (world.getBlockId(l, j1, k1) == Block.waterMoving.blockID)) {
-						world.setBlock(l, j1, k1, Block.ice.blockID);
+						world.setBlockAndMetadataWithNotify(l, j1, k1, Block.ice.blockID, 0, 2);
 					}
 				}
 			}

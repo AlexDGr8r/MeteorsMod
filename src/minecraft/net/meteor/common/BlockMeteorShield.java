@@ -184,8 +184,9 @@ public class BlockMeteorShield extends BlockContainer
 		return super.getLightValue(world, x, y, z);
 	}
 
-	public String translateBlockName()
+	@Override
+	public String getLocalizedName()
 	{
-		return LangLocalization.get(this.getBlockName() + ".name");
+		return LangLocalization.get(this.getUnlocalizedName() + ".name");
 	}
 }

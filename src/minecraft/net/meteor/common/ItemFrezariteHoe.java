@@ -19,7 +19,6 @@ public class ItemFrezariteHoe extends ItemHoe
 	public ItemFrezariteHoe(int par1, EnumToolMaterial par2EnumToolMaterial)
 	{
 		super(par1, par2EnumToolMaterial);
-		setTextureFile(MeteorsMod.textureFile);
 	}
 
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10)
@@ -57,7 +56,7 @@ public class ItemFrezariteHoe extends ItemHoe
 			return true;
 		}
 
-		par3World.setBlockAndMetadataWithNotify(par4, par5, par6, var13.blockID, 14);
+		par3World.setBlockAndMetadataWithNotify(par4, par5, par6, var13.blockID, 14, 3);
 		par1ItemStack.damageItem(1, par2EntityPlayer);
 		return true;
 	}
@@ -79,8 +78,9 @@ public class ItemFrezariteHoe extends ItemHoe
 		return 0;
 	}
 
+	@Override
 	public String getItemDisplayName(ItemStack par1ItemStack)
 	{
-		return LangLocalization.get(getItemNameIS(par1ItemStack) + ".name").trim();
+		return LangLocalization.get(this.getUnlocalizedName(par1ItemStack) + ".name").trim();
 	}
 }

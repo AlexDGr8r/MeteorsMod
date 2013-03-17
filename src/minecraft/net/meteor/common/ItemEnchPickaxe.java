@@ -18,7 +18,6 @@ public class ItemEnchPickaxe extends ItemPickaxe
 	public ItemEnchPickaxe(int par1, EnumToolMaterial par2EnumToolMaterial)
 	{
 		super(par1, par2EnumToolMaterial);
-		this.setTextureFile(MeteorsMod.textureFile);
 	}
 
 	public Item setEnch(Enchantment ench, int lvl) {
@@ -27,12 +26,14 @@ public class ItemEnchPickaxe extends ItemPickaxe
 		return this;
 	}
 
+	@Override
 	public void onCreated(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
 	{
 		par1ItemStack.addEnchantment(this.enchantment, this.level);
 		super.onCreated(par1ItemStack, par2World, par3EntityPlayer);
 	}
 
+	@Override
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
 	{
 		if (!par1ItemStack.isItemEnchanted()) {
@@ -41,6 +42,7 @@ public class ItemEnchPickaxe extends ItemPickaxe
 		return super.onItemRightClick(par1ItemStack, par2World, par3EntityPlayer);
 	}
 
+	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
 	{
 		if (!par1ItemStack.isItemEnchanted()) {
@@ -49,8 +51,9 @@ public class ItemEnchPickaxe extends ItemPickaxe
 		}
 	}
 
+	@Override
 	public String getItemDisplayName(ItemStack par1ItemStack)
 	{
-		return LangLocalization.get(getItemNameIS(par1ItemStack) + ".name").trim();
+		return LangLocalization.get(this.getUnlocalizedName(par1ItemStack) + ".name").trim();
 	}
 }

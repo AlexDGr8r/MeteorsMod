@@ -9,7 +9,6 @@ public class ItemKreknoSword extends ItemEnchSword
 	public ItemKreknoSword(int i, EnumToolMaterial enumtoolmaterial)
 	{
 		super(i, enumtoolmaterial);
-		setTextureFile(MeteorsMod.textureFile);
 		setEnch(Enchantment.fireAspect, 2);
 	}
 

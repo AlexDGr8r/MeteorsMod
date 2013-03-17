@@ -11,7 +11,6 @@ public class ItemDetector extends ItemMeteorsMod
 	public ItemDetector(int par1)
 	{
 		super(par1);
-		this.setTextureFile(MeteorsMod.textureFile);
 	}
 
 	@Override

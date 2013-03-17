@@ -24,7 +24,7 @@ public class HandlerAchievement
 	@ForgeSubscribe
 	public void onItemPickup(EntityItemPickupEvent event)
 	{
-		ItemStack item = event.item.func_92014_d();
+		ItemStack item = event.item.getEntityItem();
 		EntityPlayer player = event.entityPlayer;
 		if ((item == null) || (player == null)) return;
 		ItemStack pItem = player.getCurrentEquippedItem();

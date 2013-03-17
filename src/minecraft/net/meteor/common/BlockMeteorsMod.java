@@ -8,17 +8,11 @@ public class BlockMeteorsMod extends Block
 	public BlockMeteorsMod(int id, Material par2Material)
 	{
 		super(id, par2Material);
-		setTextureFile(MeteorsMod.textureFile);
-	}
-
-	public BlockMeteorsMod(int id, int par2, Material mat) {
-		super(id, par2, mat);
-		setTextureFile(MeteorsMod.textureFile);
 	}
 
 	@Override
-	public String translateBlockName()
+	public String getLocalizedName()
 	{
-		return LangLocalization.get(this.getBlockName() + ".name");
+		return LangLocalization.get(this.getUnlocalizedName() + ".name");
 	}
 }

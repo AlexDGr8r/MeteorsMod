@@ -16,26 +16,27 @@ public class BlockMeteorShieldTorch extends BlockTorch
 {
 	private boolean torchActive;
 
-	public BlockMeteorShieldTorch(int i, int j, boolean active)
+	public BlockMeteorShieldTorch(int i, boolean active)
 	{
-		super(i, j);
+		super(i);
 		this.torchActive = active;
 		setTickRandomly(true);
-		setTextureFile(MeteorsMod.textureFile);
-		setRequiresSelfNotify();
 	}
 
-	public int tickRate()
+	@Override
+	public int tickRate(World world)
 	{
 		return 2;
 	}
 
+	@Override
 	public void updateTick(World world, int i, int j, int k, Random random)
 	{
 		checkArea(world, i, j, k);
 	}
 
 	@SideOnly(Side.CLIENT)
+	@Override
 	public void randomDisplayTick(World world, int i, int j, int k, Random random)
 	{
 		if (!this.torchActive) {
@@ -67,16 +68,19 @@ public class BlockMeteorShieldTorch extends BlockTorch
 			ClientProxy.spawnParticle("meteordust", d, d1, d2, 0.0D, 0.0D, 0.0D, world, -1);
 	}
 
+	@Override
 	public int idDropped(int i, Random random, int j)
 	{
 		return MeteorsMod.torchMeteorShieldActive.blockID;
 	}
 
+	@Override
 	public int quantityDropped(Random random)
 	{
 		return 0;
 	}
 
+	@Override
 	public void onBlockAdded(World world, int i, int j, int k)
 	{
 		if (world.getBlockMetadata(i, j, k) == 0)
@@ -91,12 +95,13 @@ public class BlockMeteorShieldTorch extends BlockTorch
 		boolean isSafeChunk = MeteorsMod.proxy.meteorHandler.safeChunks.contains(new ChunkCoordIntPair(chunk.xPosition, chunk.zPosition));
 		if (this.torchActive) {
 			if (!isSafeChunk)
-				world.setBlockAndMetadataWithNotify(i, j, k, MeteorsMod.torchMeteorShieldIdle.blockID, world.getBlockMetadata(i, j, k));
+				world.setBlockAndMetadataWithNotify(i, j, k, MeteorsMod.torchMeteorShieldIdle.blockID, world.getBlockMetadata(i, j, k), 3);
 		}
 		else if (isSafeChunk)
-			world.setBlockAndMetadataWithNotify(i, j, k, MeteorsMod.torchMeteorShieldActive.blockID, world.getBlockMetadata(i, j, k));
+			world.setBlockAndMetadataWithNotify(i, j, k, MeteorsMod.torchMeteorShieldActive.blockID, world.getBlockMetadata(i, j, k), 3);
 	}
 
+	@Override
 	public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer player, int par6, float par7, float par8, float par9)
 	{
 		if (!world.isRemote) {
@@ -125,9 +130,9 @@ public class BlockMeteorShieldTorch extends BlockTorch
 	}
 
 	@Override
-	public String translateBlockName()
+	public String getLocalizedName()
 	{
-		return LangLocalization.get(this.getBlockName() + ".name");
+		return LangLocalization.get("tile.ProtectedLandTester.name");
 	}
 
 }

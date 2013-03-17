@@ -5,6 +5,7 @@ import java.util.List;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -38,16 +39,16 @@ public class ItemSummoner extends ItemMeteorsMod
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public int getIconFromDamage(int i)
+	public Icon getIconFromDamage(int i)
 	{
 		return this.iconIndex + i;
 	}
 
 	@Override
-	public String getItemNameIS(ItemStack par1ItemStack)
+	public String getUnlocalizedName(ItemStack par1ItemStack)
 	{
 		int var2 = par1ItemStack.getItemDamage();
-		return super.getItemName() + "." + this.names[var2];
+		return super.getUnlocalizedName() + "." + this.names[var2];
 	}
 
 	@SideOnly(Side.CLIENT)

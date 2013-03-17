@@ -6,17 +6,19 @@ import net.minecraft.block.material.Material;
 
 public class BlockMeteorOre extends BlockMeteorsMod
 {
-	public BlockMeteorOre(int i, int j)
+	public BlockMeteorOre(int i)
 	{
-		super(i, j, Material.iron);
+		super(i, Material.iron);
 	}
 
+	@Override
 	public int quantityDropped(int meta, int fortune, Random random)
 	{
 		return 1 + random.nextInt(fortune + 1);
 	}
 
-	public int a(int i, Random random, int j)
+	@Override
+	public int idDropped(int i, Random random, int j)
 	{
 		return MeteorsMod.itemMeteorChips.itemID;
 	}

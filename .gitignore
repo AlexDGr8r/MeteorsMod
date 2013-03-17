@@ -43,6 +43,8 @@
 /src/minecraft/net/minecraft/util/*
 /src/minecraft/net/minecraft/village/*
 /src/minecraft/net/minecraft/world/*
+/src/minecraft/net/minecraft/logging/*
+/src/minecraft/net/minecraft/scoreboard/*
 /src/minecraft/net/minecraft/src/BaseMod.java
 /src/minecraft/net/minecraft/src/EntityRendererProxy.java
 /src/minecraft/net/minecraft/src/FMLRenderAccessLibrary.java

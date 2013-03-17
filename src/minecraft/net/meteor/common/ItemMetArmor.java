@@ -11,9 +11,9 @@ implements IArmorTextureProvider
 	public ItemMetArmor(int i, EnumArmorMaterial enumarmormaterial, int j, int k)
 	{
 		super(i, enumarmormaterial, j, k);
-		setTextureFile(MeteorsMod.textureFile);
 	}
 
+	@Override
 	public String getArmorTextureFile(ItemStack itemstack)
 	{
 		int i = itemstack.itemID;

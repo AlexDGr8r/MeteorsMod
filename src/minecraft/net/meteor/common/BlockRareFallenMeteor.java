@@ -4,9 +4,9 @@ import java.util.Random;
 
 public class BlockRareFallenMeteor extends BlockMeteor
 {
-	public BlockRareFallenMeteor(int i, int j)
+	public BlockRareFallenMeteor(int i)
 	{
-		super(i, j);
+		super(i);
 	}
 
 	@Override

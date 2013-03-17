@@ -8,11 +8,11 @@ public class ItemFoodMeteorsMod extends ItemFood
 	public ItemFoodMeteorsMod(int par1, int par2, boolean par3)
 	{
 		super(par1, par2, par3);
-		this.setTextureFile(MeteorsMod.textureFile);
 	}
 
+	@Override
 	public String getItemDisplayName(ItemStack par1ItemStack)
 	{
-		return LangLocalization.get(getItemNameIS(par1ItemStack) + ".name").trim();
+		return LangLocalization.get(this.getUnlocalizedName(par1ItemStack) + ".name").trim();
 	}
 }

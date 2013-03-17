@@ -10,9 +10,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockFrezarite extends BlockMeteorsMod
 {
-	public BlockFrezarite(int i, int j)
+	public BlockFrezarite(int i)
 	{
-		super(i, j, Material.rock);
+		super(i, Material.rock);
 		this.slipperiness = 0.98F;
 		setTickRandomly(true);
 	}
@@ -78,7 +78,7 @@ public class BlockFrezarite extends BlockMeteorsMod
 	}
 
 	@Override
-	public int tickRate()
+	public int tickRate(World world)
 	{
 		return 30;
 	}
@@ -89,9 +89,9 @@ public class BlockFrezarite extends BlockMeteorsMod
 		int meta = world.getBlockMetadata(i, j, k);
 		float temp = world.getBiomeGenForCoords(i, k).temperature;
 		if ((meta > 0) && (temp > 0.15F)) {
-			world.setBlockMetadata(i, j, k, --meta);
+			world.setBlockMetadataWithNotify(i, j, k, --meta, 2);
 			if (meta <= 0)
-				world.setBlockWithNotify(i, j, k, Block.waterStill.blockID);
+				world.setBlockAndMetadataWithNotify(i, j, k, Block.waterStill.blockID, 0, 2);
 		}
 	}
 }

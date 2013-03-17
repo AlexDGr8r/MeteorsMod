@@ -5,6 +5,7 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
@@ -13,9 +14,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockMeteor extends BlockMeteorsMod
 {
-	public BlockMeteor(int i, int j)
+	public BlockMeteor(int i)
 	{
-		super(i, j, Material.rock);
+		super(i, Material.rock);
 		this.setTickRandomly(true);
 	}
 
@@ -83,7 +84,7 @@ public class BlockMeteor extends BlockMeteorsMod
 	}
 
 	@Override
-	public int tickRate()
+	public int tickRate(World world)
 	{
 		return 30;
 	}
@@ -118,14 +119,10 @@ public class BlockMeteor extends BlockMeteorsMod
 	{
 		int meta = world.getBlockMetadata(i, j, k);
 		if (meta > 0) {
-			world.setBlockMetadata(i, j, k, --meta);
-			if (meta == 0) {
-				world.markBlockForUpdate(i, j, k);
-			}
+			world.setBlockMetadataWithNotify(i, j, k, --meta, 2);
 		}
 		if ((meta > 0) && (isWaterAround(world, i, j, k))) {
-			world.setBlockMetadata(i, j, k, 0);
-			world.markBlockForUpdate(i, j, k);
+			world.setBlockMetadataWithNotify(i, j, k, 0, 2);
 		}
 	}
 
@@ -144,9 +141,10 @@ public class BlockMeteor extends BlockMeteorsMod
 	}
 
 	@Override
-	public int getBlockTextureFromSideAndMetadata(int i, int j)
+	public Icon getBlockTextureFromSideAndMetadata(int i, int j)
 	{
 		if (j == 0) {
+			super.getBlockTextureFromSideAndMetadata(i, j);
 			return this.blockIndexInTexture;
 		}
 		return this.blockIndexInTexture - 1;
