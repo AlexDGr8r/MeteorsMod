@@ -14,7 +14,6 @@ import net.minecraft.src.meteor.ModelCometKitty;
 import net.minecraft.src.meteor.RenderAlienCreeper;
 import net.minecraft.src.meteor.RenderMeteor;
 import net.minecraft.src.meteor.RenderSummoner;
-import net.minecraft.src.meteor.TextureMeteorDetectorFX;
 import net.minecraft.src.meteor.TileEntityMeteorShieldRayRenderer;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
@@ -36,10 +35,6 @@ public class ClientProxy extends CommonProxy
 	public void loadStuff()
 	{
 		MinecraftForgeClient.preloadTexture("/meteor/textures/particles.png");
-		Minecraft game = Minecraft.getMinecraft();
-		TextureFXManager.instance().addAnimation(new TextureMeteorDetectorFX(game, 0));
-		TextureFXManager.instance().addAnimation(new TextureMeteorDetectorFX(game, 1));
-		TextureFXManager.instance().addAnimation(new TextureMeteorDetectorFX(game, 2));
 		RenderingRegistry.registerEntityRenderingHandler(EntityMeteor.class, new RenderMeteor());
 		RenderingRegistry.registerEntityRenderingHandler(EntityAlienCreeper.class, new RenderAlienCreeper());
 		RenderingRegistry.registerEntityRenderingHandler(EntityCometKitty.class, new RenderOcelot(new ModelCometKitty(), 0.4F));

@@ -7,7 +7,6 @@ import java.io.DataOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.NetLoginHandler;
 import net.minecraft.network.packet.NetHandler;
@@ -31,16 +30,14 @@ implements IConnectionHandler, IPacketHandler
 	public static ChunkCoordinates nearestTimeLocation = null;
 	private static ArrayList<ChunkCoordinates> ghostMetLocs = new ArrayList<ChunkCoordinates>();
 
-	public static ChunkCoordinates getClosestIncomingMeteor(EntityPlayer player) {
+	public static ChunkCoordinates getClosestIncomingMeteor(double pX, double pZ) {
 		ChunkCoordinates coords = null;
+		double y = 50.0D;
 		for (int i = 0; i < ghostMetLocs.size(); i++) {
 			if (coords != null) {
-				double pX = player.posX;
-				double pY = player.posY;
-				double pZ = player.posZ;
 				ChunkCoordinates loc = ghostMetLocs.get(i);
-				double var1 = getDistance(pX, pY, pZ, loc.posX, loc.posY, loc.posZ);
-				double var2 = getDistance(pX, pY, pZ, coords.posX, coords.posY, coords.posZ);
+				double var1 = getDistance(pX, y, pZ, loc.posX, y, loc.posZ);
+				double var2 = getDistance(pX, y, pZ, coords.posX, y, coords.posZ);
 				if (var1 < var2)
 					coords = loc;
 			}
