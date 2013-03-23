@@ -147,7 +147,7 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 		itemVanillaIceCream 		= new ItemFoodMeteorsMod(IDs[31], 2, false).setMaxStackSize(64).setUnlocalizedName("VanillaIceCream");
 		itemChocolateIceCream 		= new ItemFoodMeteorsMod(IDs[32], 3, false).setMaxStackSize(64).setUnlocalizedName("ChocolateIceCream");
 		itemMeteorProximityDetector = new ItemMeteorsMod(IDs[33]).setUnlocalizedName("MeteorDetectorProximity").setCreativeTab(CreativeTabs.tabTools);
-		itemMeteorTimeDetector 		= new ItemDetector(IDs[34]).setUnlocalizedName("MeteorDetectorTime").setCreativeTab(CreativeTabs.tabTools);
+		itemMeteorTimeDetector 		= new ItemDetector(IDs[34], 2).setUnlocalizedName("MeteorDetectorTime").setCreativeTab(CreativeTabs.tabTools);
 		itemMeteorCrashDetector 	= new ItemMeteorsMod(IDs[35]).setUnlocalizedName("MeteorDetectorCrash").setCreativeTab(CreativeTabs.tabTools);
 		MeteoriteHelmet 			= new ItemEnchArmor(IDs[13], MeteoriteArmor, 3, 0).setEnch(Magnetization, 1).setUnlocalizedName("MeteoriteHelmet");
 		MeteoriteBody 				= new ItemEnchArmor(IDs[14], MeteoriteArmor, 3, 1).setEnch(Magnetization, 1).setUnlocalizedName("MeteoriteChest");
@@ -361,13 +361,13 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 	private void registerEntities() {
 		proxy.registerTileEntities();
 		EntityRegistry.registerGlobalEntityID(EntityMeteor.class, "Meteor", EntityRegistry.findGlobalUniqueEntityId());
-		EntityRegistry.registerGlobalEntityID(EntityAlienCreeper.class, "AlienCreeper", EntityRegistry.findGlobalUniqueEntityId(), 7864485, 16732697);
-		EntityRegistry.registerGlobalEntityID(EntityCometKitty.class, "CometKitty", EntityRegistry.findGlobalUniqueEntityId(), 2239283, 884535);
-		EntityRegistry.registerGlobalEntityID(EntitySummoner.class, "MeteorSummoner", EntityRegistry.findGlobalUniqueEntityId());
 		EntityRegistry.registerModEntity(EntityMeteor.class, "FallingMeteor", 1, this, 64, 8, true);
-		EntityRegistry.registerModEntity(EntitySummoner.class, "MeteorSummoner", 2, this, 64, 10, true);
+		EntityRegistry.registerGlobalEntityID(EntityAlienCreeper.class, "AlienCreeper", EntityRegistry.findGlobalUniqueEntityId(), 7864485, 16732697);
 		EntityRegistry.registerModEntity(EntityAlienCreeper.class, "AlienCreeper", 3, this, 80, 3, true);
+		EntityRegistry.registerGlobalEntityID(EntityCometKitty.class, "CometKitty", EntityRegistry.findGlobalUniqueEntityId(), 2239283, 884535);
 		EntityRegistry.registerModEntity(EntityCometKitty.class, "CometKitty", 4, this, 80, 3, true);
+		EntityRegistry.registerGlobalEntityID(EntitySummoner.class, "MeteorSummoner", EntityRegistry.findGlobalUniqueEntityId());
+		EntityRegistry.registerModEntity(EntitySummoner.class, "MeteorSummoner", 2, this, 64, 8, true);
 	}
 
 	private void readyBlocksAndItems() {

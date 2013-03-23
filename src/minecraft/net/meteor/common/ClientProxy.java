@@ -14,6 +14,7 @@ import net.minecraft.src.meteor.ModelCometKitty;
 import net.minecraft.src.meteor.RenderAlienCreeper;
 import net.minecraft.src.meteor.RenderMeteor;
 import net.minecraft.src.meteor.RenderSummoner;
+import net.minecraft.src.meteor.TextureDetector;
 import net.minecraft.src.meteor.TileEntityMeteorShieldRayRenderer;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
@@ -39,6 +40,8 @@ public class ClientProxy extends CommonProxy
 		RenderingRegistry.registerEntityRenderingHandler(EntityAlienCreeper.class, new RenderAlienCreeper());
 		RenderingRegistry.registerEntityRenderingHandler(EntityCometKitty.class, new RenderOcelot(new ModelCometKitty(), 0.4F));
 		RenderingRegistry.registerEntityRenderingHandler(EntitySummoner.class, new RenderSummoner());
+		Minecraft mc = Minecraft.getMinecraft();
+		mc.renderEngine.field_94155_m.setTextureEntry("MeteorDetectorProximity", new TextureDetector(0));
 	}
 
 	public void loadSounds()
@@ -98,7 +101,7 @@ public class ClientProxy extends CommonProxy
 		double d6 = mc.renderViewEntity.posX - d;
 		double d7 = mc.renderViewEntity.posY - d1;
 		double d8 = mc.renderViewEntity.posZ - d2;
-		Object obj = null;
+		EntityFX obj = null;
 		double d9 = 16D;
 		if (d6 * d6 + d7 * d7 + d8 * d8 > d9 * d9) {
 			return null;
@@ -118,7 +121,7 @@ public class ClientProxy extends CommonProxy
 			}
 		}
 		if (obj != null) {
-			mc.effectRenderer.addEffect(((EntityFX) (obj)));
+			mc.effectRenderer.addEffect((EntityFX)obj);
 		}
 		return (EntityFX)obj;
 	}

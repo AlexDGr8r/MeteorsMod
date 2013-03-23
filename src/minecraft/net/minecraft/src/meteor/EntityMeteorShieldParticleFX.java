@@ -4,6 +4,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import java.util.Random;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.EntityEnchantmentTableParticleFX;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.world.World;
@@ -11,7 +12,7 @@ import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
-public class EntityMeteorShieldParticleFX extends EntityFX
+public class EntityMeteorShieldParticleFX extends EntityEnchantmentTableParticleFX
 {
 	public EntityMeteorShieldParticleFX(World par1World, double par2, double par4, double par6, double par8, double par10, double par12)
 	{

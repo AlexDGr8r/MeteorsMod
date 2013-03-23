@@ -40,6 +40,7 @@ public class EntityFrezaDustFX extends EntityFX
 	}
 
 	@SideOnly(Side.CLIENT)
+	@Override
 	public void renderParticle(Tessellator tessellator, float f, float f1, float f2, float f3, float f4, float f5)
 	{
 		float f6 = (((float)particleAge + f) / (float)particleMaxAge) * 32F;
@@ -55,6 +56,7 @@ public class EntityFrezaDustFX extends EntityFX
 		super.renderParticle(tessellator, f, f1, f2, f3, f4, f5);
 	}
 
+	@Override
 	public void onUpdate()
 	{
 		prevPosX = posX;

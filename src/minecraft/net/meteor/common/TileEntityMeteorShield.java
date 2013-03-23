@@ -7,6 +7,7 @@ import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
@@ -192,6 +193,12 @@ public class TileEntityMeteorShield extends TileEntity
 		NBTTagCompound var1 = new NBTTagCompound();
 		writeToNBT(var1);
 		return new Packet132TileEntityData(this.xCoord, this.yCoord, this.zCoord, 1, var1);
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+    public AxisAlignedBB getRenderBoundingBox() {
+		return TileEntity.INFINITE_EXTENT_AABB;
 	}
 
 }

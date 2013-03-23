@@ -13,7 +13,7 @@ public class TextureDetector extends TextureStitched {
     public double field_94242_j;
     public int detectorType;
 
-	protected TextureDetector(int type) {
+	public TextureDetector(int type) {
 		super("detector");
 		this.detectorType = type;
 	}
@@ -101,9 +101,12 @@ public class TextureDetector extends TextureStitched {
             ;
         }
 
-        if (i != this.field_94222_f)
+        if (i != this.field_94222_f) // field_94222_f current index of icon?
         {
             this.field_94222_f = i;
+            // field_94226_b list of all textures from png file?
+            // function below possibly sets the icon based off the index computed above
+            // with modification, could create some nice effects
             this.field_94228_a.func_94281_a(this.field_94224_d, this.field_94225_e, (Texture)this.field_94226_b.get(this.field_94222_f), this.field_94227_c);
         }
     }
