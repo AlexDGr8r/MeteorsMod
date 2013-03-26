@@ -150,16 +150,16 @@ public class BlockMeteor extends BlockMeteorsMod
 	{
 		if (j == 0) {
 			super.getBlockTextureFromSideAndMetadata(i, j);
-			return this.field_94336_cN;
+			return this.blockIcon;
 		}
 		return this.hotTex;
 	}
 	
 	@SideOnly(Side.CLIENT)
 	@Override
-    public void func_94332_a(IconRegister par1IconRegister) {
-		this.field_94336_cN = par1IconRegister.func_94245_a("Meteor");
-		this.hotTex = par1IconRegister.func_94245_a("Meteor_Hot");
+    public void registerIcons(IconRegister par1IconRegister) {
+		this.blockIcon = par1IconRegister.registerIcon("Meteor");
+		this.hotTex = par1IconRegister.registerIcon("Meteor_Hot");
 	}
 
 	@Override

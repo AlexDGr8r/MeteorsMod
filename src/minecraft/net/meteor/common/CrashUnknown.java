@@ -36,7 +36,7 @@ public class CrashUnknown extends CrashMeteorite
 		SBAPI.placeBlock(world, i - 2, j1, k, Block.glowStone.blockID);
 		SBAPI.placeBlock(world, i, j1, k + 2, Block.glowStone.blockID);
 		SBAPI.placeBlock(world, i, j1, k - 2, Block.glowStone.blockID);
-		world.setBlockAndMetadataWithNotify(i, j1, k, Block.chest.blockID, 0, 3);
+		world.setBlock(i, j1, k, Block.chest.blockID, 0, 3);
 		TileEntityChest chest = (TileEntityChest)world.getBlockTileEntity(i, j1, k);
 		if (chest != null) {
 			for (int i1 = 0; i1 < 8; i1++) {

@@ -15,7 +15,7 @@ public class ArmorEffectController
 		if (player.isImmuneToFire() != flag)
 			try {
 				Side s = FMLCommonHandler.instance().getEffectiveSide();
-				setFieldBool(Entity.class, player, 53 - (s == Side.SERVER ? 2 : 0), flag); // FIXME
+				setFieldBool(Entity.class, player, 54 - (s == Side.SERVER ? 0 : 0), flag); // FIXME
 			} catch (IllegalArgumentException e) {
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {

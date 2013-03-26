@@ -56,7 +56,7 @@ public class ItemFrezariteHoe extends ItemHoe
 			return true;
 		}
 
-		par3World.setBlockAndMetadataWithNotify(par4, par5, par6, var13.blockID, 14, 3);
+		par3World.setBlock(par4, par5, par6, var13.blockID, 14, 3);
 		par1ItemStack.damageItem(1, par2EntityPlayer);
 		return true;
 	}

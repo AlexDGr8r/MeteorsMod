@@ -35,9 +35,9 @@ public class CrashMeteorite extends WorldGenerator
 					if ((!world.isAirBlock(startX, y, startZ)) && (meteorsAboveAndBelow(world, startX, y, startZ) == 0) && (random.nextInt(10) + 1 > 7) && (checkBlockIDs(world, startX, y, startZ))) {
 						int theBlock = random.nextInt(45) == 25 ? rareMeteor : meteor;
 						if (theBlock == Block.ice.blockID || theBlock == Block.lavaStill.blockID) {
-							world.setBlockAndMetadataWithNotify(startX, y, startZ, theBlock, 0, 2);
+							world.setBlock(startX, y, startZ, theBlock, 0, 2);
 						} else {
-							world.setBlockAndMetadataWithNotify(startX, y, startZ, theBlock, random.nextInt(4) + 1, 3);
+							world.setBlock(startX, y, startZ, theBlock, random.nextInt(4) + 1, 3);
 						}
 					}
 				}
@@ -52,9 +52,9 @@ public class CrashMeteorite extends WorldGenerator
 					if ((!world.isAirBlock(startX, y, startZ)) && (meteorsAboveAndBelow(world, startX, y, startZ) == 0) && (checkBlockIDs(world, startX, y, startZ))) {
 						int theBlock = random.nextInt(45) == 25 ? rareMeteor : meteor;
 						if (theBlock == Block.ice.blockID || theBlock == Block.lavaStill.blockID) {
-							world.setBlockAndMetadataWithNotify(startX, y, startZ, theBlock, 0, 2);
+							world.setBlock(startX, y, startZ, theBlock, 0, 2);
 						} else {
-							world.setBlockAndMetadataWithNotify(startX, y, startZ, theBlock, random.nextInt(4) + 1, 3);
+							world.setBlock(startX, y, startZ, theBlock, random.nextInt(4) + 1, 3);
 						}
 					}
 				}

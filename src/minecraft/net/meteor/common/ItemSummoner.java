@@ -66,13 +66,13 @@ public class ItemSummoner extends ItemMeteorsMod
 	
 	@SideOnly(Side.CLIENT)
 	@Override
-    public void func_94581_a(IconRegister par1IconRegister) {
-		this.iconIndex = par1IconRegister.func_94245_a("summoner");
-		this.metIcon = par1IconRegister.func_94245_a("sum_met");
-		this.frezIcon = par1IconRegister.func_94245_a("sum_frez");
-		this.krekIcon = par1IconRegister.func_94245_a("sum_krek");
-		this.unkIcon = par1IconRegister.func_94245_a("sum_unk");
-		this.kittyIcon = par1IconRegister.func_94245_a("sum_kitty");
+    public void updateIcons(IconRegister par1IconRegister) {
+		this.iconIndex = par1IconRegister.registerIcon("summoner");
+		this.metIcon = par1IconRegister.registerIcon("sum_met");
+		this.frezIcon = par1IconRegister.registerIcon("sum_frez");
+		this.krekIcon = par1IconRegister.registerIcon("sum_krek");
+		this.unkIcon = par1IconRegister.registerIcon("sum_unk");
+		this.kittyIcon = par1IconRegister.registerIcon("sum_kitty");
 	}
 
 	@Override

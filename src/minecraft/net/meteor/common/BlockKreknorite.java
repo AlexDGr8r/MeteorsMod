@@ -43,7 +43,7 @@ public class BlockKreknorite extends BlockMeteor
 		if (meta > 0) {
 			world.setBlockMetadataWithNotify(i, j, k, --meta, 2);
 			if (meta <= 0) {
-				world.setBlockAndMetadataWithNotify(i, j, k, Block.obsidian.blockID, 0, 2);
+				world.setBlock(i, j, k, Block.obsidian.blockID, 0, 2);
 				triggerLavaMixEffects(world, i, j, k);
 			} else {
 				checkForHarden(world, i, j, k);
@@ -92,7 +92,7 @@ public class BlockKreknorite extends BlockMeteor
 		}
 		if (flag)
 		{
-			world.setBlockAndMetadataWithNotify(i, j, k, Block.obsidian.blockID, 0, 2);
+			world.setBlock(i, j, k, Block.obsidian.blockID, 0, 2);
 			triggerLavaMixEffects(world, i, j, k);
 		}
 	}
@@ -110,13 +110,13 @@ public class BlockKreknorite extends BlockMeteor
 	@Override
 	public Icon getBlockTextureFromSideAndMetadata(int i, int j)
 	{
-		return this.field_94336_cN;
+		return this.blockIcon;
 	}
 	
 	@SideOnly(Side.CLIENT)
 	@Override
-    public void func_94332_a(IconRegister par1IconRegister) {
-		this.field_94336_cN = par1IconRegister.func_94245_a("Kreknorite");
+    public void registerIcons(IconRegister par1IconRegister) {
+		this.blockIcon = par1IconRegister.registerIcon("Kreknorite");
 	}
 	
 }

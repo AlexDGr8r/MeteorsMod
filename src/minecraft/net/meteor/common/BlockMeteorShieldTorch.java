@@ -95,10 +95,10 @@ public class BlockMeteorShieldTorch extends BlockTorch
 		boolean isSafeChunk = MeteorsMod.proxy.meteorHandler.safeChunks.contains(new ChunkCoordIntPair(chunk.xPosition, chunk.zPosition));
 		if (this.torchActive) {
 			if (!isSafeChunk)
-				world.setBlockAndMetadataWithNotify(i, j, k, MeteorsMod.torchMeteorShieldIdle.blockID, world.getBlockMetadata(i, j, k), 3);
+				world.setBlock(i, j, k, MeteorsMod.torchMeteorShieldIdle.blockID, world.getBlockMetadata(i, j, k), 3);
 		}
 		else if (isSafeChunk)
-			world.setBlockAndMetadataWithNotify(i, j, k, MeteorsMod.torchMeteorShieldActive.blockID, world.getBlockMetadata(i, j, k), 3);
+			world.setBlock(i, j, k, MeteorsMod.torchMeteorShieldActive.blockID, world.getBlockMetadata(i, j, k), 3);
 	}
 
 	@Override

@@ -26,7 +26,7 @@ public class CrashFrezarite extends CrashMeteorite
 			int j2 = world.getBlockId(l, j11, l1);
 			int k2 = world.getBlockId(l, j11 - 1, l1);
 			if ((j2 == 0) && Block.opaqueCubeLookup[k2] && (random.nextInt(2) == 0))
-				world.setBlockAndMetadataWithNotify(l, j11, l1, Block.snow.blockID, 0, 2);
+				world.setBlock(l, j11, l1, Block.snow.blockID, 0, 2);
 		}
 	}
 }

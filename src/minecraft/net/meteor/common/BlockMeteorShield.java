@@ -61,7 +61,7 @@ public class BlockMeteorShield extends BlockContainer
 	{
 		if (i == 1) {
 			if (j > 0) {
-				return this.field_94336_cN;
+				return this.blockIcon;
 			}
 			return this.topUnlit;
 		}
@@ -83,13 +83,13 @@ public class BlockMeteorShield extends BlockContainer
 	
 	@SideOnly(Side.CLIENT)
 	@Override
-    public void func_94332_a(IconRegister par1IconRegister) {
-		this.field_94336_cN = par1IconRegister.func_94245_a("shieldTop_lit");
-		this.topUnlit = par1IconRegister.func_94245_a("shieldTop_unlit");
-		this.bottom = par1IconRegister.func_94245_a("shieldBottom");
-		this.crackedSide = par1IconRegister.func_94245_a("shieldSideCracked");
-		this.gemSide = par1IconRegister.func_94245_a("sideGem");
-		this.noGemSide = par1IconRegister.func_94245_a("sideNoGem");
+    public void registerIcons(IconRegister par1IconRegister) {
+		this.blockIcon = par1IconRegister.registerIcon("shieldTop_lit");
+		this.topUnlit = par1IconRegister.registerIcon("shieldTop_unlit");
+		this.bottom = par1IconRegister.registerIcon("shieldBottom");
+		this.crackedSide = par1IconRegister.registerIcon("shieldSideCracked");
+		this.gemSide = par1IconRegister.registerIcon("sideGem");
+		this.noGemSide = par1IconRegister.registerIcon("sideNoGem");
 	}
 
 	@Override

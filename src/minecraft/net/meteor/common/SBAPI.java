@@ -182,21 +182,21 @@ public class SBAPI {
 		if (block == Block.doorWood.blockID) {
 			if (mData >= TopOfDoor) {
 				if (world.getBlockId(x, y - 1, z) != block) {
-					world.setBlockAndMetadataWithNotify(x, y - 1, z, block, mData - TopOfDoor, 3);
+					world.setBlock(x, y - 1, z, block, mData - TopOfDoor, 3);
 				}
 			} else if (mData < TopOfDoor) {
 				if (world.getBlockId(x, y + 1, z) != block) {
-					world.setBlockAndMetadataWithNotify(x, y + 1, z, block, mData + TopOfDoor, 3);
+					world.setBlock(x, y + 1, z, block, mData + TopOfDoor, 3);
 				}
 			}
 		} else if (block == Block.doorSteel.blockID) {
 			if (mData >= TopOfDoor) {
 				if (world.getBlockId(x, y - 1, z) != block) {
-					world.setBlockAndMetadataWithNotify(x, y - 1, z, block, mData - TopOfDoor, 3);
+					world.setBlock(x, y - 1, z, block, mData - TopOfDoor, 3);
 				}
 			} else if (mData < TopOfDoor) {
 				if (world.getBlockId(x, y + 1, z) != block) {
-					world.setBlockAndMetadataWithNotify(x, y + 1, z, block, mData + TopOfDoor, 3);
+					world.setBlock(x, y + 1, z, block, mData + TopOfDoor, 3);
 				}
 			}
 		} else if (block == Block.bed.blockID) {
@@ -204,35 +204,35 @@ public class SBAPI {
 				boolean bedTowardNorthSouth = getBedPlacementDirectionNorthOrSouth(mData - 8);
 				if (bedTowardNorthSouth) {
 					if ((mData - 8) == PlaceBedNorthward) {
-						world.setBlockAndMetadataWithNotify(x, y, z - 1, Block.bed.blockID, PlaceBedNorthward, 3);
+						world.setBlock(x, y, z - 1, Block.bed.blockID, PlaceBedNorthward, 3);
 					} else if ((mData - 8) == PlaceBedSouthward) {
-						world.setBlockAndMetadataWithNotify(x, y, z + 1, Block.bed.blockID, PlaceBedSouthward, 3);
+						world.setBlock(x, y, z + 1, Block.bed.blockID, PlaceBedSouthward, 3);
 					}
 				} else {
 					if ((mData - 8) == PlaceBedEastward) {
-						world.setBlockAndMetadataWithNotify(x + 1, y, z, Block.bed.blockID, PlaceBedEastward, 3);
+						world.setBlock(x + 1, y, z, Block.bed.blockID, PlaceBedEastward, 3);
 					} else if ((mData - 8) == PlaceBedWestward) {
-						world.setBlockAndMetadataWithNotify(x - 1, y, z, Block.bed.blockID, PlaceBedWestward, 3);
+						world.setBlock(x - 1, y, z, Block.bed.blockID, PlaceBedWestward, 3);
 					}
 				}
 			} else if (mData < HeadOfBed) {
 				boolean bedTowardNorthSouth = getBedPlacementDirectionNorthOrSouth(mData);
 				if (bedTowardNorthSouth) {
 					if (mData == PlaceBedNorthward) {
-						world.setBlockAndMetadataWithNotify(x, y, z - 1, Block.bed.blockID, PlaceBedNorthward + HeadOfBed, 3);
+						world.setBlock(x, y, z - 1, Block.bed.blockID, PlaceBedNorthward + HeadOfBed, 3);
 					} else if (mData == PlaceBedSouthward) {
-						world.setBlockAndMetadataWithNotify(x, y, z + 1, Block.bed.blockID, PlaceBedSouthward + HeadOfBed, 3);
+						world.setBlock(x, y, z + 1, Block.bed.blockID, PlaceBedSouthward + HeadOfBed, 3);
 					}
 				} else {
 					if (mData == PlaceBedEastward) {
-						world.setBlockAndMetadataWithNotify(x + 1, y, z, Block.bed.blockID, PlaceBedEastward + HeadOfBed, 3);
+						world.setBlock(x + 1, y, z, Block.bed.blockID, PlaceBedEastward + HeadOfBed, 3);
 					} else if (mData == PlaceBedWestward) {
-						world.setBlockAndMetadataWithNotify(x - 1, y, z, Block.bed.blockID, PlaceBedWestward + HeadOfBed, 3);
+						world.setBlock(x - 1, y, z, Block.bed.blockID, PlaceBedWestward + HeadOfBed, 3);
 					}
 				}
 			}
 		}
-		world.setBlockAndMetadataWithNotify(x, y, z, block, mData, 3);
+		world.setBlock(x, y, z, block, mData, 3);
 	}
 
 	/** Place block at defined coordinates. Has support for automatic placing of the second block of Doors and Beds.

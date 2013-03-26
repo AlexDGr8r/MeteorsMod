@@ -41,7 +41,9 @@ public class ClientProxy extends CommonProxy
 		RenderingRegistry.registerEntityRenderingHandler(EntityCometKitty.class, new RenderOcelot(new ModelCometKitty(), 0.4F));
 		RenderingRegistry.registerEntityRenderingHandler(EntitySummoner.class, new RenderSummoner());
 		Minecraft mc = Minecraft.getMinecraft();
-		mc.renderEngine.field_94155_m.setTextureEntry("MeteorDetectorProximity", new TextureDetector(0));
+		mc.renderEngine.textureMapItems.setTextureEntry("MeteorDetectorProximity", new TextureDetector(0));
+		mc.renderEngine.textureMapItems.setTextureEntry("MeteorDetectorTime", new TextureDetector(1));
+		mc.renderEngine.textureMapItems.setTextureEntry("MeteorDetectorCrash", new TextureDetector(2));
 	}
 
 	public void loadSounds()

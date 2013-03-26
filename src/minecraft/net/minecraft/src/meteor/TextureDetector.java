@@ -11,7 +11,7 @@ public class TextureDetector extends TextureStitched {
 	
 	public double field_94244_i;
     public double field_94242_j;
-    public int detectorType;
+    public int detectorType;		// 0 = Proximity, 1 = Time, 2 = Crash
 
 	public TextureDetector(int type) {
 		super("detector");
@@ -96,18 +96,18 @@ public class TextureDetector extends TextureStitched {
 
         int i;
 
-        for (i = (int)((this.field_94244_i / (Math.PI * 2D) + 1.0D) * (double)this.field_94226_b.size()) % this.field_94226_b.size(); i < 0; i = (i + this.field_94226_b.size()) % this.field_94226_b.size())
+        for (i = (int)((this.field_94244_i / (Math.PI * 2D) + 1.0D) * (double)this.textureList.size()) % this.textureList.size(); i < 0; i = (i + this.textureList.size()) % this.textureList.size())
         {
             ;
         }
 
-        if (i != this.field_94222_f) // field_94222_f current index of icon?
+        if (i != this.frameCounter) // field_94222_f current index of icon?
         {
-            this.field_94222_f = i;
+            this.frameCounter = i;
             // field_94226_b list of all textures from png file?
             // function below possibly sets the icon based off the index computed above
             // with modification, could create some nice effects
-            this.field_94228_a.func_94281_a(this.field_94224_d, this.field_94225_e, (Texture)this.field_94226_b.get(this.field_94222_f), this.field_94227_c);
+            this.textureSheet.copyFrom(this.originX, this.originY, (Texture)this.textureList.get(this.frameCounter), this.rotated);
         }
     }
 

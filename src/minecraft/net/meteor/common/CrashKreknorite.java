@@ -63,10 +63,10 @@ public class CrashKreknorite extends CrashMeteorite
 			SBAPI.generateCuboid(world, i - 3, j + 8, k + 2, i - 3, j + 8, k - 2, Block.netherBrick.blockID);
 			//Second level of roof
 			SBAPI.generateCuboid(world, i + 3, j + 9, k + 2, i - 2, j + 9, k - 2, Block.netherBrick.blockID);
-			world.setBlockAndMetadataWithNotify(i + 3, j + 9, k + 2, 0, 0, 3);
-			world.setBlockAndMetadataWithNotify(i + 3, j + 9, k - 2, 0, 0, 3);
-			world.setBlockAndMetadataWithNotify(i - 2, j + 9, k - 2, 0, 0, 3);
-			world.setBlockAndMetadataWithNotify(i - 2, j + 9, k + 2, 0, 0, 3);
+			world.setBlock(i + 3, j + 9, k + 2, 0, 0, 3);
+			world.setBlock(i + 3, j + 9, k - 2, 0, 0, 3);
+			world.setBlock(i - 2, j + 9, k - 2, 0, 0, 3);
+			world.setBlock(i - 2, j + 9, k + 2, 0, 0, 3);
 			SBAPI.generateCuboid(world, i + 2, j + 9, k + 1, i - 1, j + 9, k - 1, Block.glowStone.blockID);
 			//Top level of roof
 			SBAPI.generateCuboid(world, i + 2, j + 10, k + 1, i - 1, j + 10, k - 1, Block.netherBrick.blockID);
@@ -89,15 +89,15 @@ public class CrashKreknorite extends CrashMeteorite
 			SBAPI.generateCuboid(world, i + 2, j + 8, k - 3, i - 2, j + 8, k - 3, Block.netherBrick.blockID);
 			//Second level of roof
 			SBAPI.generateCuboid(world, i + 2, j + 9, k + 3, i - 2, j + 9, k - 2, Block.netherBrick.blockID);
-			world.setBlockAndMetadataWithNotify(i - 2, j + 9, k + 3, 0, 0, 3);
-			world.setBlockAndMetadataWithNotify(i - 2, j + 9, k - 2, 0, 0, 3);
-			world.setBlockAndMetadataWithNotify(i + 2, j + 9, k - 2, 0, 0, 3);
-			world.setBlockAndMetadataWithNotify(i + 2, j + 9, k + 3, 0, 0, 3);
+			world.setBlock(i - 2, j + 9, k + 3, 0, 0, 3);
+			world.setBlock(i - 2, j + 9, k - 2, 0, 0, 3);
+			world.setBlock(i + 2, j + 9, k - 2, 0, 0, 3);
+			world.setBlock(i + 2, j + 9, k + 3, 0, 0, 3);
 			SBAPI.generateCuboid(world, i + 1, j + 9, k + 2, i - 1, j + 9, k - 1, Block.glowStone.blockID);
 			//Top level of roof
 			SBAPI.generateCuboid(world, i + 1, j + 10, k + 2, i - 1, j + 10, k - 1, Block.netherBrick.blockID);
 		}
-		world.setBlockAndMetadataWithNotify(i, j + 4, k, Block.fire.blockID, 0, 3);
+		world.setBlock(i, j + 4, k, Block.fire.blockID, 0, 3);
 	}
 
 	@SideOnly(Side.CLIENT)

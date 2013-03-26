@@ -138,7 +138,7 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 		blockFrezarite 				= new BlockFrezarite(IDs[4]).setUnlocalizedName("Frezarite").setHardness(8.5F).setResistance(150F).setStepSound(Block.soundGlassFootstep).setLightValue(0.25F).setCreativeTab(CreativeTabs.tabBlock);
 		blockKreknorite 			= new BlockKreknorite(IDs[5]).setUnlocalizedName("Kreknorite").setHardness(11F).setResistance(350F).setStepSound(Block.soundStoneFootstep).setLightValue(0.7F).setCreativeTab(CreativeTabs.tabBlock);
 		torchMeteorShieldIdle 		= new BlockMeteorShieldTorch(IDs[6], false).setHardness(0.0F).setLightValue(0.5F).setStepSound(Block.soundWoodFootstep).setUnlocalizedName("ProtectedLandTester");
-		torchMeteorShieldActive 	= new BlockMeteorShieldTorch(IDs[7], true).setHardness(0.0F).setLightValue(0.5F).setStepSound(Block.soundWoodFootstep).setUnlocalizedName("ProtectedLandTesterActive");
+		torchMeteorShieldActive 	= new BlockMeteorShieldTorch(IDs[7], true).setHardness(0.0F).setLightValue(0.5F).setStepSound(Block.soundWoodFootstep).setUnlocalizedName("ProtectedLandTester");
 		itemMeteorChips 			= new ItemMeteorsMod(IDs[8]).setMaxStackSize(64).setUnlocalizedName("MeteorChips").setCreativeTab(CreativeTabs.tabMaterials);
 		itemRedMeteorGem 			= new ItemMeteorsMod(IDs[9]).setMaxStackSize(64).setUnlocalizedName("RedMeteorGem").setCreativeTab(CreativeTabs.tabMaterials);
 		itemMeteorSummoner 			= new ItemSummoner(IDs[10]).setUnlocalizedName("MeteorSummoner").setCreativeTab(CreativeTabs.tabMisc);
@@ -147,7 +147,7 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 		itemVanillaIceCream 		= new ItemFoodMeteorsMod(IDs[31], 2, false).setMaxStackSize(64).setUnlocalizedName("VanillaIceCream");
 		itemChocolateIceCream 		= new ItemFoodMeteorsMod(IDs[32], 3, false).setMaxStackSize(64).setUnlocalizedName("ChocolateIceCream");
 		itemMeteorProximityDetector = new ItemMeteorsMod(IDs[33]).setUnlocalizedName("MeteorDetectorProximity").setCreativeTab(CreativeTabs.tabTools);
-		itemMeteorTimeDetector 		= new ItemDetector(IDs[34], 2).setUnlocalizedName("MeteorDetectorTime").setCreativeTab(CreativeTabs.tabTools);
+		itemMeteorTimeDetector 		= new ItemMeteorsMod(IDs[34]).setUnlocalizedName("MeteorDetectorTime").setCreativeTab(CreativeTabs.tabTools);
 		itemMeteorCrashDetector 	= new ItemMeteorsMod(IDs[35]).setUnlocalizedName("MeteorDetectorCrash").setCreativeTab(CreativeTabs.tabTools);
 		MeteoriteHelmet 			= new ItemEnchArmor(IDs[13], MeteoriteArmor, 3, 0).setEnch(Magnetization, 1).setUnlocalizedName("MeteoriteHelmet");
 		MeteoriteBody 				= new ItemEnchArmor(IDs[14], MeteoriteArmor, 3, 1).setEnch(Magnetization, 1).setUnlocalizedName("MeteoriteChest");
