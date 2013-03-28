@@ -5,6 +5,7 @@ tile.MeteorShield.name=Meteor Shield
 tile.ProtectedLandTester.name=Protected Land Tester
 tile.Frezarite.name=Frezarite
 tile.Kreknorite.name=Kreknorite
+tile.MeteorTimer.name=Meteor Timer
 
 item.MeteorChips.name=Meteor Chip
 item.RedMeteorGem.name=Red Meteor Gem

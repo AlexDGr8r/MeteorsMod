@@ -44,7 +44,7 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 	public static boolean loggable = true;		// For Debugging Purposes Only
 	public static boolean forModpack = false;	// TODO Change this for publishing modpack
 	private static Configuration config;
-	private static int[] IDs = new int[43];		// Array Full
+	private static int[] IDs = new int[44];		// Array Full
 
 	//public static String textureFile = "/meteor/textures/meteorItems.png";
 	public static String texturesFolder = "/meteor/textures/";
@@ -66,6 +66,7 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 	public static Block blockKreknorite;
 	public static Block torchMeteorShieldIdle;
 	public static Block torchMeteorShieldActive;
+	public static Block blockMeteorTimer;
 	public static Item itemMeteorChips;
 	public static Item itemRedMeteorGem;
 	public static Item itemMeteorSummoner;
@@ -139,6 +140,7 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 		blockKreknorite 			= new BlockKreknorite(IDs[5]).setUnlocalizedName("Kreknorite").setHardness(11F).setResistance(350F).setStepSound(Block.soundStoneFootstep).setLightValue(0.7F).setCreativeTab(CreativeTabs.tabBlock);
 		torchMeteorShieldIdle 		= new BlockMeteorShieldTorch(IDs[6], false).setHardness(0.0F).setLightValue(0.5F).setStepSound(Block.soundWoodFootstep).setUnlocalizedName("ProtectedLandTester");
 		torchMeteorShieldActive 	= new BlockMeteorShieldTorch(IDs[7], true).setHardness(0.0F).setLightValue(0.5F).setStepSound(Block.soundWoodFootstep).setUnlocalizedName("ProtectedLandTester");
+		blockMeteorTimer			= new BlockMeteorTimer(IDs[43]).setHardness(0.0F).setStepSound(Block.soundWoodFootstep).setUnlocalizedName("MeteorTimer").setCreativeTab(CreativeTabs.tabBlock);
 		itemMeteorChips 			= new ItemMeteorsMod(IDs[8]).setMaxStackSize(64).setUnlocalizedName("MeteorChips").setCreativeTab(CreativeTabs.tabMaterials);
 		itemRedMeteorGem 			= new ItemMeteorsMod(IDs[9]).setMaxStackSize(64).setUnlocalizedName("RedMeteorGem").setCreativeTab(CreativeTabs.tabMaterials);
 		itemMeteorSummoner 			= new ItemSummoner(IDs[10]).setUnlocalizedName("MeteorSummoner").setCreativeTab(CreativeTabs.tabMisc);
@@ -227,6 +229,7 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 		IDs[7] = config.getBlock("Test Torch Lit ID", 670).getInt();
 		IDs[4] = config.getBlock("Frezarite Block ID", 673).getInt();
 		IDs[5] = config.getBlock("Kreknorite ID", 674).getInt();
+		IDs[43]= config.getBlock("Meteor Timer ID", 675).getInt();
 		// Item IDs
 		IDs[8] = config.getItem("Meteor Chips ID", 30228).getInt();
 		IDs[9] = config.getItem("Red Meteor Gem ID", 30238).getInt();
@@ -323,6 +326,7 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 		GameRegistry.registerBlock(torchMeteorShieldActive, ItemBlockMeteorsMod.class, "BlockMeteorShieldA");
 		GameRegistry.registerBlock(blockFrezarite, ItemBlockMeteorsMod.class, "BlockFrezarite");
 		GameRegistry.registerBlock(blockKreknorite, ItemBlockMeteorsMod.class, "BlockKreknorite");
+		GameRegistry.registerBlock(blockMeteorTimer, ItemBlockMeteorsMod.class, "BlockMeteorTimer");
 		GameRegistry.registerItem(itemMeteorChips, "MeteorChips");
 		GameRegistry.registerItem(itemRedMeteorGem, "RedMeteorGem");
 		GameRegistry.registerItem(itemChocolateIceCream, "ChocolateICream");

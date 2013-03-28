@@ -13,6 +13,7 @@ public class CommonProxy
 
 	public void registerTileEntities() {
 		GameRegistry.registerTileEntity(TileEntityMeteorShield.class, "TileEntityMeteorShield");
+		GameRegistry.registerTileEntity(TileEntityMeteorTimer.class, "TileEntityMeteorTimer");
 	}
 
 	public void loadStuff()

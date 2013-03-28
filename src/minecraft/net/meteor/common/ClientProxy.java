@@ -16,6 +16,7 @@ import net.minecraft.src.meteor.RenderMeteor;
 import net.minecraft.src.meteor.RenderSummoner;
 import net.minecraft.src.meteor.TextureDetector;
 import net.minecraft.src.meteor.TileEntityMeteorShieldRayRenderer;
+import net.minecraft.src.meteor.TileEntityMeteorTimerRenderer;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
@@ -31,6 +32,8 @@ public class ClientProxy extends CommonProxy
 	{
 		TileEntityMeteorShieldRayRenderer tileRend = new TileEntityMeteorShieldRayRenderer();
 		ClientRegistry.registerTileEntity(TileEntityMeteorShield.class, "TileEntityMeteorShield", tileRend);
+		TileEntityMeteorTimerRenderer timerRend = new TileEntityMeteorTimerRenderer();
+		ClientRegistry.registerTileEntity(TileEntityMeteorTimer.class, "TileEntityMeteorTimer", timerRend);
 	}
 
 	public void loadStuff()
