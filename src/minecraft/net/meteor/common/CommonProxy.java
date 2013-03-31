@@ -3,6 +3,7 @@ package net.meteor.common;
 import java.util.HashMap;
 
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class CommonProxy
@@ -14,6 +15,9 @@ public class CommonProxy
 	public void registerTileEntities() {
 		GameRegistry.registerTileEntity(TileEntityMeteorShield.class, "TileEntityMeteorShield");
 		GameRegistry.registerTileEntity(TileEntityMeteorTimer.class, "TileEntityMeteorTimer");
+	}
+
+	public void regTextures() {
 	}
 
 	public void loadStuff()
@@ -39,4 +43,5 @@ public class CommonProxy
 	public void sendPortalCreationMessage()
 	{
 	}
+
 }

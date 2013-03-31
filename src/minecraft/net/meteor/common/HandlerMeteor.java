@@ -62,6 +62,10 @@ public class HandlerMeteor
 		this.theWorld = (WorldServer) event.world;
 		MinecraftServer server = this.theWorld.getMinecraftServer();
 		this.worldDir = getWorldSaveLocation(this.theWorld);
+		if (this.worldDir == null) {
+			MeteorsMod.log.info("WorldDir was null");
+			return;
+		}
 		this.folderPath = this.worldDir.getAbsolutePath();
 		this.ghostMetsFilePath = (this.folderPath + File.separator + "ghostMets.bin");
 		this.crashedChunksFilePath = (this.folderPath + File.separator + "crashedMetChunks.bin");
@@ -77,6 +81,7 @@ public class HandlerMeteor
 			return (ArrayList<GhostMeteor>)result;
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 		}
 		return new ArrayList<GhostMeteor>();
 	}
@@ -93,15 +98,16 @@ public class HandlerMeteor
 	}
 
 	@SuppressWarnings("resource")
-	private ArrayList loadCrashedChunks() {
+	private ArrayList<CrashedChunkSet> loadCrashedChunks() {
 		try {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(this.crashedChunksFilePath));
 			Object result = ois.readObject();
-			return (ArrayList)result;
+			return (ArrayList<CrashedChunkSet>)result;
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 		}
-		return new ArrayList();
+		return new ArrayList<CrashedChunkSet>();
 	}
 
 	private void saveCrashedChunks() {
@@ -186,7 +192,7 @@ public class HandlerMeteor
 	}
 
 	public void kittyAttack() {
-		this.theWorld.getMinecraftServer().getConfigurationManager().sendPacketToAllPlayers(new Packet3Chat("§4Comet Kitties incoming!!!")); // TODO
+		this.theWorld.getMinecraftServer().getConfigurationManager().sendPacketToAllPlayers(new Packet3Chat("\2474Comet Kitties incoming!!!"));
 		for (int i = 0; i < this.theWorld.playerEntities.size(); i++) {
 			EntityPlayer player = (EntityPlayer) this.theWorld.playerEntities.get(i);
 			if (player != null)
@@ -205,10 +211,10 @@ public class HandlerMeteor
 	}
 
 	public void applyMeteorCrash(int x, int y, int z) {
-		ArrayList tbr = new ArrayList();
+		ArrayList<CrashedChunkSet> tbr = new ArrayList();
 
 		for (int i = 0; i < this.crashedChunks.size(); i++) {
-			CrashedChunkSet set = (CrashedChunkSet)this.crashedChunks.get(i);
+			CrashedChunkSet set = this.crashedChunks.get(i);
 			set.age += 1;
 			if (set.age >= 20) {
 				tbr.add(set);
@@ -261,10 +267,10 @@ public class HandlerMeteor
 		return this.safeChunks.contains(new ChunkCoordIntPair(chunk.xPosition, chunk.zPosition));
 	}
 
-	public List getSafeChunkCoords(int x, int z) {
+	public List<SafeChunkCoordsIntPair> getSafeChunkCoords(int x, int z) {
 		if (meteorInProtectedZone(x, z)) {
-			List cList = new ArrayList();
-			List owners = new ArrayList();
+			List<SafeChunkCoordsIntPair> cList = new ArrayList<SafeChunkCoordsIntPair>();
+			List<String> owners = new ArrayList<String>();
 			Chunk chunk = this.theWorld.getChunkFromBlockCoords(x, z);
 			Iterator iter = this.safeChunksWithOwners.iterator();
 			while (iter.hasNext()) {
@@ -297,14 +303,14 @@ public class HandlerMeteor
 		GhostMeteor closestMeteor = null;
 		for (int i = 0; i < this.ghostMets.size(); i++) {
 			if (closestMeteor != null) {
-				if (((GhostMeteor)this.ghostMets.get(i)).type != EnumMeteor.KITTY) {
+				if (this.ghostMets.get(i).type != EnumMeteor.KITTY) {
 					int var1 = closestMeteor.getRemainingTicks();
-					int var2 = ((GhostMeteor)this.ghostMets.get(i)).getRemainingTicks();
+					int var2 = this.ghostMets.get(i).getRemainingTicks();
 					if (var2 < var1)
-						closestMeteor = (GhostMeteor)this.ghostMets.get(i);
+						closestMeteor = this.ghostMets.get(i);
 				}
-			} else if (((GhostMeteor)this.ghostMets.get(i)).type != EnumMeteor.KITTY) {
-				closestMeteor = (GhostMeteor)this.ghostMets.get(i);
+			} else if (this.ghostMets.get(i).type != EnumMeteor.KITTY) {
+				closestMeteor = this.ghostMets.get(i);
 			}
 
 		}
@@ -318,8 +324,9 @@ public class HandlerMeteor
 			ChunkCoordinates coords = null;
 			if (gMeteor != null) {
 				coords = new ChunkCoordinates(gMeteor.x, this.theWorld.getFirstUncoveredBlock(gMeteor.x, gMeteor.z), gMeteor.z);
+			} else {
+				coords = new ChunkCoordinates(0, 0, 0);
 			}
-			if (coords == null) coords = new ChunkCoordinates(0, 0, 0);
 			ByteArrayOutputStream bos = new ByteArrayOutputStream(16);
 			DataOutputStream outputStream = new DataOutputStream(bos);
 			try {
@@ -344,18 +351,18 @@ public class HandlerMeteor
 		GhostMeteor closestMeteor = null;
 		for (int i = 0; i < this.ghostMets.size(); i++) {
 			if (closestMeteor != null) {
-				if (((GhostMeteor)this.ghostMets.get(i)).type != EnumMeteor.KITTY) {
+				if (this.ghostMets.get(i).type != EnumMeteor.KITTY) {
 					double pX = player.posX;
 					double pY = player.posY;
 					double pZ = player.posZ;
-					GhostMeteor meteor = (GhostMeteor)this.ghostMets.get(i);
+					GhostMeteor meteor = this.ghostMets.get(i);
 					double var1 = getDistance(pX, pY, pZ, meteor.x, this.theWorld.getFirstUncoveredBlock(meteor.x, meteor.z), meteor.z);
 					double var2 = getDistance(pX, pY, pZ, closestMeteor.x, this.theWorld.getFirstUncoveredBlock(closestMeteor.x, closestMeteor.z), closestMeteor.z);
 					if (var1 < var2)
 						closestMeteor = meteor;
 				}
-			} else if (((GhostMeteor)this.ghostMets.get(i)).type != EnumMeteor.KITTY) {
-				closestMeteor = (GhostMeteor)this.ghostMets.get(i);
+			} else if (this.ghostMets.get(i).type != EnumMeteor.KITTY) {
+				closestMeteor = this.ghostMets.get(i);
 			}
 		}
 
@@ -375,8 +382,8 @@ public class HandlerMeteor
 	public ChunkCoordinates getLastCrashLocation() {
 		if (this.theWorld == null) return null;
 		for (int i = 0; i < this.crashedChunks.size(); i++) {
-			if (((CrashedChunkSet)this.crashedChunks.get(i)).age == 0) {
-				return ((CrashedChunkSet)this.crashedChunks.get(i)).getCrashCoords();
+			if (this.crashedChunks.get(i).age == 0) {
+				return this.crashedChunks.get(i).getCrashCoords();
 			}
 		}
 		return null;
@@ -738,9 +745,9 @@ public class HandlerMeteor
 
 	public void sendGhostMeteorPackets(Player player) {
 		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
-			ArrayList mets = this.ghostMets;
+			ArrayList<GhostMeteor> mets = this.ghostMets;
 			for (int i = 0; i < mets.size(); i++) {
-				GhostMeteor met = (GhostMeteor)mets.get(i);
+				GhostMeteor met = mets.get(i);
 				ByteArrayOutputStream bos = new ByteArrayOutputStream(12);
 				DataOutputStream outputStream = new DataOutputStream(bos);
 				try {

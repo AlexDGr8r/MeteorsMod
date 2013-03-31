@@ -261,6 +261,7 @@ implements IConnectionHandler, IPacketHandler
 				nearestTimeLocation = null;
 				MeteorsMod.proxy.nearestTimeLeft = 0;
 			} else {
+				MeteorsMod.log.info("Should've received workable time location");
 				nearestTimeLocation = new ChunkCoordinates(x, y, z);
 				MeteorsMod.proxy.nearestTimeLeft = tr;
 			} 

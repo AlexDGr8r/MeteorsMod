@@ -311,6 +311,7 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 		loadStaticConfigurationValues();
 		LangLocalization.addLocalization("/meteor/lang/", "en_US");
 		setVars();
+		proxy.regTextures();
 		proxy.loadSounds();
 	}
 

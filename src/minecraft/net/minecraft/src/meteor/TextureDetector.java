@@ -1,6 +1,7 @@
 package net.minecraft.src.meteor;
 
 import net.meteor.common.ClientHandler;
+import net.meteor.common.MeteorsMod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.Texture;
 import net.minecraft.client.renderer.texture.TextureStitched;
@@ -18,21 +19,22 @@ public class TextureDetector extends TextureStitched {
 		this.detectorType = type;
 	}
 	
-	public void func_94219_l()
+	@Override
+	public void updateAnimation()
     {
         Minecraft minecraft = Minecraft.getMinecraft();
 
         if (minecraft.theWorld != null && minecraft.thePlayer != null)
         {
-            this.func_94241_a(minecraft.theWorld, minecraft.thePlayer.posX, minecraft.thePlayer.posZ, (double)minecraft.thePlayer.rotationYaw, false, false);
+            this.updateCompass(minecraft.theWorld, minecraft.thePlayer.posX, minecraft.thePlayer.posZ, (double)minecraft.thePlayer.rotationYaw, false, false);
         }
         else
         {
-            this.func_94241_a((World)null, 0.0D, 0.0D, 0.0D, true, false);
+            this.updateCompass((World)null, 0.0D, 0.0D, 0.0D, true, false);
         }
     }
 
-    public void func_94241_a(World par1World, double par2, double par4, double par6, boolean par8, boolean par9)
+    public void updateCompass(World par1World, double par2, double par4, double par6, boolean par8, boolean par9)
     {
         double d3 = 0.0D;
 

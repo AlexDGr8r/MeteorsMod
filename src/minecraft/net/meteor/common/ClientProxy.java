@@ -9,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.src.meteor.EntityFrezaDustFX;
 import net.minecraft.src.meteor.EntityMeteorShieldParticleFX;
 import net.minecraft.src.meteor.EntityMeteordustFX;
+import net.minecraft.src.meteor.HandlerTextures;
 import net.minecraft.src.meteor.MetCrashSoundHandler;
 import net.minecraft.src.meteor.ModelCometKitty;
 import net.minecraft.src.meteor.RenderAlienCreeper;
@@ -28,6 +29,8 @@ import cpw.mods.fml.client.registry.RenderingRegistry;
 
 public class ClientProxy extends CommonProxy
 {
+	
+	@Override
 	public void registerTileEntities()
 	{
 		TileEntityMeteorShieldRayRenderer tileRend = new TileEntityMeteorShieldRayRenderer();
@@ -36,6 +39,7 @@ public class ClientProxy extends CommonProxy
 		ClientRegistry.registerTileEntity(TileEntityMeteorTimer.class, "TileEntityMeteorTimer", timerRend);
 	}
 
+	@Override
 	public void loadStuff()
 	{
 		MinecraftForgeClient.preloadTexture("/meteor/textures/particles.png");
@@ -43,17 +47,24 @@ public class ClientProxy extends CommonProxy
 		RenderingRegistry.registerEntityRenderingHandler(EntityAlienCreeper.class, new RenderAlienCreeper());
 		RenderingRegistry.registerEntityRenderingHandler(EntityCometKitty.class, new RenderOcelot(new ModelCometKitty(), 0.4F));
 		RenderingRegistry.registerEntityRenderingHandler(EntitySummoner.class, new RenderSummoner());
-		Minecraft mc = Minecraft.getMinecraft();
-		mc.renderEngine.textureMapItems.setTextureEntry("MeteorDetectorProximity", new TextureDetector(0));
-		mc.renderEngine.textureMapItems.setTextureEntry("MeteorDetectorTime", new TextureDetector(1));
-		mc.renderEngine.textureMapItems.setTextureEntry("MeteorDetectorCrash", new TextureDetector(2));
+//		Minecraft mc = Minecraft.getMinecraft();
+//		mc.renderEngine.textureMapItems.setTextureEntry("MeteorDetectorProximity", new TextureDetector(0));
+//		mc.renderEngine.textureMapItems.setTextureEntry("MeteorDetectorTime", new TextureDetector(1));
+//		mc.renderEngine.textureMapItems.setTextureEntry("MeteorDetectorCrash", new TextureDetector(2));
+	}
+	
+	@Override
+	public void regTextures() {
+		MinecraftForge.EVENT_BUS.register(new HandlerTextures());
 	}
 
+	@Override
 	public void loadSounds()
 	{
 		MinecraftForge.EVENT_BUS.register(new MetCrashSoundHandler());
 	}
 
+	@Override
 	public void playCrashSound(World world, EntityMeteor meteor)
 	{
 		EntityPlayer player = FMLClientHandler.instance().getClient().thePlayer;
@@ -65,6 +76,7 @@ public class ClientProxy extends CommonProxy
 		world.playSoundEffect(player.posX + xMod, player.posY + 1.0D, player.posZ + zMod, "meteor.crash", 1.0F, 1.0F);
 	}
 
+	@Override
 	public void meteorProtectCheck(String owner)
 	{
 		if (FMLClientHandler.instance().getClient().thePlayer.username.equalsIgnoreCase(owner)) {
@@ -73,6 +85,7 @@ public class ClientProxy extends CommonProxy
 		}
 	}
 
+	@Override
 	public void updateMeteorBlockAch(World world)
 	{
 		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
@@ -88,6 +101,7 @@ public class ClientProxy extends CommonProxy
 		}
 	}
 
+	@Override
 	public void sendPortalCreationMessage()
 	{
 		FMLClientHandler.instance().getClient().thePlayer.addChatMessage("\2470" + LangLocalization.get("Meteor.netherPortalCreation"));
