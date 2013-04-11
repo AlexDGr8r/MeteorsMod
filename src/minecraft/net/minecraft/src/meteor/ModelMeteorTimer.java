@@ -17,23 +17,21 @@ public class ModelMeteorTimer extends ModelBase {
 		this.textureWidth = 64;
 		this.textureHeight = 32;
 		
-		this.setTextureOffset("base.bottom", 0, 0);
-		this.setTextureOffset("base.top", 4, 2);
-		this.base = new ModelRenderer(this, "base");
-		this.base.addBox("bottom", 0.0F, 0.0F, 0.0F, 16, 4, 16);
-		this.base.addBox("top", 0.0F, 0.0F, 0.0F, 14, 1, 14);
+		this.base = new ModelRenderer(this, 4, 0);
+		this.base.addBox(0F, 0F, 0F, 14, 1, 14);
+	    this.base.setRotationPoint(1F, 8F, 1F);
 		
 		this.element_meteorite = new ModelRenderer(this, 0, 7);
 		this.element_meteorite.addBox(-2F, 0F, -1F, 1, 3, 2);
-		this.element_meteorite.setRotationPoint(0F, 15F, 0F);
+		this.element_meteorite.setRotationPoint(8F, 10F, 8F);
 		
 		this.element_frezarite = new ModelRenderer(this, 9, 0);
 		this.element_frezarite.addBox(-4F, 0F, -1F, 1, 3, 2);
-		this.element_frezarite.setRotationPoint(0F, 15F, 0F);
+		this.element_frezarite.setRotationPoint(8F, 10F, 8F);
 		
 		this.element_kreknorite = new ModelRenderer(this, 0, 0);
 		this.element_kreknorite.addBox(6F, 0F, -1F, 1, 3, 2);
-		this.element_kreknorite.setRotationPoint(0F, 15F, 0F);
+		this.element_kreknorite.setRotationPoint(8F, 10F, 8F);
 	}
 	
 	public void renderAll() {

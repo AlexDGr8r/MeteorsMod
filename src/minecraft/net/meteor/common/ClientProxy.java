@@ -42,15 +42,11 @@ public class ClientProxy extends CommonProxy
 	@Override
 	public void loadStuff()
 	{
-		MinecraftForgeClient.preloadTexture("/meteor/textures/particles.png");
+		//MinecraftForgeClient.preloadTexture("/meteor/textures/particles.png");
 		RenderingRegistry.registerEntityRenderingHandler(EntityMeteor.class, new RenderMeteor());
 		RenderingRegistry.registerEntityRenderingHandler(EntityAlienCreeper.class, new RenderAlienCreeper());
 		RenderingRegistry.registerEntityRenderingHandler(EntityCometKitty.class, new RenderOcelot(new ModelCometKitty(), 0.4F));
 		RenderingRegistry.registerEntityRenderingHandler(EntitySummoner.class, new RenderSummoner());
-//		Minecraft mc = Minecraft.getMinecraft();
-//		mc.renderEngine.textureMapItems.setTextureEntry("MeteorDetectorProximity", new TextureDetector(0));
-//		mc.renderEngine.textureMapItems.setTextureEntry("MeteorDetectorTime", new TextureDetector(1));
-//		mc.renderEngine.textureMapItems.setTextureEntry("MeteorDetectorCrash", new TextureDetector(2));
 	}
 	
 	@Override
@@ -107,11 +103,11 @@ public class ClientProxy extends CommonProxy
 		FMLClientHandler.instance().getClient().thePlayer.addChatMessage("\2470" + LangLocalization.get("Meteor.netherPortalCreation"));
 	}
 
-	public static EntityFX spawnParticle(String s, double d, double d1, double d2, double d3, double d4, double d5, World worldObj, int opt)
+	public static void spawnParticle(String s, double d, double d1, double d2, double d3, double d4, double d5, World worldObj, int opt)
 	{
 		Minecraft mc = Minecraft.getMinecraft();
 		if (mc == null || mc.renderViewEntity == null || mc.effectRenderer == null) {
-			return null;
+			return;
 		}
 		int i = mc.gameSettings.particleSetting;
 		if (i == 1 && worldObj.rand.nextInt(3) == 0) {
@@ -123,10 +119,10 @@ public class ClientProxy extends CommonProxy
 		EntityFX obj = null;
 		double d9 = 16D;
 		if (d6 * d6 + d7 * d7 + d8 * d8 > d9 * d9) {
-			return null;
+			return;
 		}
 		if (i > 1) {
-			return null;
+			return;
 		}
 		if (s.equals("meteordust"))
 			obj = new EntityMeteordustFX(worldObj, d, d1, d2, (float)d3, (float)d4, (float)d5);
@@ -142,6 +138,5 @@ public class ClientProxy extends CommonProxy
 		if (obj != null) {
 			mc.effectRenderer.addEffect((EntityFX)obj);
 		}
-		return (EntityFX)obj;
 	}
 }

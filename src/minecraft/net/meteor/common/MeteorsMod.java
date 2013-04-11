@@ -44,7 +44,7 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 	public static boolean loggable = true;		// For Debugging Purposes Only
 	public static boolean forModpack = false;	// TODO Change this for publishing modpack
 	private static Configuration config;
-	private static int[] IDs = new int[44];		// Array Full
+	private static int[] IDs = new int[45];		// Array Full
 
 	//public static String textureFile = "/meteor/textures/meteorItems.png";
 	public static String texturesFolder = "/meteor/textures/";
@@ -100,6 +100,7 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 	public static Item KreknoriteLegs;
 	public static Item KreknoriteBoots;
 	public static Item KreknoriteSword;
+	public static Item itemMeteorTimer;
 
 	@SidedProxy(clientSide="net.meteor.common.ClientProxy", serverSide="net.meteor.common.CommonProxy")
 	public static CommonProxy proxy;
@@ -133,7 +134,7 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 		Magnetization 				= new EnchantmentMagnetized(IDs[38], 3).setName("Magnetization");
 		ColdTouch 					= new EnchantmentColdTouch(IDs[39], 3).setName("Cold Touch");
 		blockMeteor 				= new BlockMeteor(IDs[0]).setUnlocalizedName("Meteor").setHardness(10F).setResistance(200F).setStepSound(Block.soundStoneFootstep).setLightValue(0.5F).setCreativeTab(CreativeTabs.tabBlock);
-		blockMeteorOre 				= new BlockMeteorOre(IDs[1]).setUnlocalizedName("MeteorOre").setHardness(10F).setResistance(200F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabBlock).setLightValue(0.2F);
+		blockMeteorOre 				= new BlockMeteorOre(IDs[1]).setUnlocalizedName("MeteorOre").setHardness(10F).setResistance(200F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabBlock);
 		blockRareMeteor 			= new BlockRareFallenMeteor(IDs[2]).setUnlocalizedName("MeteorRare").setHardness(10F).setResistance(200F).setStepSound(Block.soundStoneFootstep).setLightValue(0.5F);
 		blockMeteorShield 			= new BlockMeteorShield(IDs[3]).setUnlocalizedName("MeteorShield").setHardness(2.5F).setStepSound(Block.soundStoneFootstep).setLightValue(0.5F).setCreativeTab(CreativeTabs.tabBlock);
 		blockFrezarite 				= new BlockFrezarite(IDs[4]).setUnlocalizedName("Frezarite").setHardness(8.5F).setResistance(150F).setStepSound(Block.soundGlassFootstep).setLightValue(0.25F).setCreativeTab(CreativeTabs.tabBlock);
@@ -151,6 +152,7 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 		itemMeteorProximityDetector = new ItemMeteorsMod(IDs[33]).setUnlocalizedName("MeteorDetectorProximity").setCreativeTab(CreativeTabs.tabTools);
 		itemMeteorTimeDetector 		= new ItemMeteorsMod(IDs[34]).setUnlocalizedName("MeteorDetectorTime").setCreativeTab(CreativeTabs.tabTools);
 		itemMeteorCrashDetector 	= new ItemMeteorsMod(IDs[35]).setUnlocalizedName("MeteorDetectorCrash").setCreativeTab(CreativeTabs.tabTools);
+		//itemMeteorTimer				= new ItemMeteorTimer(IDs[44]).setUnlocalizedName("MeteorTimer").setCreativeTab(CreativeTabs.tabBlock);
 		MeteoriteHelmet 			= new ItemEnchArmor(IDs[13], MeteoriteArmor, 3, 0).setEnch(Magnetization, 1).setUnlocalizedName("MeteoriteHelmet");
 		MeteoriteBody 				= new ItemEnchArmor(IDs[14], MeteoriteArmor, 3, 1).setEnch(Magnetization, 1).setUnlocalizedName("MeteoriteChest");
 		MeteoriteLegs 				= new ItemEnchArmor(IDs[15], MeteoriteArmor, 3, 2).setEnch(Magnetization, 1).setUnlocalizedName("MeteoriteLegs");
@@ -229,7 +231,7 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 		IDs[7] = config.getBlock("Test Torch Lit ID", 670).getInt();
 		IDs[4] = config.getBlock("Frezarite Block ID", 673).getInt();
 		IDs[5] = config.getBlock("Kreknorite ID", 674).getInt();
-		IDs[43]= config.getBlock("Meteor Timer ID", 675).getInt();
+		IDs[43]= config.getBlock("Meteor Timer Block ID", 675).getInt();
 		// Item IDs
 		IDs[8] = config.getItem("Meteor Chips ID", 30228).getInt();
 		IDs[9] = config.getItem("Red Meteor Gem ID", 30238).getInt();
@@ -264,6 +266,7 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 		IDs[40] = config.getItem("Frezarite Sword ID", 30258).getInt();
 		IDs[41] = config.getItem("Frezarite Axe ID", 30259).getInt();
 		IDs[42] = config.getItem("Frezarite Hoe ID", 30260).getInt();
+		//IDs[44] = config.getItem("Meteor Timer Item ID", 30261).getInt();
 		// General Configuration
 		IDs[38] = config.get("general", "Magnetization Enchantment ID", 157).getInt();
 		IDs[39] = config.get("general", "Cold Touch Enchantment ID", 158).getInt();
@@ -361,6 +364,7 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 		GameRegistry.registerItem(FrezariteSword, "FrezSword");
 		GameRegistry.registerItem(FrezariteAxe, "FrezAxe");
 		GameRegistry.registerItem(FrezariteHoe, "FrezHoe");
+		//GameRegistry.registerItem(itemMeteorTimer, "ItemMetTimer");
 	}
 
 	private void registerEntities() {

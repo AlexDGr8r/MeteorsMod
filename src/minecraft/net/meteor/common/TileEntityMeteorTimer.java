@@ -1,5 +1,7 @@
 package net.meteor.common;
 
+import java.util.Random;
+
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 
@@ -28,17 +30,16 @@ public class TileEntityMeteorTimer extends TileEntity {
 		// y  = 15 - ((ticksLeft / 1200) > 15 ? 15 : (ticksLeft / 1200))
 		
 		int ticksLeft = MeteorsMod.proxy.nearestTimeLeft;
-		int calc = (ticksLeft / 1200);
+		int calc = (ticksLeft / 800);
 		if (calc > 15) calc = 15;
 		int meta = 15 - calc;
 		meta = MathHelper.clamp_int(meta, 0, 15);
 		
 		if (lastMeta != meta) {
 			this.worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, meta, 0x02);
-			// Perhaps not neccessary below with flag passed in setMeta above
-			// this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
+			this.worldObj.notifyBlocksOfNeighborChange(this.xCoord, this.yCoord, this.zCoord, MeteorsMod.blockMeteorTimer.blockID);
+			lastMeta = meta;
 		}
-		
 	}
 
 }

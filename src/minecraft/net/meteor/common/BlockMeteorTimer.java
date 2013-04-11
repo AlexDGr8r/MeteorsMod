@@ -1,16 +1,24 @@
 package net.meteor.common;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockMeteorTimer extends BlockContainer {
+	
+	@SideOnly(Side.CLIENT)
+	private Icon timerSide;
 
 	protected BlockMeteorTimer(int par1) {
 		super(par1, Material.redstoneLight);
-		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.3F, 1.0F);
+		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
 	}
 
 	@Override
@@ -62,5 +70,28 @@ public class BlockMeteorTimer extends BlockContainer {
 	{
 		return LangLocalization.get(this.getUnlocalizedName() + ".name");
 	}
+	
+	@SideOnly(Side.CLIENT)
+	@Override
+    public void registerIcons(IconRegister par1IconRegister) {
+		this.blockIcon = par1IconRegister.registerIcon("MeteorTimer");
+		this.timerSide = par1IconRegister.registerIcon("timerSide");
+	}
+	
+	@Override
+	public Icon getBlockTextureFromSideAndMetadata(int i, int j)
+	{
+		if (i > 1) {
+			return this.timerSide;
+		}
+		return this.blockIcon;
+	}
+	
+	@SideOnly(Side.CLIENT)
+	@Override
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World par1World, int par2, int par3, int par4)
+    {
+        return AxisAlignedBB.getAABBPool().getAABB((double)par2 + this.minX, (double)par3 + this.minY, (double)par4 + this.minZ, (double)par2 + this.maxX, (double)par3 + this.maxY + 0.125D, (double)par4 + this.maxZ);
+    }
 
 }

@@ -2,6 +2,7 @@ package net.meteor.common;
 
 import java.util.List;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
@@ -15,12 +16,16 @@ import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
+import cpw.mods.fml.common.registry.IThrowableEntity;
 
 public class EntitySummoner extends EntityThrowable
-implements IEntityAdditionalSpawnData
+implements IEntityAdditionalSpawnData//, IThrowableEntity
 {
 	public int mID;
 	public boolean isRandom;
+	
+	private EntityLiving thrower;
+    private String throwerName = null;
 
 	public EntitySummoner(World world)
 	{
@@ -94,7 +99,7 @@ implements IEntityAdditionalSpawnData
 			}
 
 			if (canHit) {
-				if (player != null) player.sendChatToPlayer("§5" + LangLocalization.get("MeteorSummoner.incomingMeteor"));
+				if (player != null) player.sendChatToPlayer("\2475" + LangLocalization.get("MeteorSummoner.incomingMeteor"));
 				EntityMeteor meteorToSpawn = new EntityMeteor(this.worldObj, HandlerMeteor.getMeteorSize(), this.posX, this.posZ, EnumMeteor.getTypeFromID(this.mID), true);
 				this.worldObj.spawnEntityInWorld(meteorToSpawn);
 			}
@@ -108,6 +113,13 @@ implements IEntityAdditionalSpawnData
 		super.writeEntityToNBT(par1NBTTagCompound);
 		par1NBTTagCompound.setInteger("metType", this.mID);
 		par1NBTTagCompound.setBoolean("isRandom", this.isRandom);
+		
+//		if ((this.throwerName == null || this.throwerName.length() == 0) && this.thrower != null && this.thrower instanceof EntityPlayer)
+//        {
+//            this.throwerName = this.thrower.getEntityName();
+//        }
+//
+//        par1NBTTagCompound.setString("metOwnerName", this.throwerName == null ? "" : this.throwerName);
 	}
 
 	@Override
@@ -116,6 +128,12 @@ implements IEntityAdditionalSpawnData
 		super.readEntityFromNBT(par1NBTTagCompound);
 		this.mID = par1NBTTagCompound.getInteger("metType");
 		this.isRandom = par1NBTTagCompound.getBoolean("isRandom");
+//		this.throwerName = par1NBTTagCompound.getString("metOwnerName");
+//
+//        if (this.throwerName != null && this.throwerName.length() == 0)
+//        {
+//            this.throwerName = null;
+//        }
 	}
 
 	@Override
@@ -131,4 +149,19 @@ implements IEntityAdditionalSpawnData
 		this.mID = data.readInt();
 		this.isRandom = data.readBoolean();
 	}
+	
+//	@Override
+//	public EntityLiving getThrower() {
+//		if (this.thrower == null && this.throwerName != null && this.throwerName.length() > 0)
+//        {
+//            this.thrower = this.worldObj.getPlayerEntityByName(this.throwerName);
+//        }
+//
+//        return this.thrower;
+//	}
+//
+//	@Override
+//	public void setThrower(Entity entity) {
+//		this.thrower = (EntityLiving) entity;
+//	}
 }

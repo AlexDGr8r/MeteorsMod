@@ -70,8 +70,8 @@ public class EntityFrezaDustFX extends EntityFX
 		moveEntity(motionX, motionY, motionZ);
 		if(posY == prevPosY)
 		{
-			motionX *= 1.1000000000000001D;
-			motionZ *= 1.1000000000000001D;
+			motionX *= 1.1D;
+			motionZ *= 1.1D;
 		}
 		motionX *= 0.95999997854232788D;
 		motionY *= 0.95999997854232788D;
