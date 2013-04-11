@@ -51,9 +51,12 @@ entity.CometKitty.name=Comet Kitty
 
 MeteorShield.charging=Meteor Shield Charging!
 MeteorShield.noUpgrade=Upgrading this Meteor Shield does nothing!
-# Example for below: Meteor Shield now at 80%
+# Example output for below: Meteor Shield now at 80%
 MeteorShield.PowerUpgradePercentage=Meteor Shield now at
 MeteorShield.meteorBlocked=Your Meteor Shield protected your land from a meteor.
+
+MeteorTimer.modeChange.one=Power Mode: Meteor Timer will now put out a redstone signal with the strength based on how close the meteor is to crashing.
+MeteorTimer.modeChange.two=Quick Mode: Meteor Timer will now only put out a redstone signal when a meteor is just about to crash.
 
 ProtectionTorch.landOwnership=This land is protected by:
 

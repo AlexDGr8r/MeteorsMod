@@ -133,6 +133,7 @@ public class BlockMeteorShield extends BlockContainer
 			return false;
 		}
 
+		// For future photo-ops lol
 		//		if (cItem.itemID == up.D.cj) {
 		//			if ((world.h(i, j, k) > 0) && (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)) {
 		//				TileEntityMeteorShield shield = (TileEntityMeteorShield)world.q(i, j, k);

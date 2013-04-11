@@ -44,7 +44,7 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 	public static boolean loggable = true;		// For Debugging Purposes Only
 	public static boolean forModpack = false;	// TODO Change this for publishing modpack
 	private static Configuration config;
-	private static int[] IDs = new int[45];		// Array Full
+	private static int[] IDs = new int[44];		// Array Full
 
 	//public static String textureFile = "/meteor/textures/meteorItems.png";
 	public static String texturesFolder = "/meteor/textures/";
@@ -100,7 +100,6 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 	public static Item KreknoriteLegs;
 	public static Item KreknoriteBoots;
 	public static Item KreknoriteSword;
-	public static Item itemMeteorTimer;
 
 	@SidedProxy(clientSide="net.meteor.common.ClientProxy", serverSide="net.meteor.common.CommonProxy")
 	public static CommonProxy proxy;
@@ -152,7 +151,6 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 		itemMeteorProximityDetector = new ItemMeteorsMod(IDs[33]).setUnlocalizedName("MeteorDetectorProximity").setCreativeTab(CreativeTabs.tabTools);
 		itemMeteorTimeDetector 		= new ItemMeteorsMod(IDs[34]).setUnlocalizedName("MeteorDetectorTime").setCreativeTab(CreativeTabs.tabTools);
 		itemMeteorCrashDetector 	= new ItemMeteorsMod(IDs[35]).setUnlocalizedName("MeteorDetectorCrash").setCreativeTab(CreativeTabs.tabTools);
-		//itemMeteorTimer				= new ItemMeteorTimer(IDs[44]).setUnlocalizedName("MeteorTimer").setCreativeTab(CreativeTabs.tabBlock);
 		MeteoriteHelmet 			= new ItemEnchArmor(IDs[13], MeteoriteArmor, 3, 0).setEnch(Magnetization, 1).setUnlocalizedName("MeteoriteHelmet");
 		MeteoriteBody 				= new ItemEnchArmor(IDs[14], MeteoriteArmor, 3, 1).setEnch(Magnetization, 1).setUnlocalizedName("MeteoriteChest");
 		MeteoriteLegs 				= new ItemEnchArmor(IDs[15], MeteoriteArmor, 3, 2).setEnch(Magnetization, 1).setUnlocalizedName("MeteoriteLegs");
@@ -266,7 +264,6 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 		IDs[40] = config.getItem("Frezarite Sword ID", 30258).getInt();
 		IDs[41] = config.getItem("Frezarite Axe ID", 30259).getInt();
 		IDs[42] = config.getItem("Frezarite Hoe ID", 30260).getInt();
-		//IDs[44] = config.getItem("Meteor Timer Item ID", 30261).getInt();
 		// General Configuration
 		IDs[38] = config.get("general", "Magnetization Enchantment ID", 157).getInt();
 		IDs[39] = config.get("general", "Cold Touch Enchantment ID", 158).getInt();
@@ -364,7 +361,6 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 		GameRegistry.registerItem(FrezariteSword, "FrezSword");
 		GameRegistry.registerItem(FrezariteAxe, "FrezAxe");
 		GameRegistry.registerItem(FrezariteHoe, "FrezHoe");
-		//GameRegistry.registerItem(itemMeteorTimer, "ItemMetTimer");
 	}
 
 	private void registerEntities() {

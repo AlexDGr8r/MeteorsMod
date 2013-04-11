@@ -1,10 +1,12 @@
 package net.meteor.common;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Icon;
@@ -93,5 +95,21 @@ public class BlockMeteorTimer extends BlockContainer {
     {
         return AxisAlignedBB.getAABBPool().getAABB((double)par2 + this.minX, (double)par3 + this.minY, (double)par4 + this.minZ, (double)par2 + this.maxX, (double)par3 + this.maxY + 0.125D, (double)par4 + this.maxZ);
     }
+	
+	@Override
+	public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer player, int par6, float par7, float par8, float par9)
+	{
+		TileEntityMeteorTimer tEntity = (TileEntityMeteorTimer)world.getBlockTileEntity(i, j, k);
+		tEntity.quickMode = !tEntity.quickMode;
+		if (!world.isRemote) {
+			if (tEntity.quickMode) {
+				player.sendChatToPlayer(LangLocalization.get("MeteorTimer.modeChange.two"));
+			} else {
+				player.sendChatToPlayer(LangLocalization.get("MeteorTimer.modeChange.one"));
+			}
+		}
+		
+		return true;
+	}
 
 }
