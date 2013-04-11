@@ -17,31 +17,18 @@ public class CommonProxy
 		GameRegistry.registerTileEntity(TileEntityMeteorTimer.class, "TileEntityMeteorTimer");
 	}
 
-	public void regTextures() {
-	}
+	public void regTextures() {}
 
-	public void loadStuff()
-	{
-	}
+	public void loadStuff() {}
 
-	public void loadSounds()
-	{
-	}
+	public void loadSounds() {}
 
-	public void playCrashSound(World world, EntityMeteor meteor)
-	{
-	}
+	public void playCrashSound(World world, EntityMeteor meteor) {}
 
-	public void meteorProtectCheck(String owner)
-	{
-	}
+	public void meteorProtectCheck(String owner) {}
 
-	public void updateMeteorBlockAch(World world)
-	{
-	}
+	public void updateMeteorBlockAch(World world) {}
 
-	public void sendPortalCreationMessage()
-	{
-	}
+	public void sendPortalCreationMessage() {}
 
 }

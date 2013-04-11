@@ -4,6 +4,7 @@ import java.util.Random;
 import java.util.logging.Logger;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.EntityPlayer;
@@ -44,7 +45,7 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 	public static boolean loggable = true;		// For Debugging Purposes Only
 	public static boolean forModpack = false;	// TODO Change this for publishing modpack
 	private static Configuration config;
-	private static int[] IDs = new int[44];		// Array Full
+	private static int[] IDs = new int[45];		// Array Full
 
 	//public static String textureFile = "/meteor/textures/meteorItems.png";
 	public static String texturesFolder = "/meteor/textures/";
@@ -56,8 +57,12 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 
 	public static EnumToolMaterial MeteoriteTool = EnumHelper.addToolMaterial("METEORITE", 3, 900, 10.0F, 4, 10);
 	public static EnumToolMaterial FrezariteTool = EnumHelper.addToolMaterial("FREZARITE", 2, 225, 7.0F, 2, 14);
+	
 	public static Enchantment Magnetization;
 	public static Enchantment ColdTouch;
+	
+	public static CreativeTabs meteorTab;
+	
 	public static Block blockMeteor;
 	public static Block blockMeteorOre;
 	public static Block blockRareMeteor;
@@ -67,6 +72,7 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 	public static Block torchMeteorShieldIdle;
 	public static Block torchMeteorShieldActive;
 	public static Block blockMeteorTimer;
+	public static Block blockRedMeteorGem;
 	public static Item itemMeteorChips;
 	public static Item itemRedMeteorGem;
 	public static Item itemMeteorSummoner;
@@ -130,50 +136,52 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 
 	private void setVars()
 	{
+		meteorTab					= new CreativeTabMeteor("Meteor");
 		Magnetization 				= new EnchantmentMagnetized(IDs[38], 3).setName("Magnetization");
 		ColdTouch 					= new EnchantmentColdTouch(IDs[39], 3).setName("Cold Touch");
-		blockMeteor 				= new BlockMeteor(IDs[0]).setUnlocalizedName("Meteor").setHardness(10F).setResistance(200F).setStepSound(Block.soundStoneFootstep).setLightValue(0.5F).setCreativeTab(CreativeTabs.tabBlock);
-		blockMeteorOre 				= new BlockMeteorOre(IDs[1]).setUnlocalizedName("MeteorOre").setHardness(10F).setResistance(200F).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabBlock);
+		blockMeteor 				= new BlockMeteor(IDs[0]).setUnlocalizedName("Meteor").setHardness(10F).setResistance(200F).setStepSound(Block.soundStoneFootstep).setLightValue(0.5F).setCreativeTab(meteorTab);
+		blockMeteorOre 				= new BlockMeteorOre(IDs[1]).setUnlocalizedName("MeteorOre").setHardness(10F).setResistance(200F).setStepSound(Block.soundStoneFootstep).setCreativeTab(meteorTab);
 		blockRareMeteor 			= new BlockRareFallenMeteor(IDs[2]).setUnlocalizedName("MeteorRare").setHardness(10F).setResistance(200F).setStepSound(Block.soundStoneFootstep).setLightValue(0.5F);
-		blockMeteorShield 			= new BlockMeteorShield(IDs[3]).setUnlocalizedName("MeteorShield").setHardness(2.5F).setStepSound(Block.soundStoneFootstep).setLightValue(0.5F).setCreativeTab(CreativeTabs.tabBlock);
-		blockFrezarite 				= new BlockFrezarite(IDs[4]).setUnlocalizedName("Frezarite").setHardness(8.5F).setResistance(150F).setStepSound(Block.soundGlassFootstep).setLightValue(0.25F).setCreativeTab(CreativeTabs.tabBlock);
-		blockKreknorite 			= new BlockKreknorite(IDs[5]).setUnlocalizedName("Kreknorite").setHardness(11F).setResistance(350F).setStepSound(Block.soundStoneFootstep).setLightValue(0.7F).setCreativeTab(CreativeTabs.tabBlock);
+		blockMeteorShield 			= new BlockMeteorShield(IDs[3]).setUnlocalizedName("MeteorShield").setHardness(2.5F).setStepSound(Block.soundStoneFootstep).setLightValue(0.5F).setCreativeTab(meteorTab);
+		blockFrezarite 				= new BlockFrezarite(IDs[4]).setUnlocalizedName("Frezarite").setHardness(8.5F).setResistance(150F).setStepSound(Block.soundGlassFootstep).setLightValue(0.25F).setCreativeTab(meteorTab);
+		blockKreknorite 			= new BlockKreknorite(IDs[5]).setUnlocalizedName("Kreknorite").setHardness(11F).setResistance(350F).setStepSound(Block.soundStoneFootstep).setLightValue(0.7F).setCreativeTab(meteorTab);
 		torchMeteorShieldIdle 		= new BlockMeteorShieldTorch(IDs[6], false).setHardness(0.0F).setLightValue(0.5F).setStepSound(Block.soundWoodFootstep).setUnlocalizedName("ProtectedLandTester");
-		torchMeteorShieldActive 	= new BlockMeteorShieldTorch(IDs[7], true).setHardness(0.0F).setLightValue(0.5F).setStepSound(Block.soundWoodFootstep).setUnlocalizedName("ProtectedLandTester");
-		blockMeteorTimer			= new BlockMeteorTimer(IDs[43]).setHardness(0.0F).setStepSound(Block.soundWoodFootstep).setUnlocalizedName("MeteorTimer").setCreativeTab(CreativeTabs.tabBlock);
-		itemMeteorChips 			= new ItemMeteorsMod(IDs[8]).setMaxStackSize(64).setUnlocalizedName("MeteorChips").setCreativeTab(CreativeTabs.tabMaterials);
-		itemRedMeteorGem 			= new ItemMeteorsMod(IDs[9]).setMaxStackSize(64).setUnlocalizedName("RedMeteorGem").setCreativeTab(CreativeTabs.tabMaterials);
-		itemMeteorSummoner 			= new ItemSummoner(IDs[10]).setUnlocalizedName("MeteorSummoner").setCreativeTab(CreativeTabs.tabMisc);
-		itemFrezaCrystal 			= new ItemMeteorsMod(IDs[11]).setMaxStackSize(64).setUnlocalizedName("FrezariteCrystal").setCreativeTab(CreativeTabs.tabMaterials);
-		itemKreknoChip 				= new ItemMeteorsMod(IDs[12]).setMaxStackSize(64).setUnlocalizedName("KreknoriteChip").setCreativeTab(CreativeTabs.tabMaterials);
-		itemVanillaIceCream 		= new ItemFoodMeteorsMod(IDs[31], 2, false).setMaxStackSize(64).setUnlocalizedName("VanillaIceCream");
-		itemChocolateIceCream 		= new ItemFoodMeteorsMod(IDs[32], 3, false).setMaxStackSize(64).setUnlocalizedName("ChocolateIceCream");
-		itemMeteorProximityDetector = new ItemMeteorsMod(IDs[33]).setUnlocalizedName("MeteorDetectorProximity").setCreativeTab(CreativeTabs.tabTools);
-		itemMeteorTimeDetector 		= new ItemMeteorsMod(IDs[34]).setUnlocalizedName("MeteorDetectorTime").setCreativeTab(CreativeTabs.tabTools);
-		itemMeteorCrashDetector 	= new ItemMeteorsMod(IDs[35]).setUnlocalizedName("MeteorDetectorCrash").setCreativeTab(CreativeTabs.tabTools);
-		MeteoriteHelmet 			= new ItemEnchArmor(IDs[13], MeteoriteArmor, 3, 0).setEnch(Magnetization, 1).setUnlocalizedName("MeteoriteHelmet");
-		MeteoriteBody 				= new ItemEnchArmor(IDs[14], MeteoriteArmor, 3, 1).setEnch(Magnetization, 1).setUnlocalizedName("MeteoriteChest");
-		MeteoriteLegs 				= new ItemEnchArmor(IDs[15], MeteoriteArmor, 3, 2).setEnch(Magnetization, 1).setUnlocalizedName("MeteoriteLegs");
-		MeteoriteBoots 				= new ItemEnchArmor(IDs[16], MeteoriteArmor, 3, 3).setEnch(Magnetization, 1).setUnlocalizedName("MeteoriteBoots");
-		MeteoriteAxe 				= new ItemEnchAxe(IDs[25], MeteoriteTool).setEnch(Magnetization, 1).setUnlocalizedName("MeteoriteAxe");
-		MeteoriteSpade 				= new ItemEnchSpade(IDs[26], MeteoriteTool).setEnch(Magnetization, 1).setUnlocalizedName("MeteoriteSpade");
-		MeteoriteSword 				= new ItemEnchSword(IDs[27], MeteoriteTool).setEnch(Magnetization, 1).setUnlocalizedName("MeteoriteSword");
-		MeteoritePickaxe 			= new ItemEnchPickaxe(IDs[28], MeteoriteTool).setEnch(Magnetization, 1).setUnlocalizedName("MeteoritePickaxe");
-		MeteoriteHoe 				= new ItemEnchHoe(IDs[29], MeteoriteTool).setEnch(Magnetization, 1).setUnlocalizedName("MeteoriteHoe");
-		FrezariteHelmet 			= new ItemEnchArmor(IDs[17], FrezariteArmor, 3, 0).setEnch(Enchantment.respiration, 3).setUnlocalizedName("FrezariteHelmet");
-		FrezariteBody 				= new ItemEnchArmor(IDs[18], FrezariteArmor, 3, 1).setEnch(Enchantment.aquaAffinity, 1).setUnlocalizedName("FrezariteChest");
-		FrezariteLegs 				= new ItemEnchArmor(IDs[19], FrezariteArmor, 3, 2).setEnch(ColdTouch, 1).setUnlocalizedName("FrezariteLegs");
-		FrezariteBoots 				= new ItemEnchArmor(IDs[20], FrezariteArmor, 3, 3).setEnch(ColdTouch, 1).setUnlocalizedName("FrezariteBoots");
-		FrezaritePickaxe 			= new ItemFrezaritePickaxe(IDs[36], FrezariteTool).setUnlocalizedName("FrezaritePickaxe");
-		FrezariteSpade 				= new ItemFrezariteSpade(IDs[37], FrezariteTool).setUnlocalizedName("FrezariteSpade");
-		FrezariteSword 				= new ItemFrezariteSword(IDs[40], FrezariteTool).setUnlocalizedName("FrezariteSword");
-		FrezariteAxe 				= new ItemFrezariteAxe(IDs[41], FrezariteTool).setUnlocalizedName("FrezariteAxe");
-		FrezariteHoe 				= new ItemFrezariteHoe(IDs[42], FrezariteTool).setUnlocalizedName("FrezariteHoe");
-		KreknoriteHelmet 			= new ItemEnchArmor(IDs[21], KreknoriteArmor, 3, 0).setEnch(Enchantment.fireProtection, 4).setUnlocalizedName("KreknoriteHelmet");
-		KreknoriteBody 				= new ItemEnchArmor(IDs[22], KreknoriteArmor, 3, 1).setEnch(Enchantment.fireProtection, 4).setUnlocalizedName("KreknoriteChest");
-		KreknoriteLegs 				= new ItemEnchArmor(IDs[23], KreknoriteArmor, 3, 2).setEnch(Enchantment.fireProtection, 4).setUnlocalizedName("KreknoriteLegs");
-		KreknoriteBoots 			= new ItemEnchArmor(IDs[24], KreknoriteArmor, 3, 3).setEnch(Enchantment.fireProtection, 4).setUnlocalizedName("KreknoriteBoots");
-		KreknoriteSword 			= new ItemKreknoSword(IDs[30], MeteoriteTool).setUnlocalizedName("KreknoriteSword");
+		torchMeteorShieldActive 	= new BlockMeteorShieldTorch(IDs[7], true).setHardness(0.0F).setLightValue(0.5F).setStepSound(Block.soundWoodFootstep).setUnlocalizedName("ProtectedLandTesterActive").setCreativeTab(meteorTab);
+		blockMeteorTimer			= new BlockMeteorTimer(IDs[43]).setHardness(0.0F).setStepSound(Block.soundWoodFootstep).setUnlocalizedName("MeteorTimer").setCreativeTab(meteorTab);
+		blockRedMeteorGem			= new BlockMeteorsMod(IDs[44], Material.iron).setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundMetalFootstep).setUnlocalizedName("blockRedGem").setCreativeTab(meteorTab);
+		itemMeteorChips 			= new ItemMeteorsMod(IDs[8]).setMaxStackSize(64).setUnlocalizedName("MeteorChips").setCreativeTab(meteorTab);
+		itemRedMeteorGem 			= new ItemMeteorsMod(IDs[9]).setMaxStackSize(64).setUnlocalizedName("RedMeteorGem").setCreativeTab(meteorTab);
+		itemMeteorSummoner 			= new ItemSummoner(IDs[10]).setUnlocalizedName("MeteorSummoner").setCreativeTab(meteorTab);
+		itemFrezaCrystal 			= new ItemMeteorsMod(IDs[11]).setMaxStackSize(64).setUnlocalizedName("FrezariteCrystal").setCreativeTab(meteorTab);
+		itemKreknoChip 				= new ItemMeteorsMod(IDs[12]).setMaxStackSize(64).setUnlocalizedName("KreknoriteChip").setCreativeTab(meteorTab);
+		itemVanillaIceCream 		= new ItemFoodMeteorsMod(IDs[31], 2, false).setMaxStackSize(64).setUnlocalizedName("VanillaIceCream").setCreativeTab(meteorTab);
+		itemChocolateIceCream 		= new ItemFoodMeteorsMod(IDs[32], 3, false).setMaxStackSize(64).setUnlocalizedName("ChocolateIceCream").setCreativeTab(meteorTab);
+		itemMeteorProximityDetector = new ItemMeteorsMod(IDs[33]).setUnlocalizedName("MeteorDetectorProximity").setCreativeTab(meteorTab);
+		itemMeteorTimeDetector 		= new ItemMeteorsMod(IDs[34]).setUnlocalizedName("MeteorDetectorTime").setCreativeTab(meteorTab);
+		itemMeteorCrashDetector 	= new ItemMeteorsMod(IDs[35]).setUnlocalizedName("MeteorDetectorCrash").setCreativeTab(meteorTab);
+		MeteoriteHelmet 			= new ItemEnchArmor(IDs[13], MeteoriteArmor, 3, 0).setEnch(Magnetization, 1).setUnlocalizedName("MeteoriteHelmet").setCreativeTab(meteorTab);
+		MeteoriteBody 				= new ItemEnchArmor(IDs[14], MeteoriteArmor, 3, 1).setEnch(Magnetization, 1).setUnlocalizedName("MeteoriteChest").setCreativeTab(meteorTab);
+		MeteoriteLegs 				= new ItemEnchArmor(IDs[15], MeteoriteArmor, 3, 2).setEnch(Magnetization, 1).setUnlocalizedName("MeteoriteLegs").setCreativeTab(meteorTab);
+		MeteoriteBoots 				= new ItemEnchArmor(IDs[16], MeteoriteArmor, 3, 3).setEnch(Magnetization, 1).setUnlocalizedName("MeteoriteBoots").setCreativeTab(meteorTab);
+		MeteoriteAxe 				= new ItemEnchAxe(IDs[25], MeteoriteTool).setEnch(Magnetization, 1).setUnlocalizedName("MeteoriteAxe").setCreativeTab(meteorTab);
+		MeteoriteSpade 				= new ItemEnchSpade(IDs[26], MeteoriteTool).setEnch(Magnetization, 1).setUnlocalizedName("MeteoriteSpade").setCreativeTab(meteorTab);
+		MeteoriteSword 				= new ItemEnchSword(IDs[27], MeteoriteTool).setEnch(Magnetization, 1).setUnlocalizedName("MeteoriteSword").setCreativeTab(meteorTab);
+		MeteoritePickaxe 			= new ItemEnchPickaxe(IDs[28], MeteoriteTool).setEnch(Magnetization, 1).setUnlocalizedName("MeteoritePickaxe").setCreativeTab(meteorTab);
+		MeteoriteHoe 				= new ItemEnchHoe(IDs[29], MeteoriteTool).setEnch(Magnetization, 1).setUnlocalizedName("MeteoriteHoe").setCreativeTab(meteorTab);
+		FrezariteHelmet 			= new ItemEnchArmor(IDs[17], FrezariteArmor, 3, 0).setEnch(Enchantment.respiration, 3).setUnlocalizedName("FrezariteHelmet").setCreativeTab(meteorTab);
+		FrezariteBody 				= new ItemEnchArmor(IDs[18], FrezariteArmor, 3, 1).setEnch(Enchantment.aquaAffinity, 1).setUnlocalizedName("FrezariteChest").setCreativeTab(meteorTab);
+		FrezariteLegs 				= new ItemEnchArmor(IDs[19], FrezariteArmor, 3, 2).setEnch(ColdTouch, 1).setUnlocalizedName("FrezariteLegs").setCreativeTab(meteorTab);
+		FrezariteBoots 				= new ItemEnchArmor(IDs[20], FrezariteArmor, 3, 3).setEnch(ColdTouch, 1).setUnlocalizedName("FrezariteBoots").setCreativeTab(meteorTab);
+		FrezaritePickaxe 			= new ItemFrezaritePickaxe(IDs[36], FrezariteTool).setUnlocalizedName("FrezaritePickaxe").setCreativeTab(meteorTab);
+		FrezariteSpade 				= new ItemFrezariteSpade(IDs[37], FrezariteTool).setUnlocalizedName("FrezariteSpade").setCreativeTab(meteorTab);
+		FrezariteSword 				= new ItemFrezariteSword(IDs[40], FrezariteTool).setUnlocalizedName("FrezariteSword").setCreativeTab(meteorTab);
+		FrezariteAxe 				= new ItemFrezariteAxe(IDs[41], FrezariteTool).setUnlocalizedName("FrezariteAxe").setCreativeTab(meteorTab);
+		FrezariteHoe 				= new ItemFrezariteHoe(IDs[42], FrezariteTool).setUnlocalizedName("FrezariteHoe").setCreativeTab(meteorTab);
+		KreknoriteHelmet 			= new ItemEnchArmor(IDs[21], KreknoriteArmor, 3, 0).setEnch(Enchantment.fireProtection, 4).setUnlocalizedName("KreknoriteHelmet").setCreativeTab(meteorTab);
+		KreknoriteBody 				= new ItemEnchArmor(IDs[22], KreknoriteArmor, 3, 1).setEnch(Enchantment.fireProtection, 4).setUnlocalizedName("KreknoriteChest").setCreativeTab(meteorTab);
+		KreknoriteLegs 				= new ItemEnchArmor(IDs[23], KreknoriteArmor, 3, 2).setEnch(Enchantment.fireProtection, 4).setUnlocalizedName("KreknoriteLegs").setCreativeTab(meteorTab);
+		KreknoriteBoots 			= new ItemEnchArmor(IDs[24], KreknoriteArmor, 3, 3).setEnch(Enchantment.fireProtection, 4).setUnlocalizedName("KreknoriteBoots").setCreativeTab(meteorTab);
+		KreknoriteSword 			= new ItemKreknoSword(IDs[30], MeteoriteTool).setUnlocalizedName("KreknoriteSword").setCreativeTab(meteorTab);
 		HandlerMeteor.defaultType = EnumMeteor.METEORITE;
 		if (!this.meteoriteEnabled) {
 			HandlerMeteor.defaultType = EnumMeteor.FREZARITE;
@@ -230,6 +238,7 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 		IDs[4] = config.getBlock("Frezarite Block ID", 673).getInt();
 		IDs[5] = config.getBlock("Kreknorite ID", 674).getInt();
 		IDs[43]= config.getBlock("Meteor Timer Block ID", 675).getInt();
+		IDs[44]= config.getBlock("Block Red Meteor Gem ID", 676).getInt();
 		// Item IDs
 		IDs[8] = config.getItem("Meteor Chips ID", 30228).getInt();
 		IDs[9] = config.getItem("Red Meteor Gem ID", 30238).getInt();
@@ -328,6 +337,7 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 		GameRegistry.registerBlock(blockFrezarite, ItemBlockMeteorsMod.class, "BlockFrezarite");
 		GameRegistry.registerBlock(blockKreknorite, ItemBlockMeteorsMod.class, "BlockKreknorite");
 		GameRegistry.registerBlock(blockMeteorTimer, ItemBlockMeteorsMod.class, "BlockMeteorTimer");
+		GameRegistry.registerBlock(blockRedMeteorGem, ItemBlockMeteorsMod.class, "BlockRedMeteorGem");
 		GameRegistry.registerItem(itemMeteorChips, "MeteorChips");
 		GameRegistry.registerItem(itemRedMeteorGem, "RedMeteorGem");
 		GameRegistry.registerItem(itemChocolateIceCream, "ChocolateICream");
@@ -523,6 +533,16 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 		GameRegistry.addRecipe(new ItemStack(FrezariteSword, 1), new Object[] { 
 			"c", "c", "s", Character.valueOf('c'), itemFrezaCrystal, Character.valueOf('s'), Item.stick
 		});
+		
+		GameRegistry.addRecipe(new ItemStack(blockMeteorTimer, 1), new Object[] {
+			"mfk", "brb", Character.valueOf('m'), itemMeteorChips, Character.valueOf('f'), itemFrezaCrystal, 
+			Character.valueOf('k'), itemKreknoChip, Character.valueOf('b'), blockMeteor, 
+			Character.valueOf('r'), Item.redstone
+		});
+		
+		GameRegistry.addRecipe(new ItemStack(blockRedMeteorGem, 1), new Object[] {
+			"rrr", "rrr", "rrr", Character.valueOf('r'), itemRedMeteorGem
+		});
 
 		if (!forModpack) {
 			GameRegistry.addRecipe(new ItemStack(itemMeteorProximityDetector, 1), new Object[] { 
@@ -538,7 +558,7 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 			});
 
 			GameRegistry.addRecipe(new ItemStack(itemMeteorSummoner, 1), new Object[] { 
-				" m ", "mrm", " m ", Character.valueOf('m'), itemMeteorChips, Character.valueOf('r'), itemRedMeteorGem 
+				"rmr", "mrm", "rmr", Character.valueOf('m'), itemMeteorChips, Character.valueOf('r'), itemRedMeteorGem 
 			});
 
 			GameRegistry.addRecipe(new ItemStack(itemMeteorSummoner, 1, 1), new Object[] { 
@@ -554,8 +574,9 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 			});
 
 			GameRegistry.addRecipe(new ItemStack(itemMeteorSummoner, 1, 4), new Object[] { 
-				"mmm", "ksk", "fff", Character.valueOf('m'), itemMeteorChips, Character.valueOf('s'), itemMeteorSummoner, 
-				Character.valueOf('k'), itemKreknoChip, Character.valueOf('f'), itemFrezaCrystal 
+				"rmr", "ksk", "rfr", Character.valueOf('m'), itemMeteorChips, Character.valueOf('s'), itemMeteorSummoner, 
+				Character.valueOf('k'), itemKreknoChip, Character.valueOf('f'), itemFrezaCrystal, Character.valueOf('r'),
+				itemRedMeteorGem
 			});
 
 			GameRegistry.addRecipe(new ItemStack(itemMeteorSummoner, 1, 5), new Object[] { 

@@ -3,6 +3,7 @@ tile.Meteor.name=墜落流星
 tile.MeteorRare.name=罕見墜落流星
 tile.MeteorShield.name=流星盾牌
 tile.ProtectedLandTester.name=保護地測試儀
+tile.ProtectedLandTesterActive.name=保護地測試儀
 tile.Frezarite.name=冰凍隕石
 tile.Kreknorite.name=白蹄隕石
 

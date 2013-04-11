@@ -42,7 +42,6 @@ public class ClientProxy extends CommonProxy
 	@Override
 	public void loadStuff()
 	{
-		//MinecraftForgeClient.preloadTexture("/meteor/textures/particles.png");
 		RenderingRegistry.registerEntityRenderingHandler(EntityMeteor.class, new RenderMeteor());
 		RenderingRegistry.registerEntityRenderingHandler(EntityAlienCreeper.class, new RenderAlienCreeper());
 		RenderingRegistry.registerEntityRenderingHandler(EntityCometKitty.class, new RenderOcelot(new ModelCometKitty(), 0.4F));

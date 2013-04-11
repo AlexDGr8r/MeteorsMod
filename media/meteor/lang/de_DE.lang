@@ -3,6 +3,7 @@ tile.Meteor.name=Gefallene Meteor
 tile.MeteorRare.name=Selten Gafallene Meteor
 tile.MeteorShield.name=Meteor Schild
 tile.ProtectedLandTester.name=Geschützt Land Tester
+tile.ProtectedLandTesterActive.name=Geschützt Land Tester
 tile.Frezarite.name=Frezarite
 tile.Kreknorite.name=Kreknorite
 

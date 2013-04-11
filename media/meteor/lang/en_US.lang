@@ -3,9 +3,11 @@ tile.Meteor.name=Fallen Meteor
 tile.MeteorRare.name=Rare Fallen Meteor
 tile.MeteorShield.name=Meteor Shield
 tile.ProtectedLandTester.name=Protected Land Tester
+tile.ProtectedLandTesterActive.name=Protected Land Tester
 tile.Frezarite.name=Frezarite
 tile.Kreknorite.name=Kreknorite
 tile.MeteorTimer.name=Meteor Timer
+tile.blockRedGem.name=Block of Red Meteor Gem
 
 item.MeteorChips.name=Meteor Chip
 item.RedMeteorGem.name=Red Meteor Gem
@@ -82,6 +84,8 @@ Meteor.kittiesDetected.two=Prepare for multiple impacts!
 MeteorSummoner.incomingMeteor=Incoming Meteor!!!
 MeteorSummoner.wrongDimension=Cannot summon meteors in this dimension.
 MeteorSummoner.landProtected=This land is protected by another player!
+
+itemGroup.Meteor=Falling Meteors
 
 achievement.pageMeteors=Falling Meteors
 achievement.shieldCrafted=We're Covered
