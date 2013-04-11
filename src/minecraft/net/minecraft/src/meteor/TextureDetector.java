@@ -1,7 +1,6 @@
 package net.minecraft.src.meteor;
 
 import net.meteor.common.ClientHandler;
-import net.meteor.common.MeteorsMod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.Texture;
 import net.minecraft.client.renderer.texture.TextureStitched;

@@ -28,13 +28,12 @@ public class AchievementMeteorsMod extends Achievement
 		super(par1, par2Str, par3, par4, par5ItemStack, par6Achievement);
 		this.desc = ("achievement." + par2Str + ".desc");
 	}
-
+	
 	@SideOnly(Side.CLIENT)
-	@Override
-	public String getName()
-	{
-		return LangLocalization.get(this.statName);
-	}
+    public String getName()
+    {
+        return LangLocalization.get(super.getName());
+    }
 
 	@Override
 	public String toString()

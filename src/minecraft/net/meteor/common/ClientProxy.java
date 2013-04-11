@@ -2,28 +2,22 @@ package net.meteor.common;
 
 import java.util.List;
 
+import net.meteor.common.entity.*;
+import net.meteor.common.tileentity.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.entity.RenderOcelot;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.src.meteor.EntityFrezaDustFX;
-import net.minecraft.src.meteor.EntityMeteorShieldParticleFX;
-import net.minecraft.src.meteor.EntityMeteordustFX;
 import net.minecraft.src.meteor.HandlerTextures;
 import net.minecraft.src.meteor.MetCrashSoundHandler;
-import net.minecraft.src.meteor.ModelCometKitty;
-import net.minecraft.src.meteor.RenderAlienCreeper;
-import net.minecraft.src.meteor.RenderMeteor;
-import net.minecraft.src.meteor.RenderSummoner;
-import net.minecraft.src.meteor.TextureDetector;
-import net.minecraft.src.meteor.TileEntityMeteorShieldRayRenderer;
-import net.minecraft.src.meteor.TileEntityMeteorTimerRenderer;
+import net.minecraft.src.meteor.effect.*;
+import net.minecraft.src.meteor.model.ModelCometKitty;
+import net.minecraft.src.meteor.render.*;
+import net.minecraft.src.meteor.render.tileentity.*;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
-import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.client.TextureFXManager;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 

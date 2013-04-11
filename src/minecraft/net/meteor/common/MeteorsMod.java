@@ -3,6 +3,11 @@ package net.meteor.common;
 import java.util.Random;
 import java.util.logging.Logger;
 
+import net.meteor.common.block.*;
+import net.meteor.common.command.*;
+import net.meteor.common.enchantment.*;
+import net.meteor.common.entity.*;
+import net.meteor.common.item.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
