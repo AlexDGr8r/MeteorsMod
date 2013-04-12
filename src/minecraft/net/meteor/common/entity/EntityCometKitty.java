@@ -1,9 +1,11 @@
 package net.meteor.common.entity;
 
+import net.meteor.common.HandlerAchievement;
 import net.meteor.common.LangLocalization;
 import net.meteor.common.MeteorsMod;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.passive.EntityOcelot;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -61,4 +63,14 @@ public class EntityCometKitty extends EntityOcelot
 	{
 		return LangLocalization.get("entity.CometKitty.name");
 	}
+	
+	@Override
+	public void setOwner(String par1Str) {
+		super.setOwner(par1Str);
+		EntityPlayer player = this.worldObj.getPlayerEntityByName(par1Str);
+		if (player != null) {
+			player.addStat(HandlerAchievement.kittyTame, 1);
+		}
+	}
+	
 }

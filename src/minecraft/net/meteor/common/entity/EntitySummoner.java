@@ -3,6 +3,7 @@ package net.meteor.common.entity;
 import java.util.List;
 
 import net.meteor.common.EnumMeteor;
+import net.meteor.common.HandlerAchievement;
 import net.meteor.common.HandlerMeteor;
 import net.meteor.common.LangLocalization;
 import net.meteor.common.MeteorsMod;
@@ -12,6 +13,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.packet.Packet200Statistic;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
@@ -19,6 +21,8 @@ import net.minecraft.world.World;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 
+import cpw.mods.fml.common.network.PacketDispatcher;
+import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 
 public class EntitySummoner extends EntityThrowable
@@ -102,7 +106,11 @@ implements IEntityAdditionalSpawnData//, IThrowableEntity
 			}
 
 			if (canHit) {
-				if (player != null) player.sendChatToPlayer("\2475" + LangLocalization.get("MeteorSummoner.incomingMeteor"));
+				if (player != null) {
+					player.sendChatToPlayer("\2475" + LangLocalization.get("MeteorSummoner.incomingMeteor"));
+					player.triggerAchievement(HandlerAchievement.summonMeteor);
+//					PacketDispatcher.sendPacketToPlayer(new Packet200Statistic(HandlerAchievement.summonMeteor.statId, 1), (Player)player);
+				}
 				EntityMeteor meteorToSpawn = new EntityMeteor(this.worldObj, HandlerMeteor.getMeteorSize(), this.posX, this.posZ, EnumMeteor.getTypeFromID(this.mID), true);
 				this.worldObj.spawnEntityInWorld(meteorToSpawn);
 			}

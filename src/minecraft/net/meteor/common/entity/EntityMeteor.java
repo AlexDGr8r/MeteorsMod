@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.meteor.common.ClientHandler;
 import net.meteor.common.EnumMeteor;
+import net.meteor.common.HandlerAchievement;
 import net.meteor.common.MeteorsMod;
 import net.meteor.common.SafeChunkCoordsIntPair;
 import net.meteor.common.crash.CrashFrezarite;
@@ -12,7 +13,9 @@ import net.meteor.common.crash.CrashKreknorite;
 import net.meteor.common.crash.CrashMeteorite;
 import net.meteor.common.crash.CrashUnknown;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
@@ -104,6 +107,14 @@ implements IEntityAdditionalSpawnData
 		if (onGround) {
 			setDead();
 			if(!worldObj.isRemote) {
+				if (!summoned) {
+					AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(posX - 40D, posY - 20D, posZ - 40D, posX + 40D, posY + 20D, posZ + 40D);
+					List<EntityPlayer> players = this.worldObj.getEntitiesWithinAABB(EntityPlayer.class, aabb);
+					for (int i = 0; i < players.size(); i++) {
+						EntityPlayer player = players.get(i);
+						player.addStat(HandlerAchievement.foundMeteor, 1);
+					}
+				}
 				CrashMeteorite worldGen = getWorldGen();
 				if (worldGen.generate(worldObj, rand, (int)posX, (int)posY, (int)posZ)) {
 					worldGen.afterCrashCompleted(worldObj, (int)posX, (int)posY, (int)posZ);

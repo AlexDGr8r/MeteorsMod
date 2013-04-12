@@ -196,7 +196,7 @@ public class HandlerMeteor
 		this.theWorld.getMinecraftServer().getConfigurationManager().sendPacketToAllPlayers(new Packet3Chat("\2474Comet Kitties incoming!!!"));
 		for (int i = 0; i < this.theWorld.playerEntities.size(); i++) {
 			EntityPlayer player = (EntityPlayer) this.theWorld.playerEntities.get(i);
-			if (player != null)
+			if (player != null) {
 				for (int r = random.nextInt(64) + 50; r >= 0; r--) {
 					int x = random.nextInt(64);
 					int z = random.nextInt(64);
@@ -208,6 +208,8 @@ public class HandlerMeteor
 					fKitty.spawnPauseTicks = random.nextInt(100);
 					this.theWorld.spawnEntityInWorld(fKitty);
 				}
+				player.addStat(HandlerAchievement.kittyEvent, 1);
+			}	
 		}
 	}
 

@@ -18,6 +18,7 @@ import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.StatList;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -217,12 +218,12 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 		proxy.loadStuff();
 
 		MinecraftForge.EVENT_BUS.register(proxy.meteorHandler);
-		MinecraftForge.EVENT_BUS.register(this.achHandler);
 		MinecraftForge.EVENT_BUS.register(new HandlerPlayerBreakSpeed());
 
 		GameRegistry.registerCraftingHandler(this);
 		GameRegistry.registerFuelHandler(this);
 		GameRegistry.registerWorldGenerator(this);
+		GameRegistry.registerPickupHandler(achHandler);
 
 		TickRegistry.registerTickHandler(this.metTickHandler, Side.SERVER);
 		TickRegistry.registerTickHandler(this.playerTickHandler, Side.SERVER);
@@ -598,10 +599,18 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 
 	public void onCrafting(EntityPlayer player, ItemStack item, IInventory craftMatrix)
 	{
-		if (item.itemID == blockMeteorShield.blockID)
+		if (item.itemID == blockMeteorShield.blockID) {
 			player.addStat(HandlerAchievement.shieldCrafted, 1);
-		else if (item.itemID == KreknoriteSword.itemID)
+		} else if (item.itemID == KreknoriteSword.itemID) {
 			player.addStat(HandlerAchievement.craftedKreknoSword, 1);
+		} else if (item.itemID == itemMeteorProximityDetector.itemID ||
+				   item.itemID == itemMeteorTimeDetector.itemID ||
+				   item.itemID == itemMeteorCrashDetector.itemID) {
+			player.addStat(HandlerAchievement.craftedDetector, 1);
+		} else if (item.itemID == blockMeteorTimer.blockID) {
+			player.addStat(HandlerAchievement.craftedMeteorTimer, 1);
+		}
+			
 	}
 
 	public void onSmelting(EntityPlayer player, ItemStack item) {}
