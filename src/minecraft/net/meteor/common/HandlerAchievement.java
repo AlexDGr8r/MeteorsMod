@@ -1,14 +1,12 @@
 package net.meteor.common;
 
-import cpw.mods.fml.common.IPickupNotifier;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraftforge.common.AchievementPage;
-import net.minecraftforge.event.ForgeSubscribe;
-import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
+import cpw.mods.fml.common.IPickupNotifier;
 
 public class HandlerAchievement implements IPickupNotifier
 {
@@ -39,7 +37,6 @@ public class HandlerAchievement implements IPickupNotifier
 		ItemStack item = eitem.getEntityItem();
 		if ((item == null) || (player == null)) return;
 		if (item.itemID == MeteorsMod.itemMeteorChips.itemID || item.itemID == MeteorsMod.itemFrezaCrystal.itemID || item.itemID == MeteorsMod.itemKreknoChip.itemID) {
-			player.sendChatToPlayer("Should've worked");
 			player.triggerAchievement(materialGather);
 		}
 		

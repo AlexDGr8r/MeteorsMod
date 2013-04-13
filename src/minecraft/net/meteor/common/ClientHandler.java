@@ -210,11 +210,12 @@ implements IConnectionHandler, IPacketHandler
 			int radius;
 			boolean remove;
 			String owner;
-			try { x = inputStream.readInt();
-			z = inputStream.readInt();
-			radius = inputStream.readInt();
-			remove = inputStream.readBoolean();
-			owner = Packet.readString(inputStream, 16);
+			try { 
+				x = inputStream.readInt();
+				z = inputStream.readInt();
+				radius = inputStream.readInt();
+				remove = inputStream.readBoolean();
+				owner = Packet.readString(inputStream, 16);
 			} catch (Exception e) {
 				e.printStackTrace();
 				return;
@@ -230,9 +231,10 @@ implements IConnectionHandler, IPacketHandler
 			int x;
 			int y;
 			int z;
-			try { x = inputStream.readInt();
-			y = inputStream.readInt();
-			z = inputStream.readInt();
+			try { 
+				x = inputStream.readInt();
+				y = inputStream.readInt();
+				z = inputStream.readInt();
 			} catch (Exception e) {
 				e.printStackTrace();
 				return;
@@ -249,10 +251,11 @@ implements IConnectionHandler, IPacketHandler
 			int y;
 			int z;
 			int tr;
-			try { x = inputStream.readInt();
-			y = inputStream.readInt();
-			z = inputStream.readInt();
-			tr = inputStream.readInt();
+			try { 
+				x = inputStream.readInt();
+				y = inputStream.readInt();
+				z = inputStream.readInt();
+				tr = inputStream.readInt();
 			} catch (Exception e) {
 				e.printStackTrace();
 				return;
@@ -261,7 +264,6 @@ implements IConnectionHandler, IPacketHandler
 				nearestTimeLocation = null;
 				MeteorsMod.proxy.nearestTimeLeft = 0;
 			} else {
-				MeteorsMod.log.info("Should've received workable time location");
 				nearestTimeLocation = new ChunkCoordinates(x, y, z);
 				MeteorsMod.proxy.nearestTimeLeft = tr;
 			} 
@@ -275,9 +277,10 @@ implements IConnectionHandler, IPacketHandler
 			int x;
 			int y;
 			int z;
-			try { x = inputStream.readInt();
-			y = inputStream.readInt();
-			z = inputStream.readInt();
+			try { 
+				x = inputStream.readInt();
+				y = inputStream.readInt();
+				z = inputStream.readInt();
 			} catch (Exception e) {
 				e.printStackTrace();
 				return;
@@ -294,15 +297,22 @@ implements IConnectionHandler, IPacketHandler
 			int x;
 			int y;
 			int z;
-			try { x = inputStream.readInt();
-			y = inputStream.readInt();
-			z = inputStream.readInt();
+			try { 
+				x = inputStream.readInt();
+				y = inputStream.readInt();
+				z = inputStream.readInt();
 			} catch (Exception e) {
 				e.printStackTrace();
 				return;
 			}
 			ChunkCoordinates coords = new ChunkCoordinates(x, y, z);
-			ghostMetLocs.remove(coords); 
+			for (int i = 0; i < ghostMetLocs.size(); i++) {
+				ChunkCoordinates cc = ghostMetLocs.get(i);
+				if (cc.posX == coords.posX && cc.posZ == coords.posZ) {
+					ghostMetLocs.remove(i);
+					break;
+				}
+			}
 		}
 	}
 

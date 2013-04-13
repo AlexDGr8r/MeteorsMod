@@ -3,11 +3,38 @@ package net.meteor.common;
 import java.util.Random;
 import java.util.logging.Logger;
 
-import net.meteor.common.block.*;
-import net.meteor.common.command.*;
-import net.meteor.common.enchantment.*;
-import net.meteor.common.entity.*;
-import net.meteor.common.item.*;
+import net.meteor.common.block.BlockFrezarite;
+import net.meteor.common.block.BlockKreknorite;
+import net.meteor.common.block.BlockMeteor;
+import net.meteor.common.block.BlockMeteorOre;
+import net.meteor.common.block.BlockMeteorShield;
+import net.meteor.common.block.BlockMeteorShieldTorch;
+import net.meteor.common.block.BlockMeteorTimer;
+import net.meteor.common.block.BlockMeteorsMod;
+import net.meteor.common.block.BlockRareFallenMeteor;
+import net.meteor.common.command.CommandKittyAttack;
+import net.meteor.common.enchantment.EnchantmentColdTouch;
+import net.meteor.common.enchantment.EnchantmentMagnetized;
+import net.meteor.common.entity.EntityAlienCreeper;
+import net.meteor.common.entity.EntityCometKitty;
+import net.meteor.common.entity.EntityMeteor;
+import net.meteor.common.entity.EntitySummoner;
+import net.meteor.common.item.ItemBlockMeteorsMod;
+import net.meteor.common.item.ItemEnchArmor;
+import net.meteor.common.item.ItemEnchAxe;
+import net.meteor.common.item.ItemEnchHoe;
+import net.meteor.common.item.ItemEnchPickaxe;
+import net.meteor.common.item.ItemEnchSpade;
+import net.meteor.common.item.ItemEnchSword;
+import net.meteor.common.item.ItemFoodMeteorsMod;
+import net.meteor.common.item.ItemFrezariteAxe;
+import net.meteor.common.item.ItemFrezariteHoe;
+import net.meteor.common.item.ItemFrezaritePickaxe;
+import net.meteor.common.item.ItemFrezariteSpade;
+import net.meteor.common.item.ItemFrezariteSword;
+import net.meteor.common.item.ItemKreknoSword;
+import net.meteor.common.item.ItemMeteorsMod;
+import net.meteor.common.item.ItemSummoner;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -18,7 +45,6 @@ import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.StatList;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -48,7 +74,7 @@ import cpw.mods.fml.relauncher.Side;
 public class MeteorsMod
 implements ICraftingHandler, IFuelHandler, IWorldGenerator
 {
-	public static boolean loggable = true;		// For Debugging Purposes Only
+	public static boolean loggable = false;		// For Debugging Purposes Only
 	public static boolean forModpack = false;	// TODO Change this for publishing modpack
 	private static Configuration config;
 	private static int[] IDs = new int[45];		// Array Full
@@ -212,7 +238,6 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 
 		this.metTickHandler = new HandlerMeteorTick();
 		this.playerTickHandler = new HandlerPlayerTick();
-		this.achHandler = new HandlerAchievement();
 
 		this.achHandler.readyAchievements();
 		proxy.loadStuff();
@@ -328,6 +353,7 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 		setVars();
 		proxy.regTextures();
 		proxy.loadSounds();
+		this.achHandler = new HandlerAchievement();
 	}
 
 	@Mod.ServerStarting

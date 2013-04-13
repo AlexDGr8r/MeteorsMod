@@ -52,7 +52,7 @@ public class ItemFrezariteHoe extends ItemHoe
 
 		Block var13 = Block.tilledField;
 		par3World.playSoundEffect(par4 + 0.5F, par5 + 0.5F, par6 + 0.5F, var13.stepSound.getStepSound(), (var13.stepSound.getVolume() + 1.0F) / 2.0F, var13.stepSound.getPitch() * 0.8F);
-
+		
 		if (par3World.isRemote)
 		{
 			return true;

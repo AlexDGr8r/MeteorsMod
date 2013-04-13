@@ -19,7 +19,6 @@ import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.network.packet.Packet3Chat;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -153,7 +152,7 @@ public class HandlerMeteor
 			else {
 				net_addSafeChunks(d.x, d.z, d.radius, d.owner);
 			}
-			this.updateQueue.remove(Integer.valueOf(0));
+			this.updateQueue.remove(0);
 		}
 
 		for (int i = 0; i < this.ghostMets.size(); i++)
@@ -247,7 +246,7 @@ public class HandlerMeteor
 			PacketDispatcher.sendPacketToAllPlayers(packet);
 
 			if (MeteorsMod.instance.textNotifyCrash)
-				this.theWorld.getMinecraftServer().getConfigurationManager().sendPacketToAllPlayers(new Packet3Chat("A Meteor has Crashed!")); // TODO
+				this.theWorld.getMinecraftServer().getConfigurationManager().sendPacketToAllPlayers(new Packet3Chat(LangLocalization.get("Meteor.crashed")));
 		}
 	}
 
@@ -347,39 +346,6 @@ public class HandlerMeteor
 			packet.length = bos.size();
 			PacketDispatcher.sendPacketToAllPlayers(packet);
 		}
-	}
-
-	public ChunkCoordinates getNearestIncomingMeteor(EntityPlayer player) {
-		if (this.theWorld == null) return null;
-		GhostMeteor closestMeteor = null;
-		for (int i = 0; i < this.ghostMets.size(); i++) {
-			if (closestMeteor != null) {
-				if (this.ghostMets.get(i).type != EnumMeteor.KITTY) {
-					double pX = player.posX;
-					double pY = player.posY;
-					double pZ = player.posZ;
-					GhostMeteor meteor = this.ghostMets.get(i);
-					double var1 = getDistance(pX, pY, pZ, meteor.x, this.theWorld.getFirstUncoveredBlock(meteor.x, meteor.z), meteor.z);
-					double var2 = getDistance(pX, pY, pZ, closestMeteor.x, this.theWorld.getFirstUncoveredBlock(closestMeteor.x, closestMeteor.z), closestMeteor.z);
-					if (var1 < var2)
-						closestMeteor = meteor;
-				}
-			} else if (this.ghostMets.get(i).type != EnumMeteor.KITTY) {
-				closestMeteor = this.ghostMets.get(i);
-			}
-		}
-
-		if (closestMeteor != null) {
-			return new ChunkCoordinates(closestMeteor.x, this.theWorld.getFirstUncoveredBlock(closestMeteor.x, closestMeteor.z), closestMeteor.z);
-		}
-		return null;
-	}
-
-	private double getDistance(double x1, double y1, double z1, double x2, double y2, double z2) {
-		double var7 = x1 - x2;
-		double var9 = y1 - y2;
-		double var11 = z1 - z2;
-		return MathHelper.sqrt_double(var7 * var7 + var9 * var9 + var11 * var11);
 	}
 
 	public ChunkCoordinates getLastCrashLocation() {
@@ -755,7 +721,7 @@ public class HandlerMeteor
 				DataOutputStream outputStream = new DataOutputStream(bos);
 				try {
 					outputStream.writeInt(met.x);
-					outputStream.writeInt(this.theWorld.getFirstUncoveredBlock(met.x, met.z));
+					outputStream.writeInt(0);
 					outputStream.writeInt(met.z);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -775,7 +741,7 @@ public class HandlerMeteor
 			DataOutputStream outputStream = new DataOutputStream(bos);
 			try {
 				outputStream.writeInt(met.x);
-				outputStream.writeInt(this.theWorld.getFirstUncoveredBlock(met.x, met.z));
+				outputStream.writeInt(0);
 				outputStream.writeInt(met.z);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -794,7 +760,7 @@ public class HandlerMeteor
 			DataOutputStream outputStream = new DataOutputStream(bos);
 			try {
 				outputStream.writeInt(met.x);
-				outputStream.writeInt(this.theWorld.getFirstUncoveredBlock(met.x, met.z));
+				outputStream.writeInt(0);
 				outputStream.writeInt(met.z);
 			} catch (Exception e) {
 				e.printStackTrace();

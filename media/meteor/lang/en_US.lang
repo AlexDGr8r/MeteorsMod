@@ -80,6 +80,7 @@ enchantment.frezSword.two=them to slow down.
 Meteor.netherPortalCreation=A portal to the Nether has been created!
 Meteor.kittiesDetected.one=Living Entities detected in airspace!
 Meteor.kittiesDetected.two=Prepare for multiple impacts!
+Meteor.crashed=A Meteor has Crashed!
 
 MeteorSummoner.incomingMeteor=Incoming Meteor!!!
 MeteorSummoner.wrongDimension=Cannot summon meteors in this dimension.

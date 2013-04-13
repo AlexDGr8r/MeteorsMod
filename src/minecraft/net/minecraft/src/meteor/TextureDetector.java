@@ -102,12 +102,9 @@ public class TextureDetector extends TextureStitched {
             ;
         }
 
-        if (i != this.frameCounter) // field_94222_f current index of icon?
+        if (i != this.frameCounter)
         {
             this.frameCounter = i;
-            // field_94226_b list of all textures from png file?
-            // function below possibly sets the icon based off the index computed above
-            // with modification, could create some nice effects
             this.textureSheet.copyFrom(this.originX, this.originY, (Texture)this.textureList.get(this.frameCounter), this.rotated);
         }
     }
