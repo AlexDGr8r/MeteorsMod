@@ -51,7 +51,7 @@ implements ITickHandler
 
 		boolean wearingLegs = isWearing(MeteorsMod.FrezariteLegs.itemID, inv.armorItemInSlot(1));
 		boolean wearingBoots = isWearing(MeteorsMod.FrezariteBoots.itemID, inv.armorItemInSlot(0));
-		if (wearingLegs || wearingBoots && !player.isInWater())
+		if ((wearingLegs || wearingBoots) && !player.isInWater())
 		{
 			if (wearingLegs && wearingBoots && player.isSprinting())
 			{
