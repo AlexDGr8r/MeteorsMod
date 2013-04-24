@@ -284,7 +284,7 @@ public class HandlerMeteor
 			}
 			return cList;
 		}
-		return null;
+		return new ArrayList<SafeChunkCoordsIntPair>();
 	}
 
 	public void readyNewMeteor(int x, int z, int size, int tGoal, EnumMeteor type) {

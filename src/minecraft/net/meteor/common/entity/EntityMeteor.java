@@ -78,9 +78,9 @@ implements IEntityAdditionalSpawnData
 			return;
 		}
 		if ((!this.summoned) && (MeteorInProtectedZone())) {
-			List safeCoords = MeteorsMod.proxy.meteorHandler.getSafeChunkCoords((int)this.posX, (int)this.posZ);
+			List<SafeChunkCoordsIntPair> safeCoords = MeteorsMod.proxy.meteorHandler.getSafeChunkCoords((int)this.posX, (int)this.posZ);
 			for (int j = 0; j < safeCoords.size(); j++) {
-				SafeChunkCoordsIntPair sc = (SafeChunkCoordsIntPair)safeCoords.get(j);
+				SafeChunkCoordsIntPair sc = safeCoords.get(j);
 				if (this.worldObj.isRemote) {
 					MeteorsMod.proxy.meteorProtectCheck(sc.getOwner());
 				}
