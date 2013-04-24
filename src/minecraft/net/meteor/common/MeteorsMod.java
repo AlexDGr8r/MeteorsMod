@@ -575,6 +575,10 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 		GameRegistry.addRecipe(new ItemStack(blockRedMeteorGem, 1), new Object[] {
 			"rrr", "rrr", "rrr", Character.valueOf('r'), itemRedMeteorGem
 		});
+		
+		GameRegistry.addShapelessRecipe(new ItemStack(itemRedMeteorGem, 9), new Object[] {
+			blockRedMeteorGem
+		});
 
 		if (!forModpack) {
 			GameRegistry.addRecipe(new ItemStack(itemMeteorProximityDetector, 1), new Object[] { 

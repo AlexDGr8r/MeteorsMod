@@ -192,7 +192,7 @@ public class BlockMeteorShield extends BlockContainer
 				world.markBlockForUpdate(i, j, k);
 				world.playSoundEffect(i + 0.5D, j + 0.5D, k + 0.5D, "shield.powerup", 1.0F, meta / 10.0F + 0.5F);
 				if (!player.capabilities.isCreativeMode) cItem.stackSize--;
-				if (!world.isRemote) player.sendChatToPlayer("\247a" + LangLocalization.get("MeteorShield.PowerUpgradePercentage") + "\2476" + 20 * meta + "%");
+				if (!world.isRemote) player.sendChatToPlayer("\247a" + LangLocalization.get("MeteorShield.PowerUpgradePercentage") + "\2476 " + 20 * meta + "%");
 				if (meta >= 5) {
 					player.addStat(HandlerAchievement.shieldFullyUpgraded, 1);
 				}

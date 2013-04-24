@@ -168,9 +168,9 @@ public class HandlerMeteor
 					gMeteor.update();
 					if (gMeteor.ready) {
 						if (meteorInProtectedZone(gMeteor.x, gMeteor.z)) {
-							List safeCoords = getSafeChunkCoords(gMeteor.x, gMeteor.z);
+							List<SafeChunkCoordsIntPair> safeCoords = getSafeChunkCoords(gMeteor.x, gMeteor.z);
 							for (int j = 0; j < safeCoords.size(); j++) {
-								SafeChunkCoordsIntPair sc = (SafeChunkCoordsIntPair)safeCoords.get(j);
+								SafeChunkCoordsIntPair sc = safeCoords.get(j);
 								MeteorsMod.proxy.meteorProtectCheck(sc.getOwner());
 								MeteorsMod.proxy.lastMeteorPrevented.put(sc.getOwner(), gMeteor.type);
 								ClientHandler.sendShieldProtectUpdate(sc.getOwner());
