@@ -42,7 +42,7 @@ item.KreknoriteBoots.name=Hoelloriten-Boots
 item.KreknoriteSword.name=Hoelloriten-Klinge
 item.VanillaIceCream.name=Vanille-Speiseeis
 item.ChocolateIceCream.name=Schokoladeneis
-item.MeteorDetectorProximity.name=Meteoriten-N�hrungssensor
+item.MeteorDetectorProximity.name=Meteoriten-Naehrungssensor
 item.MeteorDetectorTime.name=Meteoriten-Zeitmesser
 item.MeteorDetectorCrash.name=Meteoriten-Einschlagmelder
 
@@ -60,7 +60,7 @@ ProtectionTorch.landOwnership=Dieses Gebiet ist geschuetzt durch das Schild von:
 enchantment.Magnetization=Magnetisierung
 enchantment.ColdTouch=Kalte-Beruehrung
 enchantment.addEnch.one=Mit der rechten Maustaste klicken
-enchantment.addEnch.two=um Verzauberung hinzuzuf�gen
+enchantment.addEnch.two=um Verzauberung hinzuzufuegen
 enchantment.frezAxe.one=Erhoeht Unterwasser
 enchantment.frezAxe.two=Abbaugeschwindigkeit
 enchantment.frezHoe.one=Beweasssert automatisch
