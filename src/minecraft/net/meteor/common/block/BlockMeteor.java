@@ -149,10 +149,10 @@ public class BlockMeteor extends BlockMeteorsMod
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public Icon getBlockTextureFromSideAndMetadata(int i, int j)
+	public Icon getIcon(int i, int j)
 	{
 		if (j == 0) {
-			super.getBlockTextureFromSideAndMetadata(i, j);
+			super.getIcon(i, j);
 			return this.blockIcon;
 		}
 		return this.hotTex;

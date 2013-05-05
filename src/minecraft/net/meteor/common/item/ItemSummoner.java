@@ -62,14 +62,14 @@ public class ItemSummoner extends ItemMeteorsMod
 		case 5:
 			return this.kittyIcon;
 		default:
-			return this.iconIndex;
+			return this.itemIcon;
 		}
 	}
 	
 	@SideOnly(Side.CLIENT)
 	@Override
-    public void updateIcons(IconRegister par1IconRegister) {
-		this.iconIndex = par1IconRegister.registerIcon("summoner");
+    public void registerIcons(IconRegister par1IconRegister) {
+		this.itemIcon = par1IconRegister.registerIcon("summoner");
 		this.metIcon = par1IconRegister.registerIcon("sum_met");
 		this.frezIcon = par1IconRegister.registerIcon("sum_frez");
 		this.krekIcon = par1IconRegister.registerIcon("sum_krek");

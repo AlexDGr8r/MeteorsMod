@@ -143,7 +143,7 @@ public class CrashUnknown extends CrashMeteorite
 			return null;
 		case 48:
 		case 49:
-			return new ItemStack(Block.blockSteel, random.nextInt(5) + 1);
+			return new ItemStack(Block.blockIron, random.nextInt(5) + 1);
 		case 50:
 		case 51:
 		case 52:

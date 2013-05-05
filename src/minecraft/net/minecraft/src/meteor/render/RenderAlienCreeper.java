@@ -76,7 +76,7 @@ public class RenderAlienCreeper extends RenderLiving {
 	{
 		if (entitycreeper.getPowered())
 		{
-			if (entitycreeper.getHasActivePotion())
+			if (entitycreeper.isInvisible())
 			{
 				GL11.glDepthMask(false);
 			}

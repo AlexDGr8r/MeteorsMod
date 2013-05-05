@@ -108,7 +108,7 @@ public class BlockKreknorite extends BlockMeteor
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public Icon getBlockTextureFromSideAndMetadata(int i, int j)
+	public Icon getIcon(int i, int j)
 	{
 		return this.blockIcon;
 	}

@@ -189,7 +189,7 @@ public class SBAPI {
 					world.setBlock(x, y + 1, z, block, mData + TopOfDoor, 3);
 				}
 			}
-		} else if (block == Block.doorSteel.blockID) {
+		} else if (block == Block.doorIron.blockID) {
 			if (mData >= TopOfDoor) {
 				if (world.getBlockId(x, y - 1, z) != block) {
 					world.setBlock(x, y - 1, z, block, mData - TopOfDoor, 3);

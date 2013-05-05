@@ -69,7 +69,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid="Meteors", name="Falling Meteors", version="2.10.1")
+@Mod(modid="Meteors", name="Falling Meteors", version="2.10.2")
 @NetworkMod(clientSideRequired=true, serverSideRequired=false, channels={"MetChunk", "MetSettings", "MetNewCrash", "MetNewTime", "MetGhostAdd", "MetGhostRem", "MetShield"}, packetHandler=ClientHandler.class)
 public class MeteorsMod
 implements ICraftingHandler, IFuelHandler, IWorldGenerator

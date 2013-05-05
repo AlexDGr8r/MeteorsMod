@@ -82,7 +82,7 @@ public class BlockMeteorTimer extends BlockContainer {
 	}
 	
 	@Override
-	public Icon getBlockTextureFromSideAndMetadata(int i, int j)
+	public Icon getIcon(int i, int j)
 	{
 		if (i > 1) {
 			return this.timerSide;
