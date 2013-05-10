@@ -568,6 +568,12 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 		
 		GameRegistry.addRecipe(new ItemStack(blockMeteorTimer, 1), new Object[] {
 			"mfk", "brb", Character.valueOf('m'), itemMeteorChips, Character.valueOf('f'), itemFrezaCrystal, 
+			Character.valueOf('k'), itemKreknoChip, Character.valueOf('b'), blockMeteorOre, 
+			Character.valueOf('r'), Item.redstone
+		});
+		
+		GameRegistry.addRecipe(new ItemStack(blockMeteorTimer, 1), new Object[] {
+			"mfk", "brb", Character.valueOf('m'), itemMeteorChips, Character.valueOf('f'), itemFrezaCrystal, 
 			Character.valueOf('k'), itemKreknoChip, Character.valueOf('b'), blockMeteor, 
 			Character.valueOf('r'), Item.redstone
 		});
