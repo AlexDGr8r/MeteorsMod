@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.src.meteor.model.ModelMeteorShieldRay;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
@@ -17,6 +18,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class TileEntityMeteorShieldRayRenderer extends TileEntitySpecialRenderer
 {
+	private static final ResourceLocation rayTex = new ResourceLocation("meteors", "textures/entities/shieldRay.png");
+	
 	private ModelMeteorShieldRay aModel;
 
 	public TileEntityMeteorShieldRayRenderer()
@@ -34,7 +37,7 @@ public class TileEntityMeteorShieldRayRenderer extends TileEntitySpecialRenderer
 			GL11.glDisable(2896);
 			GL11.glPushMatrix();
 			GL11.glTranslatef((float)par2 + 0.5F + shield.rayXMod, (float)par4 + shield.rayHeight + 0.75F, (float)par6 + 0.5F + shield.rayZMod);
-			this.bindTextureByName("/meteor/textures/shieldRay.png");
+			this.func_110628_a(rayTex);
 			GL11.glScalef(0.5F, 0.5F, 0.5F);
 			this.aModel.renderModel(shield, 0.0625F);
 			GL11.glPopMatrix();
@@ -46,7 +49,7 @@ public class TileEntityMeteorShieldRayRenderer extends TileEntitySpecialRenderer
 				met = EnumMeteor.METEORITE;
 			}
 			Tessellator var10 = Tessellator.instance;
-			bindTextureByName(met.getBeamTexture());
+			this.func_110628_a(met.getBeamTexture());
 			GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, 10497.0F);
 			GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, 10497.0F);
 			GL11.glDisable(GL11.GL_LIGHTING);

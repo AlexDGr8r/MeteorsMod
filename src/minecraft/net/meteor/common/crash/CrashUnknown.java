@@ -81,7 +81,6 @@ public class CrashUnknown extends CrashMeteorite
 		case 10:
 		case 11:
 			ItemStack item2 = new ItemStack(MeteorsMod.MeteoriteBody, 1);
-			item2.addEnchantment(MeteorsMod.Magnetization, 1);
 			return item2;
 		case 12:
 		case 13:
@@ -90,7 +89,6 @@ public class CrashUnknown extends CrashMeteorite
 		case 15:
 		case 16:
 			ItemStack item = new ItemStack(MeteorsMod.KreknoriteSword, 1);
-			item.addEnchantment(Enchantment.fireAspect, 2);
 			return item;
 		case 17:
 		case 18:
@@ -104,7 +102,6 @@ public class CrashUnknown extends CrashMeteorite
 		case 24:
 		case 25:
 			ItemStack item1 = new ItemStack(MeteorsMod.KreknoriteBody, 1);
-			item1.addEnchantment(Enchantment.fireProtection, 4);
 			return item1;
 		case 26:
 		case 27:
@@ -127,12 +124,10 @@ public class CrashUnknown extends CrashMeteorite
 		case 39:
 		case 40:
 			ItemStack item3 = new ItemStack(MeteorsMod.KreknoriteHelmet, 1);
-			item3.addEnchantment(Enchantment.fireProtection, 4);
 			return item3;
 		case 41:
 		case 42:
 			ItemStack item4 = new ItemStack(MeteorsMod.FrezariteHelmet, 1);
-			item4.addEnchantment(Enchantment.respiration, 3);
 			return item4;
 		case 43:
 		case 44:

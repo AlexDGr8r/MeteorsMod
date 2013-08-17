@@ -9,11 +9,12 @@ public class MetCrashSoundHandler
 	@ForgeSubscribe
 	public void onLoadSoundSettings(SoundLoadEvent event)
 	{
-		String folder = "/meteor/sound/";
 		try {
 			SoundManager soundManager = event.manager;
-			soundManager.soundPoolSounds.addSound("meteor/crash.wav", getClass().getResource(folder + "meteor/crash.wav"));
-			soundManager.soundPoolSounds.addSound("shield/powerup.wav", getClass().getResource(folder + "shield/powerup.wav"));
+			soundManager.soundPoolSounds.addSound("meteors:meteor/crash.wav");
+			soundManager.soundPoolSounds.addSound("meteors:shield/powerup.wav");
+			soundManager.soundPoolSounds.addSound("meteors:shield/powerdown.wav");
+			soundManager.soundPoolSounds.addSound("meteors:shield/humm.wav");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

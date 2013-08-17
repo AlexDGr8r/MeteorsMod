@@ -3,6 +3,7 @@ package net.meteor.common;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.stats.Achievement;
 import net.minecraft.stats.IStatStringFormat;
 import cpw.mods.fml.relauncher.Side;
@@ -27,6 +28,12 @@ public class AchievementMeteorsMod extends Achievement
 	public AchievementMeteorsMod(int par1, String par2Str, int par3, int par4, ItemStack par5ItemStack, Achievement par6Achievement) {
 		super(par1, par2Str, par3, par4, par5ItemStack, par6Achievement);
 		this.desc = ("achievement." + par2Str + ".desc");
+		NBTTagCompound tag = par5ItemStack.getTagCompound();
+		if (tag == null) {
+			tag = new NBTTagCompound();
+		}
+		tag.setBoolean("enchant-set", true);
+		par5ItemStack.setTagCompound(tag);
 	}
 	
 	@SideOnly(Side.CLIENT)

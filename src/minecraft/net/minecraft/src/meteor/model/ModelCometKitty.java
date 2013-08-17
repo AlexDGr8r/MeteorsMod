@@ -3,7 +3,7 @@ package net.minecraft.src.meteor.model;
 import net.minecraft.client.model.ModelOcelot;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityOcelot;
 
 import org.lwjgl.opengl.GL11;
@@ -53,7 +53,7 @@ public class ModelCometKitty extends ModelOcelot
 	}
 
 	@Override
-	public void setLivingAnimations(EntityLiving par1EntityLiving, float par2, float par3, float par4) {
+	public void setLivingAnimations(EntityLivingBase par1EntityLiving, float par2, float par3, float par4) {
 		super.setLivingAnimations(par1EntityLiving, par2, par3, par4);
 		EntityOcelot var5 = (EntityOcelot)par1EntityLiving;
 		this.helmet.rotationPointY = 15.0F;

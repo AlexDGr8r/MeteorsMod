@@ -11,6 +11,8 @@ tile.blockRedGem.name=Block of Red Meteor Gem
 
 item.MeteorChips.name=Meteor Chip
 item.RedMeteorGem.name=Red Meteor Gem
+item.RedMeteorGem.desc.one=The energy in this gem appears to
+item.RedMeteorGem.desc.two=have the ability to manipulate Meteors.
 item.MeteorSummoner.random.name=Meteor Summoner
 item.MeteorSummoner.meteorite.name=Meteorite Meteor Summoner
 item.MeteorSummoner.frezarite.name=Frezarite Meteor Summoner
@@ -56,11 +58,21 @@ MeteorShield.noUpgrade=Upgrading this Meteor Shield does nothing!
 # Example output for below: Meteor Shield now at 80%
 MeteorShield.PowerUpgradePercentage=Meteor Shield now at
 MeteorShield.meteorBlocked=Your Meteor Shield protected your land from a meteor.
+MeteorShield.howToUpgrade=Red Meteor Gems from Meteorites should make the shield stronger.
+
+Detector.scanning=Scanning
+Detector.detected=Meteor Detected!
+Detector.time=Detects next incoming meteor.
+Detector.proximity=Detects closest incoming meteor.
+Detector.crash=Detects last crash zone.
+CrashDetector.noActivity=No seismic activity detected!
+CrashDetector.zoneLocated=Crash zone located!
 
 MeteorTimer.modeChange.one=Power Mode: Meteor Timer will now put out a redstone signal with the strength based on how close the meteor is to crashing.
 MeteorTimer.modeChange.two=Quick Mode: Meteor Timer will now only put out a redstone signal when a meteor is just about to crash.
 
 ProtectionTorch.landOwnership=This land is protected by:
+ProtectionTorch.usage=One-time use!
 
 enchantment.Magnetization=Magnetization
 enchantment.ColdTouch=Cold Touch
@@ -80,11 +92,13 @@ enchantment.frezSword.two=them to slow down.
 Meteor.netherPortalCreation=A portal to the Nether has been created!
 Meteor.kittiesDetected.one=Living Entities detected in airspace!
 Meteor.kittiesDetected.two=Prepare for multiple impacts!
+Meteor.kittiesIncoming=Comet Kitties incoming!!!
 Meteor.crashed=A Meteor has Crashed!
 
 MeteorSummoner.incomingMeteor=Incoming Meteor!!!
 MeteorSummoner.wrongDimension=Cannot summon meteors in this dimension.
 MeteorSummoner.landProtected=This land is protected by another player!
+MeteorSummoner.cannotSummon=You are not allowed to summon meteors!
 
 itemGroup.Meteor=Falling Meteors
 
@@ -106,10 +120,12 @@ achievement.foundMeteor.desc=Use a detector to locate a crash site and be near t
 achievement.craftedMeteorTimer=Timely Detection
 achievement.craftedMeteorTimer.desc=Craft a Meteor Timer to know when a meteor is about to fall.
 achievement.summonMeteor=Drop the Rock!
-achievement.summonMeteor.desc=Summoner a meteor with a meteor summoner.
+achievement.summonMeteor.desc=Summon a meteor with a meteor summoner.
 achievement.cometKittyEvent=Foreign Feline
 achievement.cometKittyEvent.desc=Experience the fall of many felines.
 achievement.kittyTame=Friendly Feline
 achievement.kittyTame.desc=Tame a Comet Kitty for a fireproof companion.
 achievement.materialGather=Not of This World
 achievement.materialGather.desc=Gather ore from a fallen meteor.
+achievement.meteorManipulator=True Power
+achievement.meteorManipulator.desc=Find a Red Meteor Gem from a Meteorite Meteor

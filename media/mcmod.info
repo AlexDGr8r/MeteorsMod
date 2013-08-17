@@ -1,11 +1,11 @@
 [
 {
-  "modid" : "Meteors",
+  "modid" : "meteors",
   "name" : "Falling Meteors",
-  "version" : "2.10.2",
-  "mcversion" : "1.5.2",
+  "version" : "2.11.1",
+  "mcversion" : "1.6.2",
   "url" : "http://bit.ly/KyDD0g",
-  "credits": "Programming/textures: AlexDGr8r. Other Textures: Firecat1311, SLuRsniper24",
+  "credits": "Code/textures: AlexDGr8r. Other Textures: Firecat1311, SLuRsniper24",
   "authors": [
      "AlexDGr8r"
   ],

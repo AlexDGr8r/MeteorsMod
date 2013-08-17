@@ -3,7 +3,7 @@ package net.meteor.common.item;
 import java.util.List;
 
 import net.meteor.common.LangLocalization;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.ItemStack;
@@ -21,7 +21,7 @@ public class ItemFrezariteSword extends ItemSword
 	}
 
 	@Override
-	public boolean hitEntity(ItemStack par1ItemStack, EntityLiving par2EntityLiving, EntityLiving par3EntityLiving)
+	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLiving, EntityLivingBase par3EntityLiving)
 	{
 		par2EntityLiving.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 40, 5));
 		return super.hitEntity(par1ItemStack, par2EntityLiving, par3EntityLiving);

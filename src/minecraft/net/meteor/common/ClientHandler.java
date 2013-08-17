@@ -7,6 +7,7 @@ import java.io.DataOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.NetLoginHandler;
 import net.minecraft.network.packet.NetHandler;
@@ -14,8 +15,13 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet1Login;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.ChatMessageComponent;
 import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.World;
+import net.minecraftforge.event.ForgeSubscribe;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.IConnectionHandler;
 import cpw.mods.fml.common.network.IPacketHandler;
@@ -28,7 +34,7 @@ implements IConnectionHandler, IPacketHandler
 {
 	public static ChunkCoordinates lastCrashLocation = null;
 	public static ChunkCoordinates nearestTimeLocation = null;
-	private static ArrayList<ChunkCoordinates> ghostMetLocs = new ArrayList<ChunkCoordinates>();
+	public static ArrayList<ChunkCoordinates> ghostMetLocs = new ArrayList<ChunkCoordinates>(); // TODO Privatize
 
 	public static ChunkCoordinates getClosestIncomingMeteor(double pX, double pZ) {
 		ChunkCoordinates coords = null;
@@ -54,17 +60,56 @@ implements IConnectionHandler, IPacketHandler
 		double var11 = z1 - z2;
 		return MathHelper.sqrt_double(var7 * var7 + var9 * var9 + var11 * var11);
 	}
+	
+	public static void sendPacketToAllInWorld(World world, Packet packet) {
+		Iterator<EntityPlayer> iter = world.playerEntities.iterator();
+		while (iter.hasNext()) {
+			PacketDispatcher.sendPacketToPlayer(packet, (Player)iter.next());
+		}
+	}
+	
+	public static ChatMessageComponent createMessage(String s, EnumChatFormatting ecf) {
+		return ChatMessageComponent.func_111077_e(s).func_111059_a(ecf);
+	}
 
 	@Override
 	public void playerLoggedIn(Player player, NetHandler netHandler, INetworkManager manager)
 	{
 		sendSettingsPacket(player);
-		sendMetChunksPacket(player);
-		sendLastCrashPacket(player);
-		sendNearestTimePacket(player);
-		MeteorsMod.proxy.meteorHandler.sendGhostMeteorPackets(player);
-		for (String o : MeteorsMod.proxy.lastMeteorPrevented.keySet())
+		for (String o : MeteorsMod.proxy.lastMeteorPrevented.keySet()) {
 			sendShieldProtectUpdate(o);
+		}
+	}
+	
+	@ForgeSubscribe
+	public void entityJoinWorld(EntityJoinWorldEvent event) {
+		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
+			if (event.entity instanceof EntityPlayer) {
+				Player player = (Player)event.entity;
+				HandlerMeteor metHandler = MeteorsMod.proxy.metHandlers.get(event.world.provider.dimensionId);
+				sendEmptyGhostMeteorPacket(player);
+				metHandler.sendGhostMeteorPackets(player);
+				sendLastCrashPacket(player, metHandler);
+				sendNearestTimePacket(player, metHandler);
+			}
+		}
+	}
+	
+	private void sendEmptyGhostMeteorPacket(Player player) {
+		ByteArrayOutputStream bos = new ByteArrayOutputStream(12);
+		DataOutputStream outputStream = new DataOutputStream(bos);
+		try {
+			outputStream.writeInt(-1);
+			outputStream.writeInt(-1);
+			outputStream.writeInt(-1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Packet250CustomPayload packet = new Packet250CustomPayload();
+		packet.channel = "MetGhostRem";
+		packet.data = bos.toByteArray();
+		packet.length = bos.size();
+		PacketDispatcher.sendPacketToPlayer(packet, player);
 	}
 
 	private void sendSettingsPacket(Player player)
@@ -88,32 +133,8 @@ implements IConnectionHandler, IPacketHandler
 		PacketDispatcher.sendPacketToPlayer(packet, player);
 	}
 
-	private void sendMetChunksPacket(Player player) {
-		Iterator iter = MeteorsMod.proxy.meteorHandler.shieldData.iterator();
-		while (iter.hasNext()) {
-			ShieldData sData = (ShieldData)iter.next();
-			int size = 15 + sData.owner.getBytes().length;
-			ByteArrayOutputStream bos = new ByteArrayOutputStream(size);
-			DataOutputStream outputStream = new DataOutputStream(bos);
-			try {
-				outputStream.writeInt(sData.x);
-				outputStream.writeInt(sData.z);
-				outputStream.writeInt(sData.radius);
-				outputStream.writeBoolean(sData.tbr);
-				Packet.writeString(sData.owner, outputStream);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			Packet250CustomPayload packet = new Packet250CustomPayload();
-			packet.channel = "MetChunk";
-			packet.data = bos.toByteArray();
-			packet.length = bos.size();
-			PacketDispatcher.sendPacketToPlayer(packet, player);
-		}
-	}
-
-	private void sendLastCrashPacket(Player player) {
-		ChunkCoordinates coords = MeteorsMod.proxy.meteorHandler.getLastCrashLocation();
+	private void sendLastCrashPacket(Player player, HandlerMeteor handler) {
+		ChunkCoordinates coords = handler.getLastCrashLocation();
 		if (coords == null) return;
 		ByteArrayOutputStream bos = new ByteArrayOutputStream(12);
 		DataOutputStream outputStream = new DataOutputStream(bos);
@@ -131,22 +152,21 @@ implements IConnectionHandler, IPacketHandler
 		PacketDispatcher.sendPacketToPlayer(packet, player);
 	}
 
-	private void sendNearestTimePacket(Player player) {
+	private void sendNearestTimePacket(Player player, HandlerMeteor handler) {
 		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
-			GhostMeteor gMeteor = MeteorsMod.proxy.meteorHandler.getNearestTimeMeteor();
+			GhostMeteor gMeteor = handler.getNearestTimeMeteor();
 			ChunkCoordinates coords = null;
 			if (gMeteor != null)
 				coords = new ChunkCoordinates(gMeteor.x, 0, gMeteor.z);
 			else {
 				return;
 			}
-			ByteArrayOutputStream bos = new ByteArrayOutputStream(16);
+			ByteArrayOutputStream bos = new ByteArrayOutputStream(12);
 			DataOutputStream outputStream = new DataOutputStream(bos);
 			try {
 				outputStream.writeInt(coords.posX);
 				outputStream.writeInt(coords.posY);
 				outputStream.writeInt(coords.posZ);
-				outputStream.writeInt(gMeteor.getRemainingTicks());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -162,7 +182,7 @@ implements IConnectionHandler, IPacketHandler
 		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
 			EnumMeteor type = (EnumMeteor)MeteorsMod.proxy.lastMeteorPrevented.get(owner);
 			if (type == null) {
-				MeteorsMod.log.info("type is null");
+				//MeteorsMod.log.info("type is null");
 				type = EnumMeteor.METEORITE;
 			}
 			ByteArrayOutputStream bos = new ByteArrayOutputStream(6 + owner.getBytes().length);
@@ -185,42 +205,18 @@ implements IConnectionHandler, IPacketHandler
 	public void onPacketData(INetworkManager manager, Packet250CustomPayload packet, Player player)
 	{
 		if (MeteorsMod.loggable) MeteorsMod.log.info("packet received: " + packet.channel);
-		if (packet.channel.equalsIgnoreCase("MetChunk"))
-			handleSafeChunkUpdate(packet);
-		else if (packet.channel.equalsIgnoreCase("MetSettings"))
+		if (packet.channel.equalsIgnoreCase("MetSettings")) {
 			handleModSettings(packet);
-		else if (packet.channel.equalsIgnoreCase("MetNewCrash"))
+		} else if (packet.channel.equalsIgnoreCase("MetNewCrash")) {
 			handleNewCrash(packet);
-		else if (packet.channel.equalsIgnoreCase("MetNewTime"))
+		} else if (packet.channel.equalsIgnoreCase("MetNewTime")) {
 			handleNewTime(packet);
-		else if (packet.channel.equalsIgnoreCase("MetGhostAdd"))
+		} else if (packet.channel.equalsIgnoreCase("MetGhostAdd")) {
 			handleGhostMetAdd(packet);
-		else if (packet.channel.equalsIgnoreCase("MetGhostRem"))
+		} else if (packet.channel.equalsIgnoreCase("MetGhostRem")) {
 			handleGhostMetRemove(packet);
-		else if (packet.channel.equalsIgnoreCase("MetShield"))
+		} else if (packet.channel.equalsIgnoreCase("MetShield")) {
 			handleShieldUpdate(packet);
-	}
-
-	private void handleSafeChunkUpdate(Packet250CustomPayload packet)
-	{
-		if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) { 
-			DataInputStream inputStream = new DataInputStream(new ByteArrayInputStream(packet.data));
-			int x;
-			int z;
-			int radius;
-			boolean remove;
-			String owner;
-			try { 
-				x = inputStream.readInt();
-				z = inputStream.readInt();
-				radius = inputStream.readInt();
-				remove = inputStream.readBoolean();
-				owner = Packet.readString(inputStream, 16);
-			} catch (Exception e) {
-				e.printStackTrace();
-				return;
-			}
-			MeteorsMod.proxy.meteorHandler.updateQueue.add(new ShieldData(x, z, radius, owner, remove));
 		}
 	}
 
@@ -250,22 +246,18 @@ implements IConnectionHandler, IPacketHandler
 			int x;
 			int y;
 			int z;
-			int tr;
 			try { 
 				x = inputStream.readInt();
 				y = inputStream.readInt();
 				z = inputStream.readInt();
-				tr = inputStream.readInt();
 			} catch (Exception e) {
 				e.printStackTrace();
 				return;
 			}
 			if ((x == 0) && (y == 0) && (z == 0)) {
 				nearestTimeLocation = null;
-				MeteorsMod.proxy.nearestTimeLeft = 0;
 			} else {
 				nearestTimeLocation = new ChunkCoordinates(x, y, z);
-				MeteorsMod.proxy.nearestTimeLeft = tr;
 			} 
 		}
 	}
@@ -306,11 +298,15 @@ implements IConnectionHandler, IPacketHandler
 				return;
 			}
 			ChunkCoordinates coords = new ChunkCoordinates(x, y, z);
-			for (int i = 0; i < ghostMetLocs.size(); i++) {
-				ChunkCoordinates cc = ghostMetLocs.get(i);
-				if (cc.posX == coords.posX && cc.posZ == coords.posZ) {
-					ghostMetLocs.remove(i);
-					break;
+			if (coords.posX == -1 && coords.posY == -1 && coords.posZ == -1) {
+				ghostMetLocs.clear();
+			} else {
+				for (int i = 0; i < ghostMetLocs.size(); i++) {
+					ChunkCoordinates cc = ghostMetLocs.get(i);
+					if (cc.posX == coords.posX && cc.posZ == coords.posZ) {
+						ghostMetLocs.remove(i);
+						break;
+					}
 				}
 			}
 		}
@@ -319,9 +315,6 @@ implements IConnectionHandler, IPacketHandler
 	private void handleModSettings(Packet250CustomPayload packet)
 	{
 		if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
-			lastCrashLocation = null;
-			nearestTimeLocation = null;
-			ghostMetLocs = new ArrayList();
 			MeteorsMod mod = MeteorsMod.instance;
 			DataInputStream inputStream = new DataInputStream(new ByteArrayInputStream(packet.data));
 			try {

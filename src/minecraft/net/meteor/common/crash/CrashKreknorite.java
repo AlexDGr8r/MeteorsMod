@@ -3,11 +3,16 @@ package net.meteor.common.crash;
 import java.util.ArrayList;
 import java.util.Random;
 
+import net.meteor.common.ClientHandler;
 import net.meteor.common.EnumMeteor;
+import net.meteor.common.LangLocalization;
 import net.meteor.common.MeteorsMod;
 import net.meteor.common.SBAPI;
 import net.minecraft.block.Block;
 import net.minecraft.entity.monster.EntityBlaze;
+import net.minecraft.network.packet.Packet3Chat;
+import net.minecraft.util.ChatMessageComponent;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
@@ -103,10 +108,10 @@ public class CrashKreknorite extends CrashMeteorite
 		world.setBlock(i, j + 4, k, Block.fire.blockID, 0, 3);
 	}
 
-	@SideOnly(Side.CLIENT)
 	public void afterCrashCompleted(World world, int i, int j, int k) {
-		if (this.crashSize >= 2)
-			MeteorsMod.proxy.sendPortalCreationMessage();
+		if (this.crashSize >= 2 && !world.isRemote) {
+			ClientHandler.sendPacketToAllInWorld(world, new Packet3Chat(ChatMessageComponent.func_111077_e(LangLocalization.get("Meteor.netherPortalCreation")).func_111059_a(EnumChatFormatting.DARK_RED)));
+		}
 	}
 
 }

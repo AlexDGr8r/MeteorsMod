@@ -54,15 +54,6 @@ public class BlockMeteorTimer extends BlockContainer {
     	return par1IBlockAccess.getBlockMetadata(par2, par3, par4);
     }
 	
-	/**
-     * Returns true if the block is emitting direct/strong redstone power on the specified side. Args: World, X, Y, Z,
-     * side. Note that the side is reversed - eg it is 1 (up) when checking the bottom of the block.
-     */
-	@Override
-    public int isProvidingStrongPower(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5) {
-    	return this.isProvidingWeakPower(par1IBlockAccess, par2, par3, par4, par5);
-    }
-	
 	@Override
 	public int getMobilityFlag() {
 		return 1;
@@ -77,17 +68,14 @@ public class BlockMeteorTimer extends BlockContainer {
 	@SideOnly(Side.CLIENT)
 	@Override
     public void registerIcons(IconRegister par1IconRegister) {
-		this.blockIcon = par1IconRegister.registerIcon("MeteorTimer");
-		this.timerSide = par1IconRegister.registerIcon("timerSide");
+		this.blockIcon = par1IconRegister.registerIcon("meteors:MeteorTimer");
+		this.timerSide = par1IconRegister.registerIcon("meteors:timerSide");
 	}
 	
 	@Override
 	public Icon getIcon(int i, int j)
 	{
-		if (i > 1) {
-			return this.timerSide;
-		}
-		return this.blockIcon;
+		return i > 1 ? this.timerSide : this.blockIcon;
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -100,13 +88,13 @@ public class BlockMeteorTimer extends BlockContainer {
 	@Override
 	public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer player, int par6, float par7, float par8, float par9)
 	{
-		TileEntityMeteorTimer tEntity = (TileEntityMeteorTimer)world.getBlockTileEntity(i, j, k);
-		tEntity.quickMode = !tEntity.quickMode;
 		if (!world.isRemote) {
+			TileEntityMeteorTimer tEntity = (TileEntityMeteorTimer)world.getBlockTileEntity(i, j, k);
+			tEntity.quickMode = !tEntity.quickMode;
 			if (tEntity.quickMode) {
-				player.sendChatToPlayer(LangLocalization.get("MeteorTimer.modeChange.two"));
+				player.addChatMessage(LangLocalization.get("MeteorTimer.modeChange.two"));
 			} else {
-				player.sendChatToPlayer(LangLocalization.get("MeteorTimer.modeChange.one"));
+				player.addChatMessage(LangLocalization.get("MeteorTimer.modeChange.one"));
 			}
 		}
 		

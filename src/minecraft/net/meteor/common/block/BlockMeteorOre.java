@@ -4,6 +4,8 @@ import java.util.Random;
 
 import net.meteor.common.MeteorsMod;
 import net.minecraft.block.material.Material;
+import net.minecraft.util.MathHelper;
+import net.minecraft.world.World;
 
 public class BlockMeteorOre extends BlockMeteorsMod
 {
@@ -23,4 +25,5 @@ public class BlockMeteorOre extends BlockMeteorsMod
 	{
 		return MeteorsMod.itemMeteorChips.itemID;
 	}
+	
 }

@@ -3,9 +3,11 @@ package net.minecraft.src.meteor.render;
 import net.meteor.common.entity.EntityAlienCreeper;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.src.meteor.model.ModelAlienCreeper;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
@@ -16,6 +18,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class RenderAlienCreeper extends RenderLiving {
 
 	private ModelBase creeperModel;
+	
+	private static final ResourceLocation skin = new ResourceLocation("meteors", "textures/entities/meteorcreeper.png");
+	private static final ResourceLocation electricity = new ResourceLocation("textures/entity/creeper/creeper_armor.png");
 
 	public RenderAlienCreeper()
 	{
@@ -88,7 +93,7 @@ public class RenderAlienCreeper extends RenderLiving {
 			if (par2 == 1)
 			{
 				float var4 = (float)entitycreeper.ticksExisted + par3;
-				this.loadTexture("/armor/power.png");
+				this.func_110776_a(electricity);
 				GL11.glMatrixMode(GL11.GL_TEXTURE);
 				GL11.glLoadIdentity();
 				float var5 = var4 * 0.01F;
@@ -122,24 +127,33 @@ public class RenderAlienCreeper extends RenderLiving {
 		return -1;
 	}
 
-	protected void preRenderCallback(EntityLiving entityliving, float f)
+	@Override
+	protected void preRenderCallback(EntityLivingBase entityliving, float f)
 	{
 		updateCreeperScale((EntityAlienCreeper)entityliving, f);
 	}
 
-	protected int getColorMultiplier(EntityLiving entityliving, float f, float f1)
+	@Override
+	protected int getColorMultiplier(EntityLivingBase entityliving, float f, float f1)
 	{
 		return updateCreeperColorMultiplier((EntityAlienCreeper)entityliving, f, f1);
 	}
 
-	protected int shouldRenderPass(EntityLiving entityliving, int i, float f)
+	@Override
+	protected int shouldRenderPass(EntityLivingBase entityliving, int i, float f)
 	{
 		return func_27006_a((EntityAlienCreeper)entityliving, i, f);
 	}
 
-	protected int inheritRenderPass(EntityLiving entityliving, int i, float f)
+	@Override
+	protected int inheritRenderPass(EntityLivingBase entityliving, int i, float f)
 	{
 		return func_27007_b((EntityAlienCreeper)entityliving, i, f);
+	}
+
+	@Override
+	protected ResourceLocation func_110775_a(Entity entity) {
+		return skin;
 	}
 
 }

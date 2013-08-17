@@ -5,6 +5,7 @@ import java.util.List;
 import net.meteor.common.ClientHandler;
 import net.meteor.common.EnumMeteor;
 import net.meteor.common.HandlerAchievement;
+import net.meteor.common.LangLocalization;
 import net.meteor.common.MeteorsMod;
 import net.meteor.common.SafeChunkCoordsIntPair;
 import net.meteor.common.crash.CrashFrezarite;
@@ -16,9 +17,11 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
 
 import com.google.common.io.ByteArrayDataInput;
@@ -78,17 +81,22 @@ implements IEntityAdditionalSpawnData
 			return;
 		}
 		if ((!this.summoned) && (MeteorInProtectedZone())) {
-			List<SafeChunkCoordsIntPair> safeCoords = MeteorsMod.proxy.meteorHandler.getSafeChunkCoords((int)this.posX, (int)this.posZ);
-			for (int j = 0; j < safeCoords.size(); j++) {
-				SafeChunkCoordsIntPair sc = safeCoords.get(j);
-				if (this.worldObj.isRemote) {
-					MeteorsMod.proxy.meteorProtectCheck(sc.getOwner());
+			if (!worldObj.isRemote) {
+				List<SafeChunkCoordsIntPair> safeCoords = MeteorsMod.proxy.metHandlers.get(worldObj.provider.dimensionId).getSafeChunkCoords((int)this.posX, (int)this.posZ);
+				for (int j = 0; j < safeCoords.size(); j++) {
+					SafeChunkCoordsIntPair sc = safeCoords.get(j);
+					EntityPlayer playerOwner = ((WorldServer)worldObj).getMinecraftServer().getConfigurationManager().getPlayerForUsername(sc.getOwner());
+					if (playerOwner != null) {
+						playerOwner.sendChatToPlayer(ClientHandler.createMessage(LangLocalization.get("MeteorShield.meteorBlocked"), EnumChatFormatting.GREEN));
+						playerOwner.addStat(HandlerAchievement.meteorBlocked, 1);
+					}
+					MeteorsMod.proxy.lastMeteorPrevented.put(sc.getOwner(), this.meteorType);
+					ClientHandler.sendShieldProtectUpdate(sc.getOwner());
 				}
-				MeteorsMod.proxy.lastMeteorPrevented.put(sc.getOwner(), this.meteorType);
-				ClientHandler.sendShieldProtectUpdate(sc.getOwner());
+				this.worldObj.playSoundEffect(posX, posY, posZ, "random.explode", 5F, (1.0F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
+				this.worldObj.spawnParticle("hugeexplosion", posX, posY, posZ, 0.0D, 0.0D, 0.0D);
 			}
-			this.worldObj.playSoundEffect(posX, posY, posZ, "random.explode", 5F, (1.0F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
-			this.worldObj.spawnParticle("hugeexplosion", posX, posY, posZ, 0.0D, 0.0D, 0.0D);
+			
 			this.setDead();
 			return;
 		}
@@ -104,6 +112,7 @@ implements IEntityAdditionalSpawnData
 		motionX *= 0.98000001907348633D;
 		motionY *= 0.98000001907348633D;
 		motionZ *= 0.98000001907348633D;
+		
 		if (onGround) {
 			setDead();
 			if(!worldObj.isRemote) {
@@ -180,7 +189,7 @@ implements IEntityAdditionalSpawnData
 
 	private boolean MeteorInProtectedZone(int x, int z) {
 		Chunk chunk = this.worldObj.getChunkFromBlockCoords(x, z);
-		return MeteorsMod.proxy.meteorHandler.safeChunks.contains(new ChunkCoordIntPair(chunk.xPosition, chunk.zPosition));
+		return MeteorsMod.proxy.metHandlers.get(worldObj.provider.dimensionId).safeChunks.contains(new ChunkCoordIntPair(chunk.xPosition, chunk.zPosition));
 	}
 
 	@Override

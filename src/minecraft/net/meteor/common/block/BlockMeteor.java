@@ -10,6 +10,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Icon;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
@@ -46,8 +47,13 @@ public class BlockMeteor extends BlockMeteorsMod
 	@Override
 	public void randomDisplayTick(World world, int i, int j, int k, Random random)
 	{
-		if (world.getBlockMetadata(i, j, k) > 0)
+		if (world.getBlockMetadata(i, j, k) > 0) {
+			if (random.nextInt(32) == 0)
+	        {
+	            world.playSound((double)((float)i + 0.5F), (double)((float)j + 0.5F), (double)((float)k + 0.5F), "fire.fire", 1.0F + random.nextFloat(), random.nextFloat() * 0.7F + 0.3F, false);
+	        }
 			renderGlowParticles(world, i, j, k, random);
+		}
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -106,10 +112,7 @@ public class BlockMeteor extends BlockMeteorsMod
 	@Override
 	public boolean isBlockBurning(World world, int i, int j, int k)
 	{
-		if (world.getBlockMetadata(i, j, k) == 0) {
-			return false;
-		}
-		return true;
+		return world.getBlockMetadata(i, j, k) > 0;
 	}
 
 	@Override
@@ -126,10 +129,24 @@ public class BlockMeteor extends BlockMeteorsMod
 	{
 		int meta = world.getBlockMetadata(i, j, k);
 		if (meta > 0) {
-			world.setBlockMetadataWithNotify(i, j, k, --meta, 2);
+			if (isWaterAround(world, i, j, k)) {
+				world.setBlockMetadataWithNotify(i, j, k, 0, 2);
+				triggerLavaMixEffects(world, i, j, k);
+			} else {
+				world.setBlockMetadataWithNotify(i, j, k, --meta, 2);
+				if (meta == 0) {
+					triggerLavaMixEffects(world, i, j, k);
+				}
+			}
 		}
-		if ((meta > 0) && (isWaterAround(world, i, j, k))) {
-			world.setBlockMetadataWithNotify(i, j, k, 0, 2);
+	}
+	
+	protected void triggerLavaMixEffects(World world, int i, int j, int k)
+	{
+		world.playSoundEffect(i + 0.5F, j + 0.5F, k + 0.5F, "random.fizz", 0.5F, 2.6F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8F);
+		for (int l = 0; l < 8; l++)
+		{
+			world.spawnParticle("largesmoke", i + Math.random(), j + 1.2D, k + Math.random(), 0.0D, 0.0D, 0.0D);
 		}
 	}
 
@@ -161,8 +178,8 @@ public class BlockMeteor extends BlockMeteorsMod
 	@SideOnly(Side.CLIENT)
 	@Override
     public void registerIcons(IconRegister par1IconRegister) {
-		this.blockIcon = par1IconRegister.registerIcon("Meteor");
-		this.hotTex = par1IconRegister.registerIcon("Meteor_Hot");
+		this.blockIcon = par1IconRegister.registerIcon("meteors:Meteor");
+		this.hotTex = par1IconRegister.registerIcon("meteors:Meteor_Hot");
 	}
 
 	@Override
@@ -186,4 +203,26 @@ public class BlockMeteor extends BlockMeteorsMod
 		}
 		return 0;
 	}
+	
+	@Override
+	public void dropBlockAsItemWithChance(World par1World, int par2, int par3, int par4, int par5, float par6, int par7) {
+        super.dropBlockAsItemWithChance(par1World, par2, par3, par4, par5, par6, par7);
+
+        if (this.idDropped(par5, par1World.rand, par7) != this.blockID) {
+        	int xp;
+        	if (par5 > 0) {
+        		
+        		if (this.blockID == MeteorsMod.blockKreknorite.blockID || this.blockID == MeteorsMod.blockRareMeteor.blockID) {
+        			xp = MathHelper.getRandomIntegerInRange(par1World.rand, 3, 6);
+        		} else {
+        			xp = MathHelper.getRandomIntegerInRange(par1World.rand, 2, 5);
+        		}
+        		
+        	} else {
+        		xp = MathHelper.getRandomIntegerInRange(par1World.rand, 0, 2);
+        	}
+        	this.dropXpOnBlockBreak(par1World, par2, par3, par4, xp);
+        }
+    }
+	
 }

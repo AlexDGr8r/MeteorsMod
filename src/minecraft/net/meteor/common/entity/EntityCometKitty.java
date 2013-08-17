@@ -4,26 +4,17 @@ import net.meteor.common.HandlerAchievement;
 import net.meteor.common.LangLocalization;
 import net.meteor.common.MeteorsMod;
 import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class EntityCometKitty extends EntityOcelot
 {
 	public EntityCometKitty(World par1World)
 	{
 		super(par1World);
-		this.texture = "/meteor/textures/cometKitty.png";
 		this.isImmuneToFire = true;
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public String getTexture()
-	{
-		return "/meteor/textures/cometKitty.png";
 	}
 
 	@Override
@@ -53,10 +44,11 @@ public class EntityCometKitty extends EntityOcelot
 	}
 
 	@Override
-	public int getMaxHealth()
-	{
-		return 16;
-	}
+	protected void func_110147_ax()
+    {
+        super.func_110147_ax();
+        this.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(16.0D);
+    }
 
 	@Override
 	public String getEntityName()

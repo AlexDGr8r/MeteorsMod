@@ -1,19 +1,24 @@
 package net.meteor.common.block;
 
+import java.util.ArrayList;
 import java.util.Random;
 
+import net.meteor.common.ClientHandler;
 import net.meteor.common.ClientProxy;
 import net.meteor.common.HandlerAchievement;
+import net.meteor.common.HandlerMeteor;
 import net.meteor.common.LangLocalization;
 import net.meteor.common.MeteorsMod;
 import net.meteor.common.tileentity.TileEntityMeteorShield;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatMessageComponent;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -39,13 +44,16 @@ public class BlockMeteorShield extends BlockContainer
 	}
 
 	@Override
-	public void onBlockPlacedBy(World par1World, int par2, int par3, int par4, EntityLiving par5EntityLiving, ItemStack itemstack)
+	public void onBlockPlacedBy(World par1World, int par2, int par3, int par4, EntityLivingBase par5EntityLiving, ItemStack itemstack)
 	{
 		if ((par5EntityLiving instanceof EntityPlayer)) {
 			EntityPlayer player = (EntityPlayer)par5EntityLiving;
-			if (!par1World.isRemote) player.sendChatToPlayer("\247e" + LangLocalization.get("MeteorShield.charging"));
+			if (!par1World.isRemote) {
+				player.sendChatToPlayer(ClientHandler.createMessage(LangLocalization.get("MeteorShield.charging"), EnumChatFormatting.YELLOW));
+			}
 			TileEntityMeteorShield shield = (TileEntityMeteorShield) par1World.getBlockTileEntity(par2, par3, par4);
 			shield.owner = player.username;
+			par1World.playSoundEffect(par2, par3, par4, "meteors:shield.humm", 1.0F, 1.0F);
 		}
 	}
 
@@ -56,7 +64,8 @@ public class BlockMeteorShield extends BlockContainer
 		if (!par1World.isRemote) {
 			Chunk chunk = par1World.getChunkFromBlockCoords(par2, par4);
 			TileEntityMeteorShield shield = (TileEntityMeteorShield)par1World.getBlockTileEntity(par2, par3, par4);
-			MeteorsMod.proxy.meteorHandler.removeSafeChunks(chunk.xPosition, chunk.zPosition, MeteorsMod.instance.ShieldRadiusMultiplier * meta, shield.owner);
+			MeteorsMod.proxy.metHandlers.get(par1World.provider.dimensionId).removeSafeChunks(chunk.xPosition, chunk.zPosition, MeteorsMod.instance.ShieldRadiusMultiplier * meta, shield.owner);
+			par1World.playSoundEffect(par2 + 0.5D, par3 + 0.5D, par4 + 0.5D, "meteors:shield.powerdown", 1.0F, 1.0F);
 		}
 		super.breakBlock(par1World, par2, par3, par4, par5, par6);
 	}
@@ -89,12 +98,12 @@ public class BlockMeteorShield extends BlockContainer
 	@SideOnly(Side.CLIENT)
 	@Override
     public void registerIcons(IconRegister par1IconRegister) {
-		this.blockIcon = par1IconRegister.registerIcon("shieldTop_lit");
-		this.topUnlit = par1IconRegister.registerIcon("shieldTop_unlit");
-		this.bottom = par1IconRegister.registerIcon("shieldBottom");
-		this.crackedSide = par1IconRegister.registerIcon("shieldSideCracked");
-		this.gemSide = par1IconRegister.registerIcon("sideGem");
-		this.noGemSide = par1IconRegister.registerIcon("sideNoGem");
+		this.blockIcon = par1IconRegister.registerIcon("meteors:shieldTop_lit");
+		this.topUnlit = par1IconRegister.registerIcon("meteors:shieldTop_unlit");
+		this.bottom = par1IconRegister.registerIcon("meteors:shieldBottom");
+		this.crackedSide = par1IconRegister.registerIcon("meteors:shieldSideCracked");
+		this.gemSide = par1IconRegister.registerIcon("meteors:sideGem");
+		this.noGemSide = par1IconRegister.registerIcon("meteors:sideNoGem");
 	}
 
 	@Override
@@ -103,6 +112,16 @@ public class BlockMeteorShield extends BlockContainer
 		int meta = world.getBlockMetadata(i, j, k);
 		if (meta <= 0) {
 			world.setBlockMetadataWithNotify(i, j, k, 1, 2);
+			if (!world.isRemote) {
+				TileEntityMeteorShield shield = (TileEntityMeteorShield) world.getBlockTileEntity(i, j, k);
+				if (shield.owner != null && shield.owner.length() > 0) {
+					EntityPlayer player = world.getPlayerEntityByName(shield.owner);
+					if (player != null) {
+						player.sendChatToPlayer(ClientHandler.createMessage(LangLocalization.get("MeteorShield.PowerUpgradePercentage") + " 20%", EnumChatFormatting.GREEN));
+						player.sendChatToPlayer(ClientHandler.createMessage(LangLocalization.get("MeteorShield.howToUpgrade"), EnumChatFormatting.GOLD));
+					}
+				}
+			}
 		} else if (meta > 5) {
 			world.setBlockMetadataWithNotify(i, j, k, 5, 2);
 		}
@@ -112,6 +131,9 @@ public class BlockMeteorShield extends BlockContainer
 	@Override
 	public void randomDisplayTick(World world, int i, int j, int k, Random random)
 	{
+		if (random.nextInt(24) == 0) {
+			world.playSound(i + 0.5D, j + 0.5D, k + 0.5D, "meteors:shield.humm", 1.0F, 1.0F, false);
+		}
 		if (world.getBlockMetadata(i, j, k) >= 1) {
 			return;
 		}
@@ -170,29 +192,36 @@ public class BlockMeteorShield extends BlockContainer
 			TileEntityMeteorShield shield = (TileEntityMeteorShield)world.getBlockTileEntity(i, j, k);
 			shield.owner = player.username;
 			this.updateTick(world, i, j, k, world.rand);
-			world.playSoundEffect(i + 0.5D, j + 0.5D, k + 0.5D, "shield.powerup", 1.0F, 0.6F);
+			world.playSoundEffect(i + 0.5D, j + 0.5D, k + 0.5D, "meteors:shield.powerup", 1.0F, 0.6F);
 			if (!player.capabilities.isCreativeMode) cItem.stackSize--;
 			return true;
 		}
 		if (cItem.itemID == MeteorsMod.itemRedMeteorGem.itemID) {
 			int meta = world.getBlockMetadata(i, j, k);
 			if ((meta > 0) && (meta < 5)) {
+				boolean sendNoUpgradeMsg = false;
 				if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
 					Chunk chunk = world.getChunkFromBlockCoords(i, k);
 					TileEntityMeteorShield shield = (TileEntityMeteorShield)world.getBlockTileEntity(i, j, k);
-					MeteorsMod.proxy.meteorHandler.removeSafeChunks(chunk.xPosition, chunk.zPosition, MeteorsMod.instance.ShieldRadiusMultiplier * meta, shield.owner);
+					HandlerMeteor meteorHandler = MeteorsMod.proxy.metHandlers.get(world.provider.dimensionId);
+					meteorHandler.removeSafeChunks(chunk.xPosition, chunk.zPosition, MeteorsMod.instance.ShieldRadiusMultiplier * meta, shield.owner);
 					meta++;
-					MeteorsMod.proxy.meteorHandler.addSafeChunks(chunk.xPosition, chunk.zPosition, MeteorsMod.instance.ShieldRadiusMultiplier * meta, shield.owner);
+					meteorHandler.addSafeChunks(chunk.xPosition, chunk.zPosition, MeteorsMod.instance.ShieldRadiusMultiplier * meta, shield.owner);
 					if (MeteorsMod.instance.ShieldRadiusMultiplier <= 0)
-						player.sendChatToPlayer(LangLocalization.get("MeteorShield.noUpgrade"));
+						sendNoUpgradeMsg = true;
 				} else {
 					meta++;
 				}
+				if (sendNoUpgradeMsg) {
+					player.sendChatToPlayer(ChatMessageComponent.func_111077_e(LangLocalization.get("MeteorShield.noUpgrade")));
+				}
 				world.setBlockMetadataWithNotify(i, j, k, meta, 2);
 				world.markBlockForUpdate(i, j, k);
-				world.playSoundEffect(i + 0.5D, j + 0.5D, k + 0.5D, "shield.powerup", 1.0F, meta / 10.0F + 0.5F);
+				world.playSoundEffect(i + 0.5D, j + 0.5D, k + 0.5D, "meteors:shield.powerup", 1.0F, meta / 10.0F + 0.5F);
 				if (!player.capabilities.isCreativeMode) cItem.stackSize--;
-				if (!world.isRemote) player.sendChatToPlayer("\247a" + LangLocalization.get("MeteorShield.PowerUpgradePercentage") + "\2476 " + 20 * meta + "%");
+				if (!world.isRemote) {
+					player.sendChatToPlayer(ClientHandler.createMessage(LangLocalization.get("MeteorShield.PowerUpgradePercentage") + " " + 20 * meta + "%", EnumChatFormatting.GREEN));
+				}
 				if (meta >= 5) {
 					player.addStat(HandlerAchievement.shieldFullyUpgraded, 1);
 				}
@@ -222,4 +251,15 @@ public class BlockMeteorShield extends BlockContainer
 	{
 		return LangLocalization.get(this.getUnlocalizedName() + ".name");
 	}
+	
+	@Override
+	public ArrayList<ItemStack> getBlockDropped(World world, int x, int y, int z, int metadata, int fortune) {
+		ArrayList<ItemStack> ret = super.getBlockDropped(world, x, y, z, metadata, fortune);
+		int gems = metadata > 1 ? metadata - 1 : 0;
+		for (int i = 0; i < gems; i++) {
+			ret.add(new ItemStack(MeteorsMod.itemRedMeteorGem, 1));
+		}
+		return ret;
+	}
+	
 }

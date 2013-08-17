@@ -1,7 +1,6 @@
 package net.meteor.common.item;
 
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.Entity;
 import net.minecraft.item.EnumToolMaterial;
 
 public class ItemKreknoSword extends ItemEnchSword
@@ -13,7 +12,7 @@ public class ItemKreknoSword extends ItemEnchSword
 	}
 
 	@Override
-	public int getDamageVsEntity(Entity par1Entity)
+	public float func_82803_g()
 	{
 		return 8;
 	}

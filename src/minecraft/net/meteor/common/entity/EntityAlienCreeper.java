@@ -12,14 +12,7 @@ public class EntityAlienCreeper extends EntityCreeper
 	{
 		super(world);
 		this.tasks.addTask(3, new EntityAIAvoidEntity(this, EntityCometKitty.class, 6.0F, 0.25F, 0.3F));
-		texture = "/meteor/textures/meteorcreeper.png";
 		isImmuneToFire = true;
-	}
-
-	@Override
-	public int getMaxHealth()
-	{
-		return 20;
 	}
 
 	@Override
@@ -43,4 +36,10 @@ public class EntityAlienCreeper extends EntityCreeper
 	{
 		return LangLocalization.get("entity.AlienCreeper.name");
 	}
+	
+	@Override
+	public boolean getPowered()
+    {
+        return true;
+    }
 }

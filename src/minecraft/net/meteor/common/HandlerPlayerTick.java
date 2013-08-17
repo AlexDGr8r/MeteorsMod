@@ -1,5 +1,7 @@
 package net.meteor.common;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -10,6 +12,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -19,26 +22,13 @@ import cpw.mods.fml.common.TickType;
 public class HandlerPlayerTick
 implements ITickHandler
 {
-	public void tickStart(EnumSet type, Object... tickData)
-	{
-	}
+	public void tickStart(EnumSet type, Object... tickData) {}
 
 	public void tickEnd(EnumSet type, Object... tickData)
 	{
 		EntityPlayer player = (EntityPlayer)tickData[0];
 		World world = player.worldObj;
 		InventoryPlayer inv = player.inventory;
-
-		if (world != null) {
-			if ((!world.isDaytime()) || (!MeteorsMod.instance.meteorsFallOnlyAtNight)) {
-				if (MeteorsMod.proxy.nearestTimeLeft > 0) {
-					MeteorsMod.proxy.nearestTimeLeft -= 1;
-				}
-			}
-		}
-		else {
-			MeteorsMod.log.info("World was null");
-		}
 
 		if ((isWearing(MeteorsMod.KreknoriteHelmet.itemID, inv.armorItemInSlot(3))) && 
 				(isWearing(MeteorsMod.KreknoriteBody.itemID, inv.armorItemInSlot(2))) && 
@@ -49,8 +39,8 @@ implements ITickHandler
 			ArmorEffectController.setImmuneToFire(player, false);
 		}
 
-		boolean wearingLegs = isWearing(MeteorsMod.FrezariteLegs.itemID, inv.armorItemInSlot(1));
-		boolean wearingBoots = isWearing(MeteorsMod.FrezariteBoots.itemID, inv.armorItemInSlot(0));
+		boolean wearingLegs = EnchantmentHelper.getEnchantmentLevel(MeteorsMod.ColdTouch.effectId, inv.armorItemInSlot(1)) > 0;
+		boolean wearingBoots = EnchantmentHelper.getEnchantmentLevel(MeteorsMod.ColdTouch.effectId, inv.armorItemInSlot(0)) > 0;
 		if ((wearingLegs || wearingBoots) && !player.isInWater())
 		{
 			if (wearingLegs && wearingBoots && player.isSprinting())
@@ -101,39 +91,17 @@ implements ITickHandler
 
 		return false;
 	}
-
-	public static boolean hasEnchantment(Enchantment enchantment, InventoryPlayer inv) {
-		for (int i = 0; i < 4; i++) {
-			if ((inv.armorInventory[i] != null) && 
-					(inv.armorInventory[i].isItemEnchanted())) {
-				int var1 = EnchantmentHelper.getEnchantmentLevel(enchantment.effectId, inv.armorInventory[i]);
-				if (var1 > 0) {
-					return true;
-				}
-			}
-		}
-
-		return false;
-	}
-
-	public static boolean hasEnchantment(Enchantment enchantment, InventoryPlayer inv, int piece) {
-		if ((inv.armorInventory[piece] != null) && 
-				(inv.armorInventory[piece].isItemEnchanted())) {
-			int var1 = EnchantmentHelper.getEnchantmentLevel(enchantment.effectId, inv.armorInventory[piece]);
-			if (var1 > 0) {
-				return true;
-			}
-		}
-
-		return false;
+	
+	public static boolean isPlayerMagnetized(EntityPlayer player) {
+		return EnchantmentHelper.getMaxEnchantmentLevel(MeteorsMod.Magnetization.effectId, player.getLastActiveItems()) > 0 || 
+				EnchantmentHelper.getEnchantmentLevel(MeteorsMod.Magnetization.effectId, player.getHeldItem()) > 0;
 	}
 
 	private void updateEntityItem(EntityItem en) {
 		double closeness = 16.0D;
 		EntityPlayer player = en.worldObj.getClosestPlayerToEntity(en, closeness);
 
-		if ((player != null) && 
-				(((player.getCurrentEquippedItem() != null) && (MeteorsMod.isMeteoriteTool(player.getCurrentEquippedItem().itemID))) || (ArmorEffectController.isWearingMagneticArmor(player)))) {
+		if ((player != null) && isPlayerMagnetized(player)) {
 			double var3 = (player.posX - en.posX) / closeness;
 			double var5 = (player.posY + player.getEyeHeight() - en.posY) / closeness;
 			double var7 = (player.posZ - en.posZ) / closeness;

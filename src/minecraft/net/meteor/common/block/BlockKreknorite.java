@@ -116,7 +116,7 @@ public class BlockKreknorite extends BlockMeteor
 	@SideOnly(Side.CLIENT)
 	@Override
     public void registerIcons(IconRegister par1IconRegister) {
-		this.blockIcon = par1IconRegister.registerIcon("Kreknorite");
+		this.blockIcon = par1IconRegister.registerIcon("meteors:Kreknorite");
 	}
 	
 }

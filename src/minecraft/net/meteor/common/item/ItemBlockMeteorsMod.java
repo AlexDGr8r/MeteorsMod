@@ -1,14 +1,28 @@
 package net.meteor.common.item;
 
+import java.util.List;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.meteor.common.LangLocalization;
+import net.meteor.common.MeteorsMod;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 
 public class ItemBlockMeteorsMod extends ItemBlock
 {
 	public ItemBlockMeteorsMod(int par1)
 	{
 		super(par1);
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+		if (this.itemID == MeteorsMod.torchMeteorShieldActive.blockID) {
+			par3List.add(EnumChatFormatting.LIGHT_PURPLE + LangLocalization.get("ProtectionTorch.usage"));
+		}
 	}
 
 	@Override

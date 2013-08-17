@@ -5,11 +5,13 @@ import java.util.List;
 import java.util.Random;
 
 import net.meteor.common.ClientProxy;
+import net.meteor.common.HandlerMeteor;
 import net.meteor.common.LangLocalization;
 import net.meteor.common.MeteorsMod;
 import net.meteor.common.SafeChunkCoordsIntPair;
 import net.minecraft.block.BlockTorch;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ChatMessageComponent;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
@@ -96,7 +98,7 @@ public class BlockMeteorShieldTorch extends BlockTorch
 
 	private void checkArea(World world, int i, int j, int k) {
 		Chunk chunk = world.getChunkFromBlockCoords(i, k);
-		boolean isSafeChunk = MeteorsMod.proxy.meteorHandler.safeChunks.contains(new ChunkCoordIntPair(chunk.xPosition, chunk.zPosition));
+		boolean isSafeChunk = MeteorsMod.proxy.metHandlers.get(world.provider.dimensionId).safeChunks.contains(new ChunkCoordIntPair(chunk.xPosition, chunk.zPosition));
 		if (this.torchActive) {
 			if (!isSafeChunk)
 				world.setBlock(i, j, k, MeteorsMod.torchMeteorShieldIdle.blockID, world.getBlockMetadata(i, j, k), 3);
@@ -111,11 +113,12 @@ public class BlockMeteorShieldTorch extends BlockTorch
 		if (!world.isRemote) {
 			checkArea(world, i, j, k);
 			Chunk chunk = world.getChunkFromBlockCoords(i, k);
-			boolean isSafeChunk = MeteorsMod.proxy.meteorHandler.safeChunks.contains(new ChunkCoordIntPair(chunk.xPosition, chunk.zPosition));
+			HandlerMeteor meteorHandler = MeteorsMod.proxy.metHandlers.get(world.provider.dimensionId);
+			boolean isSafeChunk = meteorHandler.safeChunks.contains(new ChunkCoordIntPair(chunk.xPosition, chunk.zPosition));
 			if (isSafeChunk) {
-				player.sendChatToPlayer(LangLocalization.get("ProtectionTorch.landOwnership"));
+				player.sendChatToPlayer(ChatMessageComponent.func_111077_e(LangLocalization.get("ProtectionTorch.landOwnership")));
 				ChunkCoordIntPair cPair = chunk.getChunkCoordIntPair();
-				List oPairList = MeteorsMod.proxy.meteorHandler.safeChunksWithOwners;
+				List oPairList = meteorHandler.safeChunksWithOwners;
 				List owners = new ArrayList();
 				for (int l = 0; l < oPairList.size(); l++) {
 					SafeChunkCoordsIntPair oPair = (SafeChunkCoordsIntPair)oPairList.get(l);
@@ -125,7 +128,7 @@ public class BlockMeteorShieldTorch extends BlockTorch
 				}
 
 				for (int l = 0; l < owners.size(); l++) {
-					player.sendChatToPlayer("    - " + (String)owners.get(l));
+					player.sendChatToPlayer(ChatMessageComponent.func_111077_e("    - " + (String)owners.get(l)));
 				}
 			}
 		}

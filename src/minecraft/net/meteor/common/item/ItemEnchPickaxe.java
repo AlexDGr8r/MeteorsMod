@@ -9,6 +9,7 @@ import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
 public class ItemEnchPickaxe extends ItemPickaxe
@@ -26,35 +27,34 @@ public class ItemEnchPickaxe extends ItemPickaxe
 		this.level = lvl;
 		return this;
 	}
-
+	
 	@Override
-	public void onCreated(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
-	{
-		par1ItemStack.addEnchantment(this.enchantment, this.level);
-		super.onCreated(par1ItemStack, par2World, par3EntityPlayer);
-	}
-
-	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
-	{
-		if (!par1ItemStack.isItemEnchanted()) {
-			par1ItemStack.addEnchantment(this.enchantment, this.level);
+	public int getDamage(ItemStack stack) {
+		if (!stack.isItemEnchanted() && !isRestricted(stack)) {
+			stack.addEnchantment(this.enchantment, this.level);
+			NBTTagCompound tag = stack.getTagCompound();
+			tag.setBoolean("enchant-set", true);
+			stack.setTagCompound(tag);
 		}
-		return super.onItemRightClick(par1ItemStack, par2World, par3EntityPlayer);
-	}
-
-	@Override
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
-	{
-		if (!par1ItemStack.isItemEnchanted()) {
-			par3List.add("\2474" + LangLocalization.get("enchantment.addEnch.one"));
-			par3List.add("\2474" + LangLocalization.get("enchantment.addEnch.two"));
-		}
+		return super.getDamage(stack);
 	}
 
 	@Override
 	public String getItemDisplayName(ItemStack par1ItemStack)
 	{
 		return LangLocalization.get(this.getUnlocalizedName(par1ItemStack) + ".name").trim();
+	}
+	
+	private boolean isRestricted(ItemStack item) {
+		if (item.hasTagCompound()) {
+			NBTTagCompound tag = item.getTagCompound();
+			if (tag.hasKey("enchant-set")) {
+				return tag.getBoolean("enchant-set");
+			} else {
+				tag.setBoolean("enchant-set", false);
+				item.setTagCompound(tag);
+			}
+		}
+		return false;
 	}
 }

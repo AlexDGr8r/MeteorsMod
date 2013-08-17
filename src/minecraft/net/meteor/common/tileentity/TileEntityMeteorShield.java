@@ -20,7 +20,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class TileEntityMeteorShield extends TileEntity
 {
-	private double[][] directionMotion = { { 0.0D, 0.0D }, { 0.0D, 0.3D }, { -0.3D, 0.3D }, { -0.3D, 0.0D }, { -0.3D, -0.3D }, { 0.0D, -0.3D }, { 0.3D, -0.3D }, { 0.3D, 0.0D }, { 0.3D, 0.3D } };
+	private static final double[][] directionMotion = { { 0.0D, 0.0D }, { 0.0D, 0.3D }, { -0.3D, 0.3D }, { -0.3D, 0.0D }, { -0.3D, -0.3D }, { 0.0D, -0.3D }, { 0.3D, -0.3D }, { 0.3D, 0.0D }, { 0.3D, 0.3D } };
 
 	@SideOnly(Side.CLIENT)
 	private float field_82138_c;
@@ -55,7 +55,7 @@ public class TileEntityMeteorShield extends TileEntity
 			if (meta > 0) {
 				if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
 					Chunk chunk = this.worldObj.getChunkFromBlockCoords(this.xCoord, this.zCoord);
-					MeteorsMod.proxy.meteorHandler.addSafeChunks(chunk.xPosition, chunk.zPosition, MeteorsMod.instance.ShieldRadiusMultiplier * meta, this.owner);
+					MeteorsMod.proxy.metHandlers.get(worldObj.provider.dimensionId).addSafeChunks(chunk.xPosition, chunk.zPosition, MeteorsMod.instance.ShieldRadiusMultiplier * meta, this.owner);
 				}
 				this.shieldedChunks = this.renderRay = true;
 				this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
@@ -197,10 +197,10 @@ public class TileEntityMeteorShield extends TileEntity
 		writeToNBT(var1);
 		return new Packet132TileEntityData(this.xCoord, this.yCoord, this.zCoord, 1, var1);
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
-    public AxisAlignedBB getRenderBoundingBox() {
+	public AxisAlignedBB getRenderBoundingBox() {
 		return TileEntity.INFINITE_EXTENT_AABB;
 	}
 

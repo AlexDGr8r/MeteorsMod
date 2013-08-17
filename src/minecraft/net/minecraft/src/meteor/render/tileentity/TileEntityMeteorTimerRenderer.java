@@ -2,11 +2,11 @@ package net.minecraft.src.meteor.render.tileentity;
 
 import java.util.Random;
 
-import net.meteor.common.MeteorsMod;
 import net.meteor.common.tileentity.TileEntityMeteorTimer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.src.meteor.model.ModelMeteorTimer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
@@ -35,7 +35,7 @@ public class TileEntityMeteorTimerRenderer extends TileEntitySpecialRenderer {
 	
 	private void renderMeteorTimer(TileEntityMeteorTimer timer, double d0, double d1, double d2, float f) {
 		GL11.glPushMatrix();
-		this.bindTextureByName(MeteorsMod.texturesFolder + "metTimer.png");
+		this.func_110628_a(new ResourceLocation("meteors", "textures/entities/metTimer.png"));
 		modelMetTimer.element_meteorite.rotateAngleY += 0.02F;
 		modelMetTimer.element_meteorite.rotateAngleY %= 360F;
 		

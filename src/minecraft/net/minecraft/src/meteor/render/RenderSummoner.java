@@ -4,8 +4,10 @@ import net.meteor.common.MeteorsMod;
 import net.meteor.common.entity.EntitySummoner;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.Icon;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -16,6 +18,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderSummoner extends Render
 {
+	
 	private int damage;
 	private Icon icon;
 
@@ -33,7 +36,7 @@ public class RenderSummoner extends Render
         GL11.glTranslatef((float)par2, (float)par4, (float)par6);
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         GL11.glScalef(0.5F, 0.5F, 0.5F);
-        this.loadTexture("/gui/items.png");
+        this.func_110777_b(par1Entity);
 		Tessellator var10 = Tessellator.instance;
 		this.func_77026_a(var10, this.icon);
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
@@ -59,4 +62,9 @@ public class RenderSummoner extends Render
         par1Tessellator.addVertexWithUV((double)(0.0F - f5), (double)(f4 - f6), 0.0D, (double)f, (double)f2);
         par1Tessellator.draw();
     }
+
+	@Override
+	protected ResourceLocation func_110775_a(Entity entity) {
+		return TextureMap.field_110576_c;
+	}
 }
