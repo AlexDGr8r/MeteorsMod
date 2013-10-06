@@ -8,10 +8,8 @@ import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.Properties;
 
-import net.minecraft.client.Minecraft;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.LanguageRegistry;
-import cpw.mods.fml.relauncher.Side;
 
 public class LangLocalization
 {
@@ -119,10 +117,7 @@ public class LangLocalization
 
 	private static String getCurrentLanguage()
 	{
-		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
-			return "en_US";
-		}
-		return Minecraft.getMinecraft().func_135016_M().func_135041_c().func_135034_a();
+		return FMLCommonHandler.instance().getCurrentLanguage();
 	}
 
 	private static class modInfo

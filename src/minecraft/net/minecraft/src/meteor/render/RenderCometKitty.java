@@ -14,7 +14,7 @@ public class RenderCometKitty extends RenderOcelot {
 	}
 	
 	@Override
-	protected ResourceLocation func_110775_a(Entity par1Entity)
+	protected ResourceLocation getEntityTexture(Entity par1Entity)
     {
         return skin;
     }

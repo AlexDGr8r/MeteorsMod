@@ -52,6 +52,7 @@ item.MeteorDetectorCrash.name=Meteor Crash Detector
 
 entity.AlienCreeper.name=Alien Creeper
 entity.CometKitty.name=Comet Kitty
+entity.KreknoHound.name=Krekno Hound
 
 MeteorShield.charging=Meteor Shield Charging!
 MeteorShield.noUpgrade=Upgrading this Meteor Shield does nothing!

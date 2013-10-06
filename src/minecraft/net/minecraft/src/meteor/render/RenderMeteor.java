@@ -42,7 +42,7 @@ public class RenderMeteor extends Render {
 		this.metID = entityMeteor.meteorType.getID();
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float)d, (float)d1, (float)d2);
-		func_110776_a(skins.get(metID));
+		this.bindTexture(skins.get(metID));
 		float f2 = 1.0F * (float)entityMeteor.size;
 		GL11.glScalef(f2, f2, f2);
 		modelMeteor.renderWithSize(entityMeteor, 0.0625F);
@@ -50,7 +50,7 @@ public class RenderMeteor extends Render {
 	}
 
 	@Override
-	protected ResourceLocation func_110775_a(Entity entity) {
+	protected ResourceLocation getEntityTexture(Entity entity) {
 		return skins.get(metID);
 	}
 

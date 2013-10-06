@@ -25,7 +25,7 @@ public class CommandKittyAttack extends CommandBase
 	public void processCommand(ICommandSender var1, String[] var2)
 	{
 		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
-			World world = var1.func_130014_f_();
+			World world = var1.getEntityWorld();
 			MeteorsMod.proxy.metHandlers.get(world.provider.dimensionId).kittyAttack();
 		}
 	}

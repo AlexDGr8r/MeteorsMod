@@ -116,7 +116,7 @@ public class BlockMeteorShieldTorch extends BlockTorch
 			HandlerMeteor meteorHandler = MeteorsMod.proxy.metHandlers.get(world.provider.dimensionId);
 			boolean isSafeChunk = meteorHandler.safeChunks.contains(new ChunkCoordIntPair(chunk.xPosition, chunk.zPosition));
 			if (isSafeChunk) {
-				player.sendChatToPlayer(ChatMessageComponent.func_111077_e(LangLocalization.get("ProtectionTorch.landOwnership")));
+				player.sendChatToPlayer(ChatMessageComponent.createFromText(LangLocalization.get("ProtectionTorch.landOwnership")));
 				ChunkCoordIntPair cPair = chunk.getChunkCoordIntPair();
 				List oPairList = meteorHandler.safeChunksWithOwners;
 				List owners = new ArrayList();
@@ -128,7 +128,7 @@ public class BlockMeteorShieldTorch extends BlockTorch
 				}
 
 				for (int l = 0; l < owners.size(); l++) {
-					player.sendChatToPlayer(ChatMessageComponent.func_111077_e("    - " + (String)owners.get(l)));
+					player.sendChatToPlayer(ChatMessageComponent.createFromText("    - " + (String)owners.get(l)));
 				}
 			}
 		}

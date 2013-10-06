@@ -69,7 +69,7 @@ implements IConnectionHandler, IPacketHandler
 	}
 	
 	public static ChatMessageComponent createMessage(String s, EnumChatFormatting ecf) {
-		return ChatMessageComponent.func_111077_e(s).func_111059_a(ecf);
+		return ChatMessageComponent.createFromText(s).setColor(ecf);
 	}
 
 	@Override

@@ -1,15 +1,11 @@
 package net.meteor.common.item;
 
-import java.util.List;
-
 import net.meteor.common.LangLocalization;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.world.World;
 
 public class ItemEnchArmor extends ItemMetArmor
 {

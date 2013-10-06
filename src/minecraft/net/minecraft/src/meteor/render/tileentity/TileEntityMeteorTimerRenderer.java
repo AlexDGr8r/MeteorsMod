@@ -35,7 +35,7 @@ public class TileEntityMeteorTimerRenderer extends TileEntitySpecialRenderer {
 	
 	private void renderMeteorTimer(TileEntityMeteorTimer timer, double d0, double d1, double d2, float f) {
 		GL11.glPushMatrix();
-		this.func_110628_a(new ResourceLocation("meteors", "textures/entities/metTimer.png"));
+		this.bindTexture(new ResourceLocation("meteors", "textures/entities/metTimer.png"));
 		modelMetTimer.element_meteorite.rotateAngleY += 0.02F;
 		modelMetTimer.element_meteorite.rotateAngleY %= 360F;
 		

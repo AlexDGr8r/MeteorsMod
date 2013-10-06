@@ -1,7 +1,5 @@
 package net.meteor.common;
 
-import java.util.List;
-
 import net.meteor.common.entity.EntityAlienCreeper;
 import net.meteor.common.entity.EntityCometKitty;
 import net.meteor.common.entity.EntityMeteor;
@@ -10,7 +8,6 @@ import net.meteor.common.tileentity.TileEntityMeteorShield;
 import net.meteor.common.tileentity.TileEntityMeteorTimer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.src.meteor.MetCrashSoundHandler;
 import net.minecraft.src.meteor.effect.EntityFrezaDustFX;
 import net.minecraft.src.meteor.effect.EntityMeteorShieldParticleFX;
@@ -22,10 +19,8 @@ import net.minecraft.src.meteor.render.RenderMeteor;
 import net.minecraft.src.meteor.render.RenderSummoner;
 import net.minecraft.src.meteor.render.tileentity.TileEntityMeteorShieldRayRenderer;
 import net.minecraft.src.meteor.render.tileentity.TileEntityMeteorTimerRenderer;
-import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 

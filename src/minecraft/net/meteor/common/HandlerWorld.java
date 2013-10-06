@@ -1,6 +1,5 @@
 package net.meteor.common;
 
-import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraftforge.event.ForgeSubscribe;

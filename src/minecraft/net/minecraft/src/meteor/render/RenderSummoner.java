@@ -36,7 +36,7 @@ public class RenderSummoner extends Render
         GL11.glTranslatef((float)par2, (float)par4, (float)par6);
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         GL11.glScalef(0.5F, 0.5F, 0.5F);
-        this.func_110777_b(par1Entity);
+        this.bindEntityTexture(par1Entity);
 		Tessellator var10 = Tessellator.instance;
 		this.func_77026_a(var10, this.icon);
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
@@ -64,7 +64,7 @@ public class RenderSummoner extends Render
     }
 
 	@Override
-	protected ResourceLocation func_110775_a(Entity entity) {
-		return TextureMap.field_110576_c;
+	protected ResourceLocation getEntityTexture(Entity entity) {
+		return TextureMap.locationItemsTexture;
 	}
 }

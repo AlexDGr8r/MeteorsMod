@@ -34,11 +34,11 @@ public class EntityMeteorShieldParticleFX extends EntityEnchantmentTableParticle
 		Tessellator tessellator1 = new Tessellator();
 		tessellator1.startDrawingQuads();
 		tessellator1.setBrightness(getBrightnessForRender(par2));
-		Minecraft.getMinecraft().renderEngine.func_110577_a(new ResourceLocation("meteors", "textures/particles/particles.png"));
+		Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("meteors", "textures/particles/particles.png"));
 		//GL11.glBindTexture(GL11.GL_TEXTURE_2D, Minecraft.getMinecraft().renderEngine.func_110581_b(new ResourceLocation("meteors", "textures/particles/particles.png")).func_110552_b());
 		super.renderParticle(tessellator1, par2, par3, par4, par5, par6, par7);
 		tessellator1.draw();
-		Minecraft.getMinecraft().renderEngine.func_110577_a(new ResourceLocation("textures/particle/particles.png"));
+		Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("textures/particle/particles.png"));
 		//GL11.glBindTexture(GL11.GL_TEXTURE_2D, Minecraft.getMinecraft().renderEngine.func_110581_b(new ResourceLocation("textures/particle/particles.png")).func_110552_b());
 	}
 }

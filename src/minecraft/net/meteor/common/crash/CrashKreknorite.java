@@ -6,7 +6,6 @@ import java.util.Random;
 import net.meteor.common.ClientHandler;
 import net.meteor.common.EnumMeteor;
 import net.meteor.common.LangLocalization;
-import net.meteor.common.MeteorsMod;
 import net.meteor.common.SBAPI;
 import net.minecraft.block.Block;
 import net.minecraft.entity.monster.EntityBlaze;
@@ -16,8 +15,6 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class CrashKreknorite extends CrashMeteorite
 {
@@ -110,7 +107,7 @@ public class CrashKreknorite extends CrashMeteorite
 
 	public void afterCrashCompleted(World world, int i, int j, int k) {
 		if (this.crashSize >= 2 && !world.isRemote) {
-			ClientHandler.sendPacketToAllInWorld(world, new Packet3Chat(ChatMessageComponent.func_111077_e(LangLocalization.get("Meteor.netherPortalCreation")).func_111059_a(EnumChatFormatting.DARK_RED)));
+			ClientHandler.sendPacketToAllInWorld(world, new Packet3Chat(ChatMessageComponent.createFromText(LangLocalization.get("Meteor.netherPortalCreation")).setColor(EnumChatFormatting.DARK_RED)));
 		}
 	}
 

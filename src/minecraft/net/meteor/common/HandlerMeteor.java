@@ -2,43 +2,27 @@ package net.meteor.common;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
 import net.meteor.common.entity.EntityMeteor;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.network.packet.Packet3Chat;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatMessageComponent;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.ChunkCoordIntPair;
-import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.chunk.storage.AnvilChunkLoader;
-import net.minecraft.world.chunk.storage.IChunkLoader;
-import net.minecraft.world.storage.ISaveHandler;
-import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.world.WorldEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class HandlerMeteor
 {
@@ -116,7 +100,7 @@ public class HandlerMeteor
 	}
 
 	public void kittyAttack() {
-		ClientHandler.sendPacketToAllInWorld(theWorld, new Packet3Chat(ChatMessageComponent.func_111077_e(LangLocalization.get("Meteor.kittiesIncoming")).func_111059_a(EnumChatFormatting.DARK_RED)));
+		ClientHandler.sendPacketToAllInWorld(theWorld, new Packet3Chat(ClientHandler.createMessage(LangLocalization.get("Meteor.kittiesIncoming"), EnumChatFormatting.DARK_RED)));
 		for (int i = 0; i < this.theWorld.playerEntities.size(); i++) {
 			EntityPlayer player = (EntityPlayer) this.theWorld.playerEntities.get(i);
 			if (player != null) {
@@ -184,7 +168,7 @@ public class HandlerMeteor
 			ClientHandler.sendPacketToAllInWorld(theWorld, packet);
 
 			if (MeteorsMod.instance.textNotifyCrash) {
-				ClientHandler.sendPacketToAllInWorld(theWorld, new Packet3Chat(ChatMessageComponent.func_111077_e(LangLocalization.get("Meteor.crashed"))));
+				ClientHandler.sendPacketToAllInWorld(theWorld, new Packet3Chat(ChatMessageComponent.createFromText(LangLocalization.get("Meteor.crashed"))));
 			}
 		}
 	}
@@ -236,8 +220,8 @@ public class HandlerMeteor
 				Iterator<EntityPlayer> iter = theWorld.playerEntities.iterator();
 				while (iter.hasNext()) {
 					EntityPlayer player = iter.next();
-					PacketDispatcher.sendPacketToPlayer(new Packet3Chat(ChatMessageComponent.func_111077_e(LangLocalization.get("Meteor.kittiesDetected.one")).func_111059_a(EnumChatFormatting.DARK_RED)), (Player)(player));
-					PacketDispatcher.sendPacketToPlayer(new Packet3Chat(ChatMessageComponent.func_111077_e(LangLocalization.get("Meteor.kittiesDetected.two")).func_111059_a(EnumChatFormatting.DARK_RED)), (Player)(player));
+					PacketDispatcher.sendPacketToPlayer(new Packet3Chat(ClientHandler.createMessage(LangLocalization.get("Meteor.kittiesDetected.one"), EnumChatFormatting.DARK_RED)), (Player)(player));
+					PacketDispatcher.sendPacketToPlayer(new Packet3Chat(ClientHandler.createMessage(LangLocalization.get("Meteor.kittiesDetected.two"), EnumChatFormatting.DARK_RED)), (Player)(player));
 				}
 			}
 		}

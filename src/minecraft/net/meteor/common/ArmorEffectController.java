@@ -4,7 +4,6 @@ import java.lang.reflect.Field;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 
@@ -15,7 +14,7 @@ public class ArmorEffectController
 		if (player.isImmuneToFire() != flag) {
 			try {
 				Side s = FMLCommonHandler.instance().getEffectiveSide();
-				setFieldBool(Entity.class, player, 52, flag); // FIXME
+				setFieldBool(Entity.class, player, flag);
 			} catch (IllegalArgumentException e) {
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
@@ -24,10 +23,16 @@ public class ArmorEffectController
 		}
 	}
 
-	private static void setFieldBool(Class class1, Object instance, int fieldIndex, boolean value) throws IllegalArgumentException, IllegalAccessException
+	private static void setFieldBool(Class class1, Object instance, boolean value) throws IllegalArgumentException, IllegalAccessException
 	{
-		Field field = class1.getDeclaredFields()[fieldIndex];
-		field.setAccessible(true);
-		field.setBoolean(instance, value);
+		try {
+			Field field = class1.getDeclaredField("field_70178_ae");
+			field.setAccessible(true);
+			field.setBoolean(instance, value);
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		}
 	}
 }

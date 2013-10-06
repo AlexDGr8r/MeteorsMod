@@ -3,18 +3,13 @@ package net.meteor.common.item;
 import java.util.List;
 
 import net.meteor.common.ClientHandler;
-import net.meteor.common.GhostMeteor;
-import net.meteor.common.HandlerMeteor;
 import net.meteor.common.LangLocalization;
-import net.meteor.common.MeteorsMod;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.src.meteor.TextureDetector;
-import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -69,8 +64,8 @@ public class ItemDetector extends ItemMeteorsMod {
 	@Override
     public void registerIcons(IconRegister par1IconRegister) {
 		TextureMap map = (TextureMap)par1IconRegister;
-		map.setTextureEntry(this.field_111218_cA, new TextureDetector(this.field_111218_cA, type));
-		this.itemIcon = map.getTextureExtry(this.field_111218_cA);
+		map.setTextureEntry(this.iconString, new TextureDetector(this.iconString, type));
+		this.itemIcon = map.getTextureExtry(this.iconString);
 	}
 
 }

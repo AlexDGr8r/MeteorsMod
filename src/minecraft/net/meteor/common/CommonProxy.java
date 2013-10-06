@@ -2,11 +2,8 @@ package net.meteor.common;
 
 import java.util.HashMap;
 
-import net.meteor.common.entity.EntityMeteor;
 import net.meteor.common.tileentity.TileEntityMeteorShield;
 import net.meteor.common.tileentity.TileEntityMeteorTimer;
-import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class CommonProxy

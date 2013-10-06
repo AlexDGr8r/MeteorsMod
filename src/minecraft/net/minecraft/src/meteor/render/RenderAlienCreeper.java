@@ -93,7 +93,7 @@ public class RenderAlienCreeper extends RenderLiving {
 			if (par2 == 1)
 			{
 				float var4 = (float)entitycreeper.ticksExisted + par3;
-				this.func_110776_a(electricity);
+				this.bindTexture(electricity);
 				GL11.glMatrixMode(GL11.GL_TEXTURE);
 				GL11.glLoadIdentity();
 				float var5 = var4 * 0.01F;
@@ -152,7 +152,7 @@ public class RenderAlienCreeper extends RenderLiving {
 	}
 
 	@Override
-	protected ResourceLocation func_110775_a(Entity entity) {
+	protected ResourceLocation getEntityTexture(Entity entity) {
 		return skin;
 	}
 

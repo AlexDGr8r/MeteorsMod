@@ -213,7 +213,7 @@ public class BlockMeteorShield extends BlockContainer
 					meta++;
 				}
 				if (sendNoUpgradeMsg) {
-					player.sendChatToPlayer(ChatMessageComponent.func_111077_e(LangLocalization.get("MeteorShield.noUpgrade")));
+					player.sendChatToPlayer(ChatMessageComponent.createFromText(LangLocalization.get("MeteorShield.noUpgrade")));
 				}
 				world.setBlockMetadataWithNotify(i, j, k, meta, 2);
 				world.markBlockForUpdate(i, j, k);
