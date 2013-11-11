@@ -163,6 +163,9 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 	public boolean unknownEnabled;
 	private int chunkChecks;
 	private int oreGenSize;
+	public int MinMeteorSizeForPortal;
+	public double ImpactExplosionMultiplier;
+	public int ImpactSpread;
 
 	private void setVars()
 	{
@@ -339,6 +342,21 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 			this.MinMeteorSize = this.MaxMeteorSize;
 		else if (this.MaxMeteorSize < this.MinMeteorSize) {
 			this.MaxMeteorSize = this.MinMeteorSize;
+		}
+		this.MinMeteorSizeForPortal = config.get("general", "Minimum Meteor Size To Spawn Nether Portal", 2).getInt();
+		if (this.MinMeteorSizeForPortal < this.MinMeteorSize)
+			this.MinMeteorSizeForPortal = this.MinMeteorSize;
+		this.ImpactExplosionMultiplier = config.get("general", "Meteor Impact Explosion Multiplier", 5.0).getDouble(5.0);
+		if (this.ImpactExplosionMultiplier > 20.0)
+			this.ImpactExplosionMultiplier = 20.0;
+		else if (this.ImpactExplosionMultiplier < 0.0) {
+			this.ImpactExplosionMultiplier = 0.0;
+		}
+		this.ImpactSpread = config.get("general", "Meteor Impact Spread", 4).getInt();
+		if (this.ImpactSpread > 8)
+			this.ImpactSpread = 8;
+		else if (this.ImpactSpread < 0) {
+			this.ImpactSpread = 0;
 		}
 		config.save();
 	}
