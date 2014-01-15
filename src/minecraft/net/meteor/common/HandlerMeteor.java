@@ -55,7 +55,7 @@ public class HandlerMeteor
 	}
 
 	public void updateMeteors() {
-		if (this.theWorld == null) {
+		if (this.theWorld == null) || event.world.provider.dimensionId != 0) {
 			return;
 		}
 
