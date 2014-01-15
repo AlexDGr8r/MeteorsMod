@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import net.meteor.common.EnumMeteor;
+import net.meteor.common.MeteorsMod;
 import net.meteor.common.entity.EntityAlienCreeper;
 import net.minecraft.block.Block;
 import net.minecraft.util.MathHelper;
@@ -31,9 +32,9 @@ public class CrashMeteorite extends WorldGenerator
 		int rareMeteor = this.meteorType.getRareMaterialID();
 
 		//Initial spreading
-		for (int y = j + 4 * this.crashSize; y >= j - 4 * this.crashSize; y--) {
-			for (int startX = i + 4 * this.crashSize; startX >= i - 4 * this.crashSize; startX--) {
-				for (int startZ = k + 4 * this.crashSize; startZ >= k - 4 * this.crashSize; startZ--) {
+		for (int y = j + MeteorsMod.instance.ImpactSpread * this.crashSize; y >= j - MeteorsMod.instance.ImpactSpread * this.crashSize; y--) {
+			for (int startX = i + MeteorsMod.instance.ImpactSpread * this.crashSize; startX >= i - MeteorsMod.instance.ImpactSpread * this.crashSize; startX--) {
+				for (int startZ = k + MeteorsMod.instance.ImpactSpread * this.crashSize; startZ >= k - MeteorsMod.instance.ImpactSpread * this.crashSize; startZ--) {
 					if ((!world.isAirBlock(startX, y, startZ)) && (meteorsAboveAndBelow(world, startX, y, startZ) == 0) && (random.nextInt(10) + 1 > 7) && (checkBlockIDs(world, startX, y, startZ))) {
 						int theBlock = random.nextInt(45) == 25 ? rareMeteor : meteor;
 						if (theBlock == Block.ice.blockID || theBlock == Block.lavaStill.blockID) {
@@ -48,9 +49,9 @@ public class CrashMeteorite extends WorldGenerator
 		}
 
 		//Bottom layer spreading for a higher concentration in center
-		for (int y = j - 4 * this.crashSize; y >= j - (4 * this.crashSize + 1); y--) {
-			for (int startX = i + 4 * this.crashSize; startX >= i - 4 * this.crashSize; startX--) {
-				for (int startZ = k + 4 * this.crashSize; startZ >= k - 4 * this.crashSize; startZ--) {
+		for (int y = j - MeteorsMod.instance.ImpactSpread * this.crashSize; y >= j - (MeteorsMod.instance.ImpactSpread * this.crashSize + 1); y--) {
+			for (int startX = i + MeteorsMod.instance.ImpactSpread * this.crashSize; startX >= i - MeteorsMod.instance.ImpactSpread * this.crashSize; startX--) {
+				for (int startZ = k + MeteorsMod.instance.ImpactSpread * this.crashSize; startZ >= k - MeteorsMod.instance.ImpactSpread * this.crashSize; startZ--) {
 					if ((!world.isAirBlock(startX, y, startZ)) && (meteorsAboveAndBelow(world, startX, y, startZ) == 0) && (checkBlockIDs(world, startX, y, startZ))) {
 						int theBlock = random.nextInt(45) == 25 ? rareMeteor : meteor;
 						if (theBlock == Block.ice.blockID || theBlock == Block.lavaStill.blockID) {
