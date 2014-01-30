@@ -53,6 +53,7 @@ import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.EnumHelper;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.ICraftingHandler;
 import cpw.mods.fml.common.IFuelHandler;
@@ -92,8 +93,8 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 	public static final EnumToolMaterial MeteoriteTool = EnumHelper.addToolMaterial("METEORITE", 3, 900, 10.0F, 4, 10);
 	public static final EnumToolMaterial FrezariteTool = EnumHelper.addToolMaterial("FREZARITE", 2, 225, 7.0F, 2, 14);
 	
-	public static Enchantment Magnetization = new EnchantmentMagnetized(ModConfig.instance.get("Magnetization Enchantment ID", 157), 3).setName("Magnetization");
-	public static Enchantment ColdTouch 	= new EnchantmentColdTouch(ModConfig.instance.get("Cold Touch Enchantment ID", 158), 3).setName("Cold Touch");
+	public static final Enchantment Magnetization = new EnchantmentMagnetized(ModConfig.instance.get("Magnetization Enchantment ID", 157), 3).setName("Magnetization");
+	public static final Enchantment ColdTouch 	  = new EnchantmentColdTouch(ModConfig.instance.get("Cold Touch Enchantment ID", 158), 3).setName("Cold Touch");
 	
 	public static final CreativeTabs meteorTab = new CreativeTabMeteor("Falling Meteors Mod");
 	
@@ -386,13 +387,13 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 			"mm", "mm", Character.valueOf('m'), itemMeteorChips 
 		});
 
-		GameRegistry.addRecipe(new ItemStack(torchMeteorShieldActive, 4), new Object[] { 
-			"m", "s", Character.valueOf('m'), itemMeteorChips, Character.valueOf('s'), Item.stick 
-		});
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(torchMeteorShieldActive, 4), new Object[] { 
+			"m", "s", Character.valueOf('m'), itemMeteorChips, Character.valueOf('s'), "stickWood" 
+		}));
 
-		GameRegistry.addRecipe(new ItemStack(blockMeteorShield, 1), new Object[] { 
-			"mmm", "crc", "ccc", Character.valueOf('m'), itemMeteorChips, Character.valueOf('c'), Block.cobblestone, Character.valueOf('r'), Item.redstone 
-		});
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blockMeteorShield, 1), new Object[] { 
+			"mmm", "crc", "ccc", Character.valueOf('m'), itemMeteorChips, Character.valueOf('c'), "cobblestone", Character.valueOf('r'), Item.redstone 
+		}));
 
 		GameRegistry.addShapelessRecipe(new ItemStack(Block.ice, 4), new Object[] { 
 			Item.bucketWater, itemFrezaCrystal 
@@ -430,9 +431,9 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 			"c c", "c c", Character.valueOf('c'), itemKreknoChip 
 		});
 
-		GameRegistry.addRecipe(new ItemStack(KreknoriteSword, 1), new Object[] { 
-			"c", "c", "s", Character.valueOf('c'), itemKreknoChip, Character.valueOf('s'), Item.stick 
-		});
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(KreknoriteSword, 1), new Object[] { 
+			"c", "c", "s", Character.valueOf('c'), itemKreknoChip, Character.valueOf('s'), "stickWood"
+		}));
 
 		GameRegistry.addShapelessRecipe(new ItemStack(itemVanillaIceCream, 4), new Object[] { 
 			Item.bowlEmpty, Item.sugar, Item.bucketMilk, itemFrezaCrystal 
@@ -442,33 +443,33 @@ implements ICraftingHandler, IFuelHandler, IWorldGenerator
 			Item.bowlEmpty, Item.sugar, Item.bucketMilk, itemFrezaCrystal, new ItemStack(Item.dyePowder, 1, 3) 
 		});
 
-		GameRegistry.addRecipe(new ItemStack(FrezaritePickaxe, 1), new Object[] { 
-			"ccc", " s ", " s ", Character.valueOf('c'), itemFrezaCrystal, Character.valueOf('s'), Item.stick 
-		});
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(FrezaritePickaxe, 1), new Object[] { 
+			"ccc", " s ", " s ", Character.valueOf('c'), itemFrezaCrystal, Character.valueOf('s'), "stickWood"
+		}));
 
-		GameRegistry.addRecipe(new ItemStack(FrezariteSpade, 1), new Object[] { 
-			"c", "s", "s", Character.valueOf('c'), itemFrezaCrystal, Character.valueOf('s'), Item.stick 
-		});
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(FrezariteSpade, 1), new Object[] { 
+			"c", "s", "s", Character.valueOf('c'), itemFrezaCrystal, Character.valueOf('s'), "stickWood" 
+		}));
 
-		GameRegistry.addRecipe(new ItemStack(FrezariteAxe, 1), new Object[] { 
-			" cc", " sc", " s ", Character.valueOf('c'), itemFrezaCrystal, Character.valueOf('s'), Item.stick 
-		});
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(FrezariteAxe, 1), new Object[] { 
+			" cc", " sc", " s ", Character.valueOf('c'), itemFrezaCrystal, Character.valueOf('s'), "stickWood"
+		}));
 
-		GameRegistry.addRecipe(new ItemStack(FrezariteAxe, 1), new Object[] { 
-			"cc ", "cs ", " s ", Character.valueOf('c'), itemFrezaCrystal, Character.valueOf('s'), Item.stick 
-		});
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(FrezariteAxe, 1), new Object[] { 
+			"cc ", "cs ", " s ", Character.valueOf('c'), itemFrezaCrystal, Character.valueOf('s'), "stickWood" 
+		}));
 
-		GameRegistry.addRecipe(new ItemStack(FrezariteHoe, 1), new Object[] { 
-			"cc ", " s ", " s ", Character.valueOf('c'), itemFrezaCrystal, Character.valueOf('s'), Item.stick 
-		});
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(FrezariteHoe, 1), new Object[] { 
+			"cc ", " s ", " s ", Character.valueOf('c'), itemFrezaCrystal, Character.valueOf('s'), "stickWood" 
+		}));
 
-		GameRegistry.addRecipe(new ItemStack(FrezariteHoe, 1), new Object[] { 
-			" cc", " s ", " s ", Character.valueOf('c'), itemFrezaCrystal, Character.valueOf('s'), Item.stick 
-		});
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(FrezariteHoe, 1), new Object[] { 
+			" cc", " s ", " s ", Character.valueOf('c'), itemFrezaCrystal, Character.valueOf('s'), "stickWood"
+		}));
 
-		GameRegistry.addRecipe(new ItemStack(FrezariteSword, 1), new Object[] { 
-			"c", "c", "s", Character.valueOf('c'), itemFrezaCrystal, Character.valueOf('s'), Item.stick
-		});
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(FrezariteSword, 1), new Object[] { 
+			"c", "c", "s", Character.valueOf('c'), itemFrezaCrystal, Character.valueOf('s'), "stickWood"
+		}));
 		
 		GameRegistry.addRecipe(new ItemStack(blockMeteorTimer, 1), new Object[] {
 			"mfk", "brb", Character.valueOf('m'), itemMeteorChips, Character.valueOf('f'), itemFrezaCrystal, 
