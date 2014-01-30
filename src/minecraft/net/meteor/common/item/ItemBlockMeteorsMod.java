@@ -3,8 +3,8 @@ package net.meteor.common.item;
 import java.util.List;
 
 import net.meteor.common.LangLocalization;
+import net.meteor.common.MeteorBlocks;
 import net.meteor.common.MeteorsMod;
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -23,7 +23,7 @@ public class ItemBlockMeteorsMod extends ItemBlock
 	
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		if (this.itemID == MeteorsMod.torchMeteorShieldActive.blockID) {
+		if (this.itemID == MeteorBlocks.torchMeteorShieldActive.blockID) {
 			par3List.add(EnumChatFormatting.LIGHT_PURPLE + LangLocalization.get("ProtectionTorch.usage"));
 		}
 	}

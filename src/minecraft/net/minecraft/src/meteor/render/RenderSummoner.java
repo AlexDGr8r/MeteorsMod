@@ -1,6 +1,6 @@
 package net.minecraft.src.meteor.render;
 
-import net.meteor.common.MeteorsMod;
+import net.meteor.common.MeteorItems;
 import net.meteor.common.entity.EntitySummoner;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
@@ -28,9 +28,9 @@ public class RenderSummoner extends Render
 	{
 		EntitySummoner summoner = (EntitySummoner)par1Entity;
 		if (!summoner.isRandom)
-			this.icon = MeteorsMod.itemMeteorSummoner.getIconFromDamage(summoner.mID + 1);
+			this.icon = MeteorItems.itemMeteorSummoner.getIconFromDamage(summoner.mID + 1);
 		else {
-			this.icon = MeteorsMod.itemMeteorSummoner.getIconFromDamage(0);
+			this.icon = MeteorItems.itemMeteorSummoner.getIconFromDamage(0);
 		}
 		GL11.glPushMatrix();
         GL11.glTranslatef((float)par2, (float)par4, (float)par6);

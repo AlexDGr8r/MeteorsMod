@@ -1,7 +1,7 @@
 package net.meteor.common.entity;
 
 import net.meteor.common.LangLocalization;
-import net.meteor.common.MeteorsMod;
+import net.meteor.common.MeteorItems;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.world.World;
@@ -19,9 +19,9 @@ public class EntityAlienCreeper extends EntityCreeper
 	protected int getDropItemId()
 	{
 		if (this.worldObj.rand.nextBoolean()) {
-			return MeteorsMod.itemRedMeteorGem.itemID;
+			return MeteorItems.itemRedMeteorGem.itemID;
 		}
-		return MeteorsMod.itemMeteorChips.itemID;
+		return MeteorItems.itemMeteorChips.itemID;
 	}
 
 	@Override

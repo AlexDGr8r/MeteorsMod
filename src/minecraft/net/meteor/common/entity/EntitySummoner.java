@@ -7,6 +7,7 @@ import net.meteor.common.EnumMeteor;
 import net.meteor.common.HandlerAchievement;
 import net.meteor.common.HandlerMeteor;
 import net.meteor.common.LangLocalization;
+import net.meteor.common.MeteorItems;
 import net.meteor.common.MeteorsMod;
 import net.meteor.common.SafeChunkCoordsIntPair;
 import net.minecraft.entity.EntityLiving;
@@ -90,9 +91,9 @@ public class EntitySummoner extends EntityThrowable implements IEntityAdditional
 				player.addChatMessage(LangLocalization.get("MeteorSummoner.wrongDimension"));
 				if (!player.capabilities.isCreativeMode) {
 					if (this.isRandom) {
-						player.inventory.addItemStackToInventory(new ItemStack(MeteorsMod.itemMeteorSummoner, 1));
+						player.inventory.addItemStackToInventory(new ItemStack(MeteorItems.itemMeteorSummoner, 1));
 					} else {
-						player.inventory.addItemStackToInventory(new ItemStack(MeteorsMod.itemMeteorSummoner, 1, this.mID + 1));
+						player.inventory.addItemStackToInventory(new ItemStack(MeteorItems.itemMeteorSummoner, 1, this.mID + 1));
 					}
 				}
 			}
@@ -110,9 +111,9 @@ public class EntitySummoner extends EntityThrowable implements IEntityAdditional
 				player.sendChatToPlayer(ClientHandler.createMessage(LangLocalization.get("MeteorSummoner.cannotSummon"), EnumChatFormatting.RED));
 				if (!player.capabilities.isCreativeMode) {
 					if (this.isRandom) {
-						player.inventory.addItemStackToInventory(new ItemStack(MeteorsMod.itemMeteorSummoner, 1));
+						player.inventory.addItemStackToInventory(new ItemStack(MeteorItems.itemMeteorSummoner, 1));
 					} else {
-						player.inventory.addItemStackToInventory(new ItemStack(MeteorsMod.itemMeteorSummoner, 1, this.mID + 1));
+						player.inventory.addItemStackToInventory(new ItemStack(MeteorItems.itemMeteorSummoner, 1, this.mID + 1));
 					}
 				}
 			} else if ((!MeteorsMod.instance.allowSummonedMeteorGrief) && (player != null)) {
@@ -125,10 +126,10 @@ public class EntitySummoner extends EntityThrowable implements IEntityAdditional
 						player.addChatMessage(LangLocalization.get("MeteorSummoner.landProtected"));
 						if (player.capabilities.isCreativeMode) break;
 						if (this.isRandom) {
-							player.inventory.addItemStackToInventory(new ItemStack(MeteorsMod.itemMeteorSummoner, 1)); 
+							player.inventory.addItemStackToInventory(new ItemStack(MeteorItems.itemMeteorSummoner, 1)); 
 							break;
 						}
-						player.inventory.addItemStackToInventory(new ItemStack(MeteorsMod.itemMeteorSummoner, 1, this.mID + 1)); 
+						player.inventory.addItemStackToInventory(new ItemStack(MeteorItems.itemMeteorSummoner, 1, this.mID + 1)); 
 						break;
 					}
 

@@ -2,7 +2,7 @@ package net.meteor.common.block;
 
 import java.util.Random;
 
-import net.meteor.common.MeteorsMod;
+import net.meteor.common.MeteorItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -22,7 +22,7 @@ public class BlockKreknorite extends BlockMeteor
 	@Override
 	public int idDropped(int i, Random random, int j)
 	{
-		return MeteorsMod.itemKreknoChip.itemID;
+		return MeteorItems.itemKreknoChip.itemID;
 	}
 
 	@Override

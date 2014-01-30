@@ -2,7 +2,7 @@ package net.meteor.common.entity;
 
 import net.meteor.common.HandlerAchievement;
 import net.meteor.common.LangLocalization;
-import net.meteor.common.MeteorsMod;
+import net.meteor.common.MeteorItems;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.passive.EntityOcelot;
@@ -20,7 +20,7 @@ public class EntityCometKitty extends EntityOcelot
 	@Override
 	protected int getDropItemId()
 	{
-		return MeteorsMod.itemRedMeteorGem.itemID;
+		return MeteorItems.itemRedMeteorGem.itemID;
 	}
 
 	@Override

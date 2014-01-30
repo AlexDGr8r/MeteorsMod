@@ -7,6 +7,7 @@ import java.util.Random;
 import net.meteor.common.ClientProxy;
 import net.meteor.common.HandlerMeteor;
 import net.meteor.common.LangLocalization;
+import net.meteor.common.MeteorBlocks;
 import net.meteor.common.MeteorsMod;
 import net.meteor.common.SafeChunkCoordsIntPair;
 import net.minecraft.block.BlockTorch;
@@ -77,7 +78,7 @@ public class BlockMeteorShieldTorch extends BlockTorch
 	@Override
 	public int idDropped(int i, Random random, int j)
 	{
-		return MeteorsMod.torchMeteorShieldActive.blockID;
+		return MeteorBlocks.torchMeteorShieldActive.blockID;
 	}
 
 	@Override
@@ -101,10 +102,10 @@ public class BlockMeteorShieldTorch extends BlockTorch
 		boolean isSafeChunk = MeteorsMod.proxy.metHandlers.get(world.provider.dimensionId).safeChunks.contains(new ChunkCoordIntPair(chunk.xPosition, chunk.zPosition));
 		if (this.torchActive) {
 			if (!isSafeChunk)
-				world.setBlock(i, j, k, MeteorsMod.torchMeteorShieldIdle.blockID, world.getBlockMetadata(i, j, k), 3);
+				world.setBlock(i, j, k, MeteorBlocks.torchMeteorShieldIdle.blockID, world.getBlockMetadata(i, j, k), 3);
 		}
 		else if (isSafeChunk)
-			world.setBlock(i, j, k, MeteorsMod.torchMeteorShieldActive.blockID, world.getBlockMetadata(i, j, k), 3);
+			world.setBlock(i, j, k, MeteorBlocks.torchMeteorShieldActive.blockID, world.getBlockMetadata(i, j, k), 3);
 	}
 
 	@Override

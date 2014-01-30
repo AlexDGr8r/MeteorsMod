@@ -8,9 +8,9 @@ import net.meteor.common.ClientProxy;
 import net.meteor.common.HandlerAchievement;
 import net.meteor.common.HandlerMeteor;
 import net.meteor.common.LangLocalization;
+import net.meteor.common.MeteorItems;
 import net.meteor.common.MeteorsMod;
 import net.meteor.common.tileentity.TileEntityMeteorShield;
-import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.EntityLivingBase;
@@ -188,7 +188,7 @@ public class BlockMeteorShield extends BlockContainerMeteorsMod
 		//			return true;
 		//		}
 
-		if ((cItem.itemID == MeteorsMod.itemMeteorChips.itemID) && (world.getBlockMetadata(i, j, k) == 0)) {
+		if ((cItem.itemID == MeteorItems.itemMeteorChips.itemID) && (world.getBlockMetadata(i, j, k) == 0)) {
 			TileEntityMeteorShield shield = (TileEntityMeteorShield)world.getBlockTileEntity(i, j, k);
 			shield.owner = player.username;
 			this.updateTick(world, i, j, k, world.rand);
@@ -196,7 +196,7 @@ public class BlockMeteorShield extends BlockContainerMeteorsMod
 			if (!player.capabilities.isCreativeMode) cItem.stackSize--;
 			return true;
 		}
-		if (cItem.itemID == MeteorsMod.itemRedMeteorGem.itemID) {
+		if (cItem.itemID == MeteorItems.itemRedMeteorGem.itemID) {
 			int meta = world.getBlockMetadata(i, j, k);
 			if ((meta > 0) && (meta < 5)) {
 				boolean sendNoUpgradeMsg = false;
@@ -257,7 +257,7 @@ public class BlockMeteorShield extends BlockContainerMeteorsMod
 		ArrayList<ItemStack> ret = super.getBlockDropped(world, x, y, z, metadata, fortune);
 		int gems = metadata > 1 ? metadata - 1 : 0;
 		for (int i = 0; i < gems; i++) {
-			ret.add(new ItemStack(MeteorsMod.itemRedMeteorGem, 1));
+			ret.add(new ItemStack(MeteorItems.itemRedMeteorGem, 1));
 		}
 		return ret;
 	}

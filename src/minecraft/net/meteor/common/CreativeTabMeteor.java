@@ -18,7 +18,7 @@ public class CreativeTabMeteor extends CreativeTabs {
 	@Override
 	public ItemStack getIconItemStack()
     {
-        return new ItemStack(MeteorsMod.blockMeteor, 1, 1);
+        return new ItemStack(MeteorBlocks.blockMeteor, 1, 1);
     }
 	
 	@SideOnly(Side.CLIENT)

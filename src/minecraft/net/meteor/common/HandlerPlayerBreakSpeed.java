@@ -13,7 +13,7 @@ public class HandlerPlayerBreakSpeed
 		ItemStack stack = event.entityPlayer.getCurrentEquippedItem();
 		if ((stack != null) && (event.entityPlayer.isInsideOfMaterial(Material.water))) {
 			int i = stack.itemID;
-			if ((i == MeteorsMod.FrezaritePickaxe.itemID) || (i == MeteorsMod.FrezariteSpade.itemID) || (i == MeteorsMod.FrezariteAxe.itemID))
+			if ((i == MeteorItems.FrezaritePickaxe.itemID) || (i == MeteorItems.FrezariteSpade.itemID) || (i == MeteorItems.FrezariteAxe.itemID))
 				event.newSpeed = (event.originalSpeed * 5.0F);
 		}
 	}

@@ -1,7 +1,5 @@
 package net.meteor.common.item;
 
-import net.meteor.common.LangLocalization;
-import net.meteor.common.MeteorsMod;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;

@@ -2,7 +2,6 @@ package net.meteor.common.block;
 
 import net.meteor.common.LangLocalization;
 import net.meteor.common.tileentity.TileEntityMeteorTimer;
-import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;

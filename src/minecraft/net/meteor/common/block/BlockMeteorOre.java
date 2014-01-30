@@ -2,7 +2,7 @@ package net.meteor.common.block;
 
 import java.util.Random;
 
-import net.meteor.common.MeteorsMod;
+import net.meteor.common.MeteorItems;
 import net.minecraft.block.material.Material;
 
 public class BlockMeteorOre extends BlockMeteorsMod
@@ -21,7 +21,7 @@ public class BlockMeteorOre extends BlockMeteorsMod
 	@Override
 	public int idDropped(int i, Random random, int j)
 	{
-		return MeteorsMod.itemMeteorChips.itemID;
+		return MeteorItems.itemMeteorChips.itemID;
 	}
 	
 }

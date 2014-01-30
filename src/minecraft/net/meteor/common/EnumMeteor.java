@@ -8,9 +8,9 @@ import net.minecraft.util.ResourceLocation;
 public enum EnumMeteor
 implements Serializable
 {
-	METEORITE(0, MeteorsMod.blockMeteor.blockID, MeteorsMod.blockRareMeteor.blockID, true, "met"), 
-	FREZARITE(1, MeteorsMod.blockFrezarite.blockID, Block.ice.blockID, false, "freza"), 
-	KREKNORITE(2, MeteorsMod.blockKreknorite.blockID, Block.lavaStill.blockID, true, "krekno"), 
+	METEORITE(0, MeteorBlocks.blockMeteor.blockID, MeteorBlocks.blockRareMeteor.blockID, true, "met"), 
+	FREZARITE(1, MeteorBlocks.blockFrezarite.blockID, Block.ice.blockID, false, "freza"), 
+	KREKNORITE(2, MeteorBlocks.blockKreknorite.blockID, Block.lavaStill.blockID, true, "krekno"), 
 	UNKNOWN(3, 0, 0, true, "unk"), 
 	KITTY(4, 0, 0, false, "kitty");
 

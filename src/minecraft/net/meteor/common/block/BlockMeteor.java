@@ -3,7 +3,8 @@ package net.meteor.common.block;
 import java.util.Random;
 
 import net.meteor.common.ClientProxy;
-import net.meteor.common.MeteorsMod;
+import net.meteor.common.MeteorBlocks;
+import net.meteor.common.MeteorItems;
 import net.meteor.common.entity.EntityAlienCreeper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -31,7 +32,7 @@ public class BlockMeteor extends BlockMeteorsMod
 	@Override
 	public int idDropped(int i, Random random, int j)
 	{
-		return MeteorsMod.itemMeteorChips.itemID;
+		return MeteorItems.itemMeteorChips.itemID;
 	}
 
 	@Override
@@ -212,7 +213,7 @@ public class BlockMeteor extends BlockMeteorsMod
         	int xp;
         	if (par5 > 0) {
         		
-        		if (this.blockID == MeteorsMod.blockKreknorite.blockID || this.blockID == MeteorsMod.blockRareMeteor.blockID) {
+        		if (this.blockID == MeteorBlocks.blockKreknorite.blockID || this.blockID == MeteorBlocks.blockRareMeteor.blockID) {
         			xp = MathHelper.getRandomIntegerInRange(par1World.rand, 3, 6);
         		} else {
         			xp = MathHelper.getRandomIntegerInRange(par1World.rand, 2, 5);

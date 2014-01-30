@@ -26,10 +26,10 @@ implements ITickHandler
 		World world = player.worldObj;
 		InventoryPlayer inv = player.inventory;
 
-		if ((isWearing(MeteorsMod.KreknoriteHelmet.itemID, inv.armorItemInSlot(3))) && 
-				(isWearing(MeteorsMod.KreknoriteBody.itemID, inv.armorItemInSlot(2))) && 
-				(isWearing(MeteorsMod.KreknoriteLegs.itemID, inv.armorItemInSlot(1))) && 
-				(isWearing(MeteorsMod.KreknoriteBoots.itemID, inv.armorItemInSlot(0)))) {
+		if ((isWearing(MeteorItems.KreknoriteHelmet.itemID, inv.armorItemInSlot(3))) && 
+				(isWearing(MeteorItems.KreknoriteBody.itemID, inv.armorItemInSlot(2))) && 
+				(isWearing(MeteorItems.KreknoriteLegs.itemID, inv.armorItemInSlot(1))) && 
+				(isWearing(MeteorItems.KreknoriteBoots.itemID, inv.armorItemInSlot(0)))) {
 			ArmorEffectController.setImmuneToFire(player, true);
 		} else {
 			ArmorEffectController.setImmuneToFire(player, false);
