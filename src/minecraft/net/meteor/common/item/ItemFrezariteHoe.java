@@ -3,9 +3,11 @@ package net.meteor.common.item;
 import java.util.List;
 
 import net.meteor.common.LangLocalization;
+import net.meteor.common.MeteorsMod;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumToolMaterial;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -20,6 +22,7 @@ public class ItemFrezariteHoe extends ItemHoe
 	public ItemFrezariteHoe(int par1, EnumToolMaterial par2EnumToolMaterial)
 	{
 		super(par1, par2EnumToolMaterial);
+		this.setCreativeTab(MeteorsMod.meteorTab);
 	}
 
 	@Override
@@ -88,4 +91,10 @@ public class ItemFrezariteHoe extends ItemHoe
 	{
 		return LangLocalization.get(this.getUnlocalizedName(par1ItemStack) + ".name").trim();
 	}
+	
+	@Override
+	public Item setTextureName(String s) {
+		return super.setTextureName(MeteorsMod.MOD_ID + ":" + s);
+	}
+	
 }

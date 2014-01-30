@@ -27,7 +27,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockMeteorShield extends BlockContainer
+public class BlockMeteorShield extends BlockContainerMeteorsMod
 {
 	
 	private Icon topUnlit;

@@ -1,3 +1,4 @@
+CHANGELOG
 /bin/*
 /conf/*
 /docs/*
@@ -10,6 +11,8 @@
 /reobf/*
 /runtime/*
 /temp/*
+/src/minecraft/deobfuscation_data-1.6.4.lzma
+/src/minecraft/assets/*
 /src/minecraft/fml_at.cfg
 /src/minecraft/fml_marker.cfg
 /src/minecraft/fmlversion.properties

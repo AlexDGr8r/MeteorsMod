@@ -33,4 +33,9 @@ public class ItemMeteorsMod extends Item
 		}
 	}
 	
+	@Override
+	public Item setTextureName(String s) {
+		return super.setTextureName(MeteorsMod.MOD_ID + ":" + s);
+	}
+	
 }

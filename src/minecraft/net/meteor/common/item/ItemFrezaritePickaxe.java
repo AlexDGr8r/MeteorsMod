@@ -3,8 +3,10 @@ package net.meteor.common.item;
 import java.util.List;
 
 import net.meteor.common.LangLocalization;
+import net.meteor.common.MeteorsMod;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumToolMaterial;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.relauncher.Side;
@@ -15,6 +17,7 @@ public class ItemFrezaritePickaxe extends ItemPickaxe
 	public ItemFrezaritePickaxe(int par1, EnumToolMaterial par2EnumToolMaterial)
 	{
 		super(par1, par2EnumToolMaterial);
+		this.setCreativeTab(MeteorsMod.meteorTab);
 	}
 
 	@Override
@@ -42,4 +45,10 @@ public class ItemFrezaritePickaxe extends ItemPickaxe
 	{
 		return LangLocalization.get(this.getUnlocalizedName(par1ItemStack) + ".name").trim();
 	}
+	
+	@Override
+	public Item setTextureName(String s) {
+		return super.setTextureName(MeteorsMod.MOD_ID + ":" + s);
+	}
+	
 }

@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockMeteorTimer extends BlockContainer {
+public class BlockMeteorTimer extends BlockContainerMeteorsMod {
 	
 	@SideOnly(Side.CLIENT)
 	private Icon timerSide;

@@ -55,7 +55,7 @@ public class HandlerMeteor
 	}
 
 	public void updateMeteors() {
-		if (this.theWorld == null) || event.world.provider.dimensionId != 0) {
+		if ((this.theWorld == null) || this.theWorld.provider.dimensionId != 0) {
 			return;
 		}
 
@@ -529,7 +529,7 @@ public class HandlerMeteor
 			double zDiff = meteor.posZ - player.posZ;
 			double xMod = xDiff / 128.0D * 4.0D;
 			double zMod = zDiff / 128.0D * 4.0D;
-			theWorld.playSoundEffect(player.posX + xMod, player.posY + 1.0D, player.posZ + zMod, "meteors:meteor.crash", 1.0F, 1.0F);
+			theWorld.playSoundEffect(player.posX + xMod, player.posY + 1.0D, player.posZ + zMod, MeteorsMod.MOD_ID + ":meteor.crash", 1.0F, 1.0F);
 		}
 	}
 }
