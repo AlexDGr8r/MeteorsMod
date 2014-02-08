@@ -1,5 +1,6 @@
 package net.meteor.common;
 
+import net.meteor.common.block.BlockDecoration;
 import net.meteor.common.block.BlockFrezarite;
 import net.meteor.common.block.BlockKreknorite;
 import net.meteor.common.block.BlockMeteor;
@@ -26,6 +27,7 @@ public class MeteorBlocks {
 	public static final Block torchMeteorShieldActive 	= new BlockMeteorShieldTorch(ModConfig.instance.getBlockID("Test Torch Lit ID", 670), true).setHardness(0.0F).setLightValue(0.5F).setStepSound(Block.soundWoodFootstep).setUnlocalizedName("ProtectedLandTesterActive").setTextureName("ProtectedLandTesterActive");
 	public static final Block blockMeteorTimer			= new BlockMeteorTimer(ModConfig.instance.getBlockID("Meteor Timer Block ID", 675)).setHardness(0.0F).setStepSound(Block.soundWoodFootstep).setUnlocalizedName("MeteorTimer").setTextureName("MeteorTimer");
 	public static final Block blockRedMeteorGem			= new BlockRedMeteorGem(ModConfig.instance.getBlockID("Block Red Meteor Gem ID", 676)).setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundMetalFootstep).setUnlocalizedName("blockRedGem").setTextureName("blockRedGem");
+	public static final Block blockDecorator			= new BlockDecoration(ModConfig.instance.getBlockID("Compressed Ore Decoration ID", 677), "blockMeteorMetal", "blockFrezMetal", "blockKrekMetal").setUnlocalizedName("meteorDecor").setStepSound(Block.soundStoneFootstep).setHardness(5.0F).setResistance(10.0F);
 	
 	public static void readyBlocks() {
 		MinecraftForge.setBlockHarvestLevel(blockMeteor, "pickaxe", 2);

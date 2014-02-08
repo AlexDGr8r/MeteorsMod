@@ -42,12 +42,11 @@ public class MeteorsMod
 implements IWorldGenerator
 {
 	
-	public static final String MOD_ID = "meteors";
+	public static final String MOD_ID 	= "meteors";
 	public static final String MOD_NAME = "Falling Meteors";
-	public static final String VERSION = "2.12"; 		// Switch to automatic versioning later on
+	public static final String VERSION 	= "2.12"; 		// Switch to automatic versioning later on
 	
 	public static final boolean loggable = false;		// For Debugging Purposes Only
-	public static final boolean forModpack = false;		// TODO Change this for publishing modpack
 
 	public static final Logger log = FMLLog.getLogger();
 

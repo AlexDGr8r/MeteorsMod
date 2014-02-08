@@ -57,6 +57,11 @@ public class MeteorItems {
 	public static final Item KreknoriteBoots 			= new ItemEnchArmor(ModConfig.instance.getItemID("Kreknorite Boots ID", 30249), MeteorsMod.KreknoriteArmor, 3, 3).setEnch(Enchantment.fireProtection, 4).setUnlocalizedName("KreknoriteBoots").setTextureName("KreknoriteBoots");
 	public static final Item KreknoriteSword 			= new ItemKreknoSword(ModConfig.instance.getItemID("Kreknorite Sword ID", 30250), MeteorsMod.MeteoriteTool).setUnlocalizedName("KreknoriteSword").setTextureName("KreknoriteSword");
 
+	// Begin industrialization! :D
+	public static final Item MeteoriteIngot				= new ItemMeteorsMod(ModConfig.instance.getItemID("Meteorite Ingot ID", 30261)).setUnlocalizedName("MeteoriteIngot").setTextureName("MeteoriteIngot");
+	public static final Item FrozenIron					= new ItemMeteorsMod(ModConfig.instance.getItemID("Frozen Iron ID", 30262)).setUnlocalizedName("FrozenIron").setTextureName("FrozenIron");
+	public static final Item KreknoriteIngot			= new ItemMeteorsMod(ModConfig.instance.getItemID("Kreknorite Ingot ID", 30263)).setUnlocalizedName("KreknoriteIngot").setTextureName("KreknoriteIngot");
+	
 	public static void readyItems() {
 		MinecraftForge.setToolClass(MeteoriteAxe, "axe", 3);
 		MinecraftForge.setToolClass(MeteoritePickaxe, "pickaxe", 3);
@@ -67,39 +72,42 @@ public class MeteorItems {
 	}
 	
 	public static void registerItems() {
-		GameRegistry.registerItem(MeteorItems.itemMeteorChips, "MeteorChips");
-		GameRegistry.registerItem(MeteorItems.itemRedMeteorGem, "RedMeteorGem");
-		GameRegistry.registerItem(MeteorItems.itemChocolateIceCream, "ChocolateICream");
-		GameRegistry.registerItem(MeteorItems.itemFrezaCrystal, "FrezaCrystal");
-		GameRegistry.registerItem(MeteorItems.itemKreknoChip, "KreknoChip");
-		GameRegistry.registerItem(MeteorItems.itemMeteorCrashDetector, "MeteorCrashDet");
-		GameRegistry.registerItem(MeteorItems.itemMeteorProximityDetector, "MeteorProxDet");
-		GameRegistry.registerItem(MeteorItems.itemMeteorSummoner, "MeteorSummoner");
-		GameRegistry.registerItem(MeteorItems.itemMeteorTimeDetector, "MeteorTimeDet");
-		GameRegistry.registerItem(MeteorItems.itemVanillaIceCream, "VanillaICream");
-		GameRegistry.registerItem(MeteorItems.FrezariteBody, "FrezBody");
-		GameRegistry.registerItem(MeteorItems.FrezariteBoots, "FrezBoots");
-		GameRegistry.registerItem(MeteorItems.FrezariteHelmet, "FrezHelm");
-		GameRegistry.registerItem(MeteorItems.FrezariteLegs, "FrezLegs");
-		GameRegistry.registerItem(MeteorItems.FrezaritePickaxe, "FrezPick");
-		GameRegistry.registerItem(MeteorItems.FrezariteSpade, "FrezSpade");
-		GameRegistry.registerItem(MeteorItems.KreknoriteBody, "KrekBody");
-		GameRegistry.registerItem(MeteorItems.KreknoriteBoots, "KrekBoots");
-		GameRegistry.registerItem(MeteorItems.KreknoriteHelmet, "KrekHelm");
-		GameRegistry.registerItem(MeteorItems.KreknoriteLegs, "KrekLegs");
-		GameRegistry.registerItem(MeteorItems.KreknoriteSword, "KrekSword");
-		GameRegistry.registerItem(MeteorItems.MeteoriteAxe, "MetAxe");
-		GameRegistry.registerItem(MeteorItems.MeteoriteBody, "MetBody");
-		GameRegistry.registerItem(MeteorItems.MeteoriteBoots, "MetBoots");
-		GameRegistry.registerItem(MeteorItems.MeteoriteHelmet, "MetHelm");
-		GameRegistry.registerItem(MeteorItems.MeteoriteHoe, "MetHoe");
-		GameRegistry.registerItem(MeteorItems.MeteoriteLegs, "MetLegs");
-		GameRegistry.registerItem(MeteorItems.MeteoritePickaxe, "MetPick");
-		GameRegistry.registerItem(MeteorItems.MeteoriteSpade, "MetSpade");
-		GameRegistry.registerItem(MeteorItems.MeteoriteSword, "MetSword");
-		GameRegistry.registerItem(MeteorItems.FrezariteSword, "FrezSword");
-		GameRegistry.registerItem(MeteorItems.FrezariteAxe, "FrezAxe");
-		GameRegistry.registerItem(MeteorItems.FrezariteHoe, "FrezHoe");
+		GameRegistry.registerItem(itemMeteorChips, "MeteorChips");
+		GameRegistry.registerItem(itemRedMeteorGem, "RedMeteorGem");
+		GameRegistry.registerItem(itemChocolateIceCream, "ChocolateICream");
+		GameRegistry.registerItem(itemFrezaCrystal, "FrezaCrystal");
+		GameRegistry.registerItem(itemKreknoChip, "KreknoChip");
+		GameRegistry.registerItem(itemMeteorCrashDetector, "MeteorCrashDet");
+		GameRegistry.registerItem(itemMeteorProximityDetector, "MeteorProxDet");
+		GameRegistry.registerItem(itemMeteorSummoner, "MeteorSummoner");
+		GameRegistry.registerItem(itemMeteorTimeDetector, "MeteorTimeDet");
+		GameRegistry.registerItem(itemVanillaIceCream, "VanillaICream");
+		GameRegistry.registerItem(FrezariteBody, "FrezBody");
+		GameRegistry.registerItem(FrezariteBoots, "FrezBoots");
+		GameRegistry.registerItem(FrezariteHelmet, "FrezHelm");
+		GameRegistry.registerItem(FrezariteLegs, "FrezLegs");
+		GameRegistry.registerItem(FrezaritePickaxe, "FrezPick");
+		GameRegistry.registerItem(FrezariteSpade, "FrezSpade");
+		GameRegistry.registerItem(KreknoriteBody, "KrekBody");
+		GameRegistry.registerItem(KreknoriteBoots, "KrekBoots");
+		GameRegistry.registerItem(KreknoriteHelmet, "KrekHelm");
+		GameRegistry.registerItem(KreknoriteLegs, "KrekLegs");
+		GameRegistry.registerItem(KreknoriteSword, "KrekSword");
+		GameRegistry.registerItem(MeteoriteAxe, "MetAxe");
+		GameRegistry.registerItem(MeteoriteBody, "MetBody");
+		GameRegistry.registerItem(MeteoriteBoots, "MetBoots");
+		GameRegistry.registerItem(MeteoriteHelmet, "MetHelm");
+		GameRegistry.registerItem(MeteoriteHoe, "MetHoe");
+		GameRegistry.registerItem(MeteoriteLegs, "MetLegs");
+		GameRegistry.registerItem(MeteoritePickaxe, "MetPick");
+		GameRegistry.registerItem(MeteoriteSpade, "MetSpade");
+		GameRegistry.registerItem(MeteoriteSword, "MetSword");
+		GameRegistry.registerItem(FrezariteSword, "FrezSword");
+		GameRegistry.registerItem(FrezariteAxe, "FrezAxe");
+		GameRegistry.registerItem(FrezariteHoe, "FrezHoe");
+		GameRegistry.registerItem(MeteoriteIngot, "MeteoriteIngot");
+		GameRegistry.registerItem(FrozenIron, "FrozenIron");
+		GameRegistry.registerItem(KreknoriteIngot, "KreknoriteIngot");
 	}
 	
 }

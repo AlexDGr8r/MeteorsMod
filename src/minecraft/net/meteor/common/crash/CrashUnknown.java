@@ -143,14 +143,11 @@ public class CrashUnknown extends CrashMeteorite
 		case 50:
 		case 51:
 		case 52:
-			if (MeteorsMod.forModpack) {
-				List l = new ArrayList();
-				l.add(MeteorItems.itemMeteorProximityDetector);
-				l.add(MeteorItems.itemMeteorTimeDetector);
-				l.add(MeteorItems.itemMeteorCrashDetector);
-				return new ItemStack((Item)l.get(random.nextInt(3)), 1);
-			}
-			return new ItemStack(MeteorItems.itemMeteorSummoner, 1, random.nextInt(6));
+			List l = new ArrayList();
+			l.add(MeteorItems.itemMeteorProximityDetector);
+			l.add(MeteorItems.itemMeteorTimeDetector);
+			l.add(MeteorItems.itemMeteorCrashDetector);
+			return new ItemStack((Item)l.get(random.nextInt(3)), 1);
 		}
 		return null;
 	}

@@ -4,7 +4,11 @@ import java.util.Random;
 
 import net.meteor.common.ClientProxy;
 import net.meteor.common.EnumMeteor;
+import net.meteor.common.MeteorItems;
 import net.meteor.common.MeteorsMod;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
@@ -18,7 +22,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class TileEntityMeteorShield extends TileEntity
+public class TileEntityMeteorShield extends TileEntity implements IInventory
 {
 	private static final double[][] directionMotion = { { 0.0D, 0.0D }, { 0.0D, 0.3D }, { -0.3D, 0.3D }, { -0.3D, 0.0D }, { -0.3D, -0.3D }, { 0.0D, -0.3D }, { 0.3D, -0.3D }, { 0.3D, 0.0D }, { 0.3D, 0.3D } };
 
@@ -26,7 +30,7 @@ public class TileEntityMeteorShield extends TileEntity
 	private float field_82138_c;
 
 	@SideOnly(Side.CLIENT)
-	private long field_82137_b;
+	private long lastTickTime;
 	private boolean shieldedChunks;
 	private EnumMeteor lastStoppedMeteor = EnumMeteor.METEORITE;
 	public String owner;
@@ -35,11 +39,15 @@ public class TileEntityMeteorShield extends TileEntity
 	public float rayXMod;
 	public float rayZMod;
 	public boolean renderRay = false;
+	
+	// Inventory stuff
+	private ItemStack[] inv;
 
 	public TileEntityMeteorShield() {
 		this.shieldedChunks = false;
 		this.rayHeight = 0.0F;
 		this.direction = 0;
+		this.inv = new ItemStack[5];
 	}
 
 	public TileEntityMeteorShield(String theOwner) {
@@ -161,8 +169,8 @@ public class TileEntityMeteorShield extends TileEntity
 
 	public float getBeaconModifier()
 	{
-		int var1 = (int)(this.worldObj.getTotalWorldTime() - this.field_82137_b);
-		this.field_82137_b = this.worldObj.getTotalWorldTime();
+		int var1 = (int)(this.worldObj.getTotalWorldTime() - this.lastTickTime);
+		this.lastTickTime = this.worldObj.getTotalWorldTime();
 
 		if (var1 > 1)
 		{
@@ -203,5 +211,94 @@ public class TileEntityMeteorShield extends TileEntity
 	public AxisAlignedBB getRenderBoundingBox() {
 		return TileEntity.INFINITE_EXTENT_AABB;
 	}
+
+	@Override
+	public int getSizeInventory() {
+		return inv.length;
+	}
+
+	@Override
+	public ItemStack getStackInSlot(int i) {
+		return inv[i];
+	}
+
+	@Override
+	public ItemStack decrStackSize(int i, int j) {
+		ItemStack stack = getStackInSlot(i);
+		if (stack != null) {
+			if (stack.stackSize <= j) {
+				setInventorySlotContents(i, null);
+			} else {
+				ItemStack stack2 = stack.splitStack(j);
+				if (stack.stackSize <= 0) {
+					setInventorySlotContents(i, null);
+				}
+				stack = stack2;
+			}
+		}
+		return stack;
+	}
+
+	@Override
+	public ItemStack getStackInSlotOnClosing(int i) {
+		return null; // not needed, no items should be dropped
+	}
+
+	@Override
+	public void setInventorySlotContents(int i, ItemStack itemstack) {
+		if (itemstack == null) {
+			inv[i] = itemstack;
+		} else if (isItemValidForSlot(i, itemstack)) {
+			if (i < 5 && itemstack.stackSize > 1) {
+				itemstack.stackSize = 1;
+			}
+			if (i > 0 && i < 5) {
+				int meta = this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord);
+				inv[meta] = itemstack;
+			}
+		}
+	}
+	
+	
+
+	@Override
+	public String getInvName() {
+		return "Meteor Shield";
+	}
+
+	@Override
+	public boolean isInvNameLocalized() {
+		return false; // TODO localize later
+	}
+
+	@Override
+	public int getInventoryStackLimit() {
+		return 1;
+	}
+
+	@Override
+	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
+		return true; // TODO put in some proper checks for this
+	}
+
+	@Override
+	public void openChest() {}
+
+	@Override
+	public void closeChest() {}
+
+	@Override
+	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
+		int meta = this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord);
+		if (itemstack.itemID == MeteorItems.itemRedMeteorGem.itemID) {
+			return meta > 0 && i > 0 && i < 5;
+		} else if (itemstack.itemID == MeteorItems.itemMeteorChips.itemID) {
+			return i == 0 && meta == 0;
+		}
+		
+		return false;
+	}
+	
+	
 
 }
