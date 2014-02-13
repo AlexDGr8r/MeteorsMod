@@ -1,4 +1,4 @@
-package net.minecraft.src.meteor.render;
+package net.meteor.client.render;
 
 import net.meteor.common.MeteorItems;
 import net.meteor.common.entity.EntitySummoner;
@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
@@ -20,7 +20,7 @@ public class RenderSummoner extends Render
 {
 	
 	private int damage;
-	private Icon icon;
+	private IIcon icon;
 
 	public RenderSummoner() {}
 
@@ -43,7 +43,7 @@ public class RenderSummoner extends Render
         GL11.glPopMatrix();
 	}
 
-	private void func_77026_a(Tessellator par1Tessellator, Icon par2Icon)
+	private void func_77026_a(Tessellator par1Tessellator, IIcon par2Icon)
     {
 		float f = par2Icon.getMinU();
         float f1 = par2Icon.getMaxU();

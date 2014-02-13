@@ -43,14 +43,9 @@ implements IWorldGenerator
 	
 	public static final boolean loggable = false;		// For Debugging Purposes Only
 
-	public static final Logger log = FMLLog.getLogger();
+	public static final Logger log = Logger.getLogger("Falling Meteors Mod");
 
-	public static final EnumArmorMaterial MeteoriteArmor = EnumHelper.addArmorMaterial("METEORITE", 36, new int[] { 2, 7, 5, 2 }, 15);
-	public static final EnumArmorMaterial FrezariteArmor = EnumHelper.addArmorMaterial("FREZARITE", 7, new int[] { 2, 5, 3, 1 }, 25);
-	public static final EnumArmorMaterial KreknoriteArmor = EnumHelper.addArmorMaterial("KREKNORITE", 40, new int[] { 3, 8, 6, 3 }, 10);
-
-	public static final EnumToolMaterial MeteoriteTool = EnumHelper.addToolMaterial("METEORITE", 3, 900, 10.0F, 4, 10);
-	public static final EnumToolMaterial FrezariteTool = EnumHelper.addToolMaterial("FREZARITE", 2, 225, 7.0F, 2, 14);
+	
 	
 	public static Enchantment Magnetization;
 	public static Enchantment ColdTouch;

@@ -4,9 +4,9 @@ import net.meteor.common.GhostMeteor;
 import net.meteor.common.HandlerMeteor;
 import net.meteor.common.MeteorsMod;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.Packet132TileEntityData;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 
@@ -96,9 +96,9 @@ public class TileEntityMeteorTimer extends TileEntity {
 	}
 
 	@Override
-	public void onDataPacket(INetworkManager net, Packet132TileEntityData pkt)
+	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
 	{
-		readFromNBT(pkt.data);
+		readFromNBT(pkt.func_148857_g());
 	}
 
 	@Override
@@ -106,7 +106,7 @@ public class TileEntityMeteorTimer extends TileEntity {
 	{
 		NBTTagCompound var1 = new NBTTagCompound();
 		writeToNBT(var1);
-		return new Packet132TileEntityData(this.xCoord, this.yCoord, this.zCoord, 1, var1);
+		return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, var1);
 	}
 
 }

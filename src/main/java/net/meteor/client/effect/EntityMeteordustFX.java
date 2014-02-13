@@ -1,4 +1,4 @@
-package net.minecraft.src.meteor.effect;
+package net.meteor.client.effect;
 
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.Tessellator;

@@ -8,11 +8,16 @@ import net.minecraft.item.ItemStack;
 
 public class ItemFoodMeteorsMod extends ItemFood
 {
-	public ItemFoodMeteorsMod(int par1, int par2, boolean par3)
+	public ItemFoodMeteorsMod(int par1, float par2, boolean par3)
 	{
 		super(par1, par2, par3);
 		this.setCreativeTab(MeteorsMod.meteorTab);
 	}
+	
+	public ItemFoodMeteorsMod(int p_i45340_1_, boolean p_i45340_2_)
+    {
+        this(p_i45340_1_, 0.6F, p_i45340_2_);
+    }
 
 	@Override
 	public String getItemStackDisplayName(ItemStack par1ItemStack)

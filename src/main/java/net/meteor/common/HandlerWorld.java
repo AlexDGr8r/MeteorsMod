@@ -1,13 +1,13 @@
 package net.meteor.common;
 
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
-import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.world.WorldEvent;
 
 public class HandlerWorld {
 	
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void onWorldLoad(WorldEvent.Load event) {
 		addRules(event.world);
 		int dim = event.world.provider.dimensionId;

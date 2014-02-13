@@ -1,10 +1,10 @@
-package net.minecraft.src.meteor.render.tileentity;
+package net.meteor.client.tileentity;
 
 import java.util.Random;
 
+import net.meteor.client.model.ModelMeteorTimer;
 import net.meteor.common.tileentity.TileEntityMeteorTimer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.src.meteor.model.ModelMeteorTimer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 

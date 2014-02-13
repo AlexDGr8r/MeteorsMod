@@ -1,4 +1,4 @@
-package net.minecraft.src.meteor.model;
+package net.meteor.client.model;
 
 import net.meteor.common.entity.EntityMeteor;
 import net.minecraft.client.model.ModelBase;
@@ -109,6 +109,7 @@ public class ModelMeteor extends ModelBase
 		Block14.mirror = true;
 	}
 
+	@Override
 	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
 	{
 		Block1.render(f5);

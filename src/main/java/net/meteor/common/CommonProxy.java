@@ -18,6 +18,4 @@ public class CommonProxy
 
 	public void loadStuff() {}
 
-	public void loadSounds() {}
-
 }

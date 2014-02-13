@@ -1,4 +1,4 @@
-package net.minecraft.src.meteor.model;
+package net.meteor.client.model;
 
 import net.meteor.common.tileentity.TileEntityMeteorShield;
 import net.minecraft.client.model.ModelBase;
@@ -33,6 +33,7 @@ public class ModelMeteorShieldRay extends ModelBase
 		this.Beam.setRotationPoint(0.0F, 19.0F, 0.0F);
 	}
 
+	@Override
 	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
 		super.render(entity, f, f1, f2, f3, f4, f5);
 		this.Beam.render(f5);

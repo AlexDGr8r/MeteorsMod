@@ -1,5 +1,7 @@
 package net.meteor.common.entity;
 
+import io.netty.buffer.ByteBuf;
+
 import java.util.List;
 
 import net.meteor.common.ClientHandler;
@@ -85,9 +87,9 @@ implements IEntityAdditionalSpawnData
 				List<SafeChunkCoordsIntPair> safeCoords = MeteorsMod.proxy.metHandlers.get(worldObj.provider.dimensionId).getSafeChunkCoords((int)this.posX, (int)this.posZ);
 				for (int j = 0; j < safeCoords.size(); j++) {
 					SafeChunkCoordsIntPair sc = safeCoords.get(j);
-					EntityPlayer playerOwner = ((WorldServer)worldObj).getMinecraftServer().getConfigurationManager().getPlayerForUsername(sc.getOwner());
+					EntityPlayer playerOwner = ((WorldServer)worldObj).func_73046_m().getConfigurationManager().getPlayerForUsername(sc.getOwner());
 					if (playerOwner != null) {
-						playerOwner.sendChatToPlayer(ClientHandler.createMessage(LangLocalization.get("MeteorShield.meteorBlocked"), EnumChatFormatting.GREEN));
+						playerOwner.addChatMessage(ClientHandler.createMessage(LangLocalization.get("MeteorShield.meteorBlocked"), EnumChatFormatting.GREEN));
 						playerOwner.addStat(HandlerAchievement.meteorBlocked, 1);
 					}
 					MeteorsMod.proxy.lastMeteorPrevented.put(sc.getOwner(), this.meteorType);
@@ -193,20 +195,18 @@ implements IEntityAdditionalSpawnData
 	}
 
 	@Override
-	public void writeSpawnData(ByteArrayDataOutput data)
-	{
-		data.writeInt(this.meteorType.getID());
-		data.writeInt(this.size);
-		data.writeInt(this.spawnPauseTicks);
-		data.writeBoolean(this.summoned);
+	public void writeSpawnData(ByteBuf buffer) {
+		buffer.writeInt(this.meteorType.getID());
+		buffer.writeInt(this.size);
+		buffer.writeInt(this.spawnPauseTicks);
+		buffer.writeBoolean(this.summoned);
 	}
 
 	@Override
-	public void readSpawnData(ByteArrayDataInput data)
-	{
-		this.meteorType = EnumMeteor.getTypeFromID(data.readInt());
-		this.size = data.readInt();
-		this.spawnPauseTicks = data.readInt();
-		this.summoned = data.readBoolean();
+	public void readSpawnData(ByteBuf additionalData) {
+		this.meteorType = EnumMeteor.getTypeFromID(additionalData.readInt());
+		this.size = additionalData.readInt();
+		this.spawnPauseTicks = additionalData.readInt();
+		this.summoned = additionalData.readBoolean();
 	}
 }

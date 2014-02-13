@@ -1,5 +1,7 @@
 package net.meteor.common.entity;
 
+import io.netty.buffer.ByteBuf;
+
 import java.util.List;
 
 import net.meteor.common.ClientHandler;
@@ -16,6 +18,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.ChunkCoordIntPair;
@@ -88,7 +91,7 @@ public class EntitySummoner extends EntityThrowable implements IEntityAdditional
 
 		if (this.worldObj.provider.dimensionId != 0) {
 			if ((player != null) && (!this.worldObj.isRemote)) {
-				player.addChatMessage(LangLocalization.get("MeteorSummoner.wrongDimension"));
+				player.addChatMessage(new ChatComponentText(LangLocalization.get("MeteorSummoner.wrongDimension")));
 				if (!player.capabilities.isCreativeMode) {
 					if (this.isRandom) {
 						player.inventory.addItemStackToInventory(new ItemStack(MeteorItems.itemMeteorSummoner, 1));
@@ -108,7 +111,7 @@ public class EntitySummoner extends EntityThrowable implements IEntityAdditional
 			
 			if (!worldObj.getGameRules().getGameRuleBooleanValue("summonMeteors")) {
 				canHit = false;
-				player.sendChatToPlayer(ClientHandler.createMessage(LangLocalization.get("MeteorSummoner.cannotSummon"), EnumChatFormatting.RED));
+				player.addChatMessage(ClientHandler.createMessage(LangLocalization.get("MeteorSummoner.cannotSummon"), EnumChatFormatting.RED));
 				if (!player.capabilities.isCreativeMode) {
 					if (this.isRandom) {
 						player.inventory.addItemStackToInventory(new ItemStack(MeteorItems.itemMeteorSummoner, 1));
@@ -121,9 +124,9 @@ public class EntitySummoner extends EntityThrowable implements IEntityAdditional
 				List oPairList = MeteorsMod.proxy.metHandlers.get(worldObj.provider.dimensionId).safeChunksWithOwners;
 				for (int i = 0; i < oPairList.size(); i++) {
 					SafeChunkCoordsIntPair oPair = (SafeChunkCoordsIntPair)oPairList.get(i);
-					if ((oPair.hasCoords(cPair.chunkXPos, cPair.chunkZPos)) && (!player.username.equalsIgnoreCase(oPair.getOwner()))) {
+					if ((oPair.hasCoords(cPair.chunkXPos, cPair.chunkZPos)) && (!player.getCommandSenderName().equalsIgnoreCase(oPair.getOwner()))) {
 						canHit = false;
-						player.addChatMessage(LangLocalization.get("MeteorSummoner.landProtected"));
+						player.addChatMessage(new ChatComponentText(LangLocalization.get("MeteorSummoner.landProtected")));
 						if (player.capabilities.isCreativeMode) break;
 						if (this.isRandom) {
 							player.inventory.addItemStackToInventory(new ItemStack(MeteorItems.itemMeteorSummoner, 1)); 
@@ -139,7 +142,7 @@ public class EntitySummoner extends EntityThrowable implements IEntityAdditional
 
 			if (canHit) {
 				if (player != null) {
-					player.sendChatToPlayer(ClientHandler.createMessage(LangLocalization.get("MeteorSummoner.incomingMeteor"), EnumChatFormatting.LIGHT_PURPLE));
+					player.addChatMessage(ClientHandler.createMessage(LangLocalization.get("MeteorSummoner.incomingMeteor"), EnumChatFormatting.LIGHT_PURPLE));
 					player.triggerAchievement(HandlerAchievement.summonMeteor);
 				}
 				EntityMeteor meteorToSpawn = new EntityMeteor(this.worldObj, HandlerMeteor.getMeteorSize(), this.posX, this.posZ, EnumMeteor.getTypeFromID(this.mID), true);
@@ -166,17 +169,15 @@ public class EntitySummoner extends EntityThrowable implements IEntityAdditional
 	}
 
 	@Override
-	public void writeSpawnData(ByteArrayDataOutput data)
-	{
-		data.writeInt(this.mID);
-		data.writeBoolean(this.isRandom);
+	public void writeSpawnData(ByteBuf buffer) {
+		buffer.writeInt(this.mID);
+		buffer.writeBoolean(this.isRandom);
 	}
 
 	@Override
-	public void readSpawnData(ByteArrayDataInput data)
-	{
-		this.mID = data.readInt();
-		this.isRandom = data.readBoolean();
+	public void readSpawnData(ByteBuf additionalData) {
+		this.mID = additionalData.readInt();
+		this.isRandom = additionalData.readBoolean();
 	}
 
 }

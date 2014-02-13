@@ -1,18 +1,18 @@
 package net.meteor.common.item;
 
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.item.EnumToolMaterial;
+import net.minecraft.item.Item;
 
 public class ItemKreknoSword extends ItemEnchSword
 {
-	public ItemKreknoSword(int i, EnumToolMaterial enumtoolmaterial)
+	public ItemKreknoSword(Item.ToolMaterial toolMaterial)
 	{
-		super(i, enumtoolmaterial);
+		super(toolMaterial);
 		setEnch(Enchantment.fireAspect, 2);
 	}
 
 	@Override
-	public float func_82803_g()
+	public float func_150931_i()
 	{
 		return 8;
 	}

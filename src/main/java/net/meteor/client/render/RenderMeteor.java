@@ -1,11 +1,11 @@
-package net.minecraft.src.meteor.render;
+package net.meteor.client.render;
 
 import java.util.HashMap;
 
+import net.meteor.client.model.ModelMeteor;
 import net.meteor.common.entity.EntityMeteor;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
-import net.minecraft.src.meteor.model.ModelMeteor;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;

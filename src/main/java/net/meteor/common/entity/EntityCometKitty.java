@@ -7,6 +7,7 @@ import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.world.World;
 
 public class EntityCometKitty extends EntityOcelot
@@ -18,13 +19,13 @@ public class EntityCometKitty extends EntityOcelot
 	}
 
 	@Override
-	protected int getDropItemId()
+	protected Item getDropItem()
 	{
-		return MeteorItems.itemRedMeteorGem.itemID;
+		return MeteorItems.itemRedMeteorGem;
 	}
 
 	@Override
-	public EntityOcelot spawnBabyAnimal(EntityAgeable par1EntityAgeable)
+	public EntityOcelot createChild(EntityAgeable par1EntityAgeable)
 	{
 		EntityOcelot var2;
 		if (this.worldObj.rand.nextBoolean()) {
@@ -47,11 +48,11 @@ public class EntityCometKitty extends EntityOcelot
 	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(16.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(16.0D);
     }
 
 	@Override
-	public String getEntityName()
+	public String getCommandSenderName()
 	{
 		return LangLocalization.get("entity.CometKitty.name");
 	}

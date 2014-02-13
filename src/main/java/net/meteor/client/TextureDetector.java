@@ -109,7 +109,7 @@ public class TextureDetector extends TextureAtlasSprite {
 		{
 			this.frameCounter = i;
 			//this.textureSheet.copyFrom(this.originX, this.originY, (Texture)this.field_110976_a.get(this.frameCounter), this.rotated);
-			TextureUtil.uploadTextureSub((int[])this.framesTextureData.get(this.frameCounter), this.width, this.height, this.originX, this.originY, false, false);
+			TextureUtil.uploadTextureMipmap((int[][])this.framesTextureData.get(this.frameCounter), this.width, this.height, this.originX, this.originY, false, false);
 		}
 	}
 

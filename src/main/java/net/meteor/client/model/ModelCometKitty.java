@@ -1,4 +1,4 @@
-package net.minecraft.src.meteor.model;
+package net.meteor.client.model;
 
 import net.minecraft.client.model.ModelOcelot;
 import net.minecraft.client.model.ModelRenderer;

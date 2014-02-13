@@ -45,12 +45,6 @@ public class ClientProxy extends CommonProxy
 		RenderingRegistry.registerEntityRenderingHandler(EntitySummoner.class, new RenderSummoner());
 	}
 
-	@Override
-	public void loadSounds()
-	{
-		MinecraftForge.EVENT_BUS.register(new MetCrashSoundHandler());
-	}
-
 	public static void spawnParticle(String s, double d, double d1, double d2, double d3, double d4, double d5, World worldObj, int opt)
 	{
 		Minecraft mc = Minecraft.getMinecraft();

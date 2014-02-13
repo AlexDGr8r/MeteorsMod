@@ -1,0 +1,115 @@
+tile.MeteorOre.name=Meteorite
+tile.Meteor.name=Meteora Atterrata!
+tile.MeteorRare.name=Meteora Rara Atterrata!
+tile.MeteorShield.name=Scudo Meteoritico
+tile.ProtectedLandTester.name=Tester Zona Protetta
+tile.ProtectedLandTesterActive.name=Tester Zona Protetta
+tile.Frezarite.name=Frezarite
+tile.Kreknorite.name=Kreknorite
+tile.MeteorTimer.name=Meteor Timer
+tile.blockRedGem.name=Blocco di Gemme Rosse di Meteora
+
+item.MeteorChips.name=Frammento di Meteorite
+item.RedMeteorGem.name=Gemma Rossa di Meteora
+item.MeteorSummoner.random.name=Evocatore di Meteore
+item.MeteorSummoner.meteorite.name=Evocatore di Meteore di Meteorite
+item.MeteorSummoner.frezarite.name=Evocatore di Meteore di Frezarite
+item.MeteorSummoner.kreknorite.name=Evocatore di Meteore di Kreknorite
+item.MeteorSummoner.unknown.name=Evocatore di Meteoriti Sconosciute
+item.MeteorSummoner.kitty.name=Evocatore di Comete Kitty
+item.MeteoriteHelmet.name=Elmetto di Meteorite
+item.MeteoriteChest.name=Corazza di Meteorite
+item.MeteoriteLegs.name=Pantaloni di Meteorite
+item.MeteoriteBoots.name=Stivali di Meteorite
+item.MeteoriteAxe.name=Ascia di Meteorite
+item.MeteoriteSpade.name=Pala di Meteorite
+item.MeteoriteSword.name=Spada di Meteorite
+item.MeteoritePickaxe.name=Piccone di Meteorite
+item.MeteoriteHoe.name=Zappa di Meteorite
+item.FrezariteHelmet.name=Elmetto di Frezarite
+item.FrezariteChest.name=Corazza di Frezarite
+item.FrezariteLegs.name=Pantaloni di Frezarite
+item.FrezariteBoots.name=Stivali di Frezarite
+item.FrezariteCrystal.name=Cristallo di Frezarite
+item.FrezaritePickaxe.name=Piccone di Frezarite
+item.FrezariteSpade.name=Pala di Frezarite
+item.FrezariteSword.name=Spada di Frezarite
+item.FrezariteAxe.name=Ascia di Frezarite
+item.FrezariteHoe.name=Zappa di Frezarite
+item.KreknoriteChip.name=Frammento di Kreknorite
+item.KreknoriteHelmet.name=Elmetto di Kreknorite
+item.KreknoriteChest.name=Corazza di Kreknorite
+item.KreknoriteLegs.name=Pantaloni di Kreknorite
+item.KreknoriteBoots.name=Stivali di Kreknorite
+item.KreknoriteSword.name=Spada di Kreknorite
+item.VanillaIceCream.name=Gelato alla Vaniglia
+item.ChocolateIceCream.name=Gelato al Cioccolato
+item.MeteorDetectorProximity.name=Detector di Caduta di Prossimità di Meteore
+item.MeteorDetectorTime.name=Detector del Tempo di Caduta di Meteore
+item.MeteorDetectorCrash.name=Detector Zona Caduta Meteore
+
+entity.AlienCreeper.name=Creeper Alieno
+entity.CometKitty.name=Cometa Kitty
+
+MeteorShield.charging=Scudo Meteoritico in Ricarica!
+MeteorShield.noUpgrade=L'upgrade allo Scudo Meteoritico non porta a miglioramenti!
+# Example output for below: Meteor Shield now at 80%
+MeteorShield.PowerUpgradePercentage=Scudo Meteoritico al
+MeteorShield.meteorBlocked=Il tuo Scudo Meteoritico ha protetto la tua zona dalla caduta di una meteora.
+
+MeteorTimer.modeChange.one=Power Mode: Il Timer Meteorico emetterà un segnale di redstone la cui intensità dipende da quanto vicino una meteora atterrerà.
+MeteorTimer.modeChange.two=Quick Mode: Il Timer Meteorico ora emetterà un segnale di redstone quando una meteora staràà per atterrare.
+
+ProtectionTorch.landOwnership=Questa zona è protetta da:
+
+enchantment.Magnetization=Magnetizzazione
+enchantment.ColdTouch=Tocco Freddo
+enchantment.addEnch.one=Clic destro quando in mano
+enchantment.addEnch.two=per aggiungere un'incantesimo
+enchantment.frezAxe.one=Velocità sott'acqua aumentata
+enchantment.frezAxe.two=cutting speed
+enchantment.frezHoe.one=Acqua Automatica
+enchantment.frezHoe.two=terreni agricoli quando in uso
+enchantment.frezPickaxe.one=Velocità sott'acqua aumentata
+enchantment.frezPickaxe.two=Velocità di mining
+enchantment.frezSpade.one=Velocità sott'acqua aumentata
+enchantment.frezSpade.two=Velocità di scavo
+enchantment.frezSword.one=Nemici congelati
+enchantment.frezSword.two=Nemici rallentati.
+
+Meteor.netherPortalCreation=Un portale per il Nether è stato creato!
+Meteor.kittiesDetected.one=Entità Viventi nello spazio aereo!
+Meteor.kittiesDetected.two=Preparati per impatti multipli!
+Meteor.crashed=Una Meteora è Atterrata!
+
+MeteorSummoner.incomingMeteor=Meteora in Arrivo!!!
+MeteorSummoner.wrongDimension=Impossibile evocare Meteore in questa dimensione.
+MeteorSummoner.landProtected=Questa zona è protetta da un altro giocatore!
+
+itemGroup.Meteor=Meteora in Caduta
+
+achievement.pageMeteors=Meteora Atterrata
+achievement.shieldCrafted=Siamo al Coperto
+achievement.shieldCrafted.desc=Crafta uno Scudo Meteoritico usando frammenti di meteora.
+achievement.meteorBlocked=Meteora Distrutta!
+achievement.meteorBlocked.desc=Usa uno Scudo Meteoritico per bloccare una meteora dal distruggere la zona.
+achievement.shieldFullyUpgraded=Upgrade Completato
+achievement.shieldFullyUpgraded.desc=Fai l'upgrade completo a uno Scudo Meteoritico usando le rare Gemme Rosse di Meteora.
+achievement.attractedDrop=Magnetizzato
+achievement.attractedDrop.desc=Attrai metalli ferromagnetici usando l'armatura o gli attrezzi di Meteorite.
+achievement.craftedKreknoSword=Flames of Fury
+achievement.craftedKreknoSword.desc=Crafta una spada di fuoco di Kreknorite usando i frammenti di Kreknorite.
+achievement.craftedDetector=Ben Informato
+achievement.craftedDetector.desc=Crafta qualsiasi tipo di detector: Meteorite, Frezarite, o Kreknorite
+achievement.foundMeteor=Incontra una Meteora
+achievement.foundMeteor.desc=Usa un detector per localizzare il sito di atterraggio e sii vicino quando la meteora atterrerà.
+achievement.craftedMeteorTimer=Individuazione Tempestiva
+achievement.craftedMeteorTimer.desc=Crafta un Detector del tempo di caduta di Meteore per sapere quando una meteora sta per atterrare.
+achievement.summonMeteor=Fai cadere la Roccia!
+achievement.summonMeteor.desc=Evoca una meteora usando l'Evocatore di Meteore.
+achievement.cometKittyEvent=Gatto Straniero
+achievement.cometKittyEvent.desc=Sperimenta la caduta di molti gatti.
+achievement.kittyTame=Gatto Amico
+achievement.kittyTame.desc=Addomestica una Cometa Kitty per un compagno a prova di fuoco.
+achievement.materialGather=Non di Questo Mondo
+achievement.materialGather.desc=Raccogli i minerali da una meteora atterrata.

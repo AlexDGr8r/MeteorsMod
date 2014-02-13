@@ -1,4 +1,4 @@
-package net.minecraft.src.meteor.effect;
+package net.meteor.client.effect;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityEnchantmentTableParticleFX;
@@ -29,6 +29,7 @@ public class EntityMeteorShieldParticleFX extends EntityEnchantmentTableParticle
 			setParticleTextureIndex((int)(Math.random() * 8.0D + 6.0D));
 	}
 
+	@Override
 	public void renderParticle(Tessellator par1Tessellator, float par2, float par3, float par4, float par5, float par6, float par7)
 	{
 		Tessellator tessellator1 = new Tessellator();

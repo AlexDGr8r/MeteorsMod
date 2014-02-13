@@ -1,0 +1,132 @@
+tile.MeteorOre.name=Meteor
+tile.Meteor.name=Fallen Meteor
+tile.MeteorRare.name=Rare Fallen Meteor
+tile.MeteorShield.name=Meteor Shield
+tile.ProtectedLandTester.name=Protected Land Tester
+tile.ProtectedLandTesterActive.name=Protected Land Tester
+tile.Frezarite.name=Frezarite
+tile.Kreknorite.name=Kreknorite
+tile.MeteorTimer.name=Meteor Timer
+tile.blockRedGem.name=Block of Red Meteor Gem
+
+item.MeteorChips.name=Meteor Chip
+item.RedMeteorGem.name=Red Meteor Gem
+item.RedMeteorGem.desc.one=The energy in this gem appears to
+item.RedMeteorGem.desc.two=have the ability to manipulate Meteors.
+item.MeteorSummoner.random.name=Meteor Summoner
+item.MeteorSummoner.meteorite.name=Meteorite Meteor Summoner
+item.MeteorSummoner.frezarite.name=Frezarite Meteor Summoner
+item.MeteorSummoner.kreknorite.name=Kreknorite Meteor Summoner
+item.MeteorSummoner.unknown.name=Unknown Meteor Summoner
+item.MeteorSummoner.kitty.name=Kitty Comet Summoner
+item.MeteoriteHelmet.name=Meteorite Helmet
+item.MeteoriteChest.name=Meteorite Chestplate
+item.MeteoriteLegs.name=Meteorite Leggings
+item.MeteoriteBoots.name=Meteorite Boots
+item.MeteoriteAxe.name=Meteorite Axe
+item.MeteoriteSpade.name=Meteorite Spade
+item.MeteoriteSword.name=Meteorite Sword
+item.MeteoritePickaxe.name=Meteorite Pickaxe
+item.MeteoriteHoe.name=Meteorite Hoe
+item.FrezariteHelmet.name=Frezarite Helmet
+item.FrezariteChest.name=Frezarite Chestplate
+item.FrezariteLegs.name=Frezarite Leggings
+item.FrezariteBoots.name=Frezarite Boots
+item.FrezariteCrystal.name=Frezarite Crystal
+item.FrezaritePickaxe.name=Frezarite Pickaxe
+item.FrezariteSpade.name=Frezarite Spade
+item.FrezariteSword.name=Frezarite Sword
+item.FrezariteAxe.name=Frezarite Axe
+item.FrezariteHoe.name=Frezarite Hoe
+item.KreknoriteChip.name=Kreknorite Chip
+item.KreknoriteHelmet.name=Kreknorite Helmet
+item.KreknoriteChest.name=Kreknorite Chestplate
+item.KreknoriteLegs.name=Kreknorite Leggings
+item.KreknoriteBoots.name=Kreknorite Boots
+item.KreknoriteSword.name=Kreknorite Sword
+item.VanillaIceCream.name=Vanilla Ice Cream
+item.ChocolateIceCream.name=Chocolate Ice Cream
+item.MeteorDetectorProximity.name=Meteor Proximity Detector
+item.MeteorDetectorTime.name=Meteor Time Detector
+item.MeteorDetectorCrash.name=Meteor Crash Detector
+
+entity.AlienCreeper.name=Alien Creeper
+entity.CometKitty.name=Comet Kitty
+entity.KreknoHound.name=Krekno Hound
+
+MeteorShield.charging=Meteor Shield Charging!
+MeteorShield.noUpgrade=Upgrading this Meteor Shield does nothing!
+# Example output for below: Meteor Shield now at 80%
+MeteorShield.PowerUpgradePercentage=Meteor Shield now at
+MeteorShield.meteorBlocked=Your Meteor Shield protected your land from a meteor.
+MeteorShield.howToUpgrade=Red Meteor Gems from Meteorites should make the shield stronger.
+
+Detector.scanning=Scanning
+Detector.detected=Meteor Detected!
+Detector.time=Detects next incoming meteor.
+Detector.proximity=Detects closest incoming meteor.
+Detector.crash=Detects last crash zone.
+CrashDetector.noActivity=No seismic activity detected!
+CrashDetector.zoneLocated=Crash zone located!
+
+MeteorTimer.modeChange.one=Power Mode: Meteor Timer will now put out a redstone signal with the strength based on how close the meteor is to crashing.
+MeteorTimer.modeChange.two=Quick Mode: Meteor Timer will now only put out a redstone signal when a meteor is just about to crash.
+
+ProtectionTorch.landOwnership=This land is protected by:
+ProtectionTorch.usage=One-time use!
+
+enchantment.Magnetization=Magnetization
+enchantment.ColdTouch=Cold Touch
+enchantment.addEnch.one=Right-click while in hand
+enchantment.addEnch.two=to add enchantment
+enchantment.frezAxe.one=Increases underwater
+enchantment.frezAxe.two=cutting speed
+enchantment.frezHoe.one=Automatically waters
+enchantment.frezHoe.two=farmland when used
+enchantment.frezPickaxe.one=Increases underwater
+enchantment.frezPickaxe.two=mining speed
+enchantment.frezSpade.one=Increases underwater
+enchantment.frezSpade.two=digging speed
+enchantment.frezSword.one=Freezes enemies, causing
+enchantment.frezSword.two=them to slow down.
+
+Meteor.netherPortalCreation=A portal to the Nether has been created!
+Meteor.kittiesDetected.one=Living Entities detected in airspace!
+Meteor.kittiesDetected.two=Prepare for multiple impacts!
+Meteor.kittiesIncoming=Comet Kitties incoming!!!
+Meteor.crashed=A Meteor has Crashed!
+
+MeteorSummoner.incomingMeteor=Incoming Meteor!!!
+MeteorSummoner.wrongDimension=Cannot summon meteors in this dimension.
+MeteorSummoner.landProtected=This land is protected by another player!
+MeteorSummoner.cannotSummon=You are not allowed to summon meteors!
+
+itemGroup.Meteor=Falling Meteors
+
+achievement.pageMeteors=Falling Meteors
+achievement.shieldCrafted=We're Covered
+achievement.shieldCrafted.desc=Craft a Meteor Shield using meteorite chips.
+achievement.meteorBlocked=Meteor Destroyed!
+achievement.meteorBlocked.desc=Use a Meteor Shield to block a meteor from destroying land.
+achievement.shieldFullyUpgraded=Upgrade Complete
+achievement.shieldFullyUpgraded.desc=Fully upgrade a Meteor Shield using rare Red Meteor Gems.
+achievement.attractedDrop=Magnetized
+achievement.attractedDrop.desc=Attract magnetic materials using Meteorite armor or tools.
+achievement.craftedKreknoSword=Flames of Fury
+achievement.craftedKreknoSword.desc=Craft a Kreknorite Flame Sword using Kreknorite Chips.
+achievement.craftedDetector=Well Informed
+achievement.craftedDetector.desc=Craft any kind of detector: Meteorite, Frezarite, or Kreknorite
+achievement.foundMeteor=Meet a Meteor
+achievement.foundMeteor.desc=Use a detector to locate a crash site and be near the meteor when it falls.
+achievement.craftedMeteorTimer=Timely Detection
+achievement.craftedMeteorTimer.desc=Craft a Meteor Timer to know when a meteor is about to fall.
+achievement.summonMeteor=Drop the Rock!
+achievement.summonMeteor.desc=Summon a meteor with a meteor summoner.
+achievement.cometKittyEvent=Foreign Feline
+achievement.cometKittyEvent.desc=Experience the fall of many felines.
+achievement.kittyTame=Friendly Feline
+achievement.kittyTame.desc=Tame a Comet Kitty for a fireproof companion.
+achievement.materialGather=Not of This World
+achievement.materialGather.desc=Gather ore from a fallen meteor.
+achievement.meteorManipulator=True Power
+achievement.meteorManipulator.desc=Find a Red Meteor Gem from a Meteorite Meteor

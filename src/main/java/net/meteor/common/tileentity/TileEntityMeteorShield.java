@@ -10,9 +10,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.Packet132TileEntityData;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
@@ -108,7 +108,7 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory
 	@SideOnly(Side.CLIENT)
 	private void GenerateParticles(World world, int i, int j, int k, Random random)
 	{
-		if (world.isBlockOpaqueCube(i, j + 1, k)) return;
+		if (world.getBlock(i, j + 1, k).isOpaqueCube()) return;
 		for (int l = i - 2; l <= i + 2; l++)
 		{
 			for (int i1 = k - 2; i1 <= k + 2; i1++)
@@ -193,9 +193,9 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory
 	}
 
 	@Override
-	public void onDataPacket(INetworkManager net, Packet132TileEntityData pkt)
+	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
 	{
-		readFromNBT(pkt.data);
+		readFromNBT(pkt.func_148857_g());
 	}
 
 	@Override
@@ -203,7 +203,7 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory
 	{
 		NBTTagCompound var1 = new NBTTagCompound();
 		writeToNBT(var1);
-		return new Packet132TileEntityData(this.xCoord, this.yCoord, this.zCoord, 1, var1);
+		return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, var1);
 	}
 
 	@Override
@@ -259,18 +259,6 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory
 		}
 	}
 	
-	
-
-	@Override
-	public String getInvName() {
-		return "Meteor Shield";
-	}
-
-	@Override
-	public boolean isInvNameLocalized() {
-		return false; // TODO localize later
-	}
-
 	@Override
 	public int getInventoryStackLimit() {
 		return 1;
@@ -282,22 +270,32 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory
 	}
 
 	@Override
-	public void openChest() {}
-
-	@Override
-	public void closeChest() {}
-
-	@Override
 	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
 		int meta = this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord);
-		if (itemstack.itemID == MeteorItems.itemRedMeteorGem.itemID) {
+		if (itemstack.getItem() == MeteorItems.itemRedMeteorGem) {
 			return meta > 0 && i > 0 && i < 5;
-		} else if (itemstack.itemID == MeteorItems.itemMeteorChips.itemID) {
+		} else if (itemstack.getItem() == MeteorItems.itemMeteorChips) {
 			return i == 0 && meta == 0;
 		}
 		
 		return false;
 	}
+
+	@Override
+	public String getInventoryName() {
+		return "Meteor Shield";
+	}
+
+	@Override
+	public boolean hasCustomInventoryName() {
+		return false; // TODO localize later
+	}
+
+	@Override
+	public void openInventory() {}
+
+	@Override
+	public void closeInventory() {}
 	
 	
 

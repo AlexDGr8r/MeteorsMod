@@ -6,7 +6,6 @@ import net.meteor.common.LangLocalization;
 import net.meteor.common.MeteorsMod;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
@@ -17,9 +16,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemFrezariteSword extends ItemSword
 {
-	public ItemFrezariteSword(int par1, EnumToolMaterial par2EnumToolMaterial)
+	public ItemFrezariteSword(Item.ToolMaterial toolMaterial)
 	{
-		super(par1, par2EnumToolMaterial);
+		super(toolMaterial);
 		this.setCreativeTab(MeteorsMod.meteorTab);
 	}
 
@@ -51,7 +50,7 @@ public class ItemFrezariteSword extends ItemSword
 	}
 
 	@Override
-	public String getItemDisplayName(ItemStack par1ItemStack)
+	public String getItemStackDisplayName(ItemStack par1ItemStack)
 	{
 		return LangLocalization.get(this.getUnlocalizedName(par1ItemStack) + ".name").trim();
 	}

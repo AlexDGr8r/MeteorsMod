@@ -4,11 +4,12 @@ import java.util.List;
 
 import net.meteor.common.HandlerMeteor;
 import net.meteor.common.entity.EntitySummoner;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -17,14 +18,14 @@ public class ItemSummoner extends ItemMeteorsMod
 {
 	private String[] names = { "random", "meteorite", "frezarite", "kreknorite", "unknown", "kitty" };
 	
-	private Icon metIcon;
-	private Icon frezIcon;
-	private Icon krekIcon;
-	private Icon unkIcon;
-	private Icon kittyIcon;
+	private IIcon metIcon;
+	private IIcon frezIcon;
+	private IIcon krekIcon;
+	private IIcon unkIcon;
+	private IIcon kittyIcon;
 
-	public ItemSummoner(int i) {
-		super(i);
+	public ItemSummoner() {
+		super();
 		this.maxStackSize = 16;
 		this.setMaxDamage(0);
 		this.setHasSubtypes(true);
@@ -48,7 +49,7 @@ public class ItemSummoner extends ItemMeteorsMod
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public Icon getIconFromDamage(int i)
+	public IIcon getIconFromDamage(int i)
 	{
 		switch (i) {
 		case 1:
@@ -68,7 +69,7 @@ public class ItemSummoner extends ItemMeteorsMod
 	
 	@SideOnly(Side.CLIENT)
 	@Override
-    public void registerIcons(IconRegister par1IconRegister) {
+    public void registerIcons(IIconRegister par1IconRegister) {
 		this.itemIcon = par1IconRegister.registerIcon("meteors:summoner");
 		this.metIcon = par1IconRegister.registerIcon("meteors:sum_met");
 		this.frezIcon = par1IconRegister.registerIcon("meteors:sum_frez");
@@ -86,9 +87,10 @@ public class ItemSummoner extends ItemMeteorsMod
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List)
+	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List)
 	{
-		for (int var4 = 0; var4 < 6; var4++)
+		for (int var4 = 0; var4 < 6; var4++) {
 			par3List.add(new ItemStack(par1, 1, var4));
+		}
 	}
 }

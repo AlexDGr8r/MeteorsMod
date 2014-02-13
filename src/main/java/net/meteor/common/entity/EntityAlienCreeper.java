@@ -4,6 +4,7 @@ import net.meteor.common.LangLocalization;
 import net.meteor.common.MeteorItems;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.item.Item;
 import net.minecraft.world.World;
 
 public class EntityAlienCreeper extends EntityCreeper
@@ -16,12 +17,12 @@ public class EntityAlienCreeper extends EntityCreeper
 	}
 
 	@Override
-	protected int getDropItemId()
+	protected Item getDropItem()
 	{
 		if (this.worldObj.rand.nextBoolean()) {
-			return MeteorItems.itemRedMeteorGem.itemID;
+			return MeteorItems.itemRedMeteorGem;
 		}
-		return MeteorItems.itemMeteorChips.itemID;
+		return MeteorItems.itemMeteorChips;
 	}
 
 	@Override
@@ -32,7 +33,7 @@ public class EntityAlienCreeper extends EntityCreeper
 	}
 
 	@Override
-	public String getEntityName()
+	public String getCommandSenderName()
 	{
 		return LangLocalization.get("entity.AlienCreeper.name");
 	}
