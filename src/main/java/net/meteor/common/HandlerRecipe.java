@@ -1,41 +1,42 @@
 package net.meteor.common;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.ShapedOreRecipe;
-import cpw.mods.fml.common.ICraftingHandler;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 import cpw.mods.fml.common.IFuelHandler;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class HandlerRecipe implements ICraftingHandler, IFuelHandler {
+public class HandlerRecipe implements IFuelHandler {
 	
-	@Override
-	public void onCrafting(EntityPlayer player, ItemStack item, IInventory craftMatrix)
+	@SubscribeEvent
+	public void onCrafting(ItemCraftedEvent event)
 	{
-		if (item.itemID == MeteorBlocks.blockMeteorShield.blockID) {
+		Item item = event.crafting.getItem();
+		EntityPlayer player = event.player;
+		if (item == Item.getItemFromBlock(MeteorBlocks.blockMeteorShield)) {
 			player.addStat(HandlerAchievement.shieldCrafted, 1);
-		} else if (item.itemID == MeteorItems.KreknoriteSword.itemID) {
+		} else if (item == MeteorItems.KreknoriteSword) {
 			player.addStat(HandlerAchievement.craftedKreknoSword, 1);
-		} else if (item.itemID == MeteorItems.itemMeteorProximityDetector.itemID ||
-				   item.itemID == MeteorItems.itemMeteorTimeDetector.itemID ||
-				   item.itemID == MeteorItems.itemMeteorCrashDetector.itemID) {
+		} else if (item == MeteorItems.itemMeteorProximityDetector ||
+				   item == MeteorItems.itemMeteorTimeDetector ||
+				   item == MeteorItems.itemMeteorCrashDetector) {
 			player.addStat(HandlerAchievement.craftedDetector, 1);
-		} else if (item.itemID == MeteorBlocks.blockMeteorTimer.blockID) {
+		} else if (item == Item.getItemFromBlock(MeteorBlocks.blockMeteorTimer)) {
 			player.addStat(HandlerAchievement.craftedMeteorTimer, 1);
 		}
 			
 	}
 
 	@Override
-	public void onSmelting(EntityPlayer player, ItemStack item) {}
-
-	@Override
 	public int getBurnTime(ItemStack fuel)
 	{
-		if (fuel.itemID == MeteorItems.itemKreknoChip.itemID) {
+		if (fuel.getItem() == MeteorItems.itemKreknoChip) {
 			return 3300;
 		}
 		return 0;
@@ -60,31 +61,31 @@ public class HandlerRecipe implements ICraftingHandler, IFuelHandler {
 		});
 
 		GameRegistry.addRecipe(new ItemStack(MeteorItems.MeteoriteAxe, 1), new Object[] { 
-			"mm", "ms", " s", Character.valueOf('m'), MeteorItems.MeteoriteIngot, Character.valueOf('s'), Item.ingotIron 
+			"mm", "ms", " s", Character.valueOf('m'), MeteorItems.MeteoriteIngot, Character.valueOf('s'), Items.iron_ingot 
 		});
 
 		GameRegistry.addRecipe(new ItemStack(MeteorItems.MeteoriteAxe, 1), new Object[] { 
-			"mm", "sm", "s ", Character.valueOf('m'), MeteorItems.MeteoriteIngot, Character.valueOf('s'), Item.ingotIron 
+			"mm", "sm", "s ", Character.valueOf('m'), MeteorItems.MeteoriteIngot, Character.valueOf('s'), Items.iron_ingot 
 		});
 
 		GameRegistry.addRecipe(new ItemStack(MeteorItems.MeteoriteSpade, 1), new Object[] { 
-			"m", "s", "s", Character.valueOf('m'), MeteorItems.MeteoriteIngot, Character.valueOf('s'), Item.ingotIron 
+			"m", "s", "s", Character.valueOf('m'), MeteorItems.MeteoriteIngot, Character.valueOf('s'), Items.iron_ingot 
 		});
 
 		GameRegistry.addRecipe(new ItemStack(MeteorItems.MeteoriteSword), new Object[] { 
-			"m", "m", "s", Character.valueOf('m'), MeteorItems.MeteoriteIngot, Character.valueOf('s'), Item.ingotIron 
+			"m", "m", "s", Character.valueOf('m'), MeteorItems.MeteoriteIngot, Character.valueOf('s'), Items.iron_ingot 
 		});
 
 		GameRegistry.addRecipe(new ItemStack(MeteorItems.MeteoritePickaxe, 1), new Object[] { 
-			"mmm", " s ", " s ", Character.valueOf('m'), MeteorItems.MeteoriteIngot, Character.valueOf('s'), Item.ingotIron 
+			"mmm", " s ", " s ", Character.valueOf('m'), MeteorItems.MeteoriteIngot, Character.valueOf('s'), Items.iron_ingot 
 		});
 
 		GameRegistry.addRecipe(new ItemStack(MeteorItems.MeteoriteHoe, 1), new Object[] { 
-			"mm", " s", " s", Character.valueOf('m'), MeteorItems.MeteoriteIngot, Character.valueOf('s'), Item.ingotIron 
+			"mm", " s", " s", Character.valueOf('m'), MeteorItems.MeteoriteIngot, Character.valueOf('s'), Items.iron_ingot 
 		});
 
 		GameRegistry.addRecipe(new ItemStack(MeteorItems.MeteoriteHoe, 1), new Object[] { 
-			"mm", "s ", "s ", Character.valueOf('m'), MeteorItems.MeteoriteIngot, Character.valueOf('s'), Item.ingotIron
+			"mm", "s ", "s ", Character.valueOf('m'), MeteorItems.MeteoriteIngot, Character.valueOf('s'), Items.iron_ingot
 		});
 
 		GameRegistry.addRecipe(new ItemStack(MeteorBlocks.blockMeteorOre, 1), new Object[] { 
@@ -96,11 +97,11 @@ public class HandlerRecipe implements ICraftingHandler, IFuelHandler {
 		}));
 
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MeteorBlocks.blockMeteorShield, 1), new Object[] { 
-			"mmm", "crc", "ccc", Character.valueOf('m'), MeteorItems.itemMeteorChips, Character.valueOf('c'), "cobblestone", Character.valueOf('r'), Item.redstone 
+			"mmm", "crc", "ccc", Character.valueOf('m'), MeteorItems.itemMeteorChips, Character.valueOf('c'), "cobblestone", Character.valueOf('r'), Items.redstone 
 		}));
 
-		GameRegistry.addShapelessRecipe(new ItemStack(Block.ice, 4), new Object[] { 
-			Item.bucketWater, MeteorItems.itemFrezaCrystal 
+		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.ice, 4), new Object[] { 
+			Items.water_bucket, MeteorItems.itemFrezaCrystal 
 		});
 
 		GameRegistry.addRecipe(new ItemStack(MeteorItems.FrezariteHelmet, 1), new Object[] { 
@@ -140,12 +141,12 @@ public class HandlerRecipe implements ICraftingHandler, IFuelHandler {
 		}));
 
 		GameRegistry.addShapelessRecipe(new ItemStack(MeteorItems.itemVanillaIceCream, 4), new Object[] { 
-			Item.bowlEmpty, Item.sugar, Item.bucketMilk, MeteorItems.itemFrezaCrystal 
+			Items.bowl, Items.sugar, Items.milk_bucket, MeteorItems.itemFrezaCrystal 
 		});
 
-		GameRegistry.addShapelessRecipe(new ItemStack(MeteorItems.itemChocolateIceCream, 4), new Object[] { 
-			Item.bowlEmpty, Item.sugar, Item.bucketMilk, MeteorItems.itemFrezaCrystal, new ItemStack(Item.dyePowder, 1, 3) 
-		});
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(MeteorItems.itemChocolateIceCream, 4), new Object[] { 
+			Items.bowl, Items.sugar, Items.milk_bucket, MeteorItems.itemFrezaCrystal, "dyeBrown"
+		}));
 
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MeteorItems.FrezaritePickaxe, 1), new Object[] { 
 			"ccc", " s ", " s ", Character.valueOf('c'), MeteorItems.FrozenIron, Character.valueOf('s'), "stickWood"
@@ -178,13 +179,13 @@ public class HandlerRecipe implements ICraftingHandler, IFuelHandler {
 		GameRegistry.addRecipe(new ItemStack(MeteorBlocks.blockMeteorTimer, 1), new Object[] {
 			"mfk", "brb", Character.valueOf('m'), MeteorItems.itemMeteorChips, Character.valueOf('f'), MeteorItems.itemFrezaCrystal, 
 			Character.valueOf('k'), MeteorItems.itemKreknoChip, Character.valueOf('b'), MeteorBlocks.blockMeteorOre, 
-			Character.valueOf('r'), Item.redstone
+			Character.valueOf('r'), Items.redstone
 		});
 
 		GameRegistry.addRecipe(new ItemStack(MeteorBlocks.blockMeteorTimer, 1), new Object[] {
 			"mfk", "brb", Character.valueOf('m'), MeteorItems.itemMeteorChips, Character.valueOf('f'), MeteorItems.itemFrezaCrystal, 
 			Character.valueOf('k'), MeteorItems.itemKreknoChip, Character.valueOf('b'), MeteorBlocks.blockMeteor, 
-			Character.valueOf('r'), Item.redstone
+			Character.valueOf('r'), Items.redstone
 		});
 
 		GameRegistry.addRecipe(new ItemStack(MeteorBlocks.blockRedMeteorGem, 1), new Object[] {
@@ -196,7 +197,7 @@ public class HandlerRecipe implements ICraftingHandler, IFuelHandler {
 		});
 
 		GameRegistry.addRecipe(new ItemStack(MeteorItems.itemMeteorProximityDetector, 1), new Object[] { 
-			" m ", "mrm", " m ", Character.valueOf('m'), MeteorItems.MeteoriteIngot, Character.valueOf('r'), Item.redstone
+			" m ", "mrm", " m ", Character.valueOf('m'), MeteorItems.MeteoriteIngot, Character.valueOf('r'), Items.redstone
 		});
 
 		GameRegistry.addRecipe(new ItemStack(MeteorItems.itemMeteorTimeDetector, 1), new Object[] { 
@@ -231,21 +232,21 @@ public class HandlerRecipe implements ICraftingHandler, IFuelHandler {
 
 		GameRegistry.addRecipe(new ItemStack(MeteorItems.itemMeteorSummoner, 1, 5), new Object[] { 
 			"mfm", "fsf", "mfm", Character.valueOf('m'), MeteorItems.MeteoriteIngot, Character.valueOf('s'), MeteorItems.itemMeteorSummoner, 
-			Character.valueOf('f'), Item.fishRaw
+			Character.valueOf('f'), Items.fish
 		});
 
 		GameRegistry.addRecipe(new ItemStack(MeteorItems.itemMeteorSummoner, 1, 5), new Object[] { 
 			"mfm", "fsf", "mfm", Character.valueOf('m'), MeteorItems.MeteoriteIngot, Character.valueOf('s'), MeteorItems.itemMeteorSummoner, 
-			Character.valueOf('f'), Item.fishCooked 
+			Character.valueOf('f'), Items.cooked_fished
 		});
 		
 		GameRegistry.addShapelessRecipe(new ItemStack(MeteorItems.FrozenIron), new Object[] {
-			Item.ingotIron, MeteorItems.itemFrezaCrystal
+			Items.iron_ingot, MeteorItems.itemFrezaCrystal
 		});
 		
 		// ============= Smelting Recipes =============
-		GameRegistry.addSmelting(MeteorItems.itemMeteorChips.itemID, new ItemStack(MeteorItems.MeteoriteIngot), 0.7F);
-		GameRegistry.addSmelting(MeteorItems.itemKreknoChip.itemID, new ItemStack(MeteorItems.KreknoriteIngot), 0.75F);
+		GameRegistry.addSmelting(MeteorItems.itemMeteorChips, new ItemStack(MeteorItems.MeteoriteIngot), 0.7F);
+		GameRegistry.addSmelting(MeteorItems.itemKreknoChip, new ItemStack(MeteorItems.KreknoriteIngot), 0.75F);
 	}
 
 }

@@ -1,5 +1,7 @@
 package net.meteor.common;
 
+import ibxm.Player;
+
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.util.ArrayList;
@@ -9,9 +11,8 @@ import java.util.Random;
 
 import net.meteor.common.entity.EntityMeteor;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.network.packet.Packet250CustomPayload;
-import net.minecraft.network.packet.Packet3Chat;
-import net.minecraft.util.ChatMessageComponent;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.ChunkCoordIntPair;
@@ -19,9 +20,6 @@ import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.event.world.WorldEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.network.PacketDispatcher;
-import cpw.mods.fml.common.network.Player;
-import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
 public class HandlerMeteor
@@ -100,7 +98,7 @@ public class HandlerMeteor
 	}
 
 	public void kittyAttack() {
-		ClientHandler.sendPacketToAllInWorld(theWorld, new Packet3Chat(ClientHandler.createMessage(LangLocalization.get("Meteor.kittiesIncoming"), EnumChatFormatting.DARK_RED)));
+		theWorld.func_73046_m().getConfigurationManager().sendChatMsg(ClientHandler.createMessage(LangLocalization.get("Meteor.kittiesIncoming"), EnumChatFormatting.DARK_RED));
 		for (int i = 0; i < this.theWorld.playerEntities.size(); i++) {
 			EntityPlayer player = (EntityPlayer) this.theWorld.playerEntities.get(i);
 			if (player != null) {
@@ -115,9 +113,9 @@ public class HandlerMeteor
 						List<SafeChunkCoordsIntPair> safeCoords = getSafeChunkCoords(x, z);
 						for (int j = 0; j < safeCoords.size(); j++) {
 							SafeChunkCoordsIntPair sc = safeCoords.get(j);
-							EntityPlayer playerOwner = theWorld.getMinecraftServer().getConfigurationManager().getPlayerForUsername(sc.getOwner());
+							EntityPlayer playerOwner = theWorld.func_73046_m().getConfigurationManager().getPlayerForUsername(sc.getOwner());
 							if (playerOwner != null) {
-								playerOwner.sendChatToPlayer(ClientHandler.createMessage(LangLocalization.get("MeteorShield.meteorBlocked"), EnumChatFormatting.GREEN));
+								playerOwner.addChatMessage(ClientHandler.createMessage(LangLocalization.get("MeteorShield.meteorBlocked"), EnumChatFormatting.GREEN));
 								playerOwner.addStat(HandlerAchievement.meteorBlocked, 1);
 							}
 							MeteorsMod.proxy.lastMeteorPrevented.put(sc.getOwner(), EnumMeteor.KITTY);
@@ -168,7 +166,7 @@ public class HandlerMeteor
 			ClientHandler.sendPacketToAllInWorld(theWorld, packet);
 
 			if (MeteorsMod.instance.textNotifyCrash) {
-				ClientHandler.sendPacketToAllInWorld(theWorld, new Packet3Chat(ChatMessageComponent.createFromText(LangLocalization.get("Meteor.crashed"))));
+				theWorld.func_73046_m().getConfigurationManager().sendChatMsg(new ChatComponentText(LangLocalization.get("Meteor.crashed")));
 			}
 		}
 	}
@@ -220,8 +218,8 @@ public class HandlerMeteor
 				Iterator<EntityPlayer> iter = theWorld.playerEntities.iterator();
 				while (iter.hasNext()) {
 					EntityPlayer player = iter.next();
-					PacketDispatcher.sendPacketToPlayer(new Packet3Chat(ClientHandler.createMessage(LangLocalization.get("Meteor.kittiesDetected.one"), EnumChatFormatting.DARK_RED)), (Player)(player));
-					PacketDispatcher.sendPacketToPlayer(new Packet3Chat(ClientHandler.createMessage(LangLocalization.get("Meteor.kittiesDetected.two"), EnumChatFormatting.DARK_RED)), (Player)(player));
+					player.addChatMessage(ClientHandler.createMessage(LangLocalization.get("Meteor.kittiesDetected.one"), EnumChatFormatting.DARK_RED));
+					player.addChatMessage(ClientHandler.createMessage(LangLocalization.get("Meteor.kittiesDetected.two"), EnumChatFormatting.DARK_RED));
 				}
 			}
 		}
@@ -460,7 +458,7 @@ public class HandlerMeteor
 		}
 	}
 
-	public void sendGhostMeteorPackets(Player player) {
+	public void sendGhostMeteorPackets(EntityPlayerMP player) {
 		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
 			ArrayList<GhostMeteor> mets = this.ghostMets;
 			for (int i = 0; i < mets.size(); i++) {

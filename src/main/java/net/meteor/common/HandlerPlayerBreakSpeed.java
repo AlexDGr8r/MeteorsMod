@@ -1,19 +1,20 @@
 package net.meteor.common;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class HandlerPlayerBreakSpeed
 {
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void onBreakSpeedModify(PlayerEvent.BreakSpeed event)
 	{
 		ItemStack stack = event.entityPlayer.getCurrentEquippedItem();
 		if ((stack != null) && (event.entityPlayer.isInsideOfMaterial(Material.water))) {
-			int i = stack.itemID;
-			if ((i == MeteorItems.FrezaritePickaxe.itemID) || (i == MeteorItems.FrezariteSpade.itemID) || (i == MeteorItems.FrezariteAxe.itemID))
+			Item i = stack.getItem();
+			if ((i == MeteorItems.FrezaritePickaxe) || (i == MeteorItems.FrezariteSpade) || (i == MeteorItems.FrezariteAxe))
 				event.newSpeed = (event.originalSpeed * 5.0F);
 		}
 	}

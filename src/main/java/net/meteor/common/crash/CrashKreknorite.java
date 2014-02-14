@@ -10,6 +10,7 @@ import net.meteor.common.MeteorsMod;
 import net.meteor.common.SBAPI;
 import net.minecraft.block.Block;
 import net.minecraft.entity.monster.EntityBlaze;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.Explosion;
@@ -50,58 +51,58 @@ public class CrashKreknorite extends CrashMeteorite
 	private void createPortal(World world, int i, int j, int k, boolean directionFlag) {
 		if (directionFlag) {
 			//Base
-			SBAPI.generateCuboid(world, i + 1, j + 1, k, i, j + 1, k, Block.netherBrick.blockID);
-			SBAPI.generateCuboid(world, i + 2, j + 2, k + 1, i - 1, j + 2, k - 1, Block.netherBrick.blockID);
-			SBAPI.generateCuboid(world, i + 3, j + 3, k + 2, i - 2, j + 3, k - 2, Block.netherBrick.blockID);
+			SBAPI.generateCuboid(world, i + 1, j + 1, k, i, j + 1, k, Blocks.nether_brick);
+			SBAPI.generateCuboid(world, i + 2, j + 2, k + 1, i - 1, j + 2, k - 1, Blocks.nether_brick);
+			SBAPI.generateCuboid(world, i + 3, j + 3, k + 2, i - 2, j + 3, k - 2, Blocks.nether_brick);
 			//Portal
-			SBAPI.generateCuboid(world, i + 2, j + 3, k, i - 1, j + 7, k, Block.obsidian.blockID, 0, true);
+			SBAPI.generateCuboid(world, i + 2, j + 3, k, i - 1, j + 7, k, Blocks.obsidian, 0, true);
 			//Columns
-			SBAPI.generateCuboid(world, i + 3, j + 4, k + 2, i + 3, j + 8, k + 2, Block.netherBrick.blockID);
-			SBAPI.generateCuboid(world, i + 3, j + 4, k - 2, i + 3, j + 8, k - 2, Block.netherBrick.blockID);
-			SBAPI.generateCuboid(world, i - 2, j + 4, k - 2, i - 2, j + 8, k - 2, Block.netherBrick.blockID);
-			SBAPI.generateCuboid(world, i - 2, j + 4, k + 2, i - 2, j + 8, k + 2, Block.netherBrick.blockID);
+			SBAPI.generateCuboid(world, i + 3, j + 4, k + 2, i + 3, j + 8, k + 2, Blocks.nether_brick);
+			SBAPI.generateCuboid(world, i + 3, j + 4, k - 2, i + 3, j + 8, k - 2, Blocks.nether_brick);
+			SBAPI.generateCuboid(world, i - 2, j + 4, k - 2, i - 2, j + 8, k - 2, Blocks.nether_brick);
+			SBAPI.generateCuboid(world, i - 2, j + 4, k + 2, i - 2, j + 8, k + 2, Blocks.nether_brick);
 			//First level of roof
-			SBAPI.generateCuboid(world, i + 3, j + 8, k + 3, i - 2, j + 8, k + 3, Block.netherBrick.blockID);
-			SBAPI.generateCuboid(world, i + 3, j + 8, k - 3, i - 2, j + 8, k - 3, Block.netherBrick.blockID);
-			SBAPI.generateCuboid(world, i + 4, j + 8, k + 2, i + 4, j + 8, k - 2, Block.netherBrick.blockID);
-			SBAPI.generateCuboid(world, i - 3, j + 8, k + 2, i - 3, j + 8, k - 2, Block.netherBrick.blockID);
+			SBAPI.generateCuboid(world, i + 3, j + 8, k + 3, i - 2, j + 8, k + 3, Blocks.nether_brick);
+			SBAPI.generateCuboid(world, i + 3, j + 8, k - 3, i - 2, j + 8, k - 3, Blocks.nether_brick);
+			SBAPI.generateCuboid(world, i + 4, j + 8, k + 2, i + 4, j + 8, k - 2, Blocks.nether_brick);
+			SBAPI.generateCuboid(world, i - 3, j + 8, k + 2, i - 3, j + 8, k - 2, Blocks.nether_brick);
 			//Second level of roof
-			SBAPI.generateCuboid(world, i + 3, j + 9, k + 2, i - 2, j + 9, k - 2, Block.netherBrick.blockID);
-			world.setBlock(i + 3, j + 9, k + 2, 0, 0, 3);
-			world.setBlock(i + 3, j + 9, k - 2, 0, 0, 3);
-			world.setBlock(i - 2, j + 9, k - 2, 0, 0, 3);
-			world.setBlock(i - 2, j + 9, k + 2, 0, 0, 3);
-			SBAPI.generateCuboid(world, i + 2, j + 9, k + 1, i - 1, j + 9, k - 1, Block.glowStone.blockID);
+			SBAPI.generateCuboid(world, i + 3, j + 9, k + 2, i - 2, j + 9, k - 2, Blocks.nether_brick);
+			world.setBlock(i + 3, j + 9, k + 2, Blocks.air, 0, 3);
+			world.setBlock(i + 3, j + 9, k - 2, Blocks.air, 0, 3);
+			world.setBlock(i - 2, j + 9, k - 2, Blocks.air, 0, 3);
+			world.setBlock(i - 2, j + 9, k + 2, Blocks.air, 0, 3);
+			SBAPI.generateCuboid(world, i + 2, j + 9, k + 1, i - 1, j + 9, k - 1, Blocks.glowstone);
 			//Top level of roof
-			SBAPI.generateCuboid(world, i + 2, j + 10, k + 1, i - 1, j + 10, k - 1, Block.netherBrick.blockID);
+			SBAPI.generateCuboid(world, i + 2, j + 10, k + 1, i - 1, j + 10, k - 1, Blocks.nether_brick);
 		} else {
 			//Base
-			SBAPI.generateCuboid(world, i, j + 1, k + 1, i, j + 1, k, Block.netherBrick.blockID);
-			SBAPI.generateCuboid(world, i + 1, j + 2, k + 2, i - 1, j + 2, k - 1, Block.netherBrick.blockID);
-			SBAPI.generateCuboid(world, i + 2, j + 3, k + 3, i - 2, j + 3, k - 2, Block.netherBrick.blockID);
+			SBAPI.generateCuboid(world, i, j + 1, k + 1, i, j + 1, k, Blocks.nether_brick);
+			SBAPI.generateCuboid(world, i + 1, j + 2, k + 2, i - 1, j + 2, k - 1, Blocks.nether_brick);
+			SBAPI.generateCuboid(world, i + 2, j + 3, k + 3, i - 2, j + 3, k - 2, Blocks.nether_brick);
 			//Portal
-			SBAPI.generateCuboid(world, i, j + 3, k + 2, i, j + 7, k - 1, Block.obsidian.blockID, 0, true);
+			SBAPI.generateCuboid(world, i, j + 3, k + 2, i, j + 7, k - 1, Blocks.obsidian, 0, true);
 			//Columns
-			SBAPI.generateCuboid(world, i - 2, j + 4, k + 3, i - 2, j + 8, k + 3, Block.netherBrick.blockID);
-			SBAPI.generateCuboid(world, i - 2, j + 4, k - 2, i - 2, j + 8, k - 2, Block.netherBrick.blockID);
-			SBAPI.generateCuboid(world, i + 2, j + 4, k - 2, i + 2, j + 8, k - 2, Block.netherBrick.blockID);
-			SBAPI.generateCuboid(world, i + 2, j + 4, k + 3, i + 2, j + 8, k + 3, Block.netherBrick.blockID);
+			SBAPI.generateCuboid(world, i - 2, j + 4, k + 3, i - 2, j + 8, k + 3, Blocks.nether_brick);
+			SBAPI.generateCuboid(world, i - 2, j + 4, k - 2, i - 2, j + 8, k - 2, Blocks.nether_brick);
+			SBAPI.generateCuboid(world, i + 2, j + 4, k - 2, i + 2, j + 8, k - 2, Blocks.nether_brick);
+			SBAPI.generateCuboid(world, i + 2, j + 4, k + 3, i + 2, j + 8, k + 3, Blocks.nether_brick);
 			//First level of roof
-			SBAPI.generateCuboid(world, i + 3, j + 8, k + 3, i + 3, j + 8, k - 2, Block.netherBrick.blockID);
-			SBAPI.generateCuboid(world, i - 3, j + 8, k + 3, i - 3, j + 8, k - 2, Block.netherBrick.blockID);
-			SBAPI.generateCuboid(world, i + 2, j + 8, k + 4, i - 2, j + 8, k + 4, Block.netherBrick.blockID);
-			SBAPI.generateCuboid(world, i + 2, j + 8, k - 3, i - 2, j + 8, k - 3, Block.netherBrick.blockID);
+			SBAPI.generateCuboid(world, i + 3, j + 8, k + 3, i + 3, j + 8, k - 2, Blocks.nether_brick);
+			SBAPI.generateCuboid(world, i - 3, j + 8, k + 3, i - 3, j + 8, k - 2, Blocks.nether_brick);
+			SBAPI.generateCuboid(world, i + 2, j + 8, k + 4, i - 2, j + 8, k + 4, Blocks.nether_brick);
+			SBAPI.generateCuboid(world, i + 2, j + 8, k - 3, i - 2, j + 8, k - 3, Blocks.nether_brick);
 			//Second level of roof
-			SBAPI.generateCuboid(world, i + 2, j + 9, k + 3, i - 2, j + 9, k - 2, Block.netherBrick.blockID);
-			world.setBlock(i - 2, j + 9, k + 3, 0, 0, 3);
-			world.setBlock(i - 2, j + 9, k - 2, 0, 0, 3);
-			world.setBlock(i + 2, j + 9, k - 2, 0, 0, 3);
-			world.setBlock(i + 2, j + 9, k + 3, 0, 0, 3);
-			SBAPI.generateCuboid(world, i + 1, j + 9, k + 2, i - 1, j + 9, k - 1, Block.glowStone.blockID);
+			SBAPI.generateCuboid(world, i + 2, j + 9, k + 3, i - 2, j + 9, k - 2, Blocks.nether_brick);
+			world.setBlock(i - 2, j + 9, k + 3, Blocks.air, 0, 3);
+			world.setBlock(i - 2, j + 9, k - 2, Blocks.air, 0, 3);
+			world.setBlock(i + 2, j + 9, k - 2, Blocks.air, 0, 3);
+			world.setBlock(i + 2, j + 9, k + 3, Blocks.air, 0, 3);
+			SBAPI.generateCuboid(world, i + 1, j + 9, k + 2, i - 1, j + 9, k - 1, Blocks.glowstone);
 			//Top level of roof
-			SBAPI.generateCuboid(world, i + 1, j + 10, k + 2, i - 1, j + 10, k - 1, Block.netherBrick.blockID);
+			SBAPI.generateCuboid(world, i + 1, j + 10, k + 2, i - 1, j + 10, k - 1, Blocks.nether_brick);
 		}
-		world.setBlock(i, j + 4, k, Block.fire.blockID, 0, 3);
+		world.setBlock(i, j + 4, k, Blocks.fire, 0, 3);
 	}
 
 	public void afterCrashCompleted(World world, int i, int j, int k) {

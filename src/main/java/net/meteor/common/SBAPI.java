@@ -4,6 +4,7 @@
 package net.meteor.common;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 
 /**
@@ -178,56 +179,56 @@ public class SBAPI {
 	 * @param block		ID of block to be placed
 	 * @param mData		Metadata of block to be placed. Useful for rotations and different textures of blocks.
 	 */
-	public static void placeBlock(World world, int x, int y, int z, int block, int mData) {
-		if (block == Block.doorWood.blockID) {
+	public static void placeBlock(World world, int x, int y, int z, Block block, int mData) {
+		if (block == Blocks.wooden_door) {
 			if (mData >= TopOfDoor) {
-				if (world.getBlockId(x, y - 1, z) != block) {
+				if (world.getBlock(x, y - 1, z) != block) {
 					world.setBlock(x, y - 1, z, block, mData - TopOfDoor, 3);
 				}
 			} else if (mData < TopOfDoor) {
-				if (world.getBlockId(x, y + 1, z) != block) {
+				if (world.getBlock(x, y + 1, z) != block) {
 					world.setBlock(x, y + 1, z, block, mData + TopOfDoor, 3);
 				}
 			}
-		} else if (block == Block.doorIron.blockID) {
+		} else if (block == Blocks.iron_door) {
 			if (mData >= TopOfDoor) {
-				if (world.getBlockId(x, y - 1, z) != block) {
+				if (world.getBlock(x, y - 1, z) != block) {
 					world.setBlock(x, y - 1, z, block, mData - TopOfDoor, 3);
 				}
 			} else if (mData < TopOfDoor) {
-				if (world.getBlockId(x, y + 1, z) != block) {
+				if (world.getBlock(x, y + 1, z) != block) {
 					world.setBlock(x, y + 1, z, block, mData + TopOfDoor, 3);
 				}
 			}
-		} else if (block == Block.bed.blockID) {
+		} else if (block == Blocks.bed) {
 			if (mData >= HeadOfBed) {
 				boolean bedTowardNorthSouth = getBedPlacementDirectionNorthOrSouth(mData - 8);
 				if (bedTowardNorthSouth) {
 					if ((mData - 8) == PlaceBedNorthward) {
-						world.setBlock(x, y, z - 1, Block.bed.blockID, PlaceBedNorthward, 3);
+						world.setBlock(x, y, z - 1, Blocks.bed, PlaceBedNorthward, 3);
 					} else if ((mData - 8) == PlaceBedSouthward) {
-						world.setBlock(x, y, z + 1, Block.bed.blockID, PlaceBedSouthward, 3);
+						world.setBlock(x, y, z + 1, Blocks.bed, PlaceBedSouthward, 3);
 					}
 				} else {
 					if ((mData - 8) == PlaceBedEastward) {
-						world.setBlock(x + 1, y, z, Block.bed.blockID, PlaceBedEastward, 3);
+						world.setBlock(x + 1, y, z, Blocks.bed, PlaceBedEastward, 3);
 					} else if ((mData - 8) == PlaceBedWestward) {
-						world.setBlock(x - 1, y, z, Block.bed.blockID, PlaceBedWestward, 3);
+						world.setBlock(x - 1, y, z, Blocks.bed, PlaceBedWestward, 3);
 					}
 				}
 			} else if (mData < HeadOfBed) {
 				boolean bedTowardNorthSouth = getBedPlacementDirectionNorthOrSouth(mData);
 				if (bedTowardNorthSouth) {
 					if (mData == PlaceBedNorthward) {
-						world.setBlock(x, y, z - 1, Block.bed.blockID, PlaceBedNorthward + HeadOfBed, 3);
+						world.setBlock(x, y, z - 1, Blocks.bed, PlaceBedNorthward + HeadOfBed, 3);
 					} else if (mData == PlaceBedSouthward) {
-						world.setBlock(x, y, z + 1, Block.bed.blockID, PlaceBedSouthward + HeadOfBed, 3);
+						world.setBlock(x, y, z + 1, Blocks.bed, PlaceBedSouthward + HeadOfBed, 3);
 					}
 				} else {
 					if (mData == PlaceBedEastward) {
-						world.setBlock(x + 1, y, z, Block.bed.blockID, PlaceBedEastward + HeadOfBed, 3);
+						world.setBlock(x + 1, y, z, Blocks.bed, PlaceBedEastward + HeadOfBed, 3);
 					} else if (mData == PlaceBedWestward) {
-						world.setBlock(x - 1, y, z, Block.bed.blockID, PlaceBedWestward + HeadOfBed, 3);
+						world.setBlock(x - 1, y, z, Blocks.bed, PlaceBedWestward + HeadOfBed, 3);
 					}
 				}
 			}
@@ -243,7 +244,7 @@ public class SBAPI {
 	 * @param block		ID of block to be placed
 	 * @see				#placeBlock(World, int, int, int, int, int)
 	 */
-	public static void placeBlock(World world, int x, int y, int z, int block) {
+	public static void placeBlock(World world, int x, int y, int z, Block block) {
 		placeBlock(world, x, y, z, block, 0);
 	}
 
@@ -270,7 +271,7 @@ public class SBAPI {
 	 * @param block		ID of block to be placed
 	 * @param mData		Metadata of block to be placed. Useful for rotations and different textures of blocks.
 	 */
-	public static void generateFloor(World world, int y, int x1, int z1, int x2, int z2, int block, int mData) {
+	public static void generateFloor(World world, int y, int x1, int z1, int x2, int z2, Block block, int mData) {
 		if (x1 <= x2 && z1 <= z2) {
 			for (int startX = x1; startX <= x2; startX++) {
 				for (int startZ = z1; startZ <= z2; startZ++) {
@@ -308,7 +309,7 @@ public class SBAPI {
 	 * @param block		ID of block to be placed
 	 * @see				#generateFloor(World, int, int, int, int, int, int, int)
 	 */
-	public static void generateFloor(World world, int y, int x1, int z1, int x2, int z2, int block) {
+	public static void generateFloor(World world, int y, int x1, int z1, int x2, int z2, Block block) {
 		generateFloor(world, y, x1, z1, x2, z2, block, 0);
 	}
 
@@ -322,7 +323,7 @@ public class SBAPI {
 	 * @param block		ID of block to be placed
 	 * @param mData		Metadata of block to be placed. Useful for rotations and different textures of blocks.
 	 */
-	public static void generateHollowFloor(World world, int y, int x1, int z1, int x2, int z2, int block, int mData) {
+	public static void generateHollowFloor(World world, int y, int x1, int z1, int x2, int z2, Block block, int mData) {
 		if (x1 <= x2) {
 			for (int startX = x1; startX <= x2; startX++) {
 				placeBlock(world, startX, y, z1, block, mData);
@@ -358,7 +359,7 @@ public class SBAPI {
 	 * @param block		ID of block to be placed
 	 * @see				#generateHollowFloor(World, int, int, int, int, int, int, int)
 	 */
-	public static void generateHollowFloor(World world, int y, int x1, int z1, int x2, int z2, int block) {
+	public static void generateHollowFloor(World world, int y, int x1, int z1, int x2, int z2, Block block) {
 		generateHollowFloor(world, y, x1, z1, x2, z2, block, 0);
 	}
 
@@ -373,7 +374,7 @@ public class SBAPI {
 	 * @param mData		Metadata of block to be placed. Useful for rotations and different textures of blocks.
 	 * @see				#generateXWall(World, int, int, int, int, int, int)
 	 */
-	public static void generateEastWestWall(World world, int x, int y1, int z1, int y2, int z2, int block, int mData) {
+	public static void generateEastWestWall(World world, int x, int y1, int z1, int y2, int z2, Block block, int mData) {
 		generateXWall(world, x, y1, z1, y2, z2, block, mData);
 	}
 
@@ -387,7 +388,7 @@ public class SBAPI {
 	 * @param block		ID of block to be placed
 	 * @see				#generateEastWestWall(World, int, int, int, int, int, int, int)
 	 */
-	public static void generateEastWestWall(World world, int x, int y1, int z1, int y2, int z2, int block) {
+	public static void generateEastWestWall(World world, int x, int y1, int z1, int y2, int z2, Block block) {
 		generateXWall(world, x, y1, z1, y2, z2, block, 0);
 	}
 
@@ -402,7 +403,7 @@ public class SBAPI {
 	 * @param mData		Metadata of block to be placed. Useful for rotations and different textures of blocks.
 	 * @see				#generateHollowXWall(World, int, int, int, int, int, int)
 	 */
-	public static void generateHollowEastWestWall(World world, int x, int y1, int z1, int y2, int z2, int block, int mData) {
+	public static void generateHollowEastWestWall(World world, int x, int y1, int z1, int y2, int z2, Block block, int mData) {
 		generateHollowXWall(world, x, y1, z1, y2, z2, block, mData);
 	}
 
@@ -416,7 +417,7 @@ public class SBAPI {
 	 * @param block		ID of block to be placed
 	 * @see				#generateHollowEastWestWall(World, int, int, int, int, int, int, int)
 	 */
-	public static void generateHollowEastWestWall(World world, int x, int y1, int z1, int y2, int z2, int block) {
+	public static void generateHollowEastWestWall(World world, int x, int y1, int z1, int y2, int z2, Block block) {
 		generateHollowXWall(world, x, y1, z1, y2, z2, block, 0);
 	}
 
@@ -431,7 +432,7 @@ public class SBAPI {
 	 * @param mData		Metadata of block to be placed. Useful for rotations and different textures of blocks.
 	 * @see				#generateZWall(World, int, int, int, int, int, int)
 	 */
-	public static void generateNorthSouthWall(World world, int z, int x1, int y1, int x2, int y2, int block, int mData) {
+	public static void generateNorthSouthWall(World world, int z, int x1, int y1, int x2, int y2, Block block, int mData) {
 		generateZWall(world, z, x1, y1, x2, y2, block, mData);
 	}
 
@@ -445,7 +446,7 @@ public class SBAPI {
 	 * @param block		ID of block to be placed
 	 * @see 			#generateNorthSouthWall(World, int, int, int, int, int, int, int)
 	 */
-	public static void generateNorthSouthWall(World world, int z, int x1, int y1, int x2, int y2, int block) {
+	public static void generateNorthSouthWall(World world, int z, int x1, int y1, int x2, int y2, Block block) {
 		generateZWall(world, z, x1, y1, x2, y2, block, 0);
 	}
 
@@ -460,7 +461,7 @@ public class SBAPI {
 	 * @param mData		Metadata of block to be placed. Useful for rotations and different textures of blocks.
 	 * @see				#generateHollowZWall(World, int, int, int, int, int, int)
 	 */
-	public static void generateHollowNorthSouthWall(World world, int z, int x1, int y1, int x2, int y2, int block, int mData) {
+	public static void generateHollowNorthSouthWall(World world, int z, int x1, int y1, int x2, int y2, Block block, int mData) {
 		generateHollowZWall(world, z, x1, y1, x2, y2, block, mData);
 	}
 
@@ -474,7 +475,7 @@ public class SBAPI {
 	 * @param block		ID of block to be placed
 	 * @see				#generateHollowNorthSouthWall(World, int, int, int, int, int, int, int)
 	 */
-	public static void generateHollowNorthSouthWall(World world, int z, int x1, int y1, int x2, int y2, int block) {
+	public static void generateHollowNorthSouthWall(World world, int z, int x1, int y1, int x2, int y2, Block block) {
 		generateHollowZWall(world, z, x1, y1, x2, y2, block, 0);
 	}
 
@@ -488,7 +489,7 @@ public class SBAPI {
 	 * @param block		ID of block to be placed
 	 * @param mData		Metadata of block to be placed. Useful for rotations and different textures of blocks.
 	 */
-	public static void generateXWall(World world, int x, int y1, int z1, int y2, int z2, int block, int mData) {
+	public static void generateXWall(World world, int x, int y1, int z1, int y2, int z2, Block block, int mData) {
 		if (y1 >= y2) {
 			for (int startY = y1; startY >= y2; startY--) {
 				if (z1 >= z2) {
@@ -526,7 +527,7 @@ public class SBAPI {
 	 * @param block		ID of block to be placed
 	 * @see				#generateXWall(World, int, int, int, int, int, int, int)
 	 */
-	public static void generateXWall(World world, int x, int y1, int z1, int y2, int z2, int block) {
+	public static void generateXWall(World world, int x, int y1, int z1, int y2, int z2, Block block) {
 		generateXWall(world, x, y1, z1, y2, z2, block, 0);
 	}
 
@@ -540,7 +541,7 @@ public class SBAPI {
 	 * @param block		ID of block to be placed
 	 * @param mData		Metadata of block to be placed. Useful for rotations and different textures of blocks.
 	 */
-	public static void generateZWall(World world, int z, int x1, int y1, int x2, int y2, int block, int mData) {
+	public static void generateZWall(World world, int z, int x1, int y1, int x2, int y2, Block block, int mData) {
 		if (y1 >= y2) {
 			for (int startY = y1; startY >= y2; startY--) {
 				if (x1 >= x2) {
@@ -578,7 +579,7 @@ public class SBAPI {
 	 * @param block		ID of block to be placed
 	 * @see				#generateZWall(World, int, int, int, int, int, int, int)
 	 */
-	public static void generateZWall(World world, int z, int x1, int y1, int x2, int y2, int block) {
+	public static void generateZWall(World world, int z, int x1, int y1, int x2, int y2, Block block) {
 		generateZWall(world, z, x1, y1, x2, y2, block, 0);
 	}
 
@@ -592,7 +593,7 @@ public class SBAPI {
 	 * @param block		ID of block to be placed
 	 * @param mData		Metadata of block to be placed. Useful for rotations and different textures of blocks.
 	 */
-	public static void generateHollowXWall(World world, int x, int y1, int z1, int y2, int z2, int block, int mData) {
+	public static void generateHollowXWall(World world, int x, int y1, int z1, int y2, int z2, Block block, int mData) {
 		if (y1 >= y2) {
 			for (int startY = y1; startY >= y2; startY--) {
 				placeBlock(world, x, startY, z1, block, mData);
@@ -628,7 +629,7 @@ public class SBAPI {
 	 * @param block		ID of block to be placed
 	 * @see				#generateHollowXWall(World, int, int, int, int, int, int, int)
 	 */
-	public static void generateHollowXWall(World world, int x, int y1, int z1, int y2, int z2, int block) {
+	public static void generateHollowXWall(World world, int x, int y1, int z1, int y2, int z2, Block block) {
 		generateHollowXWall(world, x, y1, z1, y2, z2, block, 0);
 	}
 
@@ -642,7 +643,7 @@ public class SBAPI {
 	 * @param block		ID of block to be placed
 	 * @param mData		Metadata of block to be placed. Useful for rotations and different textures of blocks.
 	 */
-	public static void generateHollowZWall(World world, int z, int x1, int y1, int x2, int y2, int block, int mData) {
+	public static void generateHollowZWall(World world, int z, int x1, int y1, int x2, int y2, Block block, int mData) {
 		if (y1 >= y2) {
 			for (int startY = y1; startY >= y2; startY--) {
 				placeBlock(world, x1, startY, z, block, mData);
@@ -678,7 +679,7 @@ public class SBAPI {
 	 * @param block		ID of block to be placed
 	 * @see				#generateHollowZWall(World, int, int, int, int, int, int, int)
 	 */
-	public static void generateHollowZWall(World world, int z, int x1, int y1, int x2, int y2, int block) {
+	public static void generateHollowZWall(World world, int z, int x1, int y1, int x2, int y2, Block block) {
 		generateHollowZWall(world, z, x1, y1, x2, y2, block, 0);
 	}
 
@@ -697,7 +698,7 @@ public class SBAPI {
 	 * @see				#generateWall(World, int, int, int, int, int, int, int, int, boolean)
 	 * @see				#generateWall(World, int, int, int, int, int, int, int)
 	 */
-	public static boolean generateWall(World world, int x1, int y1, int z1, int x2, int y2, int z2, int block, int mData) {
+	public static boolean generateWall(World world, int x1, int y1, int z1, int x2, int y2, int z2, Block block, int mData) {
 		return generateWall(world, x1, y1, z1, x2, y2, z2, block, mData, false);
 	}
 
@@ -715,7 +716,7 @@ public class SBAPI {
 	 * @see				#generateWall(World, int, int, int, int, int, int, int, int, boolean)
 	 * @see				#generateWall(World, int, int, int, int, int, int, int, int)
 	 */
-	public static boolean generateWall(World world, int x1, int y1, int z1, int x2, int y2, int z2, int block) {
+	public static boolean generateWall(World world, int x1, int y1, int z1, int x2, int y2, int z2, Block block) {
 		return generateWall(world, x1, y1, z1, x2, y2, z2, block, 0);
 	}
 
@@ -732,7 +733,7 @@ public class SBAPI {
 	 * @param hollow	Make wall hollow or not
 	 * @return			Returns true if was able to generate wall. Returns false if it was unable to generate wall.
 	 */
-	public static boolean generateWall(World world, int x1, int y1, int z1, int x2, int y2, int z2, int block, int mData, boolean hollow) {
+	public static boolean generateWall(World world, int x1, int y1, int z1, int x2, int y2, int z2, Block block, int mData, boolean hollow) {
 		if (x1 == x2) {
 			if (hollow) {
 				generateHollowXWall(world, x1, y1, z1, y2, z2, block, mData);
@@ -766,7 +767,7 @@ public class SBAPI {
 	 * @see				#generateCuboid(World, int, int, int, int, int, int, int, int, boolean)
 	 * @see				#generateCuboid(World, int, int, int, int, int, int, int)
 	 */
-	public static void generateCuboid(World world, int x1, int y1, int z1, int x2, int y2, int z2, int block, int mData) {
+	public static void generateCuboid(World world, int x1, int y1, int z1, int x2, int y2, int z2, Block block, int mData) {
 		generateCuboid(world, x1, y1, z1, x2, y2, z2, block, mData, false);
 	}
 
@@ -783,7 +784,7 @@ public class SBAPI {
 	 * @see				#generateCuboid(World, int, int, int, int, int, int, int, int)
 	 * @see				#generateCuboid(World, int, int, int, int, int, int, int, int, boolean)
 	 */
-	public static void generateCuboid(World world, int x1, int y1, int z1, int x2, int y2, int z2, int block) {
+	public static void generateCuboid(World world, int x1, int y1, int z1, int x2, int y2, int z2, Block block) {
 		generateCuboid(world, x1, y1, z1, x2, y2, z2, block, 0);
 	}
 
@@ -799,7 +800,7 @@ public class SBAPI {
 	 * @param mData		Metadata of block to be placed. Useful for rotations and different textures of blocks.
 	 * @param hollow	Make cuboid hollow or not
 	 */
-	public static void generateCuboid(World world, int x1, int y1, int z1, int x2, int y2, int z2, int block, int mData, boolean hollow) {
+	public static void generateCuboid(World world, int x1, int y1, int z1, int x2, int y2, int z2, Block block, int mData, boolean hollow) {
 		if (y1 == y2) {
 			if (hollow) {
 				generateHollowFloor(world, y1, x1, z1, x2, z2, block, mData);

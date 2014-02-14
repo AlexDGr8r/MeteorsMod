@@ -1,5 +1,15 @@
 package net.meteor.common;
 
+import net.meteor.client.effect.EntityFrezaDustFX;
+import net.meteor.client.effect.EntityMeteorShieldParticleFX;
+import net.meteor.client.effect.EntityMeteordustFX;
+import net.meteor.client.model.ModelCometKitty;
+import net.meteor.client.render.RenderAlienCreeper;
+import net.meteor.client.render.RenderCometKitty;
+import net.meteor.client.render.RenderMeteor;
+import net.meteor.client.render.RenderSummoner;
+import net.meteor.client.tileentity.TileEntityMeteorShieldRayRenderer;
+import net.meteor.client.tileentity.TileEntityMeteorTimerRenderer;
 import net.meteor.common.entity.EntityAlienCreeper;
 import net.meteor.common.entity.EntityCometKitty;
 import net.meteor.common.entity.EntityMeteor;
@@ -8,19 +18,7 @@ import net.meteor.common.tileentity.TileEntityMeteorShield;
 import net.meteor.common.tileentity.TileEntityMeteorTimer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;
-import net.minecraft.src.meteor.MetCrashSoundHandler;
-import net.minecraft.src.meteor.effect.EntityFrezaDustFX;
-import net.minecraft.src.meteor.effect.EntityMeteorShieldParticleFX;
-import net.minecraft.src.meteor.effect.EntityMeteordustFX;
-import net.minecraft.src.meteor.model.ModelCometKitty;
-import net.minecraft.src.meteor.render.RenderAlienCreeper;
-import net.minecraft.src.meteor.render.RenderCometKitty;
-import net.minecraft.src.meteor.render.RenderMeteor;
-import net.minecraft.src.meteor.render.RenderSummoner;
-import net.minecraft.src.meteor.render.tileentity.TileEntityMeteorShieldRayRenderer;
-import net.minecraft.src.meteor.render.tileentity.TileEntityMeteorTimerRenderer;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 

@@ -10,6 +10,7 @@ import net.meteor.common.entity.EntityAlienCreeper;
 import net.meteor.common.entity.EntityCometKitty;
 import net.meteor.common.entity.EntityMeteor;
 import net.meteor.common.entity.EntitySummoner;
+import net.meteor.common.packets.PacketPipeline;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.util.MathHelper;
@@ -18,15 +19,15 @@ import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.ChunkProviderGenerate;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraftforge.common.MinecraftForge;
-import cpw.mods.fml.common.FMLLog;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.IWorldGenerator;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
-import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -45,7 +46,7 @@ implements IWorldGenerator
 
 	public static final Logger log = Logger.getLogger("Falling Meteors Mod");
 
-	
+	public static final PacketPipeline packetPipeline = new PacketPipeline();
 	
 	public static Enchantment Magnetization;
 	public static Enchantment ColdTouch;
@@ -82,7 +83,29 @@ implements IWorldGenerator
 	public int ImpactSpread;
 
 	@EventHandler
-	public void load(FMLInitializationEvent event)
+	public void preInit(FMLPreInitializationEvent event) {
+		ModConfig.instance.load(event.getSuggestedConfigurationFile());
+		loadStaticConfigurationValues();
+		LangLocalization.addLocalization("/assets/meteors/lang/", "en_US");
+		
+		HandlerMeteor.defaultType = EnumMeteor.METEORITE;
+		if (!this.meteoriteEnabled) {
+			HandlerMeteor.defaultType = EnumMeteor.FREZARITE;
+			if (!this.frezariteEnabled) {
+				HandlerMeteor.defaultType = EnumMeteor.KREKNORITE;
+				if (!this.kreknoriteEnabled) {
+					HandlerMeteor.defaultType = EnumMeteor.UNKNOWN;
+					if (!this.unknownEnabled)
+						HandlerMeteor.defaultType = EnumMeteor.METEORITE;
+				}
+			}
+		}
+		
+		this.achHandler = new HandlerAchievement();
+	}
+	
+	@EventHandler
+	public void init(FMLInitializationEvent event)
 	{
 		MeteorBlocks.registerBlocks();
 		MeteorItems.registerItems();
@@ -101,17 +124,23 @@ implements IWorldGenerator
 		MinecraftForge.EVENT_BUS.register(new HandlerPlayerBreakSpeed());
 		MinecraftForge.EVENT_BUS.register(new HandlerWorld());
 
-		GameRegistry.registerCraftingHandler(recipeHandler);
+		FMLCommonHandler.instance().bus().register(recipeHandler);
+		FMLCommonHandler.instance().bus().register(achHandler);
 		GameRegistry.registerFuelHandler(recipeHandler);
 		GameRegistry.registerWorldGenerator(this);
-		GameRegistry.registerPickupHandler(achHandler);
 
 		TickRegistry.registerTickHandler(this.playerTickHandler, Side.SERVER);
 		TickRegistry.registerTickHandler(this.playerTickHandler, Side.CLIENT);
 
 		ClientHandler cHandler = new ClientHandler();
-		NetworkRegistry.instance().registerConnectionHandler(cHandler);
+		packetPipeline.initalise();
+		//NetworkRegistry.instance().registerConnectionHandler(cHandler);
 		MinecraftForge.EVENT_BUS.register(cHandler);
+	}
+	
+	@EventHandler
+	public void postInit(FMLPostInitializationEvent event) {
+		packetPipeline.postInitialise();
 	}
 
 	private void loadStaticConfigurationValues() {
@@ -165,28 +194,7 @@ implements IWorldGenerator
 		this.ImpactSpread = MathHelper.clamp_int(ModConfig.instance.get("Meteor Impact Spread", 4), 0, 8);
 	}
 
-	@EventHandler
-	public void loadConfigurationValues(FMLPreInitializationEvent event) {
-		ModConfig.instance.load(event.getSuggestedConfigurationFile());
-		loadStaticConfigurationValues();
-		LangLocalization.addLocalization("/assets/meteors/lang/", "en_US");
-		
-		HandlerMeteor.defaultType = EnumMeteor.METEORITE;
-		if (!this.meteoriteEnabled) {
-			HandlerMeteor.defaultType = EnumMeteor.FREZARITE;
-			if (!this.frezariteEnabled) {
-				HandlerMeteor.defaultType = EnumMeteor.KREKNORITE;
-				if (!this.kreknoriteEnabled) {
-					HandlerMeteor.defaultType = EnumMeteor.UNKNOWN;
-					if (!this.unknownEnabled)
-						HandlerMeteor.defaultType = EnumMeteor.METEORITE;
-				}
-			}
-		}
-		
-		proxy.loadSounds();
-		this.achHandler = new HandlerAchievement();
-	}
+	
 
 	@EventHandler
 	public void serverStarting(FMLServerStartingEvent evt) {

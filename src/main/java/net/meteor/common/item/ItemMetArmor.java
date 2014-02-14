@@ -1,7 +1,6 @@
 package net.meteor.common.item;
 
 import net.meteor.common.LangLocalization;
-import net.meteor.common.MeteorItems;
 import net.meteor.common.MeteorsMod;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;

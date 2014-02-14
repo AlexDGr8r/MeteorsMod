@@ -2,7 +2,6 @@ package net.meteor.common.block;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 
 public class BlockRedMeteorGem extends BlockMeteorsMod {
 

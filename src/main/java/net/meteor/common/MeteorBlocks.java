@@ -12,7 +12,6 @@ import net.meteor.common.block.BlockRareFallenMeteor;
 import net.meteor.common.block.BlockRedMeteorGem;
 import net.meteor.common.item.ItemBlockMeteorsMod;
 import net.minecraft.block.Block;
-import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class MeteorBlocks {

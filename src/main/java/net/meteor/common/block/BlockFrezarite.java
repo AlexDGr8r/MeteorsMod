@@ -4,7 +4,6 @@ import java.util.Random;
 
 import net.meteor.common.ClientProxy;
 import net.meteor.common.MeteorItems;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;

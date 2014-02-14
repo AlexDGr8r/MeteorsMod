@@ -3,7 +3,6 @@ package net.meteor.common.block;
 import java.util.Random;
 
 import net.meteor.common.ClientProxy;
-import net.meteor.common.MeteorBlocks;
 import net.meteor.common.MeteorItems;
 import net.meteor.common.entity.EntityAlienCreeper;
 import net.minecraft.block.Block;
