@@ -16,7 +16,7 @@ public class ItemEnchArmor extends ItemMetArmor
 		super(armorMaterial, par3, par4);
 	}
 
-	public Item setEnch(Enchantment ench, int lvl) {
+	public ItemEnchArmor setEnch(Enchantment ench, int lvl) {
 		this.enchantment = ench;
 		this.level = lvl;
 		return this;

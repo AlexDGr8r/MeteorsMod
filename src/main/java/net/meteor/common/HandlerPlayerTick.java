@@ -73,7 +73,7 @@ public class HandlerPlayerTick
 	}
 
 	private static boolean isWearing(Item item, ItemStack itemStack) {
-		if ((item != null) && 
+		if ((itemStack != null) && 
 				(item == itemStack.getItem())) return true;
 
 		return false;

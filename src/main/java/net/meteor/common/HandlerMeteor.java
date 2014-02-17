@@ -53,6 +53,7 @@ public class HandlerMeteor
 		this.ccSetData = CrashedChunkSetData.forWorld(theWorld, this);
 		this.worldName = theWorld.getWorldInfo().getWorldName();
 		this.tickHandler = new HandlerMeteorTick(this, worldName);
+		FMLCommonHandler.instance().bus().register(tickHandler);
 		//TickRegistry.registerTickHandler(this.tickHandler, Side.SERVER); TODO
 	}
 

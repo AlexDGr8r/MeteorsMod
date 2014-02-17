@@ -26,27 +26,11 @@ public class ItemMetArmor extends ItemArmor
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type)
 	{
-		if (slot != 1) { // TODO double check for derps
-			return "meteors:" + this.armorTex + "_1.png";
+		if (slot == 2) {
+			return "meteors:textures/armor/" + this.armorTex + "Armor_2.png";
 		} else {
-			return "meteors:" + this.armorTex + "_2.png";
+			return "meteors:textures/armor/" + this.armorTex + "Armor_1.png";
 		}
-//		int i = itemstack.itemID;
-//		if ((i == MeteorItems.MeteoriteHelmet.itemID) || (i == MeteorItems.MeteoriteBody.itemID) || (i == MeteorItems.MeteoriteBoots.itemID))
-//			return "meteors:textures/armor/MeteoriteArmor_1.png";
-//		if (i == MeteorItems.MeteoriteLegs.itemID)
-//			return "meteors:textures/armor/MeteoriteArmor_2.png";
-//		if ((i == MeteorItems.FrezariteHelmet.itemID) || (i == MeteorItems.FrezariteBody.itemID) || (i == MeteorItems.FrezariteBoots.itemID))
-//			return "meteors:textures/armor/FrezariteArmor_1.png";
-//		if (i == MeteorItems.FrezariteLegs.itemID)
-//			return "meteors:textures/armor/FrezariteArmor_2.png";
-//		if ((i == MeteorItems.KreknoriteHelmet.itemID) || (i == MeteorItems.KreknoriteBody.itemID) || (i == MeteorItems.KreknoriteBoots.itemID))
-//			return "meteors:textures/armor/KreknoriteArmor_1.png";
-//		if (i == MeteorItems.KreknoriteLegs.itemID) {
-//			return "meteors:textures/armor/KreknoriteArmor_2.png";
-//		}
-//
-//		return "meteors:textures/armor/MeteoriteArmor_1.png";
 	}
 	
 	@Override

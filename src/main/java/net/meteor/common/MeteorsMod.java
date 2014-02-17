@@ -88,6 +88,11 @@ implements IWorldGenerator
 		loadStaticConfigurationValues();
 		LangLocalization.addLocalization("/assets/meteors/lang/", "en_US");
 		
+		MeteorBlocks.registerBlocks();
+		MeteorItems.registerItems();
+		MeteorBlocks.readyBlocks();
+		MeteorItems.readyItems();
+		
 		HandlerMeteor.defaultType = EnumMeteor.METEORITE;
 		if (!this.meteoriteEnabled) {
 			HandlerMeteor.defaultType = EnumMeteor.FREZARITE;
@@ -107,12 +112,7 @@ implements IWorldGenerator
 	@EventHandler
 	public void init(FMLInitializationEvent event)
 	{
-		MeteorBlocks.registerBlocks();
-		MeteorItems.registerItems();
 		registerEntities();
-		MeteorBlocks.readyBlocks();
-		MeteorItems.readyItems();
-		
 		HandlerRecipe recipeHandler = new HandlerRecipe();
 		recipeHandler.addRecipes();
 
@@ -129,7 +129,6 @@ implements IWorldGenerator
 		GameRegistry.registerFuelHandler(recipeHandler);
 		GameRegistry.registerWorldGenerator(this, 1);
 		FMLCommonHandler.instance().bus().register(new HandlerPlayerTick());
-
 		ClientHandler cHandler = new ClientHandler(packetPipeline);
 		packetPipeline.initalise();
 		cHandler.registerPackets();

@@ -40,14 +40,14 @@ public class MeteorBlocks {
 	}
 	
 	public static void registerBlocks() {
-		GameRegistry.registerBlock(MeteorBlocks.blockMeteorOre, ItemBlockMeteorsMod.class, "BlockMeteorOre");
-		GameRegistry.registerBlock(MeteorBlocks.blockMeteor, ItemBlockMeteorsMod.class, "BlockMeteor");
-		GameRegistry.registerBlock(MeteorBlocks.blockMeteorShield, ItemBlockMeteorsMod.class, "BlockMeteorShield");
-		GameRegistry.registerBlock(MeteorBlocks.torchMeteorShieldActive, ItemBlockMeteorsMod.class, "BlockMeteorShieldA");
-		GameRegistry.registerBlock(MeteorBlocks.blockFrezarite, ItemBlockMeteorsMod.class, "BlockFrezarite");
-		GameRegistry.registerBlock(MeteorBlocks.blockKreknorite, ItemBlockMeteorsMod.class, "BlockKreknorite");
-		GameRegistry.registerBlock(MeteorBlocks.blockMeteorTimer, ItemBlockMeteorsMod.class, "BlockMeteorTimer");
-		GameRegistry.registerBlock(MeteorBlocks.blockRedMeteorGem, ItemBlockMeteorsMod.class, "BlockRedMeteorGem");
+		GameRegistry.registerBlock(blockMeteorOre, ItemBlockMeteorsMod.class, "BlockMeteorOre");
+		GameRegistry.registerBlock(blockMeteor, ItemBlockMeteorsMod.class, "BlockMeteor");
+		GameRegistry.registerBlock(blockMeteorShield, ItemBlockMeteorsMod.class, "BlockMeteorShield");
+		GameRegistry.registerBlock(torchMeteorShieldActive, ItemBlockMeteorsMod.class, "BlockMeteorShieldA");
+		GameRegistry.registerBlock(blockFrezarite, ItemBlockMeteorsMod.class, "BlockFrezarite");
+		GameRegistry.registerBlock(blockKreknorite, ItemBlockMeteorsMod.class, "BlockKreknorite");
+		GameRegistry.registerBlock(blockMeteorTimer, ItemBlockMeteorsMod.class, "BlockMeteorTimer");
+		GameRegistry.registerBlock(blockRedMeteorGem, ItemBlockMeteorsMod.class, "BlockRedMeteorGem");
 	}
 
 }

@@ -3,6 +3,9 @@ package net.meteor.common;
 import java.util.EnumSet;
 import java.util.Random;
 
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.WorldTickEvent;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
@@ -23,8 +26,9 @@ public class HandlerMeteorTick
 		this.worldName = wName;
 	}
 
-	public void tickEnd(EnumSet type, Object... tickData) {
-		World world = (World)tickData[0];
+	@SubscribeEvent
+	public void onWorldTick(WorldTickEvent event) {
+		World world = event.world;
 		if (!world.isRemote) {
 			if (world.getGameRules().getGameRuleBooleanValue("meteorsFall")) {
 				long wTime = world.getTotalWorldTime();
