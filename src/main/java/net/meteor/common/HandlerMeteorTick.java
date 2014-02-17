@@ -8,7 +8,6 @@ import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 
 public class HandlerMeteorTick
-implements ITickHandler
 {
 	private static Random random = new Random();
 	private int ticks = 0;
@@ -23,8 +22,6 @@ implements ITickHandler
 		this.meteorHandler = metHand;
 		this.worldName = wName;
 	}
-
-	public void tickStart(EnumSet type, Object... tickData){}
 
 	public void tickEnd(EnumSet type, Object... tickData) {
 		World world = (World)tickData[0];
@@ -68,16 +65,6 @@ implements ITickHandler
 			}
 		}
 		
-	}
-
-	public EnumSet ticks()
-	{
-		return EnumSet.of(TickType.WORLD);
-	}
-
-	public String getLabel()
-	{
-		return "Meteor";
 	}
 
 	private int getNewTickGoal() {

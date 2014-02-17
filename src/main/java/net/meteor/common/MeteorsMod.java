@@ -127,14 +127,12 @@ implements IWorldGenerator
 		FMLCommonHandler.instance().bus().register(recipeHandler);
 		FMLCommonHandler.instance().bus().register(achHandler);
 		GameRegistry.registerFuelHandler(recipeHandler);
-		GameRegistry.registerWorldGenerator(this);
+		GameRegistry.registerWorldGenerator(this, 1);
+		FMLCommonHandler.instance().bus().register(new HandlerPlayerTick());
 
-		TickRegistry.registerTickHandler(this.playerTickHandler, Side.SERVER);
-		TickRegistry.registerTickHandler(this.playerTickHandler, Side.CLIENT);
-
-		ClientHandler cHandler = new ClientHandler();
+		ClientHandler cHandler = new ClientHandler(packetPipeline);
 		packetPipeline.initalise();
-		//NetworkRegistry.instance().registerConnectionHandler(cHandler);
+		cHandler.registerPackets();
 		MinecraftForge.EVENT_BUS.register(cHandler);
 	}
 	

@@ -10,9 +10,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import net.meteor.common.packets.PacketGhostMeteor;
+import net.meteor.common.packets.PacketLastCrash;
 import net.meteor.common.packets.PacketPipeline;
 import net.meteor.common.packets.PacketSettings;
 import net.meteor.common.packets.PacketShieldUpdate;
+import net.meteor.common.packets.PacketSoonestMeteor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
@@ -39,6 +41,14 @@ public class ClientHandler
 	
 	public ClientHandler(PacketPipeline pipeline) {
 		this.packetPipeline = pipeline;
+	}
+	
+	public void registerPackets() {
+		this.packetPipeline.registerPacket(PacketGhostMeteor.class);
+		this.packetPipeline.registerPacket(PacketLastCrash.class);
+		this.packetPipeline.registerPacket(PacketSettings.class);
+		this.packetPipeline.registerPacket(PacketShieldUpdate.class);
+		this.packetPipeline.registerPacket(PacketSoonestMeteor.class);
 	}
 
 	public static ChunkCoordinates getClosestIncomingMeteor(double pX, double pZ) {
@@ -88,8 +98,8 @@ public class ClientHandler
 				HandlerMeteor metHandler = MeteorsMod.proxy.metHandlers.get(event.world.provider.dimensionId);
 				packetPipeline.sendTo(new PacketGhostMeteor(), player);		// Clear Ghost Meteors
 				metHandler.sendGhostMeteorPackets(player);
-				sendLastCrashPacket(player, metHandler);
-				sendNearestTimePacket(player, metHandler);
+				packetPipeline.sendTo(new PacketLastCrash(metHandler.getLastCrashLocation()), player);
+				packetPipeline.sendTo(new PacketSoonestMeteor(metHandler.getNearestTimeMeteor()), player);
 			}
 		}
 	}

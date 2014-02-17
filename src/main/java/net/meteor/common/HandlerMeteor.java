@@ -10,6 +10,10 @@ import java.util.List;
 import java.util.Random;
 
 import net.meteor.common.entity.EntityMeteor;
+import net.meteor.common.packets.PacketGhostMeteor;
+import net.meteor.common.packets.PacketLastCrash;
+import net.meteor.common.packets.PacketShieldUpdate;
+import net.meteor.common.packets.PacketSoonestMeteor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ChatComponentText;
@@ -49,7 +53,7 @@ public class HandlerMeteor
 		this.ccSetData = CrashedChunkSetData.forWorld(theWorld, this);
 		this.worldName = theWorld.getWorldInfo().getWorldName();
 		this.tickHandler = new HandlerMeteorTick(this, worldName);
-		TickRegistry.registerTickHandler(this.tickHandler, Side.SERVER);
+		//TickRegistry.registerTickHandler(this.tickHandler, Side.SERVER); TODO
 	}
 
 	public void updateMeteors() {
@@ -72,20 +76,20 @@ public class HandlerMeteor
 							List<SafeChunkCoordsIntPair> safeCoords = getSafeChunkCoords(gMeteor.x, gMeteor.z);
 							for (int j = 0; j < safeCoords.size(); j++) {
 								SafeChunkCoordsIntPair sc = safeCoords.get(j);
-								EntityPlayer player = theWorld.getMinecraftServer().getConfigurationManager().getPlayerForUsername(sc.getOwner());
+								EntityPlayer player = theWorld.func_73046_m().getConfigurationManager().getPlayerForUsername(sc.getOwner());
 								if (player != null) {
-									player.sendChatToPlayer(ClientHandler.createMessage(LangLocalization.get("MeteorShield.meteorBlocked"), EnumChatFormatting.GREEN));
+									player.addChatMessage(ClientHandler.createMessage(LangLocalization.get("MeteorShield.meteorBlocked"), EnumChatFormatting.GREEN));
 									player.addStat(HandlerAchievement.meteorBlocked, 1);
 								}
 								MeteorsMod.proxy.lastMeteorPrevented.put(sc.getOwner(), gMeteor.type);
-								ClientHandler.sendShieldProtectUpdate(sc.getOwner());
+								MeteorsMod.packetPipeline.sendToAll(new PacketShieldUpdate(sc.getOwner()));
 							}
 						} else if (gMeteor.type == EnumMeteor.KITTY) {
 							kittyAttack();
 						} else {
 							EntityMeteor meteor = new EntityMeteor(this.theWorld, gMeteor.size, gMeteor.x, gMeteor.z, gMeteor.type, false);
 							this.theWorld.spawnEntityInWorld(meteor);
-							applyMeteorCrash(gMeteor.x, this.theWorld.getFirstUncoveredBlock(gMeteor.x, gMeteor.z), gMeteor.z);
+							applyMeteorCrash(gMeteor.x, this.theWorld.getTopSolidOrLiquidBlock(gMeteor.x, gMeteor.z), gMeteor.z);
 							playCrashSound(meteor);
 						}
 						sendGhostMeteorRemovePacket(gMeteor);
@@ -119,7 +123,7 @@ public class HandlerMeteor
 								playerOwner.addStat(HandlerAchievement.meteorBlocked, 1);
 							}
 							MeteorsMod.proxy.lastMeteorPrevented.put(sc.getOwner(), EnumMeteor.KITTY);
-							ClientHandler.sendShieldProtectUpdate(sc.getOwner());
+							MeteorsMod.packetPipeline.sendToAll(new PacketShieldUpdate(sc.getOwner()));
 						}
 					} else {
 						EntityMeteor fKitty = new EntityMeteor(this.theWorld, 1, x, z, EnumMeteor.KITTY, false);
@@ -150,29 +154,14 @@ public class HandlerMeteor
 		this.crashedChunks.add(new CrashedChunkSet(coords.chunkXPos, coords.chunkZPos, x, y, z));
 
 		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
-			ByteArrayOutputStream bos = new ByteArrayOutputStream(12);
-			DataOutputStream outputStream = new DataOutputStream(bos);
-			try {
-				outputStream.writeInt(x);
-				outputStream.writeInt(y);
-				outputStream.writeInt(z);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			Packet250CustomPayload packet = new Packet250CustomPayload();
-			packet.channel = "MetNewCrash";
-			packet.data = bos.toByteArray();
-			packet.length = bos.size();
-			ClientHandler.sendPacketToAllInWorld(theWorld, packet);
-
+			MeteorsMod.packetPipeline.sendToDimension(new PacketLastCrash(new ChunkCoordinates(x, y, z)), theWorld.provider.dimensionId);
 			if (MeteorsMod.instance.textNotifyCrash) {
 				theWorld.func_73046_m().getConfigurationManager().sendChatMsg(new ChatComponentText(LangLocalization.get("Meteor.crashed")));
 			}
 		}
 	}
 
-	public boolean canSpawnNewMeteor()
-	{
+	public boolean canSpawnNewMeteor() {
 		return this.ghostMets.size() < 3;
 	}
 
@@ -248,27 +237,7 @@ public class HandlerMeteor
 	private void updateNearestTimeForClients() {
 		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
 			GhostMeteor gMeteor = getNearestTimeMeteor();
-			ChunkCoordinates coords = null;
-			if (gMeteor != null) {
-				coords = new ChunkCoordinates(gMeteor.x, this.theWorld.getFirstUncoveredBlock(gMeteor.x, gMeteor.z), gMeteor.z);
-			} else {
-				coords = new ChunkCoordinates(0, 0, 0);
-			}
-			ByteArrayOutputStream bos = new ByteArrayOutputStream(12);
-			DataOutputStream outputStream = new DataOutputStream(bos);
-			try {
-				outputStream.writeInt(coords.posX);
-				outputStream.writeInt(coords.posY);
-				outputStream.writeInt(coords.posZ);
-			} catch (Exception e) {
-				e.printStackTrace();
-				return;
-			}
-			Packet250CustomPayload packet = new Packet250CustomPayload();
-			packet.channel = "MetNewTime";
-			packet.data = bos.toByteArray();
-			packet.length = bos.size();
-			ClientHandler.sendPacketToAllInWorld(this.theWorld, packet);
+			MeteorsMod.packetPipeline.sendToDimension(new PacketSoonestMeteor(gMeteor), theWorld.provider.dimensionId);
 		}
 	}
 
@@ -463,59 +432,20 @@ public class HandlerMeteor
 			ArrayList<GhostMeteor> mets = this.ghostMets;
 			for (int i = 0; i < mets.size(); i++) {
 				GhostMeteor met = mets.get(i);
-				ByteArrayOutputStream bos = new ByteArrayOutputStream(12);
-				DataOutputStream outputStream = new DataOutputStream(bos);
-				try {
-					outputStream.writeInt(met.x);
-					outputStream.writeInt(0);
-					outputStream.writeInt(met.z);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				Packet250CustomPayload packet = new Packet250CustomPayload();
-				packet.channel = "MetGhostAdd";
-				packet.data = bos.toByteArray();
-				packet.length = bos.size();
-				PacketDispatcher.sendPacketToPlayer(packet, player);
+				MeteorsMod.packetPipeline.sendTo(new PacketGhostMeteor(true, met), player);
 			}
 		}
 	}
 
 	private void sendGhostMeteorAddPacket(GhostMeteor met) {
 		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
-			ByteArrayOutputStream bos = new ByteArrayOutputStream(12);
-			DataOutputStream outputStream = new DataOutputStream(bos);
-			try {
-				outputStream.writeInt(met.x);
-				outputStream.writeInt(0);
-				outputStream.writeInt(met.z);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			Packet250CustomPayload packet = new Packet250CustomPayload();
-			packet.channel = "MetGhostAdd";
-			packet.data = bos.toByteArray();
-			packet.length = bos.size();
-			ClientHandler.sendPacketToAllInWorld(theWorld, packet);
+			MeteorsMod.packetPipeline.sendToDimension(new PacketGhostMeteor(true, met), theWorld.provider.dimensionId);
 		}
 	}
 
 	private void sendGhostMeteorRemovePacket(GhostMeteor met) {
 		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
-			ByteArrayOutputStream bos = new ByteArrayOutputStream(12);
-			DataOutputStream outputStream = new DataOutputStream(bos);
-			try {
-				outputStream.writeInt(met.x);
-				outputStream.writeInt(0);
-				outputStream.writeInt(met.z);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			Packet250CustomPayload packet = new Packet250CustomPayload();
-			packet.channel = "MetGhostRem";
-			packet.data = bos.toByteArray();
-			packet.length = bos.size();
-			ClientHandler.sendPacketToAllInWorld(theWorld, packet);
+			MeteorsMod.packetPipeline.sendToDimension(new PacketGhostMeteor(false, met), theWorld.provider.dimensionId);
 		}
 	}
 	

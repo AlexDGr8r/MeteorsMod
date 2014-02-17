@@ -3,6 +3,7 @@ package net.meteor.common.packets;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import net.meteor.common.ClientHandler;
+import net.meteor.common.GhostMeteor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChunkCoordinates;
 
@@ -16,6 +17,10 @@ public class PacketGhostMeteor extends AbstractPacket {
 	public PacketGhostMeteor() {
 		this.addGhostMeteor = false;
 		this.x = this.y = this.z = -1;
+	}
+	
+	public PacketGhostMeteor(boolean adding, GhostMeteor gMet) {
+		this(adding, gMet.x, 0, gMet.z);
 	}
 	
 	public PacketGhostMeteor(boolean adding, int x, int y, int z) {

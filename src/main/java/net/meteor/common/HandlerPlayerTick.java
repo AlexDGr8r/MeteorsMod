@@ -3,31 +3,34 @@ package net.meteor.common;
 import java.util.EnumSet;
 import java.util.List;
 
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
+
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class HandlerPlayerTick
-implements ITickHandler
 {
-	public void tickStart(EnumSet type, Object... tickData) {}
 
-	public void tickEnd(EnumSet type, Object... tickData)
-	{
-		EntityPlayer player = (EntityPlayer)tickData[0];
+	@SubscribeEvent
+	public void onPlayerTick(PlayerTickEvent event) {
+		EntityPlayer player = event.player;
 		World world = player.worldObj;
 		InventoryPlayer inv = player.inventory;
 
-		if ((isWearing(MeteorItems.KreknoriteHelmet.itemID, inv.armorItemInSlot(3))) && 
-				(isWearing(MeteorItems.KreknoriteBody.itemID, inv.armorItemInSlot(2))) && 
-				(isWearing(MeteorItems.KreknoriteLegs.itemID, inv.armorItemInSlot(1))) && 
-				(isWearing(MeteorItems.KreknoriteBoots.itemID, inv.armorItemInSlot(0)))) {
+		if ((isWearing(MeteorItems.KreknoriteHelmet, inv.armorItemInSlot(3))) && 
+				(isWearing(MeteorItems.KreknoriteBody, inv.armorItemInSlot(2))) && 
+				(isWearing(MeteorItems.KreknoriteLegs, inv.armorItemInSlot(1))) && 
+				(isWearing(MeteorItems.KreknoriteBoots, inv.armorItemInSlot(0)))) {
 			ArmorEffectController.setImmuneToFire(player, true);
 		} else {
 			ArmorEffectController.setImmuneToFire(player, false);
@@ -44,8 +47,8 @@ implements ITickHandler
 				int k1 = MathHelper.floor_double(player.posZ);
 				for (int x = l - 2; x < l + 2; x++) {
 					for (int z = k1 - 2; z < k1 + 2; z++) {
-						if ((world.getBlockId(x, j1, z) == Block.waterStill.blockID) || (world.getBlockId(x, j1, z) == Block.waterMoving.blockID)) {
-							world.setBlock(x, j1, z, Block.ice.blockID, 0, 2);
+						if ((world.getBlock(x, j1, z) == Blocks.water) || (world.getBlock(x, j1, z) == Blocks.flowing_water)) {
+							world.setBlock(x, j1, z, Blocks.ice, 0, 2);
 						}
 					}		
 				}
@@ -56,8 +59,8 @@ implements ITickHandler
 					int l = MathHelper.floor_double(player.posX + (j % 2 * 2 - 1) * 0.25F);
 					int j1 = MathHelper.floor_double(player.posY - 2.0D);
 					int k1 = MathHelper.floor_double(player.posZ + (j / 2 % 2 * 2 - 1) * 0.25F);
-					if ((world.getBlockId(l, j1, k1) == Block.waterStill.blockID) || (world.getBlockId(l, j1, k1) == Block.waterMoving.blockID)) {
-						world.setBlock(l, j1, k1, Block.ice.blockID, 0, 2);
+					if ((world.getBlock(l, j1, k1) == Blocks.water) || (world.getBlock(l, j1, k1) == Blocks.flowing_water)) {
+						world.setBlock(l, j1, k1, Blocks.ice, 0, 2);
 					}
 				}
 			}
@@ -69,23 +72,13 @@ implements ITickHandler
 				updateEntityItem((EntityItem)entities.get(i1));
 	}
 
-	public EnumSet ticks()
-	{
-		return EnumSet.of(TickType.PLAYER);
-	}
-
-	public String getLabel()
-	{
-		return "PlayerMeteor";
-	}
-
-	private static boolean isWearing(int ID, ItemStack item) {
+	private static boolean isWearing(Item item, ItemStack itemStack) {
 		if ((item != null) && 
-				(item.itemID == ID)) return true;
+				(item == itemStack.getItem())) return true;
 
 		return false;
 	}
-	
+
 	public static boolean isPlayerMagnetized(EntityPlayer player) {
 		return EnchantmentHelper.getMaxEnchantmentLevel(MeteorsMod.Magnetization.effectId, player.getLastActiveItems()) > 0 || 
 				EnchantmentHelper.getEnchantmentLevel(MeteorsMod.Magnetization.effectId, player.getHeldItem()) > 0;

@@ -105,10 +105,4 @@ public class CrashKreknorite extends CrashMeteorite
 		world.setBlock(i, j + 4, k, Blocks.fire, 0, 3);
 	}
 
-	public void afterCrashCompleted(World world, int i, int j, int k) {
-		if (this.crashSize >= MeteorsMod.instance.MinMeteorSizeForPortal && !world.isRemote) {
-			ClientHandler.sendPacketToAllInWorld(world, new Packet3Chat(ChatMessageComponent.createFromText(LangLocalization.get("Meteor.netherPortalCreation")).setColor(EnumChatFormatting.DARK_RED)));
-		}
-	}
-
 }

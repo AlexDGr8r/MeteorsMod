@@ -15,6 +15,7 @@ import net.meteor.common.crash.CrashKitty;
 import net.meteor.common.crash.CrashKreknorite;
 import net.meteor.common.crash.CrashMeteorite;
 import net.meteor.common.crash.CrashUnknown;
+import net.meteor.common.packets.PacketShieldUpdate;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -89,7 +90,7 @@ implements IEntityAdditionalSpawnData
 						playerOwner.addStat(HandlerAchievement.meteorBlocked, 1);
 					}
 					MeteorsMod.proxy.lastMeteorPrevented.put(sc.getOwner(), this.meteorType);
-					ClientHandler.sendShieldProtectUpdate(sc.getOwner());
+					MeteorsMod.packetPipeline.sendToAll(new PacketShieldUpdate(sc.getOwner()));
 				}
 				this.worldObj.playSoundEffect(posX, posY, posZ, "random.explode", 5F, (1.0F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
 				this.worldObj.spawnParticle("hugeexplosion", posX, posY, posZ, 0.0D, 0.0D, 0.0D);
