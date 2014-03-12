@@ -6,10 +6,12 @@ import java.util.Random;
 
 import net.meteor.common.ClientProxy;
 import net.meteor.common.HandlerMeteor;
+import net.meteor.common.IMeteorShield;
 import net.meteor.common.LangLocalization;
 import net.meteor.common.MeteorBlocks;
 import net.meteor.common.MeteorsMod;
 import net.meteor.common.SafeChunkCoordsIntPair;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockTorch;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -100,7 +102,7 @@ public class BlockMeteorShieldTorch extends BlockTorch
 
 	private void checkArea(World world, int i, int j, int k) {
 		Chunk chunk = world.getChunkFromBlockCoords(i, k);
-		boolean isSafeChunk = MeteorsMod.proxy.metHandlers.get(world.provider.dimensionId).safeChunks.contains(new ChunkCoordIntPair(chunk.xPosition, chunk.zPosition));
+		boolean isSafeChunk = MeteorsMod.proxy.metHandlers.get(world.provider.dimensionId).getClosestShieldInRange(i, k) != null;
 		if (this.torchActive) {
 			if (!isSafeChunk)
 				world.setBlock(i, j, k, MeteorBlocks.torchMeteorShieldIdle, world.getBlockMetadata(i, j, k), 3);
@@ -114,17 +116,14 @@ public class BlockMeteorShieldTorch extends BlockTorch
 	{
 		if (!world.isRemote) {
 			checkArea(world, i, j, k);
-			Chunk chunk = world.getChunkFromBlockCoords(i, k);
 			HandlerMeteor meteorHandler = MeteorsMod.proxy.metHandlers.get(world.provider.dimensionId);
-			boolean isSafeChunk = meteorHandler.safeChunks.contains(new ChunkCoordIntPair(chunk.xPosition, chunk.zPosition));
-			if (isSafeChunk) {
+			List<IMeteorShield> shields = meteorHandler.getShieldsInRange(i, k);
+			if (!shields.isEmpty()) {
 				player.addChatMessage(new ChatComponentText(LangLocalization.get("ProtectionTorch.landOwnership")));
-				ChunkCoordIntPair cPair = chunk.getChunkCoordIntPair();
-				List oPairList = meteorHandler.safeChunksWithOwners;
 				List owners = new ArrayList();
-				for (int l = 0; l < oPairList.size(); l++) {
-					SafeChunkCoordsIntPair oPair = (SafeChunkCoordsIntPair)oPairList.get(l);
-					if ((oPair.hasCoords(cPair.chunkXPos, cPair.chunkZPos)) && (!owners.contains(oPair.getOwner()))) {
+				for (int l = 0; l < shields.size(); l++) {
+					IMeteorShield oPair = shields.get(l);
+					if (!owners.contains(oPair.getOwner())) {
 						owners.add(oPair.getOwner());
 					}
 				}
@@ -136,6 +135,11 @@ public class BlockMeteorShieldTorch extends BlockTorch
 		}
 
 		return true;
+	}
+	
+	@Override
+	public Block setBlockTextureName(String s) {
+		return super.setBlockTextureName(MeteorsMod.MOD_ID + ":" + s);
 	}
 
 	@Override

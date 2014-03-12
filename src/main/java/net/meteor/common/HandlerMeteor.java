@@ -19,6 +19,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
@@ -33,14 +34,14 @@ public class HandlerMeteor
 	private HandlerMeteorTick tickHandler;
 	private GhostMeteorData gMetData;
 	private CrashedChunkSetData ccSetData;
-	
+	private MeteorShieldSavedData shieldSavedData;
+
 	private static Random random = new Random();
-	
+
 	public ArrayList<GhostMeteor> ghostMets = new ArrayList<GhostMeteor>();
 	public ArrayList<CrashedChunkSet> crashedChunks = new ArrayList<CrashedChunkSet>();
-	public List<ChunkCoordIntPair> safeChunks = new ArrayList<ChunkCoordIntPair>();
-	public List<SafeChunkCoordsIntPair> safeChunksWithOwners = new ArrayList<SafeChunkCoordsIntPair>();
-	
+	public ArrayList<IMeteorShield> meteorShields = new ArrayList<IMeteorShield>();
+
 	public static EnumMeteor defaultType;
 
 	public HandlerMeteor(WorldEvent.Load event) {
@@ -51,6 +52,7 @@ public class HandlerMeteor
 		this.theWorld = (WorldServer) event.world;
 		this.gMetData = GhostMeteorData.forWorld(theWorld, this);
 		this.ccSetData = CrashedChunkSetData.forWorld(theWorld, this);
+		this.shieldSavedData = MeteorShieldSavedData.forWorld(theWorld, this);
 		this.worldName = theWorld.getWorldInfo().getWorldName();
 		this.tickHandler = new HandlerMeteorTick(this, worldName);
 		FMLCommonHandler.instance().bus().register(tickHandler);
@@ -73,18 +75,16 @@ public class HandlerMeteor
 				} else {
 					gMeteor.update();
 					if (gMeteor.ready) {
-						if (meteorInProtectedZone(gMeteor.x, gMeteor.z)) {
-							List<SafeChunkCoordsIntPair> safeCoords = getSafeChunkCoords(gMeteor.x, gMeteor.z);
-							for (int j = 0; j < safeCoords.size(); j++) {
-								SafeChunkCoordsIntPair sc = safeCoords.get(j);
-								EntityPlayer player = theWorld.func_73046_m().getConfigurationManager().getPlayerForUsername(sc.getOwner());
-								if (player != null) {
-									player.addChatMessage(ClientHandler.createMessage(LangLocalization.get("MeteorShield.meteorBlocked"), EnumChatFormatting.GREEN));
-									player.addStat(HandlerAchievement.meteorBlocked, 1);
-								}
-								MeteorsMod.proxy.lastMeteorPrevented.put(sc.getOwner(), gMeteor.type);
-								MeteorsMod.packetPipeline.sendToAll(new PacketShieldUpdate(sc.getOwner()));
+						IMeteorShield shield = getClosestShieldInRange(gMeteor.x, gMeteor.z);
+						if (shield != null) {
+							String owner = shield.getOwner();
+							EntityPlayer player = theWorld.func_73046_m().getConfigurationManager().getPlayerForUsername(owner);
+							if (player != null) {
+								player.addChatMessage(ClientHandler.createMessage(LangLocalization.get("MeteorShield.meteorBlocked"), EnumChatFormatting.GREEN));
+								player.addStat(HandlerAchievement.meteorBlocked, 1);
 							}
+							MeteorsMod.proxy.lastMeteorPrevented.put(owner, gMeteor.type);
+							MeteorsMod.packetPipeline.sendToAll(new PacketShieldUpdate(owner));
 						} else if (gMeteor.type == EnumMeteor.KITTY) {
 							kittyAttack();
 						} else {
@@ -114,18 +114,16 @@ public class HandlerMeteor
 					if (random.nextBoolean()) z = -z;
 					x = (int)(x + player.posX);
 					z = (int)(z + player.posZ);
-					if (meteorInProtectedZone(x, z)) {
-						List<SafeChunkCoordsIntPair> safeCoords = getSafeChunkCoords(x, z);
-						for (int j = 0; j < safeCoords.size(); j++) {
-							SafeChunkCoordsIntPair sc = safeCoords.get(j);
-							EntityPlayer playerOwner = theWorld.func_73046_m().getConfigurationManager().getPlayerForUsername(sc.getOwner());
-							if (playerOwner != null) {
-								playerOwner.addChatMessage(ClientHandler.createMessage(LangLocalization.get("MeteorShield.meteorBlocked"), EnumChatFormatting.GREEN));
-								playerOwner.addStat(HandlerAchievement.meteorBlocked, 1);
-							}
-							MeteorsMod.proxy.lastMeteorPrevented.put(sc.getOwner(), EnumMeteor.KITTY);
-							MeteorsMod.packetPipeline.sendToAll(new PacketShieldUpdate(sc.getOwner()));
+					IMeteorShield shield = getClosestShieldInRange(x, z);
+					if (shield != null) {
+						String owner = shield.getOwner();
+						EntityPlayer playerOwner = theWorld.func_73046_m().getConfigurationManager().getPlayerForUsername(owner);
+						if (playerOwner != null) {
+							playerOwner.addChatMessage(ClientHandler.createMessage(LangLocalization.get("MeteorShield.meteorBlocked"), EnumChatFormatting.GREEN));
+							playerOwner.addStat(HandlerAchievement.meteorBlocked, 1);
 						}
+						MeteorsMod.proxy.lastMeteorPrevented.put(owner, EnumMeteor.KITTY);
+						MeteorsMod.packetPipeline.sendToAll(new PacketShieldUpdate(owner));
 					} else {
 						EntityMeteor fKitty = new EntityMeteor(this.theWorld, 1, x, z, EnumMeteor.KITTY, false);
 						fKitty.spawnPauseTicks = random.nextInt(100);
@@ -175,27 +173,68 @@ public class HandlerMeteor
 		return true;
 	}
 
-	private boolean meteorInProtectedZone(int x, int z) {
-		Chunk chunk = this.theWorld.getChunkFromBlockCoords(x, z);
-		return this.safeChunks.contains(new ChunkCoordIntPair(chunk.xPosition, chunk.zPosition));
+	private double getDistance(int x1, int z1, int x2, int z2) {
+		int x = x1 - x2;
+		int z = z1 - z2;
+		return MathHelper.sqrt_double(x * x + z * z);
 	}
-
-	public List<SafeChunkCoordsIntPair> getSafeChunkCoords(int x, int z) {
-		if (meteorInProtectedZone(x, z)) {
-			List<SafeChunkCoordsIntPair> cList = new ArrayList<SafeChunkCoordsIntPair>();
-			List<String> owners = new ArrayList<String>();
-			Chunk chunk = this.theWorld.getChunkFromBlockCoords(x, z);
-			Iterator iter = this.safeChunksWithOwners.iterator();
-			while (iter.hasNext()) {
-				SafeChunkCoordsIntPair coords = (SafeChunkCoordsIntPair)iter.next();
-				if ((coords.hasCoords(chunk.xPosition, chunk.zPosition)) && (!owners.contains(coords.getOwner()))) {
-					cList.add(coords);
-					owners.add(coords.getOwner());
+	
+	public void addShield(IMeteorShield shield) {
+		for (int i = 0; i < meteorShields.size(); i++) {
+			IMeteorShield shield2 = meteorShields.get(i);
+			if (shield.equals(shield2)) {
+				if (!shield2.isTileEntity()) {
+					meteorShields.remove(i);
+					meteorShields.add(shield);
+					MeteorsMod.log.info("METEOR SHIELD REPLACED X:" + shield.getX() + " Y:" + shield.getY() + " Z:" + shield.getZ() + " O:" + shield.getOwner());
+					return;
 				}
 			}
-			return cList;
 		}
-		return new ArrayList<SafeChunkCoordsIntPair>();
+		meteorShields.add(shield);
+		MeteorsMod.log.info("METEOR SHIELD ADDED X:" + shield.getX() + " Y:" + shield.getY() + " Z:" + shield.getZ() + " O:" + shield.getOwner());
+	}
+
+	public IMeteorShield getClosestShield(int x, int z) {
+		Iterator<IMeteorShield> iter = this.meteorShields.iterator();
+		IMeteorShield closest = null;
+		double distance = -1;
+		while (iter.hasNext()) {
+			IMeteorShield shield = iter.next();
+			if (closest == null) {
+				closest = shield;
+				distance = getDistance(x, z, shield.getX(), shield.getZ());
+			} else {
+				double d = getDistance(x, z, shield.getX(), shield.getZ());
+				if (d < distance) {
+					distance = d;
+					closest = shield;
+				}
+			}
+		}
+		return closest;
+	}
+
+	public IMeteorShield getClosestShieldInRange(int x, int z) {
+		IMeteorShield shield = getClosestShield(x, z);
+		if (shield != null) {
+			double distance = getDistance(x, z, shield.getX(), shield.getZ());
+			return distance <= shield.getRange() ? shield : null;
+		}
+		return null;
+	}
+
+	public List<IMeteorShield> getShieldsInRange(int x, int z) {
+		List<IMeteorShield> shields = new ArrayList<IMeteorShield>();
+		Iterator<IMeteorShield> iter = this.meteorShields.iterator();
+		while (iter.hasNext()) {
+			IMeteorShield shield = iter.next();
+			double d = getDistance(x, z, shield.getX(), shield.getZ());
+			if (d <= shield.getRange()) {
+				shields.add(shield);
+			}
+		}
+		return shields;
 	}
 
 	public void readyNewMeteor(int x, int z, int size, int tGoal, EnumMeteor type) {
@@ -295,139 +334,6 @@ public class HandlerMeteor
 		return defaultType;
 	}
 
-	public void addSafeChunks(int x, int z, int radius, String shieldOwner)
-	{
-		if (radius < 0) return;
-		if (radius == 0) {
-			SafeChunkCoordsIntPair sPair = new SafeChunkCoordsIntPair(x, z, shieldOwner);
-			this.safeChunksWithOwners.add(sPair);
-			this.safeChunks.add(new ChunkCoordIntPair(x, z));
-			return;
-		}
-		for (int sX = x - radius; sX <= x + radius; sX++) {
-			SafeChunkCoordsIntPair sPair = new SafeChunkCoordsIntPair(sX, z, shieldOwner);
-			this.safeChunksWithOwners.add(sPair);
-			this.safeChunks.add(new ChunkCoordIntPair(sX, z));
-		}
-		for (int sZ = z - radius; sZ <= z + radius; sZ++) {
-			SafeChunkCoordsIntPair sPair = new SafeChunkCoordsIntPair(x, sZ, shieldOwner);
-			this.safeChunksWithOwners.add(sPair);
-			this.safeChunks.add(new ChunkCoordIntPair(x, sZ));
-		}
-		if (radius <= 1) return;
-
-		int max = x + (z + radius);
-		for (int sX = x + radius - 1; sX >= x + 1; sX--) {
-			for (int sZ = z + radius - 1; sZ >= z + 1; sZ--) {
-				if (sX + sZ <= max) {
-					SafeChunkCoordsIntPair sPair = new SafeChunkCoordsIntPair(sX, sZ, shieldOwner);
-					this.safeChunksWithOwners.add(sPair);
-					this.safeChunks.add(new ChunkCoordIntPair(sX, sZ));
-				}
-			}
-		}
-
-		max = x + (z - radius);
-		for (int sX = x - radius + 1; sX <= x - 1; sX++) {
-			for (int sZ = z - radius + 1; sZ <= z - 1; sZ++) {
-				if (sX + sZ >= max) {
-					SafeChunkCoordsIntPair sPair = new SafeChunkCoordsIntPair(sX, sZ, shieldOwner);
-					this.safeChunksWithOwners.add(sPair);
-					this.safeChunks.add(new ChunkCoordIntPair(sX, sZ));
-				}
-			}
-		}
-
-		max = z + radius - x;
-		for (int sZ = z + radius - 1; sZ >= z + 1; sZ--) {
-			for (int sX = x - radius + 1; sX <= x - 1; sX++) {
-				if (sZ - sX <= max) {
-					SafeChunkCoordsIntPair sPair = new SafeChunkCoordsIntPair(sX, sZ, shieldOwner);
-					this.safeChunksWithOwners.add(sPair);
-					this.safeChunks.add(new ChunkCoordIntPair(sX, sZ));
-				}
-			}
-		}
-
-		max = x + radius - z;
-		for (int sZ = z - radius + 1; sZ <= z - 1; sZ++) {
-			for (int sX = x + radius - 1; sX >= x + 1; sX--) {
-				if (sX - sZ <= max) {
-					SafeChunkCoordsIntPair sPair = new SafeChunkCoordsIntPair(sX, sZ, shieldOwner);
-					this.safeChunksWithOwners.add(sPair);
-					this.safeChunks.add(new ChunkCoordIntPair(sX, sZ));
-				}
-			}
-		}
-	}
-
-	public void removeSafeChunks(int x, int z, int radius, String shieldOwner)
-	{
-		if (shieldOwner == null) shieldOwner = "null";
-		if (radius < 0) return;
-		if (radius == 0) {
-			SafeChunkCoordsIntPair sPair = new SafeChunkCoordsIntPair(x, z, shieldOwner);
-			this.safeChunksWithOwners.remove(sPair);
-			this.safeChunks.remove(new ChunkCoordIntPair(x, z));
-			return;
-		}
-		for (int sX = x - radius; sX <= x + radius; sX++) {
-			SafeChunkCoordsIntPair sPair = new SafeChunkCoordsIntPair(sX, z, shieldOwner);
-			this.safeChunksWithOwners.remove(sPair);
-			this.safeChunks.remove(new ChunkCoordIntPair(sX, z));
-		}
-		for (int sZ = z - radius; sZ <= z + radius; sZ++) {
-			SafeChunkCoordsIntPair sPair = new SafeChunkCoordsIntPair(x, sZ, shieldOwner);
-			this.safeChunksWithOwners.remove(sPair);
-			this.safeChunks.remove(new ChunkCoordIntPair(x, sZ));
-		}
-		if (radius <= 1) return;
-
-		int max = x + (z + radius);
-		for (int sX = x + radius - 1; sX >= x + 1; sX--) {
-			for (int sZ = z + radius - 1; sZ >= z + 1; sZ--) {
-				if (sX + sZ <= max) {
-					SafeChunkCoordsIntPair sPair = new SafeChunkCoordsIntPair(sX, sZ, shieldOwner);
-					this.safeChunksWithOwners.remove(sPair);
-					this.safeChunks.remove(new ChunkCoordIntPair(sX, sZ));
-				}
-			}
-		}
-
-		max = x + (z - radius);
-		for (int sX = x - radius + 1; sX <= x - 1; sX++) {
-			for (int sZ = z - radius + 1; sZ <= z - 1; sZ++) {
-				if (sX + sZ >= max) {
-					SafeChunkCoordsIntPair sPair = new SafeChunkCoordsIntPair(sX, sZ, shieldOwner);
-					this.safeChunksWithOwners.remove(sPair);
-					this.safeChunks.remove(new ChunkCoordIntPair(sX, sZ));
-				}
-			}
-		}
-
-		max = z + radius - x;
-		for (int sZ = z + radius - 1; sZ >= z + 1; sZ--) {
-			for (int sX = x - radius + 1; sX <= x - 1; sX++) {
-				if (sZ - sX <= max) {
-					SafeChunkCoordsIntPair sPair = new SafeChunkCoordsIntPair(sX, sZ, shieldOwner);
-					this.safeChunksWithOwners.remove(sPair);
-					this.safeChunks.remove(new ChunkCoordIntPair(sX, sZ));
-				}
-			}
-		}
-
-		max = x + radius - z;
-		for (int sZ = z - radius + 1; sZ <= z - 1; sZ++) {
-			for (int sX = x + radius - 1; sX >= x + 1; sX--) {
-				if (sX - sZ <= max) {
-					SafeChunkCoordsIntPair sPair = new SafeChunkCoordsIntPair(sX, sZ, shieldOwner);
-					this.safeChunksWithOwners.remove(sPair);
-					this.safeChunks.remove(new ChunkCoordIntPair(sX, sZ));
-				}
-			}
-		}
-	}
-
 	public void sendGhostMeteorPackets(EntityPlayerMP player) {
 		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
 			ArrayList<GhostMeteor> mets = this.ghostMets;
@@ -449,7 +355,7 @@ public class HandlerMeteor
 			MeteorsMod.packetPipeline.sendToDimension(new PacketGhostMeteor(false, met), theWorld.provider.dimensionId);
 		}
 	}
-	
+
 	private void playCrashSound(EntityMeteor meteor) {
 		Iterator<EntityPlayer> iter = theWorld.playerEntities.iterator();
 		while (iter.hasNext()) {

@@ -42,6 +42,8 @@ public class RenderMeteor extends Render {
 		this.metID = entityMeteor.meteorType.getID();
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float)d, (float)d1, (float)d2);
+		GL11.glRotatef(entityMeteor.prevRotationYaw + (entityMeteor.rotationYaw - entityMeteor.prevRotationYaw) * f1, 0.0F, 1.0F, 0.0F);
+		GL11.glRotatef(entityMeteor.prevRotationPitch + (entityMeteor.rotationPitch - entityMeteor.prevRotationPitch) * f1, 0.0F, 0.0F, 1.0F);
 		this.bindTexture(skins.get(metID));
 		float f2 = 1.0F * (float)entityMeteor.size;
 		GL11.glScalef(f2, f2, f2);

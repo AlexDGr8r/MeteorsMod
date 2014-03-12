@@ -7,6 +7,7 @@ import java.util.List;
 import net.meteor.common.ClientHandler;
 import net.meteor.common.EnumMeteor;
 import net.meteor.common.HandlerAchievement;
+import net.meteor.common.IMeteorShield;
 import net.meteor.common.LangLocalization;
 import net.meteor.common.MeteorsMod;
 import net.meteor.common.SafeChunkCoordsIntPair;
@@ -45,6 +46,11 @@ implements IEntityAdditionalSpawnData
 		this.setSize(0.98F, 0.98F);
 		this.yOffset = (this.height / 2.0F);
 		this.meteorType = EnumMeteor.METEORITE;
+
+		this.motionX = (rand.nextDouble() - rand.nextDouble()) * 1.2D;
+		this.motionZ = (rand.nextDouble() - rand.nextDouble()) * 1.2D;
+		this.rotationYaw = (float)(Math.random() * 360D);
+		this.rotationPitch = (float)(Math.random() * 360D);
 	}
 
 	public EntityMeteor(World world, int mSize, double x, double z, EnumMeteor metType, boolean summon) {
@@ -81,21 +87,21 @@ implements IEntityAdditionalSpawnData
 		}
 		if ((!this.summoned) && (MeteorInProtectedZone())) {
 			if (!worldObj.isRemote) {
-				List<SafeChunkCoordsIntPair> safeCoords = MeteorsMod.proxy.metHandlers.get(worldObj.provider.dimensionId).getSafeChunkCoords((int)this.posX, (int)this.posZ);
-				for (int j = 0; j < safeCoords.size(); j++) {
-					SafeChunkCoordsIntPair sc = safeCoords.get(j);
-					EntityPlayer playerOwner = ((WorldServer)worldObj).func_73046_m().getConfigurationManager().getPlayerForUsername(sc.getOwner());
+				IMeteorShield shield = MeteorsMod.proxy.metHandlers.get(worldObj.provider.dimensionId).getClosestShieldInRange(chunkCoordX, chunkCoordZ);
+				if (shield != null) {
+					String owner = shield.getOwner();
+					EntityPlayer playerOwner = ((WorldServer)worldObj).func_73046_m().getConfigurationManager().getPlayerForUsername(owner);
 					if (playerOwner != null) {
 						playerOwner.addChatMessage(ClientHandler.createMessage(LangLocalization.get("MeteorShield.meteorBlocked"), EnumChatFormatting.GREEN));
 						playerOwner.addStat(HandlerAchievement.meteorBlocked, 1);
 					}
-					MeteorsMod.proxy.lastMeteorPrevented.put(sc.getOwner(), this.meteorType);
-					MeteorsMod.packetPipeline.sendToAll(new PacketShieldUpdate(sc.getOwner()));
+					MeteorsMod.proxy.lastMeteorPrevented.put(owner, this.meteorType);
+					MeteorsMod.packetPipeline.sendToAll(new PacketShieldUpdate(owner));
+					this.worldObj.playSoundEffect(posX, posY, posZ, "random.explode", 5F, (1.0F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
+					this.worldObj.spawnParticle("hugeexplosion", posX, posY, posZ, 0.0D, 0.0D, 0.0D);
 				}
-				this.worldObj.playSoundEffect(posX, posY, posZ, "random.explode", 5F, (1.0F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
-				this.worldObj.spawnParticle("hugeexplosion", posX, posY, posZ, 0.0D, 0.0D, 0.0D);
 			}
-			
+
 			this.setDead();
 			return;
 		}
@@ -103,15 +109,22 @@ implements IEntityAdditionalSpawnData
 			this.spawnPauseTicks -= 1;
 			return;
 		}
+
+		if (summoned) {
+			motionX = 0;
+			motionZ = 0;
+		}
 		prevPosX = posX;
 		prevPosY = posY;
 		prevPosZ = posZ;
 		motionY -= 0.039999999105930328D;
 		moveEntity(motionX, motionY, motionZ);
-		motionX *= 0.98000001907348633D;
 		motionY *= 0.98000001907348633D;
-		motionZ *= 0.98000001907348633D;
-		
+		prevRotationPitch = rotationPitch;
+		prevRotationYaw = rotationYaw;
+		rotationPitch = (float)((rotationPitch + 3D) % 360D);
+		rotationYaw = (float)((rotationPitch + 3D) % 360D);
+
 		if (onGround) {
 			setDead();
 			if(!worldObj.isRemote) {
@@ -129,10 +142,11 @@ implements IEntityAdditionalSpawnData
 				}
 			}
 		} else {
-			worldObj.spawnParticle("largesmoke", posX, posY + 2.0D, posZ, 0.0D, 0.0D, 0.0D);
-			worldObj.spawnParticle("largesmoke", posX + 1.0D, posY + 2.0D, posZ, 0.0D, 0.0D, 0.0D);
-			worldObj.spawnParticle("largesmoke", posX, posY + 2.0D, posZ + 1.0D, 0.0D, 0.0D, 0.0D);
-			worldObj.spawnParticle("largesmoke", posX + 1.0D, posY + 2.0D, posZ + 1.0D, 0.0D, 0.0D, 0.0D);
+			if (size == 1) {
+				worldObj.spawnParticle("largeexplode", posX, posY + 2.75D, posZ, 0.0D, 0.0D, 0.0D);
+			} else {
+				worldObj.spawnParticle("hugeexplosion", posX, posY + 4.0D, posZ, 0.0D, 0.0D, 0.0D);
+			}
 		}
 	}
 
@@ -187,8 +201,7 @@ implements IEntityAdditionalSpawnData
 	}
 
 	private boolean MeteorInProtectedZone(int x, int z) {
-		Chunk chunk = this.worldObj.getChunkFromBlockCoords(x, z);
-		return MeteorsMod.proxy.metHandlers.get(worldObj.provider.dimensionId).safeChunks.contains(new ChunkCoordIntPair(chunk.xPosition, chunk.zPosition));
+		return MeteorsMod.proxy.metHandlers.get(worldObj.provider.dimensionId).getClosestShieldInRange(x, z) != null;
 	}
 
 	@Override

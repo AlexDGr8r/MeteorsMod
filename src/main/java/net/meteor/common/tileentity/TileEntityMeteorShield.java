@@ -4,6 +4,7 @@ import java.util.Random;
 
 import net.meteor.common.ClientProxy;
 import net.meteor.common.EnumMeteor;
+import net.meteor.common.IMeteorShield;
 import net.meteor.common.MeteorItems;
 import net.meteor.common.MeteorsMod;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,7 +23,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class TileEntityMeteorShield extends TileEntity implements IInventory
+public class TileEntityMeteorShield extends TileEntity implements IInventory, IMeteorShield
 {
 	private static final double[][] directionMotion = { { 0.0D, 0.0D }, { 0.0D, 0.3D }, { -0.3D, 0.3D }, { -0.3D, 0.0D }, { -0.3D, -0.3D }, { 0.0D, -0.3D }, { 0.3D, -0.3D }, { 0.3D, 0.0D }, { 0.3D, 0.3D } };
 
@@ -40,10 +41,14 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory
 	public float rayZMod;
 	public boolean renderRay = false;
 	
+	// start redoing the meteor shield
+	private int range;
+	
 	// Inventory stuff
 	private ItemStack[] inv;
 
 	public TileEntityMeteorShield() {
+		this.range = MeteorsMod.instance.ShieldRadiusMultiplier;
 		this.shieldedChunks = false;
 		this.rayHeight = 0.0F;
 		this.direction = 0;
@@ -62,8 +67,7 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory
 			int meta = this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord);
 			if (meta > 0) {
 				if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
-					Chunk chunk = this.worldObj.getChunkFromBlockCoords(this.xCoord, this.zCoord);
-					MeteorsMod.proxy.metHandlers.get(worldObj.provider.dimensionId).addSafeChunks(chunk.xPosition, chunk.zPosition, MeteorsMod.instance.ShieldRadiusMultiplier * meta, this.owner);
+					MeteorsMod.proxy.metHandlers.get(worldObj.provider.dimensionId).addShield(this);
 				}
 				this.shieldedChunks = this.renderRay = true;
 				this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
@@ -71,6 +75,9 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory
 		}
 		if (this.shieldedChunks) {
 			int meta = this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord);
+			
+			range = meta * MeteorsMod.instance.ShieldRadiusMultiplier;	// update range (may load as 0 for old updates, thus check with this)
+			
 			if (meta == 5) {
 				if (this.worldObj.getTotalWorldTime() % 60L == 0L) {
 					this.renderRay = this.worldObj.canBlockSeeTheSky(this.xCoord, this.yCoord + 1, this.zCoord);
@@ -106,30 +113,30 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory
 	}
 
 	@SideOnly(Side.CLIENT)
-	private void GenerateParticles(World world, int i, int j, int k, Random random)
+	private void GenerateParticles(World world, int x, int y, int z, Random random)
 	{
-		if (world.getBlock(i, j + 1, k).isOpaqueCube()) return;
-		for (int l = i - 2; l <= i + 2; l++)
+		if (world.getBlock(x, y + 1, z).isOpaqueCube()) return;
+		for (int currX = x - 2; currX <= x + 2; currX++)
 		{
-			for (int i1 = k - 2; i1 <= k + 2; i1++)
+			for (int currZ = z - 2; currZ <= z + 2; currZ++)
 			{
-				if ((l > i - 2) && (l < i + 2) && (i1 == k - 1))
+				if ((currX > x - 2) && (currX < x + 2) && (currZ == z - 1))
 				{
-					i1 = k + 2;
+					currZ = z + 2;
 				}
-				if (random.nextInt(32) == 0)
+				if (random.nextInt(64) == 0)
 				{
-					for (int j1 = j; j1 <= j + 1; j1++)
+					for (int currY = y; currY <= y + 1; currY++)
 					{
-						if (!world.isAirBlock((l - i) / 2 + i, j1, (i1 - k) / 2 + k))
+						if (!world.isAirBlock((currX - x) / 2 + x, currY, (currZ - z) / 2 + z))
 						{
 							break;
 						}
-						if (world.getBlockMetadata(i, j, k) == 5) {
+						if (world.getBlockMetadata(x, y, z) == 5) {
 							int id = getLastStoppedMeteor().getID();
-							ClientProxy.spawnParticle("meteorshield", i + 0.5D, j + 2.0D, k + 0.5D, l - i + random.nextFloat() - 0.5D, j1 - j - random.nextFloat() - 1.0F, i1 - k + random.nextFloat() - 0.5D, world, id);
+							ClientProxy.spawnParticle("meteorshield", x + 0.5D, y + 2.0D, z + 0.5D, currX - x + random.nextFloat() - 0.5D, currY - y - random.nextFloat() - 1.0F, currZ - z + random.nextFloat() - 0.5D, world, id);
 						} else {
-							ClientProxy.spawnParticle("meteorshield", i + 0.5D, j + 2.0D, k + 0.5D, l - i + random.nextFloat() - 0.5D, j1 - j - random.nextFloat() - 1.0F, i1 - k + random.nextFloat() - 0.5D, world, -1);
+							ClientProxy.spawnParticle("meteorshield", x + 0.5D, y + 2.0D, z + 0.5D, currX - x + random.nextFloat() - 0.5D, currY - y - random.nextFloat() - 1.0F, currZ - z + random.nextFloat() - 0.5D, world, -1);
 						}
 					}
 				}
@@ -144,6 +151,10 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory
 		this.owner = nbt.getString("owner");
 		this.lastStoppedMeteor = EnumMeteor.getTypeFromID(nbt.getInteger("metprevent"));
 		MeteorsMod.proxy.lastMeteorPrevented.put(this.owner, this.lastStoppedMeteor);
+		this.range = nbt.getInteger("range");
+		if (range == 0) {
+			range = MeteorsMod.instance.ShieldRadiusMultiplier;
+		}
 	}
 
 	@Override
@@ -156,6 +167,7 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory
 			nbt.setInteger("metprevent", this.lastStoppedMeteor.getID());
 		else
 			nbt.setInteger("metprevent", EnumMeteor.METEORITE.getID());
+		nbt.setInteger("range", range);
 	}
 
 	public EnumMeteor getLastStoppedMeteor()
@@ -211,6 +223,13 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory
 	public AxisAlignedBB getRenderBoundingBox() {
 		return TileEntity.INFINITE_EXTENT_AABB;
 	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+    public double getMaxRenderDistanceSquared()
+    {
+        return 65536.0D;
+    }
 
 	@Override
 	public int getSizeInventory() {
@@ -297,6 +316,47 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory
 	@Override
 	public void closeInventory() {}
 	
+	public void upgradeRange() {
+		this.range += MeteorsMod.instance.ShieldRadiusMultiplier;
+	}
+
+	@Override
+	public int getRange() {
+		return this.range;
+	}
+
+	@Override
+	public int getX() {
+		return this.xCoord;
+	}
 	
+	@Override
+	public int getY() {
+		return this.yCoord;
+	}
+
+	@Override
+	public int getZ() {
+		return this.zCoord;
+	}
+	
+	@Override
+	public boolean isTileEntity() {
+		return true;
+	}
+	
+	@Override
+	public String getOwner() {
+		return this.owner;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof IMeteorShield) {
+			IMeteorShield shield = (IMeteorShield)o;
+			return (this.getX() == shield.getX()) && (this.getY() == shield.getY()) && (this.getZ() == shield.getZ());
+		}
+		return false;
+	}
 
 }

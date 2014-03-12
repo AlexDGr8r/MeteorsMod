@@ -84,24 +84,24 @@ public class MeteorItems {
 	public static void registerItems() {
 		GameRegistry.registerItem(itemMeteorChips, "MeteorChips");
 		GameRegistry.registerItem(itemRedMeteorGem, "RedMeteorGem");
-		GameRegistry.registerItem(itemChocolateIceCream, "ChocolateICream");
 		GameRegistry.registerItem(itemFrezaCrystal, "FrezaCrystal");
 		GameRegistry.registerItem(itemKreknoChip, "KreknoChip");
+		GameRegistry.registerItem(itemVanillaIceCream, "VanillaICream");
+		GameRegistry.registerItem(itemChocolateIceCream, "ChocolateICream");
 		GameRegistry.registerItem(itemMeteorCrashDetector, "MeteorCrashDet");
 		GameRegistry.registerItem(itemMeteorProximityDetector, "MeteorProxDet");
-		GameRegistry.registerItem(itemMeteorSummoner, "MeteorSummoner");
 		GameRegistry.registerItem(itemMeteorTimeDetector, "MeteorTimeDet");
-		GameRegistry.registerItem(itemVanillaIceCream, "VanillaICream");
-		GameRegistry.registerItem(FrezariteBody, "FrezBody");
-		GameRegistry.registerItem(FrezariteBoots, "FrezBoots");
+		GameRegistry.registerItem(itemMeteorSummoner, "MeteorSummoner");
 		GameRegistry.registerItem(FrezariteHelmet, "FrezHelm");
+		GameRegistry.registerItem(FrezariteBody, "FrezBody");
 		GameRegistry.registerItem(FrezariteLegs, "FrezLegs");
+		GameRegistry.registerItem(FrezariteBoots, "FrezBoots");
 		GameRegistry.registerItem(FrezaritePickaxe, "FrezPick");
 		GameRegistry.registerItem(FrezariteSpade, "FrezSpade");
-		GameRegistry.registerItem(KreknoriteBody, "KrekBody");
-		GameRegistry.registerItem(KreknoriteBoots, "KrekBoots");
 		GameRegistry.registerItem(KreknoriteHelmet, "KrekHelm");
+		GameRegistry.registerItem(KreknoriteBody, "KrekBody");
 		GameRegistry.registerItem(KreknoriteLegs, "KrekLegs");
+		GameRegistry.registerItem(KreknoriteBoots, "KrekBoots");
 		GameRegistry.registerItem(KreknoriteSword, "KrekSword");
 		GameRegistry.registerItem(MeteoriteAxe, "MetAxe");
 		GameRegistry.registerItem(MeteoriteBody, "MetBody");
@@ -118,12 +118,6 @@ public class MeteorItems {
 		GameRegistry.registerItem(MeteoriteIngot, "MeteoriteIngot");
 		GameRegistry.registerItem(FrozenIron, "FrozenIron");
 		GameRegistry.registerItem(KreknoriteIngot, "KreknoriteIngot");
-	}
-	
-	static
-	{
-		readyItems();
-		registerItems();
 	}
 	
 }

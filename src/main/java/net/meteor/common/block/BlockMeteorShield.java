@@ -65,7 +65,9 @@ public class BlockMeteorShield extends BlockContainerMeteorsMod
 		if (!par1World.isRemote) {
 			Chunk chunk = par1World.getChunkFromBlockCoords(par2, par4);
 			TileEntityMeteorShield shield = (TileEntityMeteorShield)par1World.getTileEntity(par2, par3, par4);
-			MeteorsMod.proxy.metHandlers.get(par1World.provider.dimensionId).removeSafeChunks(chunk.xPosition, chunk.zPosition, MeteorsMod.instance.ShieldRadiusMultiplier * meta, shield.owner);
+			if (MeteorsMod.proxy.metHandlers.get(par1World.provider.dimensionId).meteorShields.remove(shield)) {
+				MeteorsMod.log.info("METEOR SHIELD SHOULD BE REMOVED");
+			}
 			par1World.playSoundEffect(par2 + 0.5D, par3 + 0.5D, par4 + 0.5D, "meteors:shield.powerdown", 1.0F, 1.0F);
 		}
 		super.breakBlock(par1World, par2, par3, par4, par5, par6);
@@ -132,8 +134,8 @@ public class BlockMeteorShield extends BlockContainerMeteorsMod
 	@Override
 	public void randomDisplayTick(World world, int i, int j, int k, Random random)
 	{
-		if (random.nextInt(24) == 0) {
-			world.playSound(i + 0.5D, j + 0.5D, k + 0.5D, "meteors:shield.humm", 1.0F, 1.0F, false);
+		if (random.nextInt(64) == 0) {
+			world.playSound(i + 0.5D, j + 0.5D, k + 0.5D, "meteors:shield.humm", 0.6F, 1.0F, false);
 		}
 		if (world.getBlockMetadata(i, j, k) >= 1) {
 			return;
@@ -197,17 +199,15 @@ public class BlockMeteorShield extends BlockContainerMeteorsMod
 			if (!player.capabilities.isCreativeMode) cItem.stackSize--;
 			return true;
 		}
+		
 		if (cItem.getItem() == MeteorItems.itemRedMeteorGem) {
 			int meta = world.getBlockMetadata(i, j, k);
 			if ((meta > 0) && (meta < 5)) {
 				boolean sendNoUpgradeMsg = false;
 				if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
-					Chunk chunk = world.getChunkFromBlockCoords(i, k);
 					TileEntityMeteorShield shield = (TileEntityMeteorShield)world.getTileEntity(i, j, k);
-					HandlerMeteor meteorHandler = MeteorsMod.proxy.metHandlers.get(world.provider.dimensionId);
-					meteorHandler.removeSafeChunks(chunk.xPosition, chunk.zPosition, MeteorsMod.instance.ShieldRadiusMultiplier * meta, shield.owner);
+					shield.upgradeRange();
 					meta++;
-					meteorHandler.addSafeChunks(chunk.xPosition, chunk.zPosition, MeteorsMod.instance.ShieldRadiusMultiplier * meta, shield.owner);
 					if (MeteorsMod.instance.ShieldRadiusMultiplier <= 0)
 						sendNoUpgradeMsg = true;
 				} else {

@@ -3,6 +3,7 @@ package net.meteor.common;
 import java.util.Random;
 import java.util.logging.Logger;
 
+import net.meteor.common.command.CommandDebugShields;
 import net.meteor.common.command.CommandKittyAttack;
 import net.meteor.common.enchantment.EnchantmentColdTouch;
 import net.meteor.common.enchantment.EnchantmentMagnetized;
@@ -42,7 +43,7 @@ implements IWorldGenerator
 	public static final String MOD_NAME = "Falling Meteors";
 	public static final String VERSION 	= "2.12"; 		// Switch to automatic versioning later on
 	
-	public static final boolean loggable = false;		// For Debugging Purposes Only
+	public static final boolean loggable = true;		// For Debugging Purposes Only
 
 	public static final Logger log = Logger.getLogger("Falling Meteors Mod");
 
@@ -169,7 +170,7 @@ implements IWorldGenerator
 	public void setClientStartConfig() {
 		this.meteorsFallOnlyAtNight = ModConfig.instance.get("Meteors Only Fall at Night", true);
 		this.allowSummonedMeteorGrief = ModConfig.instance.get("Allow Summoned Meteor Grief", false);
-		this.ShieldRadiusMultiplier = ModConfig.instance.get("Shield Radius in Chunks", 4);
+		this.ShieldRadiusMultiplier = ModConfig.instance.get("Shield Radius in Blocks", 64);
 		this.MinMeteorSize = ModConfig.instance.get("Minimum Meteor Size", 1);
 		this.MaxMeteorSize = ModConfig.instance.get("Maximum Meteor Size", 3);
 		this.MinMeteorSize = MathHelper.clamp_int(this.MinMeteorSize, 1, 3);
@@ -196,6 +197,9 @@ implements IWorldGenerator
 	@EventHandler
 	public void serverStarting(FMLServerStartingEvent evt) {
 		evt.registerServerCommand(new CommandKittyAttack());
+		if (loggable) {
+			evt.registerServerCommand(new CommandDebugShields());
+		}
 	}
 
 	private void registerEntities() {

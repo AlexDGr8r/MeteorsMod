@@ -44,6 +44,7 @@ public class TileEntityMeteorShieldRayRenderer extends TileEntitySpecialRenderer
 			GL11.glEnable(2896);
 		} else if ((meta == 5) && (shield.renderRay)) {
 			float var9 = shield.getBeaconModifier();
+			GL11.glAlphaFunc(GL11.GL_GREATER, 0.1F);
 			EnumMeteor met = (EnumMeteor)MeteorsMod.proxy.lastMeteorPrevented.get(shield.owner);
 			if (met == null) {
 				met = EnumMeteor.METEORITE;

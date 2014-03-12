@@ -8,6 +8,7 @@ import net.meteor.common.ClientHandler;
 import net.meteor.common.EnumMeteor;
 import net.meteor.common.HandlerAchievement;
 import net.meteor.common.HandlerMeteor;
+import net.meteor.common.IMeteorShield;
 import net.meteor.common.LangLocalization;
 import net.meteor.common.MeteorItems;
 import net.meteor.common.MeteorsMod;
@@ -33,12 +34,12 @@ public class EntitySummoner extends EntityThrowable implements IEntityAdditional
 		{0.6941176470588235F, 0.0470588235294118F, 0.0470588235294118F}, 
 		{0.392156862745098F, 0.3725490196078431F, 0.3450980392156863F}, 
 		{0.0941176470588235F, 0.6470588235294118F, 0.0941176470588235F} };
-	
+
 	public int mID;
 	public boolean isRandom;
-	
+
 	private EntityLiving thrower;
-    private String throwerName = null;
+	private String throwerName = null;
 
 	public EntitySummoner(World world)
 	{
@@ -61,10 +62,10 @@ public class EntitySummoner extends EntityThrowable implements IEntityAdditional
 	{
 		super(world, d, d1, d2);
 	}
-	
+
 	@Override
 	public void onUpdate()
-    {
+	{
 		super.onUpdate();
 		if (this.worldObj.isRemote) {
 			int rgbIndex = mID;
@@ -73,7 +74,7 @@ public class EntitySummoner extends EntityThrowable implements IEntityAdditional
 			}
 			worldObj.spawnParticle("mobSpell", this.posX, this.posY, this.posZ, spellRGB[rgbIndex][0], spellRGB[rgbIndex][1], spellRGB[rgbIndex][2]);
 		}
-    }
+	}
 
 	@Override
 	protected void onImpact(MovingObjectPosition movingobjectposition)
@@ -102,9 +103,9 @@ public class EntitySummoner extends EntityThrowable implements IEntityAdditional
 		}
 
 		if (!this.worldObj.isRemote) {
-			
+
 			boolean canHit = true;
-			
+
 			if (!worldObj.getGameRules().getGameRuleBooleanValue("summonMeteors")) {
 				canHit = false;
 				player.addChatMessage(ClientHandler.createMessage(LangLocalization.get("MeteorSummoner.cannotSummon"), EnumChatFormatting.RED));
@@ -116,22 +117,17 @@ public class EntitySummoner extends EntityThrowable implements IEntityAdditional
 					}
 				}
 			} else if ((!MeteorsMod.instance.allowSummonedMeteorGrief) && (player != null)) {
-				ChunkCoordIntPair cPair = this.worldObj.getChunkFromBlockCoords((int)this.posX, (int)this.posZ).getChunkCoordIntPair();
-				List oPairList = MeteorsMod.proxy.metHandlers.get(worldObj.provider.dimensionId).safeChunksWithOwners;
-				for (int i = 0; i < oPairList.size(); i++) {
-					SafeChunkCoordsIntPair oPair = (SafeChunkCoordsIntPair)oPairList.get(i);
-					if ((oPair.hasCoords(cPair.chunkXPos, cPair.chunkZPos)) && (!player.getCommandSenderName().equalsIgnoreCase(oPair.getOwner()))) {
-						canHit = false;
-						player.addChatMessage(new ChatComponentText(LangLocalization.get("MeteorSummoner.landProtected")));
-						if (player.capabilities.isCreativeMode) break;
+				IMeteorShield shield = MeteorsMod.proxy.metHandlers.get(worldObj.provider.dimensionId).getClosestShieldInRange(this.chunkCoordX, this.chunkCoordZ);
+				if (shield != null && (!player.getCommandSenderName().equalsIgnoreCase(shield.getOwner()))) {
+					canHit = false;
+					player.addChatMessage(new ChatComponentText(LangLocalization.get("MeteorSummoner.landProtected")));
+					if (!player.capabilities.isCreativeMode) {
 						if (this.isRandom) {
 							player.inventory.addItemStackToInventory(new ItemStack(MeteorItems.itemMeteorSummoner, 1)); 
-							break;
+						} else {
+							player.inventory.addItemStackToInventory(new ItemStack(MeteorItems.itemMeteorSummoner, 1, this.mID + 1)); 
 						}
-						player.inventory.addItemStackToInventory(new ItemStack(MeteorItems.itemMeteorSummoner, 1, this.mID + 1)); 
-						break;
 					}
-
 				}
 
 			}
