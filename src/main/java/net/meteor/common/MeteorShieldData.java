@@ -2,18 +2,20 @@ package net.meteor.common;
 
 public class MeteorShieldData implements IMeteorShield
 {
-	public int x;
-	public int y;
-	public int z;
-	public int range;
-	public String owner;
+	private int x;
+	private int y;
+	private int z;
+	private int powerLevel;
+	private int range;
+	private String owner;
 
-	public MeteorShieldData(int x, int y, int z, int r, String o)
+	public MeteorShieldData(int x, int y, int z, int p, String o)
 	{
 		this.x = x;
 		this.y = y;
 		this.z = z;
-		this.range = r;
+		this.powerLevel = p;
+		this.range = powerLevel * MeteorsMod.instance.ShieldRadiusMultiplier;
 		this.owner = o;
 	}
 
@@ -27,6 +29,11 @@ public class MeteorShieldData implements IMeteorShield
 	@Override
 	public int getRange() {
 		return range;
+	}
+	
+	@Override
+	public int getPowerLevel() {
+		return powerLevel;
 	}
 
 	@Override

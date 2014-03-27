@@ -14,6 +14,7 @@ import net.meteor.common.packets.PacketGhostMeteor;
 import net.meteor.common.packets.PacketLastCrash;
 import net.meteor.common.packets.PacketShieldUpdate;
 import net.meteor.common.packets.PacketSoonestMeteor;
+import net.meteor.common.tileentity.TileEntityMeteorShield;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ChatComponentText;
@@ -188,6 +189,8 @@ public class HandlerMeteor
 					meteorShields.add(shield);
 					MeteorsMod.log.info("METEOR SHIELD REPLACED X:" + shield.getX() + " Y:" + shield.getY() + " Z:" + shield.getZ() + " O:" + shield.getOwner());
 					return;
+				} else {
+					break;
 				}
 			}
 		}

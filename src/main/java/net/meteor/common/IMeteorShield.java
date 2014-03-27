@@ -4,6 +4,8 @@ public interface IMeteorShield {
 	
 	public int getRange();
 	
+	public int getPowerLevel();
+	
 	public int getX();
 	
 	public int getY();

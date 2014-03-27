@@ -29,6 +29,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -134,6 +135,7 @@ implements IWorldGenerator
 		packetPipeline.initalise();
 		cHandler.registerPackets();
 		MinecraftForge.EVENT_BUS.register(cHandler);
+		NetworkRegistry.INSTANCE.registerGuiHandler(this, new HandlerGui());
 	}
 	
 	@EventHandler

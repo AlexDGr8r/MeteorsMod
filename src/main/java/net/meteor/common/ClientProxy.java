@@ -8,7 +8,7 @@ import net.meteor.client.render.RenderAlienCreeper;
 import net.meteor.client.render.RenderCometKitty;
 import net.meteor.client.render.RenderMeteor;
 import net.meteor.client.render.RenderSummoner;
-import net.meteor.client.tileentity.TileEntityMeteorShieldRayRenderer;
+import net.meteor.client.tileentity.TileEntityMeteorShieldRenderer;
 import net.meteor.client.tileentity.TileEntityMeteorTimerRenderer;
 import net.meteor.common.entity.EntityAlienCreeper;
 import net.meteor.common.entity.EntityCometKitty;
@@ -28,7 +28,7 @@ public class ClientProxy extends CommonProxy
 	@Override
 	public void registerTileEntities()
 	{
-		TileEntityMeteorShieldRayRenderer tileRend = new TileEntityMeteorShieldRayRenderer();
+		TileEntityMeteorShieldRenderer tileRend = new TileEntityMeteorShieldRenderer();
 		ClientRegistry.registerTileEntity(TileEntityMeteorShield.class, "TileEntityMeteorShield", tileRend);
 		TileEntityMeteorTimerRenderer timerRend = new TileEntityMeteorTimerRenderer();
 		ClientRegistry.registerTileEntity(TileEntityMeteorTimer.class, "TileEntityMeteorTimer", timerRend);

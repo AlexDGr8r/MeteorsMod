@@ -41,10 +41,10 @@ public class MeteorShieldSavedData extends WorldSavedData {
 			int x = sNBT.getInteger("x");
 			int y = sNBT.getInteger("y");
 			int z = sNBT.getInteger("z");
-			int range = sNBT.getInteger("range");
+			int power = sNBT.getInteger("power");
 			String owner = sNBT.getString("owner");
 			
-			metHandler.addShield(new MeteorShieldData(x, y, z, range, owner));
+			metHandler.addShield(new MeteorShieldData(x, y, z, power, owner));
 		}
 		loaded = true;
 	}
@@ -59,7 +59,7 @@ public class MeteorShieldSavedData extends WorldSavedData {
 			sNBT.setInteger("x", shield.getX());
 			sNBT.setInteger("y", shield.getY());
 			sNBT.setInteger("z", shield.getZ());
-			sNBT.setInteger("range", shield.getRange());
+			sNBT.setInteger("power", shield.getPowerLevel());
 			sNBT.setString("owner", shield.getOwner());
 			nbt.setTag("s" + i, sNBT);
 		}
