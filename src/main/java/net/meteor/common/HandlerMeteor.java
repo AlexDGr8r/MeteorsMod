@@ -9,14 +9,20 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import net.meteor.common.crash.CrashUnknown;
+import net.meteor.common.entity.EntityCometKitty;
 import net.meteor.common.entity.EntityMeteor;
 import net.meteor.common.packets.PacketGhostMeteor;
 import net.meteor.common.packets.PacketLastCrash;
 import net.meteor.common.packets.PacketShieldUpdate;
 import net.meteor.common.packets.PacketSoonestMeteor;
 import net.meteor.common.tileentity.TileEntityMeteorShield;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.EnumChatFormatting;
@@ -84,6 +90,7 @@ public class HandlerMeteor
 								player.addChatMessage(ClientHandler.createMessage(LangLocalization.get("MeteorShield.meteorBlocked"), EnumChatFormatting.GREEN));
 								player.addStat(HandlerAchievement.meteorBlocked, 1);
 							}
+							sendMeteorMaterialsToShield(shield, gMeteor);
 							MeteorsMod.proxy.lastMeteorPrevented.put(owner, gMeteor.type);
 							MeteorsMod.packetPipeline.sendToAll(new PacketShieldUpdate(owner));
 						} else if (gMeteor.type == EnumMeteor.KITTY) {
@@ -100,6 +107,73 @@ public class HandlerMeteor
 					}
 				}
 			}
+		}
+	}
+	
+	public void sendMeteorMaterialsToShield(IMeteorShield shield, GhostMeteor gMeteor) {
+		TileEntityMeteorShield tShield = (TileEntityMeteorShield) theWorld.getTileEntity(shield.getX(), shield.getY(), shield.getZ());
+		if (tShield != null) {
+			List<ItemStack> items = new ArrayList<ItemStack>();
+			int r = random.nextInt(100);
+			switch (gMeteor.type.getID()) {
+				case 0:
+					items.add(new ItemStack(MeteorItems.itemMeteorChips, random.nextInt(4 * gMeteor.size) + 1));
+					if (r < 15) {
+						items.add(new ItemStack(MeteorItems.itemRedMeteorGem, random.nextInt(2 * gMeteor.size) + 1));
+					}
+					break;
+				case 1:
+					items.add(new ItemStack(MeteorItems.itemFrezaCrystal, random.nextInt(4 * gMeteor.size) + 1));
+					if (r < 20) {
+						items.add(new ItemStack(Blocks.ice, random.nextInt(3 * gMeteor.size) + 1));
+					}
+					break;
+				case 2:
+					items.add(new ItemStack(MeteorItems.itemFrezaCrystal, random.nextInt(3 * gMeteor.size) + 1));
+					if (gMeteor.size >= MeteorsMod.instance.MinMeteorSizeForPortal) {
+						if (r < 20) {
+							items.add(new ItemStack(Items.netherbrick, random.nextInt(4 * gMeteor.size) + 1));
+						}
+						if (r < 10) {
+							items.add(new ItemStack(Items.glowstone_dust, random.nextInt(3 * gMeteor.size) + 1));
+						}
+					}
+					break;
+				case 3:
+					if (r < 50) {
+						items.add(new ItemStack(Items.glowstone_dust, random.nextInt(5 * gMeteor.size) + 1));
+					}
+					if (r < 75) {
+						int r2 = random.nextInt(3);
+						if (r2 == 0) {
+							items.add(new ItemStack(MeteorItems.itemMeteorChips, random.nextInt(4) + 1));
+						} else if (r2 == 1) {
+							items.add(new ItemStack(MeteorItems.itemFrezaCrystal, random.nextInt(4) + 1));
+						} else {
+							items.add(new ItemStack(MeteorItems.itemKreknoChip, random.nextInt(4) + 1));
+						}
+					}
+					if (r < 20) {
+						ItemStack stack = CrashUnknown.getRandomLoot(random);
+						if (stack != null) {
+							items.add(stack);
+						}
+					}
+					if (r < 5) {
+						ItemStack stack = CrashUnknown.getRandomLoot(random);
+						if (stack != null) {
+							items.add(stack);
+						}
+					}
+					break;
+				case 4:
+					items.add(new ItemStack(Items.cooked_fished, random.nextInt(2 * gMeteor.size) + 1));
+					if (r < 5) {
+						items.add(new ItemStack(Items.spawn_egg, 1, EntityList.getEntityID(new EntityCometKitty(theWorld))));
+					}
+					break;
+			}
+			tShield.addMeteorMaterials(items);
 		}
 	}
 
@@ -123,6 +197,7 @@ public class HandlerMeteor
 							playerOwner.addChatMessage(ClientHandler.createMessage(LangLocalization.get("MeteorShield.meteorBlocked"), EnumChatFormatting.GREEN));
 							playerOwner.addStat(HandlerAchievement.meteorBlocked, 1);
 						}
+						this.sendMeteorMaterialsToShield(shield, new GhostMeteor(x, z, 1, 0, EnumMeteor.KITTY));
 						MeteorsMod.proxy.lastMeteorPrevented.put(owner, EnumMeteor.KITTY);
 						MeteorsMod.packetPipeline.sendToAll(new PacketShieldUpdate(owner));
 					} else {
@@ -184,14 +259,10 @@ public class HandlerMeteor
 		for (int i = 0; i < meteorShields.size(); i++) {
 			IMeteorShield shield2 = meteorShields.get(i);
 			if (shield.equals(shield2)) {
-				if (!shield2.isTileEntity()) {
-					meteorShields.remove(i);
-					meteorShields.add(shield);
-					MeteorsMod.log.info("METEOR SHIELD REPLACED X:" + shield.getX() + " Y:" + shield.getY() + " Z:" + shield.getZ() + " O:" + shield.getOwner());
-					return;
-				} else {
-					break;
-				}
+				meteorShields.remove(i);
+				meteorShields.add(shield);
+				MeteorsMod.log.info("METEOR SHIELD REPLACED X:" + shield.getX() + " Y:" + shield.getY() + " Z:" + shield.getZ() + " O:" + shield.getOwner());
+				return;
 			}
 		}
 		meteorShields.add(shield);

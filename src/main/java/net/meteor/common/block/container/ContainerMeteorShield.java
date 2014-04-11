@@ -1,5 +1,7 @@
 package net.meteor.common.block.container;
 
+import java.util.List;
+
 import net.meteor.common.HandlerAchievement;
 import net.meteor.common.MeteorItems;
 import net.meteor.common.tileentity.TileEntityMeteorShield;
@@ -29,6 +31,7 @@ public class ContainerMeteorShield extends Container {
 			}
 		}
 		
+		if (inventoryPlayer == null) return;
 		// Player inventory
 		for (int i = 0; i < 3; ++i)
         {

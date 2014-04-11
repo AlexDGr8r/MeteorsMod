@@ -41,7 +41,6 @@ public class BlockMeteorShield extends BlockContainerMeteorsMod
 	{
 		super(Material.rock);
 		this.setLightOpacity(0);
-		setTickRandomly(true);
 	}
 
 	@Override
@@ -76,25 +75,6 @@ public class BlockMeteorShield extends BlockContainerMeteorsMod
 	@Override
     public void registerBlockIcons(IIconRegister par1IconRegister) {
 		this.blockIcon = par1IconRegister.registerIcon("meteors:shieldTop_lit");
-	}
-
-	@Override
-	public void updateTick(World world, int i, int j, int k, Random random)
-	{
-		TileEntityMeteorShield shield = (TileEntityMeteorShield) world.getTileEntity(i, j, k);
-		int powerLevel = shield.getPowerLevel();
-		if (powerLevel <= 0) {
-			shield.setCharged();
-			if (!world.isRemote) {
-				if (shield.owner != null && shield.owner.length() > 0) {
-					EntityPlayer player = world.getPlayerEntityByName(shield.owner);
-					if (player != null) {
-						//player.addChatMessage(ClientHandler.createMessage(LangLocalization.get("MeteorShield.PowerUpgradePercentage") + " 20%", EnumChatFormatting.GREEN));
-						player.addChatMessage(ClientHandler.createMessage(LangLocalization.get("MeteorShield.howToUpgrade"), EnumChatFormatting.GOLD));
-					}
-				}
-			}
-		}
 	}
 
 	@SideOnly(Side.CLIENT)

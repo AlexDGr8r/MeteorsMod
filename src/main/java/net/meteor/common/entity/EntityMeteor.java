@@ -6,7 +6,9 @@ import java.util.List;
 
 import net.meteor.common.ClientHandler;
 import net.meteor.common.EnumMeteor;
+import net.meteor.common.GhostMeteor;
 import net.meteor.common.HandlerAchievement;
+import net.meteor.common.HandlerMeteor;
 import net.meteor.common.IMeteorShield;
 import net.meteor.common.LangLocalization;
 import net.meteor.common.MeteorsMod;
@@ -85,9 +87,10 @@ implements IEntityAdditionalSpawnData
 			this.setDead();
 			return;
 		}
-		if ((!this.summoned) && (MeteorInProtectedZone())) {
+		if (!this.summoned) {
 			if (!worldObj.isRemote) {
-				IMeteorShield shield = MeteorsMod.proxy.metHandlers.get(worldObj.provider.dimensionId).getClosestShieldInRange(chunkCoordX, chunkCoordZ);
+				HandlerMeteor metHandler = MeteorsMod.proxy.metHandlers.get(worldObj.provider.dimensionId);
+				IMeteorShield shield = metHandler.getClosestShieldInRange((int)posX, (int)posZ);
 				if (shield != null) {
 					String owner = shield.getOwner();
 					EntityPlayer playerOwner = ((WorldServer)worldObj).func_73046_m().getConfigurationManager().getPlayerForUsername(owner);
@@ -97,13 +100,13 @@ implements IEntityAdditionalSpawnData
 					}
 					MeteorsMod.proxy.lastMeteorPrevented.put(owner, this.meteorType);
 					MeteorsMod.packetPipeline.sendToAll(new PacketShieldUpdate(owner));
+					metHandler.sendMeteorMaterialsToShield(shield, new GhostMeteor((int)posX, (int)posZ, size, 0, meteorType));
 					this.worldObj.playSoundEffect(posX, posY, posZ, "random.explode", 5F, (1.0F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
 					this.worldObj.spawnParticle("hugeexplosion", posX, posY, posZ, 0.0D, 0.0D, 0.0D);
+					this.setDead();
+					return;
 				}
 			}
-
-			this.setDead();
-			return;
 		}
 		if (this.spawnPauseTicks > 0) {
 			this.spawnPauseTicks -= 1;
@@ -194,14 +197,6 @@ implements IEntityAdditionalSpawnData
 	public float getShadowSize()
 	{
 		return 0.0F;
-	}
-
-	private boolean MeteorInProtectedZone() {
-		return MeteorInProtectedZone((int)this.posX, (int)this.posY);
-	}
-
-	private boolean MeteorInProtectedZone(int x, int z) {
-		return MeteorsMod.proxy.metHandlers.get(worldObj.provider.dimensionId).getClosestShieldInRange(x, z) != null;
 	}
 
 	@Override

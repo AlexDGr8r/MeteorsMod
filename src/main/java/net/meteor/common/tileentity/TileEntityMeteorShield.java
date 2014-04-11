@@ -1,16 +1,23 @@
 package net.meteor.common.tileentity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
+import net.meteor.common.ClientHandler;
 import net.meteor.common.ClientProxy;
 import net.meteor.common.EnumMeteor;
+import net.meteor.common.HandlerMeteor;
 import net.meteor.common.IMeteorShield;
 import net.meteor.common.LangLocalization;
 import net.meteor.common.MeteorItems;
+import net.meteor.common.MeteorShieldData;
 import net.meteor.common.MeteorsMod;
+import net.meteor.common.block.container.ContainerMeteorShield;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -20,6 +27,7 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -30,11 +38,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class TileEntityMeteorShield extends TileEntity implements IInventory, IMeteorShield
 {
-	@SideOnly(Side.CLIENT)
-	private float field_82138_c;
 
-	@SideOnly(Side.CLIENT)
-	private long lastTickTime;
+	public static final int CHARGE_TIME = 1600;
+
 	private boolean shieldedChunks;
 	private EnumMeteor lastStoppedMeteor = EnumMeteor.METEORITE;
 	public String owner;
@@ -44,12 +50,15 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory, IM
 	private int range;
 	private int powerLevel;
 
+	public int age;
+
 	// Inventory stuff
 	private ItemStack[] inv;
 
 	public TileEntityMeteorShield() {
-		this.range = MeteorsMod.instance.ShieldRadiusMultiplier;
+		this.range = 0;
 		this.powerLevel = 0;
+		this.age = 0;
 		this.shieldedChunks = false;
 		this.inv = new ItemStack[13];
 	}
@@ -62,9 +71,9 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory, IM
 	@Override
 	public void updateEntity()
 	{
+		++age;
 		// Possible solution for moveover: powerLevel will equal 0, so remove meta dependency entirely and cause the block update
 		// function to check powerLevel instead of metadata. Shields will have to charge, but should get reconfigured correctly.
-		// TODO solution for red meteor gems
 		if (!this.shieldedChunks) {
 			if (powerLevel > 0) {
 				if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
@@ -74,27 +83,101 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory, IM
 				this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
 			} else if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
 				GenerateParticles(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.worldObj.rand);
+			} else if (age >= CHARGE_TIME) {
+				setCharged();
+				if (!worldObj.isRemote) {
+					if (owner != null && owner.length() > 0) {
+						EntityPlayer player = worldObj.getPlayerEntityByName(owner);
+						if (player != null) {
+							player.addChatMessage(ClientHandler.createMessage(LangLocalization.get("MeteorShield.howToUpgrade"), EnumChatFormatting.GOLD));
+						}
+					}
+				}
 			}
 		}
 		if (this.shieldedChunks) {
 			range = powerLevel * MeteorsMod.instance.ShieldRadiusMultiplier;	// update range (may load as 0 for old updates, thus check with this)
 
-			if (powerLevel == 5) {
-				if (this.worldObj.getTotalWorldTime() % 60L == 0L) {
-					this.renderRay = this.worldObj.canBlockSeeTheSky(this.xCoord, this.yCoord + 1, this.zCoord);
-				}
-
-			}
 			if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
 				GenerateParticles(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.worldObj.rand);
 			}
 		}
 	}
-	
+
 	public void setCharged() {
 		if (powerLevel == 0) {
 			powerLevel = 1;
 		}
+	}
+
+	public List<String> getDisplayInfo() {
+		List<String> info = new ArrayList<String>();
+		if (powerLevel == 0) {
+			info.add("Charging...");
+			info.add("Charged: " + (int)((float)age / (float)CHARGE_TIME * 100) + "%");
+		} else {
+			info.add("Power Level: " + powerLevel + " / 5");
+			info.add("Range: " + range + " blocks");
+		}
+		info.add("");
+		info.add("Owner: " + owner);
+		return info;
+	}
+
+	public void addMeteorMaterials(List<ItemStack> items) {
+		
+		for (int i = 0; i < items.size(); i++) {
+			ItemStack par1ItemStack = items.get(i);
+			System.out.println(par1ItemStack);
+			ItemStack itemstack1;
+			int k = 5;
+			if (par1ItemStack.isStackable())
+			{
+				while (par1ItemStack.stackSize > 0 && k >= 5 && k < this.getSizeInventory())
+				{
+					itemstack1 = inv[k];
+
+					if (itemstack1 != null && itemstack1.getItem() == par1ItemStack.getItem() && (!par1ItemStack.getHasSubtypes() || par1ItemStack.getItemDamage() == itemstack1.getItemDamage()) && ItemStack.areItemStackTagsEqual(par1ItemStack, itemstack1))
+					{
+						int l = itemstack1.stackSize + par1ItemStack.stackSize;
+
+						if (l <= par1ItemStack.getMaxStackSize())
+						{
+							par1ItemStack.stackSize = 0;
+							itemstack1.stackSize = l;
+						}
+						else if (itemstack1.stackSize < par1ItemStack.getMaxStackSize())
+						{
+							par1ItemStack.stackSize -= par1ItemStack.getMaxStackSize() - itemstack1.stackSize;
+							itemstack1.stackSize = par1ItemStack.getMaxStackSize();
+						}
+					}
+
+					++k;
+				}
+			}
+
+			if (par1ItemStack.stackSize > 0)
+			{
+				k = 5;
+
+				while (k >= 5 && k < this.getSizeInventory())
+				{
+					itemstack1 = inv[k];
+
+					if (itemstack1 == null)
+					{
+						inv[k] = par1ItemStack.copy();
+						par1ItemStack.stackSize = 0;
+						break;
+					}
+
+					++k;
+				}
+			}
+		}
+		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+		this.markDirty();
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -109,7 +192,7 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory, IM
 				{
 					currZ = z + 2;
 				}
-				if (random.nextInt(64) == 0)
+				if (random.nextInt(100) == 25)
 				{
 					for (int currY = y; currY <= y + 1; currY++)
 					{
@@ -134,21 +217,24 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory, IM
 	{
 		super.readFromNBT(nbt);
 		this.owner = nbt.getString("owner");
+		if (owner == null || owner.trim().isEmpty()) {
+			owner = "None";
+		}
 		this.lastStoppedMeteor = EnumMeteor.getTypeFromID(nbt.getInteger("metprevent"));
 		MeteorsMod.proxy.lastMeteorPrevented.put(this.owner, this.lastStoppedMeteor);
 		this.powerLevel = nbt.getInteger("powerLevel");
 		this.range = MeteorsMod.instance.ShieldRadiusMultiplier * powerLevel;
-		
+
 		NBTTagList nbttaglist = nbt.getTagList("Items", 10);
 		this.inv = new ItemStack[this.getSizeInventory()];
-		
+
 		for (int i = 0; i < nbttaglist.tagCount(); i++) {
 			NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
-            int j = nbttagcompound1.getByte("Slot") & 255;
+			int j = nbttagcompound1.getByte("Slot") & 255;
 
-            if (j >= 0 && j < this.inv.length) {
-                this.inv[j] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
-            }
+			if (j >= 0 && j < this.inv.length) {
+				this.inv[j] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
+			}
 		}
 	}
 
@@ -169,12 +255,12 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory, IM
 		for (int i = 0; i < inv.length; i++) {
 			if (inv[i] != null) {
 				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-                nbttagcompound1.setByte("Slot", (byte)i);
-                this.inv[i].writeToNBT(nbttagcompound1);
-                nbttaglist.appendTag(nbttagcompound1);
+				nbttagcompound1.setByte("Slot", (byte)i);
+				this.inv[i].writeToNBT(nbttagcompound1);
+				nbttaglist.appendTag(nbttagcompound1);
 			}
 		}
-		
+
 		nbt.setTag("Items", nbttaglist);
 	}
 
@@ -185,31 +271,6 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory, IM
 			return this.lastStoppedMeteor;
 		}
 		return EnumMeteor.METEORITE;
-	}
-
-	public float getBeaconModifier()
-	{
-		int var1 = (int)(this.worldObj.getTotalWorldTime() - this.lastTickTime);
-		this.lastTickTime = this.worldObj.getTotalWorldTime();
-
-		if (var1 > 1)
-		{
-			this.field_82138_c -= var1 / 40.0F;
-
-			if (this.field_82138_c < 0.0F)
-			{
-				this.field_82138_c = 0.0F;
-			}
-		}
-
-		this.field_82138_c += 0.025F;
-
-		if (this.field_82138_c > 1.0F)
-		{
-			this.field_82138_c = 1.0F;
-		}
-
-		return this.field_82138_c;
 	}
 
 	@Override
@@ -230,13 +291,6 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory, IM
 	@SideOnly(Side.CLIENT)
 	public AxisAlignedBB getRenderBoundingBox() {
 		return TileEntity.INFINITE_EXTENT_AABB;
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public double getMaxRenderDistanceSquared()
-	{
-		return 65536.0D;
 	}
 
 	@Override
@@ -283,7 +337,7 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory, IM
 				itemstack.stackSize = 1;
 			}
 			if (i == 0) {
-				this.worldObj.getBlock(xCoord, yCoord, zCoord).updateTick(worldObj, xCoord, yCoord, zCoord, worldObj.rand);
+				this.setCharged();
 				this.worldObj.playSoundEffect(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D, "meteors:shield.powerup", 1.0F, 0.6F);
 				this.markDirty();
 			} else if (i > 0 && i < 5) {
@@ -395,10 +449,11 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory, IM
 		}
 		return super.equals(o);
 	}
-	
+
 	@Override
 	public void onChunkUnload() {
-		
+		HandlerMeteor metHandler = MeteorsMod.proxy.metHandlers.get(worldObj.provider.dimensionId);
+		metHandler.addShield(new MeteorShieldData(xCoord, yCoord, zCoord, powerLevel, owner));
 	}
 
 }

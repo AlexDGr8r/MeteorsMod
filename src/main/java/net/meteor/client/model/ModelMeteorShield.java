@@ -178,16 +178,15 @@ public class ModelMeteorShield extends ModelBase
 		setRotation(SidePanel2, 0F, 0F, 0.2617994F);
 	}
 
-	public void render(TileEntityMeteorShield shield, float f, float f1, float f2, float f3, float f4, float f5, long time)
+	public void render(int pLevel, float partialTick, float f1, float f2, float f3, float f4, float f5, int age)
 	{
-		setRotationAngles(f, f1, f2, f3, f4, f5, shield);
-		float bobModifier = MathHelper.sin(time % 1600F / 1600F * 360F) * 0.5F - 0.3F;
+		setRotationAngles(partialTick, f1, f2, f3, f4, f5, pLevel, age);
+		float bobModifier = MathHelper.sin(((float)age + partialTick) / 1600F * 360F) * 0.5F - 0.3F;
 		BottomLayer.rotationPointY = botY + bobModifier;
 		MiddleLayer.rotationPointY = midY + bobModifier;
 		TopLayer.rotationPointY = topY + bobModifier;
 		BaseShape.render(f5);
-		int power = shield.getPowerLevel();
-		switch (power) {
+		switch (pLevel) {
 			case 5:
 			case 4:
 				BottomLayer.render(f5);
@@ -223,9 +222,14 @@ public class ModelMeteorShield extends ModelBase
 		model.rotateAngleZ = z;
 	}
 
-	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, TileEntityMeteorShield ent)
+	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, int pLevel, int age)
 	{
-		
+		if (pLevel == 0) {
+			return;
+		}
+		TopLayer.rotateAngleY = ((float)age + f) / (140F / pLevel);
+		MiddleLayer.rotateAngleY = ((float)age + f) / (70F / pLevel);
+		BottomLayer.rotateAngleY = ((float)age + f) / (40F / pLevel);
 	}
 
 }

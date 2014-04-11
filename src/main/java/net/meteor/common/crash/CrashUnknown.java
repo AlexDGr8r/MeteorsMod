@@ -64,7 +64,7 @@ public class CrashUnknown extends CrashMeteorite
 		return var3;
 	}
 
-	private ItemStack getRandomLoot(Random random) {
+	public static ItemStack getRandomLoot(Random random) {
 		int r = random.nextInt(60);
 		switch (r) {
 		case 0:
