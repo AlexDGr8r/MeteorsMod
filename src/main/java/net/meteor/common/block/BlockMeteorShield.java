@@ -15,8 +15,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
@@ -30,12 +32,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockMeteorShield extends BlockContainerMeteorsMod
 {
-	
-	private IIcon topUnlit;
-	private IIcon bottom;
-	private IIcon gemSide;
-	private IIcon noGemSide;
-	private IIcon crackedSide;
 	
 	public BlockMeteorShield()
 	{
@@ -60,21 +56,53 @@ public class BlockMeteorShield extends BlockContainerMeteorsMod
 	@Override
 	public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6)
 	{
-		int meta = par6;
+		TileEntityMeteorShield shield = (TileEntityMeteorShield)par1World.getTileEntity(par2, par3, par4);
 		if (!par1World.isRemote) {
-			TileEntityMeteorShield shield = (TileEntityMeteorShield)par1World.getTileEntity(par2, par3, par4);
 			if (MeteorsMod.proxy.metHandlers.get(par1World.provider.dimensionId).meteorShields.remove(shield)) {
 				MeteorsMod.log.info("METEOR SHIELD SHOULD BE REMOVED");
 			}
 			par1World.playSoundEffect(par2 + 0.5D, par3 + 0.5D, par4 + 0.5D, "meteors:shield.powerdown", 1.0F, 1.0F);
 		}
+		
+		if (shield != null)
+        {
+            for (int i1 = 0; i1 < shield.getSizeInventory(); ++i1)
+            {
+                ItemStack itemstack = shield.getStackInSlot(i1);
+
+                if (itemstack != null)
+                {
+                    float f = par1World.rand.nextFloat() * 0.8F + 0.1F;
+                    float f1 = par1World.rand.nextFloat() * 0.8F + 0.1F;
+                    EntityItem entityitem;
+
+                    for (float f2 = par1World.rand.nextFloat() * 0.8F + 0.1F; itemstack.stackSize > 0; par1World.spawnEntityInWorld(entityitem))
+                    {
+                        int j1 = par1World.rand.nextInt(21) + 10;
+
+                        if (j1 > itemstack.stackSize)
+                        {
+                            j1 = itemstack.stackSize;
+                        }
+
+                        itemstack.stackSize -= j1;
+                        entityitem = new EntityItem(par1World, (double)((float)par2 + f), (double)((float)par3 + f1), (double)((float)par4 + f2), new ItemStack(itemstack.getItem(), j1, itemstack.getItemDamage()));
+                        float f3 = 0.05F;
+                        entityitem.motionX = (double)((float)par1World.rand.nextGaussian() * f3);
+                        entityitem.motionY = (double)((float)par1World.rand.nextGaussian() * f3 + 0.2F);
+                        entityitem.motionZ = (double)((float)par1World.rand.nextGaussian() * f3);
+
+                        if (itemstack.hasTagCompound())
+                        {
+                            entityitem.getEntityItem().setTagCompound((NBTTagCompound)itemstack.getTagCompound().copy());
+                        }
+                    }
+                }
+            }
+
+        }
+		
 		super.breakBlock(par1World, par2, par3, par4, par5, par6);
-	}
-	
-	@SideOnly(Side.CLIENT)
-	@Override
-    public void registerBlockIcons(IIconRegister par1IconRegister) {
-		this.blockIcon = par1IconRegister.registerIcon("meteors:shieldTop_lit");
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -94,28 +122,9 @@ public class BlockMeteorShield extends BlockContainerMeteorsMod
 	}
 
 	@Override
-	public int getLightValue(IBlockAccess bAccess, int x, int y, int z)
-	{
-		if (bAccess.getBlockMetadata(x, y, z) == 5) {
-			return 15;
-		}
-		return super.getLightValue(bAccess, x, y, z);
-	}
-
-	@Override
 	public String getLocalizedName()
 	{
 		return LangLocalization.get(this.getUnlocalizedName() + ".name");
-	}
-	
-	@Override	// TODO
-	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
-		ArrayList<ItemStack> ret = super.getDrops(world, x, y, z, metadata, fortune);
-		int gems = metadata > 1 ? metadata - 1 : 0;
-		for (int i = 0; i < gems; i++) {
-			ret.add(new ItemStack(MeteorItems.itemRedMeteorGem, 1));
-		}
-		return ret;
 	}
 
 	@Override

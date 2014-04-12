@@ -3,6 +3,7 @@ package net.meteor.client.tileentity;
 import java.util.Random;
 
 import net.meteor.client.model.ModelMeteorTimer;
+import net.meteor.common.MeteorsMod;
 import net.meteor.common.tileentity.TileEntityMeteorTimer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
@@ -15,6 +16,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class TileEntityMeteorTimerRenderer extends TileEntitySpecialRenderer {
+	
+	private static final ResourceLocation timerTex = new ResourceLocation(MeteorsMod.MOD_ID, "textures/entities/metTimer.png");
 	
 	public ModelMeteorTimer modelMetTimer;
 	
@@ -30,12 +33,14 @@ public class TileEntityMeteorTimerRenderer extends TileEntitySpecialRenderer {
 	@Override
 	// float f appears to be partialTickTime so that's what I should use for cos function for the rotation of the elements
 	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f) {
-		renderMeteorTimer((TileEntityMeteorTimer)tileentity, d0, d1, d2, f);
+		renderMeteorTimer((TileEntityMeteorTimer)tileentity, d0, d1, d2, f, true);
 	}
 	
-	private void renderMeteorTimer(TileEntityMeteorTimer timer, double d0, double d1, double d2, float f) {
+	public void renderMeteorTimer(TileEntityMeteorTimer timer, double d0, double d1, double d2, float f, boolean bindTex) {
 		GL11.glPushMatrix();
-		this.bindTexture(new ResourceLocation("meteors", "textures/entities/metTimer.png"));
+		if (bindTex) {
+			this.bindTexture(timerTex);
+		}
 		modelMetTimer.element_meteorite.rotateAngleY += 0.02F;
 		modelMetTimer.element_meteorite.rotateAngleY %= 360F;
 		

@@ -1,5 +1,7 @@
 package net.meteor.common;
 
+import net.meteor.client.block.ShieldItemRenderer;
+import net.meteor.client.block.TimerItemRenderer;
 import net.meteor.client.effect.EntityFrezaDustFX;
 import net.meteor.client.effect.EntityMeteorShieldParticleFX;
 import net.meteor.client.effect.EntityMeteordustFX;
@@ -14,11 +16,14 @@ import net.meteor.common.entity.EntityAlienCreeper;
 import net.meteor.common.entity.EntityCometKitty;
 import net.meteor.common.entity.EntityMeteor;
 import net.meteor.common.entity.EntitySummoner;
+import net.meteor.common.item.ItemBlockMeteorsMod;
 import net.meteor.common.tileentity.TileEntityMeteorShield;
 import net.meteor.common.tileentity.TileEntityMeteorTimer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;
+import net.minecraft.item.Item;
 import net.minecraft.world.World;
+import net.minecraftforge.client.MinecraftForgeClient;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
@@ -41,6 +46,9 @@ public class ClientProxy extends CommonProxy
 		RenderingRegistry.registerEntityRenderingHandler(EntityAlienCreeper.class, new RenderAlienCreeper());
 		RenderingRegistry.registerEntityRenderingHandler(EntityCometKitty.class, new RenderCometKitty(new ModelCometKitty(), 0.4F));
 		RenderingRegistry.registerEntityRenderingHandler(EntitySummoner.class, new RenderSummoner());
+		
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(MeteorBlocks.blockMeteorShield), new ShieldItemRenderer());
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(MeteorBlocks.blockMeteorTimer), new TimerItemRenderer());
 	}
 
 	public static void spawnParticle(String s, double d, double d1, double d2, double d3, double d4, double d5, World worldObj, int opt)

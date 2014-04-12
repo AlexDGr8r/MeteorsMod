@@ -34,6 +34,10 @@ public class BlockMeteorTimer extends BlockContainerMeteorsMod {
 		return false;
 	}
 	
+	public int getRenderType() {
+        return -1;
+    }
+	
 	@Override
 	public boolean canProvidePower() {
 		return true;
@@ -58,19 +62,6 @@ public class BlockMeteorTimer extends BlockContainerMeteorsMod {
 	public String getLocalizedName()
 	{
 		return LangLocalization.get(this.getUnlocalizedName() + ".name");
-	}
-	
-	@SideOnly(Side.CLIENT)
-	@Override
-    public void registerBlockIcons(IIconRegister par1IconRegister) {
-		this.blockIcon = par1IconRegister.registerIcon("meteors:MeteorTimer");
-		this.timerSide = par1IconRegister.registerIcon("meteors:timerSide");
-	}
-	
-	@Override
-	public IIcon getIcon(int i, int j)
-	{
-		return i > 1 ? this.timerSide : this.blockIcon;
 	}
 	
 	@SideOnly(Side.CLIENT)
