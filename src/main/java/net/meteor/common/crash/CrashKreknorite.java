@@ -3,14 +3,12 @@ package net.meteor.common.crash;
 import java.util.ArrayList;
 import java.util.Random;
 
-import net.meteor.common.ClientHandler;
 import net.meteor.common.EnumMeteor;
 import net.meteor.common.MeteorsMod;
 import net.meteor.common.SBAPI;
 import net.minecraft.block.Block;
 import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;

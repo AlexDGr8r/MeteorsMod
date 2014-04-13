@@ -1,14 +1,12 @@
 package net.meteor.common;
 
-import java.util.EnumSet;
 import java.util.Random;
-
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.WorldTickEvent;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.WorldTickEvent;
 
 public class HandlerMeteorTick
 {

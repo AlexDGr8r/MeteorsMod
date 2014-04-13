@@ -1,13 +1,6 @@
 package net.meteor.common;
 
-import ibxm.Player;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import net.meteor.common.packets.PacketGhostMeteor;
 import net.meteor.common.packets.PacketLastCrash;
@@ -16,14 +9,12 @@ import net.meteor.common.packets.PacketSettings;
 import net.meteor.common.packets.PacketSoonestMeteor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatStyle;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
-import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;

@@ -2,7 +2,6 @@ package net.meteor.common.enchantment;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
-import net.minecraft.util.StatCollector;
 
 public class EnchantmentColdTouch extends Enchantment
 {

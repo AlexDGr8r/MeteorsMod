@@ -1,10 +1,8 @@
 package net.meteor.client.block;
 
 import net.meteor.client.tileentity.TileEntityMeteorTimerRenderer;
-import net.meteor.common.MeteorBlocks;
 import net.meteor.common.MeteorsMod;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;

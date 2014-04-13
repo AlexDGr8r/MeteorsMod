@@ -5,7 +5,6 @@ import io.netty.channel.ChannelHandlerContext;
 import net.meteor.common.ClientHandler;
 import net.meteor.common.CrashLocation;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ChunkCoordinates;
 
 public class PacketLastCrash extends AbstractPacket {
 	

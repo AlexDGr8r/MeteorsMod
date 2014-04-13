@@ -11,6 +11,7 @@ public class BlockMeteorOre extends BlockMeteorsMod
 	public BlockMeteorOre()
 	{
 		super(Material.iron);
+		this.setHarvestLevel("pickaxe", 2);
 	}
 
 	@Override

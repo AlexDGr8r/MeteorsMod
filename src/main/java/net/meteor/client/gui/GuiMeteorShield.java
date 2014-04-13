@@ -2,9 +2,6 @@ package net.meteor.client.gui;
 
 import java.util.List;
 
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
 import net.meteor.common.MeteorItems;
 import net.meteor.common.MeteorsMod;
 import net.meteor.common.block.container.ContainerMeteorShield;
@@ -12,9 +9,11 @@ import net.meteor.common.tileentity.TileEntityMeteorShield;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
 public class GuiMeteorShield extends GuiContainer {
 	

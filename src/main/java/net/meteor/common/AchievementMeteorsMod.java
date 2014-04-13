@@ -1,18 +1,10 @@
 package net.meteor.common;
 
 import net.minecraft.block.Block;
-import net.minecraft.event.HoverEvent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.stats.Achievement;
-import net.minecraft.stats.IStatStringFormat;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IChatComponent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class AchievementMeteorsMod extends Achievement
 {

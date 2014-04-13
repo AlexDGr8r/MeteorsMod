@@ -1,4 +1,4 @@
-tile.MeteorOre.name=Meteor
+tile.MeteorOre.name=Meteorite Ore
 tile.Meteor.name=Fallen Meteor
 tile.MeteorRare.name=Rare Fallen Meteor
 tile.MeteorShield.name=Meteor Shield
@@ -8,6 +8,9 @@ tile.Frezarite.name=Frezarite
 tile.Kreknorite.name=Kreknorite
 tile.MeteorTimer.name=Meteor Timer
 tile.blockRedGem.name=Block of Red Meteor Gem
+tile.meteorDecor.0.name=Meteorite Block
+tile.meteorDecor.1.name=Frozen Iron Block
+tile.meteorDecor.2.name=Kreknorite Block
 
 item.MeteorChips.name=Meteor Chip
 item.RedMeteorGem.name=Red Meteor Gem

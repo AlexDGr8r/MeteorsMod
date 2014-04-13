@@ -1,34 +1,22 @@
 package net.meteor.common.block;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import net.meteor.common.ClientHandler;
-import net.meteor.common.ClientProxy;
-import net.meteor.common.HandlerAchievement;
-import net.meteor.common.HandlerMeteor;
-import net.meteor.common.MeteorItems;
 import net.meteor.common.MeteorsMod;
 import net.meteor.common.tileentity.TileEntityMeteorShield;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.Chunk;
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -134,7 +122,7 @@ public class BlockMeteorShield extends BlockContainerMeteorsMod
 	@Override
 	public void randomDisplayTick(World world, int i, int j, int k, Random random)
 	{
-		if (random.nextInt(64) == 0) { // TODO config option to turn off
+		if (MeteorsMod.instance.meteorShieldSound && random.nextInt(256) == 100) {
 			world.playSound(i + 0.5D, j + 0.5D, k + 0.5D, "meteors:shield.humm", 0.6F, 1.0F, false);
 		}
 	}

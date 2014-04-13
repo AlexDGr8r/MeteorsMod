@@ -3,7 +3,6 @@ package net.meteor.common.item;
 import net.meteor.common.MeteorsMod;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
-import net.minecraft.item.ItemStack;
 
 public class ItemFoodMeteorsMod extends ItemFood
 {

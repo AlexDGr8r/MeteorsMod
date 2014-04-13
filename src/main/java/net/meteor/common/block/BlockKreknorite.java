@@ -21,6 +21,7 @@ public class BlockKreknorite extends BlockMeteor
 	public BlockKreknorite()
 	{
 		super();
+		
 	}
 
 	@Override

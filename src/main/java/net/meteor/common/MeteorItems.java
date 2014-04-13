@@ -37,9 +37,8 @@ public class MeteorItems {
 	public static final Item itemMeteorSummoner 		= new ItemSummoner().setUnlocalizedName("MeteorSummoner").setTextureName("MeteorSummoner");
 	public static final Item itemFrezaCrystal 			= new ItemMeteorsMod().setMaxStackSize(64).setUnlocalizedName("FrezariteCrystal").setTextureName("FrezariteCrystal");
 	public static final Item itemKreknoChip 			= new ItemMeteorsMod().setMaxStackSize(64).setUnlocalizedName("KreknoriteChip").setTextureName("KreknoriteChip");
-	// Update foods
-	public static final Item itemVanillaIceCream 		= new ItemFoodMeteorsMod(2, false).setMaxStackSize(64).setUnlocalizedName("VanillaIceCream").setTextureName("VanillaIceCream");
-	public static final Item itemChocolateIceCream 		= new ItemFoodMeteorsMod(3, false).setMaxStackSize(64).setUnlocalizedName("ChocolateIceCream").setTextureName("ChocolateIceCream");
+	public static final Item itemVanillaIceCream 		= new ItemFoodMeteorsMod(4, false).setMaxStackSize(64).setUnlocalizedName("VanillaIceCream").setTextureName("VanillaIceCream");
+	public static final Item itemChocolateIceCream 		= new ItemFoodMeteorsMod(6, false).setMaxStackSize(64).setUnlocalizedName("ChocolateIceCream").setTextureName("ChocolateIceCream");
 	public static final Item itemMeteorProximityDetector= new ItemDetector(0).setUnlocalizedName("MeteorDetectorProximity").setTextureName("MeteorDetectorProximity");
 	public static final Item itemMeteorTimeDetector 	= new ItemDetector(1).setUnlocalizedName("MeteorDetectorTime").setTextureName("MeteorDetectorTime");
 	public static final Item itemMeteorCrashDetector 	= new ItemDetector(2).setUnlocalizedName("MeteorDetectorCrash").setTextureName("MeteorDetectorCrash");

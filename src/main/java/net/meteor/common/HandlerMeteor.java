@@ -1,9 +1,5 @@
 package net.meteor.common;
 
-import ibxm.Player;
-
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -24,13 +20,11 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.WorldServer;
-import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.event.world.WorldEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;

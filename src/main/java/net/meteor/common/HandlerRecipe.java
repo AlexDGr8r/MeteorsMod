@@ -88,16 +88,12 @@ public class HandlerRecipe implements IFuelHandler {
 			"mm", "s ", "s ", Character.valueOf('m'), MeteorItems.MeteoriteIngot, Character.valueOf('s'), Items.iron_ingot
 		});
 
-		GameRegistry.addRecipe(new ItemStack(MeteorBlocks.blockMeteorOre, 1), new Object[] { 
-			"mm", "mm", Character.valueOf('m'), MeteorItems.itemMeteorChips 
-		});
-
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MeteorBlocks.torchMeteorShieldActive, 4), new Object[] { 
 			"m", "s", Character.valueOf('m'), MeteorItems.itemMeteorChips, Character.valueOf('s'), "stickWood" 
 		}));
 
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MeteorBlocks.blockMeteorShield, 1), new Object[] { 
-			"mmm", "crc", "ccc", Character.valueOf('m'), MeteorItems.itemMeteorChips, Character.valueOf('c'), "cobblestone", Character.valueOf('r'), Items.redstone 
+			"mmm", "crc", "ccc", Character.valueOf('m'), MeteorItems.MeteoriteIngot, Character.valueOf('c'), "cobblestone", Character.valueOf('r'), Items.redstone 
 		}));
 
 		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.ice, 4), new Object[] { 
@@ -177,14 +173,8 @@ public class HandlerRecipe implements IFuelHandler {
 		}));
 
 		GameRegistry.addRecipe(new ItemStack(MeteorBlocks.blockMeteorTimer, 1), new Object[] {
-			"mfk", "brb", Character.valueOf('m'), MeteorItems.itemMeteorChips, Character.valueOf('f'), MeteorItems.itemFrezaCrystal, 
-			Character.valueOf('k'), MeteorItems.itemKreknoChip, Character.valueOf('b'), MeteorBlocks.blockMeteorOre, 
-			Character.valueOf('r'), Items.redstone
-		});
-
-		GameRegistry.addRecipe(new ItemStack(MeteorBlocks.blockMeteorTimer, 1), new Object[] {
-			"mfk", "brb", Character.valueOf('m'), MeteorItems.itemMeteorChips, Character.valueOf('f'), MeteorItems.itemFrezaCrystal, 
-			Character.valueOf('k'), MeteorItems.itemKreknoChip, Character.valueOf('b'), MeteorBlocks.blockMeteor, 
+			"mfk", "brb", Character.valueOf('m'), MeteorItems.MeteoriteIngot, Character.valueOf('f'), MeteorItems.FrozenIron, 
+			Character.valueOf('k'), MeteorItems.KreknoriteIngot, Character.valueOf('b'), new ItemStack(MeteorBlocks.blockDecorator, 1, 0), 
 			Character.valueOf('r'), Items.redstone
 		});
 
@@ -194,6 +184,30 @@ public class HandlerRecipe implements IFuelHandler {
 
 		GameRegistry.addShapelessRecipe(new ItemStack(MeteorItems.itemRedMeteorGem, 9), new Object[] {
 			MeteorBlocks.blockRedMeteorGem
+		});
+		
+		GameRegistry.addRecipe(new ItemStack(MeteorBlocks.blockDecorator, 1, 0), new Object[] {
+			"iii", "iii", "iii", Character.valueOf('i'), MeteorItems.MeteoriteIngot
+		});
+
+		GameRegistry.addShapelessRecipe(new ItemStack(MeteorItems.MeteoriteIngot, 9), new Object[] {
+			new ItemStack(MeteorBlocks.blockDecorator, 1, 0)
+		});
+		
+		GameRegistry.addRecipe(new ItemStack(MeteorBlocks.blockDecorator, 1, 1), new Object[] {
+			"iii", "iii", "iii", Character.valueOf('i'), MeteorItems.FrozenIron
+		});
+
+		GameRegistry.addShapelessRecipe(new ItemStack(MeteorItems.FrozenIron, 9), new Object[] {
+			new ItemStack(MeteorBlocks.blockDecorator, 1, 1)
+		});
+		
+		GameRegistry.addRecipe(new ItemStack(MeteorBlocks.blockDecorator, 1, 2), new Object[] {
+			"iii", "iii", "iii", Character.valueOf('i'), MeteorItems.KreknoriteIngot
+		});
+
+		GameRegistry.addShapelessRecipe(new ItemStack(MeteorItems.KreknoriteIngot, 9), new Object[] {
+			new ItemStack(MeteorBlocks.blockDecorator, 1, 2)
 		});
 
 		GameRegistry.addRecipe(new ItemStack(MeteorItems.itemMeteorProximityDetector, 1), new Object[] { 

@@ -1,7 +1,5 @@
 package net.meteor.common.block.container;
 
-import java.util.List;
-
 import net.meteor.common.HandlerAchievement;
 import net.meteor.common.MeteorItems;
 import net.meteor.common.tileentity.TileEntityMeteorShield;

@@ -1,18 +1,15 @@
 package net.meteor.client.block;
 
-import org.lwjgl.opengl.GL11;
-
 import net.meteor.client.model.ModelMeteorShield;
 import net.meteor.common.MeteorsMod;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.IItemRenderer;
+
+import org.lwjgl.opengl.GL11;
 
 public class ShieldItemRenderer implements IItemRenderer {
 	

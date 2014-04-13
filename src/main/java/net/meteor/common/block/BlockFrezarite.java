@@ -23,6 +23,7 @@ public class BlockFrezarite extends BlockMeteorsMod
 		super(Material.rock);
 		this.slipperiness = 0.98F;
 		setTickRandomly(true);
+		this.setHarvestLevel("pickaxe", 1);
 	}
 
 	@Override

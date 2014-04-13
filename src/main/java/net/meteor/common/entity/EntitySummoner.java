@@ -1,9 +1,6 @@
 package net.meteor.common.entity;
 
 import io.netty.buffer.ByteBuf;
-
-import java.util.List;
-
 import net.meteor.common.ClientHandler;
 import net.meteor.common.EnumMeteor;
 import net.meteor.common.HandlerAchievement;
@@ -11,7 +8,6 @@ import net.meteor.common.HandlerMeteor;
 import net.meteor.common.IMeteorShield;
 import net.meteor.common.MeteorItems;
 import net.meteor.common.MeteorsMod;
-import net.meteor.common.SafeChunkCoordsIntPair;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,7 +18,6 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
-import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 

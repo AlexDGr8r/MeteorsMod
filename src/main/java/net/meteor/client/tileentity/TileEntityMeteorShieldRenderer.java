@@ -1,13 +1,10 @@
 package net.meteor.client.tileentity;
 
 import net.meteor.client.model.ModelMeteorShield;
-import net.meteor.common.EnumMeteor;
 import net.meteor.common.MeteorsMod;
 import net.meteor.common.tileentity.TileEntityMeteorShield;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;

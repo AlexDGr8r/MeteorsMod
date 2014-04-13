@@ -16,7 +16,6 @@ import net.meteor.common.entity.EntityAlienCreeper;
 import net.meteor.common.entity.EntityCometKitty;
 import net.meteor.common.entity.EntityMeteor;
 import net.meteor.common.entity.EntitySummoner;
-import net.meteor.common.item.ItemBlockMeteorsMod;
 import net.meteor.common.tileentity.TileEntityMeteorShield;
 import net.meteor.common.tileentity.TileEntityMeteorTimer;
 import net.minecraft.client.Minecraft;

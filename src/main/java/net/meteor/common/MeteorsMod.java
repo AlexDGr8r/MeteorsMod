@@ -77,6 +77,7 @@ implements IWorldGenerator
 	public boolean frezariteEnabled;
 	public boolean kreknoriteEnabled;
 	public boolean unknownEnabled;
+	public boolean meteorShieldSound;
 	private int chunkChecks;
 	private int oreGenSize;
 	public int MinMeteorSizeForPortal;
@@ -90,7 +91,6 @@ implements IWorldGenerator
 		
 		MeteorBlocks.registerBlocks();
 		MeteorItems.registerItems();
-		MeteorBlocks.readyBlocks();
 		MeteorItems.readyItems();
 		
 		HandlerMeteor.defaultType = EnumMeteor.METEORITE;
@@ -156,6 +156,7 @@ implements IWorldGenerator
 		unknownEnabled		= config.get("Unknown Meteor Enabled", true);
 		chunkChecks 		= config.get("Chunk Generation Checks", 4);
 		oreGenSize  		= config.get("Meteor Ore Gen Size", 6);
+		meteorShieldSound 	= config.get("Meteor Shield Humming Noise Enabled", true);
 		int configTicks 	= config.get("Meteor Fall Deterrence", 25) * 100;
 		int mSpawn = (int)(configTicks * 0.25D);
 		int mCrash = (int)(configTicks * 0.75D);

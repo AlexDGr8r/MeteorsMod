@@ -29,6 +29,8 @@ public class BlockMeteor extends BlockMeteorsMod
 	{
 		super(Material.rock);
 		this.setTickRandomly(true);
+		this.setHarvestLevel("pickaxe", 2);
+		this.setHarvestLevel("pickaxe", 1, 0);
 	}
 
 	@Override
