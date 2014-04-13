@@ -35,7 +35,6 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 
 @Mod(modid=MeteorsMod.MOD_ID, name=MeteorsMod.MOD_NAME, version=MeteorsMod.VERSION)
-//@NetworkMod(clientSideRequired=true, serverSideRequired=false, channels={"MetSettings", "MetNewCrash", "MetNewTime", "MetGhostAdd", "MetGhostRem", "MetShield"}, packetHandler=ClientHandler.class)
 public class MeteorsMod
 implements IWorldGenerator
 {
@@ -44,7 +43,7 @@ implements IWorldGenerator
 	public static final String MOD_NAME = "Falling Meteors";
 	public static final String VERSION 	= "2.12"; 		// Switch to automatic versioning later on
 	
-	public static final boolean loggable = true;		// For Debugging Purposes Only
+	public static final boolean loggable = false;		// For Debugging Purposes Only
 
 	public static final Logger log = Logger.getLogger("Falling Meteors Mod");
 
@@ -88,7 +87,6 @@ implements IWorldGenerator
 	public void preInit(FMLPreInitializationEvent event) {
 		ModConfig.instance.load(event.getSuggestedConfigurationFile());
 		loadStaticConfigurationValues();
-		LangLocalization.addLocalization("/assets/meteors/lang/", "en_US");
 		
 		MeteorBlocks.registerBlocks();
 		MeteorItems.registerItems();

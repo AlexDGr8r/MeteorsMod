@@ -2,7 +2,6 @@ package net.meteor.common.item;
 
 import java.util.List;
 
-import net.meteor.common.LangLocalization;
 import net.meteor.common.MeteorsMod;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -32,8 +32,8 @@ public class ItemFrezariteSword extends ItemSword
 	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
 	{
-		par3List.add("\2473" + LangLocalization.get("enchantment.frezSword.one"));
-		par3List.add("\2473" + LangLocalization.get("enchantment.frezSword.two"));
+		par3List.add("\2473" + StatCollector.translateToLocal("enchantment.frezSword.one"));
+		par3List.add("\2473" + StatCollector.translateToLocal("enchantment.frezSword.two"));
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -47,12 +47,6 @@ public class ItemFrezariteSword extends ItemSword
 	public int getItemEnchantability()
 	{
 		return 0;
-	}
-
-	@Override
-	public String getItemStackDisplayName(ItemStack par1ItemStack)
-	{
-		return LangLocalization.get(this.getUnlocalizedName(par1ItemStack) + ".name").trim();
 	}
 	
 	@Override

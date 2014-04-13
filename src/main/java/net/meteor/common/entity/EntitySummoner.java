@@ -9,7 +9,6 @@ import net.meteor.common.EnumMeteor;
 import net.meteor.common.HandlerAchievement;
 import net.meteor.common.HandlerMeteor;
 import net.meteor.common.IMeteorShield;
-import net.meteor.common.LangLocalization;
 import net.meteor.common.MeteorItems;
 import net.meteor.common.MeteorsMod;
 import net.meteor.common.SafeChunkCoordsIntPair;
@@ -22,6 +21,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
@@ -88,7 +88,7 @@ public class EntitySummoner extends EntityThrowable implements IEntityAdditional
 
 		if (this.worldObj.provider.dimensionId != 0) {
 			if ((player != null) && (!this.worldObj.isRemote)) {
-				player.addChatMessage(new ChatComponentText(LangLocalization.get("MeteorSummoner.wrongDimension")));
+				player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("MeteorSummoner.wrongDimension")));
 				if (!player.capabilities.isCreativeMode) {
 					if (this.isRandom) {
 						player.inventory.addItemStackToInventory(new ItemStack(MeteorItems.itemMeteorSummoner, 1));
@@ -108,7 +108,7 @@ public class EntitySummoner extends EntityThrowable implements IEntityAdditional
 
 			if (!worldObj.getGameRules().getGameRuleBooleanValue("summonMeteors")) {
 				canHit = false;
-				player.addChatMessage(ClientHandler.createMessage(LangLocalization.get("MeteorSummoner.cannotSummon"), EnumChatFormatting.RED));
+				player.addChatMessage(ClientHandler.createMessage(StatCollector.translateToLocal("MeteorSummoner.cannotSummon"), EnumChatFormatting.RED));
 				if (!player.capabilities.isCreativeMode) {
 					if (this.isRandom) {
 						player.inventory.addItemStackToInventory(new ItemStack(MeteorItems.itemMeteorSummoner, 1));
@@ -120,7 +120,7 @@ public class EntitySummoner extends EntityThrowable implements IEntityAdditional
 				IMeteorShield shield = MeteorsMod.proxy.metHandlers.get(worldObj.provider.dimensionId).getClosestShieldInRange(this.chunkCoordX, this.chunkCoordZ);
 				if (shield != null && (!player.getCommandSenderName().equalsIgnoreCase(shield.getOwner()))) {
 					canHit = false;
-					player.addChatMessage(new ChatComponentText(LangLocalization.get("MeteorSummoner.landProtected")));
+					player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("MeteorSummoner.landProtected")));
 					if (!player.capabilities.isCreativeMode) {
 						if (this.isRandom) {
 							player.inventory.addItemStackToInventory(new ItemStack(MeteorItems.itemMeteorSummoner, 1)); 
@@ -134,7 +134,7 @@ public class EntitySummoner extends EntityThrowable implements IEntityAdditional
 
 			if (canHit) {
 				if (player != null) {
-					player.addChatMessage(ClientHandler.createMessage(LangLocalization.get("MeteorSummoner.incomingMeteor"), EnumChatFormatting.LIGHT_PURPLE));
+					player.addChatMessage(ClientHandler.createMessage(StatCollector.translateToLocal("MeteorSummoner.incomingMeteor"), EnumChatFormatting.LIGHT_PURPLE));
 					player.triggerAchievement(HandlerAchievement.summonMeteor);
 				}
 				EntityMeteor meteorToSpawn = new EntityMeteor(this.worldObj, HandlerMeteor.getMeteorSize(), this.posX, this.posZ, EnumMeteor.getTypeFromID(this.mID), true);

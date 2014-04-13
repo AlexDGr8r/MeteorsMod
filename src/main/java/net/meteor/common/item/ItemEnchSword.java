@@ -1,6 +1,5 @@
 package net.meteor.common.item;
 
-import net.meteor.common.LangLocalization;
 import net.meteor.common.MeteorsMod;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.Item;
@@ -34,12 +33,6 @@ public class ItemEnchSword extends ItemSword
 			stack.setTagCompound(tag);
 		}
 		return super.getDamage(stack);
-	}
-
-	@Override
-	public String getItemStackDisplayName(ItemStack par1ItemStack)
-	{
-		return LangLocalization.get(this.getUnlocalizedName(par1ItemStack) + ".name").trim();
 	}
 	
 	@Override

@@ -1,6 +1,7 @@
 package net.meteor.common;
 
 import net.minecraft.stats.Achievement;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.AchievementPage;
 
 public class AchPageMeteorsMod extends AchievementPage
@@ -12,6 +13,7 @@ public class AchPageMeteorsMod extends AchievementPage
 
 	public String getName()
 	{
-		return LangLocalization.get(super.getName());
+		return StatCollector.translateToLocal(super.getName());
 	}
+
 }

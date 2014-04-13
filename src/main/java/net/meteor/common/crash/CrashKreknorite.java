@@ -5,7 +5,6 @@ import java.util.Random;
 
 import net.meteor.common.ClientHandler;
 import net.meteor.common.EnumMeteor;
-import net.meteor.common.LangLocalization;
 import net.meteor.common.MeteorsMod;
 import net.meteor.common.SBAPI;
 import net.minecraft.block.Block;

@@ -27,6 +27,7 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
@@ -64,7 +65,6 @@ public class HandlerMeteor
 		this.worldName = theWorld.getWorldInfo().getWorldName();
 		this.tickHandler = new HandlerMeteorTick(this, worldName);
 		FMLCommonHandler.instance().bus().register(tickHandler);
-		//TickRegistry.registerTickHandler(this.tickHandler, Side.SERVER); TODO
 	}
 
 	public void updateMeteors() {
@@ -88,7 +88,7 @@ public class HandlerMeteor
 							String owner = shield.getOwner();
 							EntityPlayer player = theWorld.func_73046_m().getConfigurationManager().getPlayerForUsername(owner);
 							if (player != null) {
-								player.addChatMessage(ClientHandler.createMessage(LangLocalization.get("MeteorShield.meteorBlocked"), EnumChatFormatting.GREEN));
+								player.addChatMessage(ClientHandler.createMessage(StatCollector.translateToLocal("MeteorShield.meteorBlocked"), EnumChatFormatting.GREEN));
 								player.addStat(HandlerAchievement.meteorBlocked, 1);
 							}
 							sendMeteorMaterialsToShield(shield, gMeteor);
@@ -177,7 +177,7 @@ public class HandlerMeteor
 	}
 
 	public void kittyAttack() {
-		theWorld.func_73046_m().getConfigurationManager().sendChatMsg(ClientHandler.createMessage(LangLocalization.get("Meteor.kittiesIncoming"), EnumChatFormatting.DARK_RED));
+		theWorld.func_73046_m().getConfigurationManager().sendChatMsg(ClientHandler.createMessage(StatCollector.translateToLocal("Meteor.kittiesIncoming"), EnumChatFormatting.DARK_RED));
 		for (int i = 0; i < this.theWorld.playerEntities.size(); i++) {
 			EntityPlayer player = (EntityPlayer) this.theWorld.playerEntities.get(i);
 			if (player != null) {
@@ -193,7 +193,7 @@ public class HandlerMeteor
 						String owner = shield.getOwner();
 						EntityPlayer playerOwner = theWorld.func_73046_m().getConfigurationManager().getPlayerForUsername(owner);
 						if (playerOwner != null) {
-							playerOwner.addChatMessage(ClientHandler.createMessage(LangLocalization.get("MeteorShield.meteorBlocked"), EnumChatFormatting.GREEN));
+							playerOwner.addChatMessage(ClientHandler.createMessage(StatCollector.translateToLocal("MeteorShield.meteorBlocked"), EnumChatFormatting.GREEN));
 							playerOwner.addStat(HandlerAchievement.meteorBlocked, 1);
 						}
 						this.sendMeteorMaterialsToShield(shield, new GhostMeteor(x, z, 1, 0, EnumMeteor.KITTY));
@@ -229,7 +229,7 @@ public class HandlerMeteor
 			lastCrash = new CrashLocation(x, y, z, true, lastCrash);
 			MeteorsMod.packetPipeline.sendToDimension(new PacketLastCrash(lastCrash), theWorld.provider.dimensionId);
 			if (MeteorsMod.instance.textNotifyCrash) {
-				theWorld.func_73046_m().getConfigurationManager().sendChatMsg(new ChatComponentText(LangLocalization.get("Meteor.crashed")));
+				theWorld.func_73046_m().getConfigurationManager().sendChatMsg(new ChatComponentText(StatCollector.translateToLocal("Meteor.crashed")));
 			}
 			
 			AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(x - 60D, 0, z - 60D, x + 60D, theWorld.getHeight(), z + 60D);
@@ -266,12 +266,12 @@ public class HandlerMeteor
 			if (shield.equals(shield2)) {
 				meteorShields.remove(i);
 				meteorShields.add(shield);
-				MeteorsMod.log.info("METEOR SHIELD REPLACED X:" + shield.getX() + " Y:" + shield.getY() + " Z:" + shield.getZ() + " O:" + shield.getOwner());
+//				MeteorsMod.log.info("METEOR SHIELD REPLACED X:" + shield.getX() + " Y:" + shield.getY() + " Z:" + shield.getZ() + " O:" + shield.getOwner());
 				return;
 			}
 		}
 		meteorShields.add(shield);
-		MeteorsMod.log.info("METEOR SHIELD ADDED X:" + shield.getX() + " Y:" + shield.getY() + " Z:" + shield.getZ() + " O:" + shield.getOwner());
+//		MeteorsMod.log.info("METEOR SHIELD ADDED X:" + shield.getX() + " Y:" + shield.getY() + " Z:" + shield.getZ() + " O:" + shield.getOwner());
 	}
 
 	public IMeteorShield getClosestShield(int x, int z) {
@@ -326,8 +326,8 @@ public class HandlerMeteor
 				Iterator<EntityPlayer> iter = theWorld.playerEntities.iterator();
 				while (iter.hasNext()) {
 					EntityPlayer player = iter.next();
-					player.addChatMessage(ClientHandler.createMessage(LangLocalization.get("Meteor.kittiesDetected.one"), EnumChatFormatting.DARK_RED));
-					player.addChatMessage(ClientHandler.createMessage(LangLocalization.get("Meteor.kittiesDetected.two"), EnumChatFormatting.DARK_RED));
+					player.addChatMessage(ClientHandler.createMessage(StatCollector.translateToLocal("Meteor.kittiesDetected.one"), EnumChatFormatting.DARK_RED));
+					player.addChatMessage(ClientHandler.createMessage(StatCollector.translateToLocal("Meteor.kittiesDetected.two"), EnumChatFormatting.DARK_RED));
 				}
 			}
 		}

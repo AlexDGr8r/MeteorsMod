@@ -49,6 +49,9 @@ item.ChocolateIceCream.name=Chocolate Ice Cream
 item.MeteorDetectorProximity.name=Meteor Proximity Detector
 item.MeteorDetectorTime.name=Meteor Time Detector
 item.MeteorDetectorCrash.name=Meteor Crash Detector
+item.MeteoriteIngot.name=Meteorite Ingot
+item.FrozenIron.name=Frozen Iron
+item.KreknoriteIngot.name=Kreknorite Ingot
 
 entity.AlienCreeper.name=Alien Creeper
 entity.CometKitty.name=Comet Kitty
@@ -76,7 +79,7 @@ ProtectionTorch.landOwnership=This land is protected by:
 ProtectionTorch.usage=One-time use!
 
 enchantment.Magnetization=Magnetization
-enchantment.ColdTouch=Cold Touch
+enchantment.Cold Touch=Cold Touch
 enchantment.addEnch.one=Right-click while in hand
 enchantment.addEnch.two=to add enchantment
 enchantment.frezAxe.one=Increases underwater

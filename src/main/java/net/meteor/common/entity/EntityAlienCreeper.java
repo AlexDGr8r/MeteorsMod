@@ -1,6 +1,5 @@
 package net.meteor.common.entity;
 
-import net.meteor.common.LangLocalization;
 import net.meteor.common.MeteorItems;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.monster.EntityCreeper;
@@ -30,12 +29,6 @@ public class EntityAlienCreeper extends EntityCreeper
 	{
 		super.entityInit();
 		this.dataWatcher.updateObject(17, Byte.valueOf((byte)1));
-	}
-
-	@Override
-	public String getCommandSenderName()
-	{
-		return LangLocalization.get("entity.AlienCreeper.name");
 	}
 	
 	@Override

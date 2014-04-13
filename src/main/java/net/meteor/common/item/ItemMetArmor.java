@@ -1,6 +1,5 @@
 package net.meteor.common.item;
 
-import net.meteor.common.LangLocalization;
 import net.meteor.common.MeteorsMod;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
@@ -27,16 +26,10 @@ public class ItemMetArmor extends ItemArmor
 	public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type)
 	{
 		if (slot == 2) {
-			return "meteors:textures/armor/" + this.armorTex + "Armor_2.png";
+			return MeteorsMod.MOD_ID + ":textures/armor/" + this.armorTex + "Armor_2.png";
 		} else {
-			return "meteors:textures/armor/" + this.armorTex + "Armor_1.png";
+			return MeteorsMod.MOD_ID + ":textures/armor/" + this.armorTex + "Armor_1.png";
 		}
-	}
-	
-	@Override
-	public String getItemStackDisplayName(ItemStack par1ItemStack)
-	{
-		return LangLocalization.get(this.getUnlocalizedName(par1ItemStack) + ".name").trim();
 	}
 	
 	@Override

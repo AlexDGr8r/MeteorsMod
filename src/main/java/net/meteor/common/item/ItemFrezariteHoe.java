@@ -2,7 +2,6 @@ package net.meteor.common.item;
 
 import java.util.List;
 
-import net.meteor.common.LangLocalization;
 import net.meteor.common.MeteorsMod;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,6 +9,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.UseHoeEvent;
@@ -74,8 +74,8 @@ public class ItemFrezariteHoe extends ItemHoe
 	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
 	{
-		par3List.add("\2473" + LangLocalization.get("enchantment.frezHoe.one"));
-		par3List.add("\2473" + LangLocalization.get("enchantment.frezHoe.two"));
+		par3List.add("\2473" + StatCollector.translateToLocal("enchantment.frezHoe.one"));
+		par3List.add("\2473" + StatCollector.translateToLocal("enchantment.frezHoe.two"));
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -89,12 +89,6 @@ public class ItemFrezariteHoe extends ItemHoe
 	public int getItemEnchantability()
 	{
 		return 0;
-	}
-
-	@Override
-	public String getItemStackDisplayName(ItemStack par1ItemStack)
-	{
-		return LangLocalization.get(this.getUnlocalizedName(par1ItemStack) + ".name").trim();
 	}
 	
 	@Override

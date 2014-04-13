@@ -11,7 +11,6 @@ import net.meteor.common.GhostMeteor;
 import net.meteor.common.HandlerAchievement;
 import net.meteor.common.HandlerMeteor;
 import net.meteor.common.IMeteorShield;
-import net.meteor.common.LangLocalization;
 import net.meteor.common.MeteorsMod;
 import net.meteor.common.SafeChunkCoordsIntPair;
 import net.meteor.common.crash.CrashFrezarite;
@@ -26,6 +25,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
@@ -102,7 +102,7 @@ implements IEntityAdditionalSpawnData
 					String owner = shield.getOwner();
 					EntityPlayer playerOwner = ((WorldServer)worldObj).func_73046_m().getConfigurationManager().getPlayerForUsername(owner);
 					if (playerOwner != null) {
-						playerOwner.addChatMessage(ClientHandler.createMessage(LangLocalization.get("MeteorShield.meteorBlocked"), EnumChatFormatting.GREEN));
+						playerOwner.addChatMessage(ClientHandler.createMessage(StatCollector.translateToLocal("MeteorShield.meteorBlocked"), EnumChatFormatting.GREEN));
 						playerOwner.addStat(HandlerAchievement.meteorBlocked, 1);
 					}
 					metHandler.sendMeteorMaterialsToShield(shield, new GhostMeteor((int)posX, (int)posZ, size, 0, meteorType));

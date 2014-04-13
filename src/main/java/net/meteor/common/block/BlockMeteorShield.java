@@ -7,7 +7,6 @@ import net.meteor.common.ClientHandler;
 import net.meteor.common.ClientProxy;
 import net.meteor.common.HandlerAchievement;
 import net.meteor.common.HandlerMeteor;
-import net.meteor.common.LangLocalization;
 import net.meteor.common.MeteorItems;
 import net.meteor.common.MeteorsMod;
 import net.meteor.common.tileentity.TileEntityMeteorShield;
@@ -20,9 +19,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
@@ -37,6 +39,7 @@ public class BlockMeteorShield extends BlockContainerMeteorsMod
 	{
 		super(Material.rock);
 		this.setLightOpacity(0);
+		this.setBlockBounds(0.0625F, 0.375F, 0.0625F, 0.9375F, 1.0F, 0.9375F);
 	}
 
 	@Override
@@ -45,12 +48,34 @@ public class BlockMeteorShield extends BlockContainerMeteorsMod
 		if ((par5EntityLiving instanceof EntityPlayer)) {
 			EntityPlayer player = (EntityPlayer)par5EntityLiving;
 			if (!par1World.isRemote) {
-				player.addChatMessage(ClientHandler.createMessage(LangLocalization.get("MeteorShield.charging"), EnumChatFormatting.YELLOW));
+				player.addChatMessage(ClientHandler.createMessage(StatCollector.translateToLocal("MeteorShield.charging"), EnumChatFormatting.YELLOW));
 			}
 			TileEntityMeteorShield shield = (TileEntityMeteorShield) par1World.getTileEntity(par2, par3, par4);
 			shield.owner = player.getCommandSenderName();
 			par1World.playSoundEffect(par2, par3, par4, "meteors:shield.humm", 1.0F, 1.0F);
 		}
+		
+		int l = MathHelper.floor_double((double)(par5EntityLiving.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+
+        if (l == 0)
+        {
+        	par1World.setBlockMetadataWithNotify(par2, par3, par4, 1, 2);
+        }
+
+        if (l == 1)
+        {
+        	par1World.setBlockMetadataWithNotify(par2, par3, par4, 0, 2);
+        }
+
+        if (l == 2)
+        {
+        	par1World.setBlockMetadataWithNotify(par2, par3, par4, 3, 2);
+        }
+
+        if (l == 3)
+        {
+        	par1World.setBlockMetadataWithNotify(par2, par3, par4, 2, 2);
+        }
 	}
 
 	@Override
@@ -59,7 +84,7 @@ public class BlockMeteorShield extends BlockContainerMeteorsMod
 		TileEntityMeteorShield shield = (TileEntityMeteorShield)par1World.getTileEntity(par2, par3, par4);
 		if (!par1World.isRemote) {
 			if (MeteorsMod.proxy.metHandlers.get(par1World.provider.dimensionId).meteorShields.remove(shield)) {
-				MeteorsMod.log.info("METEOR SHIELD SHOULD BE REMOVED");
+				//MeteorsMod.log.info("METEOR SHIELD SHOULD BE REMOVED");
 			}
 			par1World.playSoundEffect(par2 + 0.5D, par3 + 0.5D, par4 + 0.5D, "meteors:shield.powerdown", 1.0F, 1.0F);
 		}
@@ -122,14 +147,7 @@ public class BlockMeteorShield extends BlockContainerMeteorsMod
 	}
 
 	@Override
-	public String getLocalizedName()
-	{
-		return LangLocalization.get(this.getUnlocalizedName() + ".name");
-	}
-
-	@Override
 	public TileEntity createNewTileEntity(World world, int metadata) {
-		MeteorsMod.whatSide(FMLCommonHandler.instance().getEffectiveSide(), "new Meteor Shield");
 		return new TileEntityMeteorShield();
 	}
 	

@@ -7,7 +7,6 @@ import java.util.Random;
 import net.meteor.common.ClientProxy;
 import net.meteor.common.HandlerMeteor;
 import net.meteor.common.IMeteorShield;
-import net.meteor.common.LangLocalization;
 import net.meteor.common.MeteorBlocks;
 import net.meteor.common.MeteorsMod;
 import net.meteor.common.SafeChunkCoordsIntPair;
@@ -16,6 +15,7 @@ import net.minecraft.block.BlockTorch;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
@@ -119,7 +119,7 @@ public class BlockMeteorShieldTorch extends BlockTorch
 			HandlerMeteor meteorHandler = MeteorsMod.proxy.metHandlers.get(world.provider.dimensionId);
 			List<IMeteorShield> shields = meteorHandler.getShieldsInRange(i, k);
 			if (!shields.isEmpty()) {
-				player.addChatMessage(new ChatComponentText(LangLocalization.get("ProtectionTorch.landOwnership")));
+				player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("ProtectionTorch.landOwnership")));
 				List owners = new ArrayList();
 				for (int l = 0; l < shields.size(); l++) {
 					IMeteorShield oPair = shields.get(l);
@@ -140,12 +140,6 @@ public class BlockMeteorShieldTorch extends BlockTorch
 	@Override
 	public Block setBlockTextureName(String s) {
 		return super.setBlockTextureName(MeteorsMod.MOD_ID + ":" + s);
-	}
-
-	@Override
-	public String getLocalizedName()
-	{
-		return LangLocalization.get("tile.ProtectedLandTester.name");
 	}
 
 }

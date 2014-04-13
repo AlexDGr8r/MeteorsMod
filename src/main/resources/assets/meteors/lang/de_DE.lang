@@ -58,7 +58,7 @@ MeteorShield.meteorBlocked=Das Meteoritenschild hat einen Meteoriten abgewehrt.
 ProtectionTorch.landOwnership=Dieses Gebiet ist geschuetzt durch das Schild von:
 
 enchantment.Magnetization=Magnetisierung
-enchantment.ColdTouch=Kalte-Beruehrung
+enchantment.Cold Touch=Kalte-Beruehrung
 enchantment.addEnch.one=Mit der rechten Maustaste klicken
 enchantment.addEnch.two=um Verzauberung hinzuzufuegen
 enchantment.frezAxe.one=Erhoeht Unterwasser

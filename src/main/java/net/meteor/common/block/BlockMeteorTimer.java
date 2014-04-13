@@ -1,6 +1,5 @@
 package net.meteor.common.block;
 
-import net.meteor.common.LangLocalization;
 import net.meteor.common.tileentity.TileEntityMeteorTimer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -9,6 +8,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
@@ -58,12 +58,6 @@ public class BlockMeteorTimer extends BlockContainerMeteorsMod {
 		return 1;
 	}
 	
-	@Override
-	public String getLocalizedName()
-	{
-		return LangLocalization.get(this.getUnlocalizedName() + ".name");
-	}
-	
 	@SideOnly(Side.CLIENT)
 	@Override
     public AxisAlignedBB getSelectedBoundingBoxFromPool(World par1World, int par2, int par3, int par4)
@@ -78,9 +72,9 @@ public class BlockMeteorTimer extends BlockContainerMeteorsMod {
 			TileEntityMeteorTimer tEntity = (TileEntityMeteorTimer)world.getTileEntity(i, j, k);
 			tEntity.quickMode = !tEntity.quickMode;
 			if (tEntity.quickMode) {
-				player.addChatMessage(new ChatComponentText(LangLocalization.get("MeteorTimer.modeChange.two")));
+				player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("MeteorTimer.modeChange.two")));
 			} else {
-				player.addChatMessage(new ChatComponentText(LangLocalization.get("MeteorTimer.modeChange.one")));
+				player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("MeteorTimer.modeChange.one")));
 			}
 		}
 		

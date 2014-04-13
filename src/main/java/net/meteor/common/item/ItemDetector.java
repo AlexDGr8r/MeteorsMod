@@ -4,12 +4,12 @@ import java.util.List;
 
 import net.meteor.client.TextureDetector;
 import net.meteor.common.ClientHandler;
-import net.meteor.common.LangLocalization;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -35,29 +35,29 @@ public class ItemDetector extends ItemMeteorsMod {
 		}
 		
 		if (type == 1) {
-			par3List.add(EnumChatFormatting.AQUA + LangLocalization.get("Detector.time"));
+			par3List.add(EnumChatFormatting.AQUA + StatCollector.translateToLocal("Detector.time"));
 			if (ClientHandler.nearestTimeLocation == null) {
-				par3List.add(LangLocalization.get("Detector.scanning") + dots);
+				par3List.add(StatCollector.translateToLocal("Detector.scanning") + dots);
 			} else {
-				par3List.add(EnumChatFormatting.GREEN + LangLocalization.get("Detector.detected"));
+				par3List.add(EnumChatFormatting.GREEN + StatCollector.translateToLocal("Detector.detected"));
 			}
 		} else if (type == 0) {
-			par3List.add(EnumChatFormatting.LIGHT_PURPLE + LangLocalization.get("Detector.proximity"));
+			par3List.add(EnumChatFormatting.LIGHT_PURPLE + StatCollector.translateToLocal("Detector.proximity"));
 			if (ClientHandler.getClosestIncomingMeteor(par2EntityPlayer.posX, par2EntityPlayer.posZ) == null) {
-				par3List.add(LangLocalization.get("Detector.scanning") + dots);
+				par3List.add(StatCollector.translateToLocal("Detector.scanning") + dots);
 			} else {
-				par3List.add(EnumChatFormatting.GREEN + LangLocalization.get("Detector.detected"));
+				par3List.add(EnumChatFormatting.GREEN + StatCollector.translateToLocal("Detector.detected"));
 			}
 		} else {
-			par3List.add(EnumChatFormatting.RED + LangLocalization.get("Detector.crash"));
+			par3List.add(EnumChatFormatting.RED + StatCollector.translateToLocal("Detector.crash"));
 			if (ClientHandler.lastCrashLocation == null) {
-				par3List.add(LangLocalization.get("CrashDetector.noActivity"));
-				par3List.add(LangLocalization.get("Detector.scanning") + dots);
+				par3List.add(StatCollector.translateToLocal("CrashDetector.noActivity"));
+				par3List.add(StatCollector.translateToLocal("Detector.scanning") + dots);
 			} else {
 				if (ClientHandler.lastCrashLocation.inOrbit) {
 					par3List.add(EnumChatFormatting.GREEN + "Orbital Entrance Detected!");
 				} else {
-					par3List.add(EnumChatFormatting.GREEN + LangLocalization.get("CrashDetector.zoneLocated"));
+					par3List.add(EnumChatFormatting.GREEN + StatCollector.translateToLocal("CrashDetector.zoneLocated"));
 				}
 			}
 		}

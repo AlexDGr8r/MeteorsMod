@@ -1,6 +1,5 @@
 package net.meteor.common.item;
 
-import net.meteor.common.LangLocalization;
 import net.meteor.common.MeteorsMod;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
@@ -18,12 +17,6 @@ public class ItemFoodMeteorsMod extends ItemFood
     {
         this(p_i45340_1_, 0.6F, p_i45340_2_);
     }
-
-	@Override
-	public String getItemStackDisplayName(ItemStack par1ItemStack)
-	{
-		return LangLocalization.get(this.getUnlocalizedName(par1ItemStack) + ".name").trim();
-	}
 	
 	@Override
 	public Item setTextureName(String s) {

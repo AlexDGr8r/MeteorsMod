@@ -1,7 +1,6 @@
 package net.meteor.common.entity;
 
 import net.meteor.common.HandlerAchievement;
-import net.meteor.common.LangLocalization;
 import net.meteor.common.MeteorItems;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -50,12 +49,6 @@ public class EntityCometKitty extends EntityOcelot
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(16.0D);
     }
-
-	@Override
-	public String getCommandSenderName()
-	{
-		return LangLocalization.get("entity.CometKitty.name");
-	}
 	
 	@Override
 	public void setOwner(String par1Str) {

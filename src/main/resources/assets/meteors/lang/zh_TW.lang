@@ -58,7 +58,7 @@ MeteorShield.meteorBlocked=您的流星之盾保護你的土地，從一顆流�
 ProtectionTorch.landOwnership=This land is protected by:
 
 enchantment.Magnetization=磁化
-enchantment.ColdTouch=冰冷觸摸
+enchantment.Cold Touch=冰冷觸摸
 enchantment.addEnch.one=單擊滑鼠右鍵，在手
 enchantment.addEnch.two=添加魅力
 enchantment.frezAxe.one=增加水下

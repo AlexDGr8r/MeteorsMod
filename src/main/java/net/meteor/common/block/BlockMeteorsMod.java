@@ -1,6 +1,5 @@
 package net.meteor.common.block;
 
-import net.meteor.common.LangLocalization;
 import net.meteor.common.MeteorsMod;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -18,9 +17,4 @@ public class BlockMeteorsMod extends Block
 		return super.setBlockTextureName(MeteorsMod.MOD_ID + ":" + s);
 	}
 
-	@Override
-	public String getLocalizedName()
-	{
-		return LangLocalization.get(this.getUnlocalizedName() + ".name");
-	}
 }

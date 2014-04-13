@@ -9,7 +9,6 @@ import net.meteor.common.ClientProxy;
 import net.meteor.common.EnumMeteor;
 import net.meteor.common.HandlerMeteor;
 import net.meteor.common.IMeteorShield;
-import net.meteor.common.LangLocalization;
 import net.meteor.common.MeteorItems;
 import net.meteor.common.MeteorShieldData;
 import net.meteor.common.MeteorsMod;
@@ -29,6 +28,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
@@ -69,8 +69,7 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory, IM
 	public void updateEntity()
 	{
 		++age;
-		// Possible solution for moveover: powerLevel will equal 0, so remove meta dependency entirely and cause the block update
-		// function to check powerLevel instead of metadata. Shields will have to charge, but should get reconfigured correctly.
+		
 		if (!this.shieldedChunks) {
 			if (powerLevel > 0) {
 				if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
@@ -86,7 +85,7 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory, IM
 					if (owner != null && owner.length() > 0) {
 						EntityPlayer player = worldObj.getPlayerEntityByName(owner);
 						if (player != null) {
-							player.addChatMessage(ClientHandler.createMessage(LangLocalization.get("MeteorShield.howToUpgrade"), EnumChatFormatting.GOLD));
+							player.addChatMessage(ClientHandler.createMessage(StatCollector.translateToLocal("MeteorShield.howToUpgrade"), EnumChatFormatting.GOLD));
 						}
 					}
 				}
@@ -262,7 +261,7 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory, IM
 	@Override
 	@SideOnly(Side.CLIENT)
 	public AxisAlignedBB getRenderBoundingBox() {
-		return TileEntity.INFINITE_EXTENT_AABB;
+		return AxisAlignedBB.getAABBPool().getAABB(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1.5, zCoord + 1);
 	}
 
 	@Override
@@ -365,7 +364,7 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory, IM
 		if (MeteorsMod.instance.ShieldRadiusMultiplier <= 0 && !worldObj.isRemote) {
 			EntityPlayer player = ((WorldServer)worldObj).func_73046_m().getConfigurationManager().getPlayerForUsername(owner);
 			if (player != null) {
-				player.addChatMessage(new ChatComponentText(LangLocalization.get("MeteorShield.noUpgrade")));
+				player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("MeteorShield.noUpgrade")));
 			}	
 		}
 		this.markDirty();

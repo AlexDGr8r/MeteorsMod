@@ -63,7 +63,7 @@ MeteorTimer.modeChange.two=Quick Mode: Il Timer Meteorico ora emetterà un segna
 ProtectionTorch.landOwnership=Questa zona è protetta da:
 
 enchantment.Magnetization=Magnetizzazione
-enchantment.ColdTouch=Tocco Freddo
+enchantment.Cold Touch=Tocco Freddo
 enchantment.addEnch.one=Clic destro quando in mano
 enchantment.addEnch.two=per aggiungere un'incantesimo
 enchantment.frezAxe.one=Velocità sott'acqua aumentata
