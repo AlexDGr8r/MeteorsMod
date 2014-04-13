@@ -1,6 +1,7 @@
 package net.meteor.client;
 
 import net.meteor.common.ClientHandler;
+import net.meteor.common.CrashLocation;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureUtil;
@@ -48,7 +49,12 @@ public class TextureDetector extends TextureAtlasSprite {
 			} else if (this.detectorType == 1) {
 				chunkcoordinates = ClientHandler.nearestTimeLocation;
 			} else {
-				chunkcoordinates = ClientHandler.lastCrashLocation;
+				CrashLocation cl = ClientHandler.lastCrashLocation;
+				if (cl != null) {
+					chunkcoordinates = new ChunkCoordinates(cl.x, cl.y, cl.z);
+				} else {
+					chunkcoordinates = null;
+				}
 			}
 			if (chunkcoordinates != null) {
 				double d4 = (double)chunkcoordinates.posX - par2;

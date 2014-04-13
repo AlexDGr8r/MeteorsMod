@@ -9,7 +9,6 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class CommonProxy
 {
 	public HashMap<Integer, HandlerMeteor> metHandlers = new HashMap<Integer, HandlerMeteor>();
-	public HashMap<String, EnumMeteor> lastMeteorPrevented = new HashMap<String, EnumMeteor>();
 
 	public void registerTileEntities() {
 		GameRegistry.registerTileEntity(TileEntityMeteorShield.class, "TileEntityMeteorShield");

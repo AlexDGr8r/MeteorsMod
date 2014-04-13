@@ -32,7 +32,7 @@ public class CrashedChunkSetData extends WorldSavedData {
 		return result;
 	}
 
-	private ArrayList<CrashedChunkSet> loadCrashedChunks(NBTTagCompound tag) {
+	private ArrayList<CrashedChunkSet> loadCrashedChunks(NBTTagCompound tag, HandlerMeteor mHandler) {
 		ArrayList<CrashedChunkSet> cList = new ArrayList<CrashedChunkSet>();
 		for (int i = 1; i <= 20; i++) {
 			if (tag.hasKey("CCSet" + i)) {
@@ -42,6 +42,7 @@ public class CrashedChunkSetData extends WorldSavedData {
 				}
 			}
 		}
+		mHandler.lastCrash = CrashLocation.fromNBT(tag);
 		return cList;
 	}
 
@@ -59,14 +60,18 @@ public class CrashedChunkSetData extends WorldSavedData {
 			}
 			i++;
 		}
+		
+		if (metHandler.lastCrash != null) {
+			metHandler.lastCrash.toNBT(tag);
+		}
 	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound tag) {
 		if (metHandler != null) {
-			metHandler.crashedChunks = loadCrashedChunks(tag);
+			metHandler.crashedChunks = loadCrashedChunks(tag, metHandler);
 		} else {
-			tempHandle.crashedChunks = loadCrashedChunks(tag);
+			tempHandle.crashedChunks = loadCrashedChunks(tag, tempHandle);
 		}
 	}
 

@@ -42,11 +42,8 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory, IM
 	public static final int CHARGE_TIME = 1600;
 
 	private boolean shieldedChunks;
-	private EnumMeteor lastStoppedMeteor = EnumMeteor.METEORITE;
 	public String owner;
-	public boolean renderRay = false;
 
-	// start redoing the meteor shield
 	private int range;
 	private int powerLevel;
 
@@ -79,7 +76,7 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory, IM
 				if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
 					MeteorsMod.proxy.metHandlers.get(worldObj.provider.dimensionId).addShield(this);
 				}
-				this.shieldedChunks = this.renderRay = true;
+				this.shieldedChunks = true;
 				this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
 			} else if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
 				GenerateParticles(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.worldObj.rand);
@@ -97,10 +94,6 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory, IM
 		}
 		if (this.shieldedChunks) {
 			range = powerLevel * MeteorsMod.instance.ShieldRadiusMultiplier;	// update range (may load as 0 for old updates, thus check with this)
-
-			if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
-				GenerateParticles(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.worldObj.rand);
-			}
 		}
 	}
 
@@ -200,12 +193,7 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory, IM
 						{
 							break;
 						}
-						if (powerLevel == 5) {
-							int id = getLastStoppedMeteor().getID();
-							ClientProxy.spawnParticle("meteorshield", x + 0.5D, y + 2.0D, z + 0.5D, currX - x + random.nextFloat() - 0.5D, currY - y - random.nextFloat() - 1.0F, currZ - z + random.nextFloat() - 0.5D, world, id);
-						} else {
-							ClientProxy.spawnParticle("meteorshield", x + 0.5D, y + 2.0D, z + 0.5D, currX - x + random.nextFloat() - 0.5D, currY - y - random.nextFloat() - 1.0F, currZ - z + random.nextFloat() - 0.5D, world, -1);
-						}
+						ClientProxy.spawnParticle("meteorshield", x + 0.5D, y + 2.0D, z + 0.5D, currX - x + random.nextFloat() - 0.5D, currY - y - random.nextFloat() - 1.0F, currZ - z + random.nextFloat() - 0.5D, world, -1);
 					}
 				}
 			}
@@ -220,8 +208,7 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory, IM
 		if (owner == null || owner.trim().isEmpty()) {
 			owner = "None";
 		}
-		this.lastStoppedMeteor = EnumMeteor.getTypeFromID(nbt.getInteger("metprevent"));
-		MeteorsMod.proxy.lastMeteorPrevented.put(this.owner, this.lastStoppedMeteor);
+		
 		this.powerLevel = nbt.getInteger("powerLevel");
 		this.range = MeteorsMod.instance.ShieldRadiusMultiplier * powerLevel;
 
@@ -243,12 +230,6 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory, IM
 	{
 		super.writeToNBT(nbt);
 		nbt.setString("owner", this.owner);
-		this.lastStoppedMeteor = ((EnumMeteor)MeteorsMod.proxy.lastMeteorPrevented.get(this.owner));
-		if (this.lastStoppedMeteor != null) {
-			nbt.setInteger("metprevent", this.lastStoppedMeteor.getID());
-		} else {
-			nbt.setInteger("metprevent", EnumMeteor.METEORITE.getID());
-		}
 		nbt.setInteger("powerLevel", powerLevel);
 
 		NBTTagList nbttaglist = new NBTTagList();
@@ -262,15 +243,6 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory, IM
 		}
 
 		nbt.setTag("Items", nbttaglist);
-	}
-
-	public EnumMeteor getLastStoppedMeteor()
-	{
-		this.lastStoppedMeteor = ((EnumMeteor)MeteorsMod.proxy.lastMeteorPrevented.get(this.owner));
-		if (this.lastStoppedMeteor != null) {
-			return this.lastStoppedMeteor;
-		}
-		return EnumMeteor.METEORITE;
 	}
 
 	@Override

@@ -13,7 +13,6 @@ import net.meteor.common.packets.PacketGhostMeteor;
 import net.meteor.common.packets.PacketLastCrash;
 import net.meteor.common.packets.PacketPipeline;
 import net.meteor.common.packets.PacketSettings;
-import net.meteor.common.packets.PacketShieldUpdate;
 import net.meteor.common.packets.PacketSoonestMeteor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -33,7 +32,7 @@ import cpw.mods.fml.relauncher.Side;
 
 public class ClientHandler
 {
-	public static ChunkCoordinates lastCrashLocation = null;
+	public static CrashLocation lastCrashLocation = null;
 	public static ChunkCoordinates nearestTimeLocation = null;
 	public static ArrayList<ChunkCoordinates> ghostMetLocs = new ArrayList<ChunkCoordinates>(); // TODO Privatize
 	
@@ -47,7 +46,6 @@ public class ClientHandler
 		this.packetPipeline.registerPacket(PacketGhostMeteor.class);
 		this.packetPipeline.registerPacket(PacketLastCrash.class);
 		this.packetPipeline.registerPacket(PacketSettings.class);
-		this.packetPipeline.registerPacket(PacketShieldUpdate.class);
 		this.packetPipeline.registerPacket(PacketSoonestMeteor.class);
 	}
 
@@ -85,9 +83,6 @@ public class ClientHandler
 	{
 		EntityPlayerMP player = (EntityPlayerMP) event.player;
 		packetPipeline.sendTo(new PacketSettings(), player);
-		for (String o : MeteorsMod.proxy.lastMeteorPrevented.keySet()) {
-			packetPipeline.sendTo(new PacketShieldUpdate(o), player);
-		}
 	}
 	
 	@SubscribeEvent

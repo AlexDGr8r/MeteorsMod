@@ -14,7 +14,6 @@ import net.meteor.common.entity.EntityCometKitty;
 import net.meteor.common.entity.EntityMeteor;
 import net.meteor.common.packets.PacketGhostMeteor;
 import net.meteor.common.packets.PacketLastCrash;
-import net.meteor.common.packets.PacketShieldUpdate;
 import net.meteor.common.packets.PacketSoonestMeteor;
 import net.meteor.common.tileentity.TileEntityMeteorShield;
 import net.minecraft.entity.EntityList;
@@ -23,6 +22,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.EnumChatFormatting;
@@ -48,6 +48,7 @@ public class HandlerMeteor
 	public ArrayList<GhostMeteor> ghostMets = new ArrayList<GhostMeteor>();
 	public ArrayList<CrashedChunkSet> crashedChunks = new ArrayList<CrashedChunkSet>();
 	public ArrayList<IMeteorShield> meteorShields = new ArrayList<IMeteorShield>();
+	public CrashLocation lastCrash = null;
 
 	public static EnumMeteor defaultType;
 
@@ -91,14 +92,12 @@ public class HandlerMeteor
 								player.addStat(HandlerAchievement.meteorBlocked, 1);
 							}
 							sendMeteorMaterialsToShield(shield, gMeteor);
-							MeteorsMod.proxy.lastMeteorPrevented.put(owner, gMeteor.type);
-							MeteorsMod.packetPipeline.sendToAll(new PacketShieldUpdate(owner));
 						} else if (gMeteor.type == EnumMeteor.KITTY) {
 							kittyAttack();
 						} else {
 							EntityMeteor meteor = new EntityMeteor(this.theWorld, gMeteor.size, gMeteor.x, gMeteor.z, gMeteor.type, false);
 							this.theWorld.spawnEntityInWorld(meteor);
-							applyMeteorCrash(gMeteor.x, this.theWorld.getTopSolidOrLiquidBlock(gMeteor.x, gMeteor.z), gMeteor.z);
+							applyMeteorCrash(gMeteor.x, 0, gMeteor.z);
 							playCrashSound(meteor);
 						}
 						sendGhostMeteorRemovePacket(gMeteor);
@@ -198,8 +197,6 @@ public class HandlerMeteor
 							playerOwner.addStat(HandlerAchievement.meteorBlocked, 1);
 						}
 						this.sendMeteorMaterialsToShield(shield, new GhostMeteor(x, z, 1, 0, EnumMeteor.KITTY));
-						MeteorsMod.proxy.lastMeteorPrevented.put(owner, EnumMeteor.KITTY);
-						MeteorsMod.packetPipeline.sendToAll(new PacketShieldUpdate(owner));
 					} else {
 						EntityMeteor fKitty = new EntityMeteor(this.theWorld, 1, x, z, EnumMeteor.KITTY, false);
 						fKitty.spawnPauseTicks = random.nextInt(100);
@@ -229,9 +226,17 @@ public class HandlerMeteor
 		this.crashedChunks.add(new CrashedChunkSet(coords.chunkXPos, coords.chunkZPos, x, y, z));
 
 		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
-			MeteorsMod.packetPipeline.sendToDimension(new PacketLastCrash(new ChunkCoordinates(x, y, z)), theWorld.provider.dimensionId);
+			lastCrash = new CrashLocation(x, y, z, true, lastCrash);
+			MeteorsMod.packetPipeline.sendToDimension(new PacketLastCrash(lastCrash), theWorld.provider.dimensionId);
 			if (MeteorsMod.instance.textNotifyCrash) {
 				theWorld.func_73046_m().getConfigurationManager().sendChatMsg(new ChatComponentText(LangLocalization.get("Meteor.crashed")));
+			}
+			
+			AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(x - 60D, 0, z - 60D, x + 60D, theWorld.getHeight(), z + 60D);
+			List<EntityPlayer> players = this.theWorld.getEntitiesWithinAABB(EntityPlayer.class, aabb);
+			for (int i = 0; i < players.size(); i++) {
+				EntityPlayer player = players.get(i);
+				player.addStat(HandlerAchievement.foundMeteor, 1);
 			}
 		}
 	}
@@ -355,14 +360,8 @@ public class HandlerMeteor
 		}
 	}
 
-	public ChunkCoordinates getLastCrashLocation() {
-		if (this.theWorld == null) return null;
-		for (int i = 0; i < this.crashedChunks.size(); i++) {
-			if (this.crashedChunks.get(i).age == 0) {
-				return this.crashedChunks.get(i).getCrashCoords();
-			}
-		}
-		return null;
+	public CrashLocation getLastCrashLocation() {
+		return lastCrash;
 	}
 
 	public static int getMeteorSize() {

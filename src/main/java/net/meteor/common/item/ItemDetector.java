@@ -34,14 +34,14 @@ public class ItemDetector extends ItemMeteorsMod {
 			dots = dots.length() > 5 ? "." : dots + ".";
 		}
 		
-		if (type == 0) {
+		if (type == 1) {
 			par3List.add(EnumChatFormatting.AQUA + LangLocalization.get("Detector.time"));
 			if (ClientHandler.nearestTimeLocation == null) {
 				par3List.add(LangLocalization.get("Detector.scanning") + dots);
 			} else {
 				par3List.add(EnumChatFormatting.GREEN + LangLocalization.get("Detector.detected"));
 			}
-		} else if (type == 1) {
+		} else if (type == 0) {
 			par3List.add(EnumChatFormatting.LIGHT_PURPLE + LangLocalization.get("Detector.proximity"));
 			if (ClientHandler.getClosestIncomingMeteor(par2EntityPlayer.posX, par2EntityPlayer.posZ) == null) {
 				par3List.add(LangLocalization.get("Detector.scanning") + dots);
@@ -54,7 +54,11 @@ public class ItemDetector extends ItemMeteorsMod {
 				par3List.add(LangLocalization.get("CrashDetector.noActivity"));
 				par3List.add(LangLocalization.get("Detector.scanning") + dots);
 			} else {
-				par3List.add(EnumChatFormatting.GREEN + LangLocalization.get("CrashDetector.zoneLocated"));
+				if (ClientHandler.lastCrashLocation.inOrbit) {
+					par3List.add(EnumChatFormatting.GREEN + "Orbital Entrance Detected!");
+				} else {
+					par3List.add(EnumChatFormatting.GREEN + LangLocalization.get("CrashDetector.zoneLocated"));
+				}
 			}
 		}
 		

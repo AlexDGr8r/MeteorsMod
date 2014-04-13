@@ -5,6 +5,7 @@ import io.netty.buffer.ByteBuf;
 import java.util.List;
 
 import net.meteor.common.ClientHandler;
+import net.meteor.common.CrashLocation;
 import net.meteor.common.EnumMeteor;
 import net.meteor.common.GhostMeteor;
 import net.meteor.common.HandlerAchievement;
@@ -18,11 +19,12 @@ import net.meteor.common.crash.CrashKitty;
 import net.meteor.common.crash.CrashKreknorite;
 import net.meteor.common.crash.CrashMeteorite;
 import net.meteor.common.crash.CrashUnknown;
-import net.meteor.common.packets.PacketShieldUpdate;
+import net.meteor.common.packets.PacketLastCrash;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.Explosion;
@@ -39,6 +41,9 @@ implements IEntityAdditionalSpawnData
 	public int size = 1;
 	public EnumMeteor meteorType;
 	public int spawnPauseTicks = 0;
+	
+	private int originX;
+	private int originZ;
 
 	protected boolean summoned = false;
 
@@ -60,6 +65,8 @@ implements IEntityAdditionalSpawnData
 		this.size = mSize;
 		this.meteorType = metType;
 		this.summoned = summon;
+		this.originX = (int)x;
+		this.originZ = (int)z;
 		this.setPosition(x, 250.0D, z);
 		this.prevPosX = x;
 		this.prevPosY = 250.0D;
@@ -98,11 +105,15 @@ implements IEntityAdditionalSpawnData
 						playerOwner.addChatMessage(ClientHandler.createMessage(LangLocalization.get("MeteorShield.meteorBlocked"), EnumChatFormatting.GREEN));
 						playerOwner.addStat(HandlerAchievement.meteorBlocked, 1);
 					}
-					MeteorsMod.proxy.lastMeteorPrevented.put(owner, this.meteorType);
-					MeteorsMod.packetPipeline.sendToAll(new PacketShieldUpdate(owner));
 					metHandler.sendMeteorMaterialsToShield(shield, new GhostMeteor((int)posX, (int)posZ, size, 0, meteorType));
 					this.worldObj.playSoundEffect(posX, posY, posZ, "random.explode", 5F, (1.0F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
 					this.worldObj.spawnParticle("hugeexplosion", posX, posY, posZ, 0.0D, 0.0D, 0.0D);
+					
+					if (metHandler.lastCrash != null && metHandler.lastCrash.x == originX && metHandler.lastCrash.z == originZ) {
+						metHandler.lastCrash = null;
+						MeteorsMod.packetPipeline.sendToDimension(new PacketLastCrash(new CrashLocation(-1, -1, -1, false, null)), worldObj.provider.dimensionId);
+					}
+					
 					this.setDead();
 					return;
 				}
@@ -132,12 +143,23 @@ implements IEntityAdditionalSpawnData
 			setDead();
 			if(!worldObj.isRemote) {
 				if (!summoned) {
+					
 					AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(posX - 40D, posY - 20D, posZ - 40D, posX + 40D, posY + 20D, posZ + 40D);
 					List<EntityPlayer> players = this.worldObj.getEntitiesWithinAABB(EntityPlayer.class, aabb);
 					for (int i = 0; i < players.size(); i++) {
 						EntityPlayer player = players.get(i);
 						player.addStat(HandlerAchievement.foundMeteor, 1);
 					}
+					
+					HandlerMeteor metHandler = MeteorsMod.proxy.metHandlers.get(worldObj.provider.dimensionId);
+					if (metHandler != null) {
+						CrashLocation cc = metHandler.lastCrash;
+						if (cc != null && originX == cc.x && originZ == cc.z) {
+							metHandler.lastCrash = new CrashLocation((int)posX, (int)posY, (int)posZ, false, cc.prevCrash);
+							MeteorsMod.packetPipeline.sendToDimension(new PacketLastCrash(metHandler.lastCrash), worldObj.provider.dimensionId);
+						}
+					}
+					
 				}
 				CrashMeteorite worldGen = getWorldGen();
 				if (worldGen.generate(worldObj, rand, (int)posX, (int)posY, (int)posZ)) {
@@ -181,6 +203,8 @@ implements IEntityAdditionalSpawnData
 		nbttagcompound.setBoolean("summoned", this.summoned);
 		nbttagcompound.setInteger("metTypeID", this.meteorType.getID());
 		nbttagcompound.setInteger("pauseTicks", this.spawnPauseTicks);
+		nbttagcompound.setInteger("originX", originX);
+		nbttagcompound.setInteger("originZ", originZ);
 	}
 
 	@Override
@@ -190,6 +214,8 @@ implements IEntityAdditionalSpawnData
 		this.summoned = nbttagcompound.getBoolean("summoned");
 		this.meteorType = EnumMeteor.getTypeFromID(nbttagcompound.getInteger("metTypeID"));
 		this.spawnPauseTicks = nbttagcompound.getInteger("pauseTicks");
+		this.originX = nbttagcompound.getInteger("originX");
+		this.originZ = nbttagcompound.getInteger("originZ");
 	}
 
 	@SideOnly(Side.CLIENT)
