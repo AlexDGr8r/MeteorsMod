@@ -28,7 +28,7 @@ public class CrashFrezarite extends CrashMeteorite
 			boolean j2 = world.isAirBlock(l, j11, l1);
 			Block k2 = world.getBlock(l, j11 - 1, l1);
 			if (j2 && k2.isOpaqueCube() && (random.nextInt(2) == 0))
-				world.setBlock(l, j11, l1, Blocks.snow, 0, 2);
+				world.setBlock(l, j11, l1, Blocks.snow_layer, random.nextInt(5), 2);
 		}
 	}
 }
