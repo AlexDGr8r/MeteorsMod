@@ -1,5 +1,6 @@
-package net.meteor.common;
+package net.meteor.common.climate;
 
+import net.meteor.common.MeteorsMod;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.WorldEvent;

@@ -1,4 +1,4 @@
-package net.meteor.common;
+package net.meteor.common.climate;
 
 import java.util.ArrayList;
 import java.util.Iterator;

@@ -2,6 +2,7 @@ package net.meteor.common;
 
 import java.util.HashMap;
 
+import net.meteor.common.climate.HandlerMeteor;
 import net.meteor.common.tileentity.TileEntityMeteorShield;
 import net.meteor.common.tileentity.TileEntityMeteorTimer;
 import cpw.mods.fml.common.registry.GameRegistry;

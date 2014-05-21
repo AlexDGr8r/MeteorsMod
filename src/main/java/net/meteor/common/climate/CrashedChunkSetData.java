@@ -1,4 +1,4 @@
-package net.meteor.common;
+package net.meteor.common.climate;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -14,6 +14,7 @@ public class CrashedChunkSetData extends WorldSavedData {
 	private static HandlerMeteor tempHandle;
 	
 	private HandlerMeteor metHandler;
+	private CrashLocation cLoc = null;
 
 	public CrashedChunkSetData(String s) {
 		super(s);
@@ -42,7 +43,7 @@ public class CrashedChunkSetData extends WorldSavedData {
 				}
 			}
 		}
-		mHandler.lastCrash = CrashLocation.fromNBT(tag);
+		cLoc = CrashLocation.fromNBT(tag);
 		return cList;
 	}
 
@@ -61,8 +62,9 @@ public class CrashedChunkSetData extends WorldSavedData {
 			i++;
 		}
 		
-		if (metHandler.lastCrash != null) {
-			metHandler.lastCrash.toNBT(tag);
+		MeteorForecast forecast = metHandler.getForecast();
+		if (forecast.getLastCrashLocation() != null) {
+			forecast.getLastCrashLocation().toNBT(tag);
 		}
 	}
 
@@ -83,6 +85,10 @@ public class CrashedChunkSetData extends WorldSavedData {
 	@Override
 	public boolean isDirty() {
 		return true;
+	}
+	
+	public CrashLocation getLoadedCrashLocation() {
+		return cLoc;
 	}
 	
 }

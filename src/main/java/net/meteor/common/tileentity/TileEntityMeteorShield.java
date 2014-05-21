@@ -6,11 +6,11 @@ import java.util.Random;
 
 import net.meteor.common.ClientHandler;
 import net.meteor.common.ClientProxy;
-import net.meteor.common.HandlerMeteor;
 import net.meteor.common.IMeteorShield;
 import net.meteor.common.MeteorItems;
-import net.meteor.common.MeteorShieldData;
 import net.meteor.common.MeteorsMod;
+import net.meteor.common.climate.HandlerMeteor;
+import net.meteor.common.climate.MeteorShieldData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -67,7 +67,7 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory, IM
 		if (!this.shieldedChunks) {
 			if (powerLevel > 0) {
 				if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
-					MeteorsMod.proxy.metHandlers.get(worldObj.provider.dimensionId).addShield(this);
+					MeteorsMod.proxy.metHandlers.get(worldObj.provider.dimensionId).getShieldManager().addShield(this);
 				}
 				this.shieldedChunks = true;
 				this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
@@ -418,7 +418,7 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory, IM
 	@Override
 	public void onChunkUnload() {
 		HandlerMeteor metHandler = MeteorsMod.proxy.metHandlers.get(worldObj.provider.dimensionId);
-		metHandler.addShield(new MeteorShieldData(xCoord, yCoord, zCoord, powerLevel, owner));
+		metHandler.getShieldManager().addShield(new MeteorShieldData(xCoord, yCoord, zCoord, powerLevel, owner));
 	}
 
 }

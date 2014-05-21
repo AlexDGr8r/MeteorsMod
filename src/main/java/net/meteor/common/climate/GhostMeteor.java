@@ -1,6 +1,8 @@
-package net.meteor.common;
+package net.meteor.common.climate;
 
 import java.io.Serializable;
+
+import net.meteor.common.EnumMeteor;
 
 public class GhostMeteor
 implements Serializable

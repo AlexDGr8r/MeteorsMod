@@ -71,7 +71,7 @@ public class BlockMeteorShield extends BlockContainerMeteorsMod
 	{
 		TileEntityMeteorShield shield = (TileEntityMeteorShield)par1World.getTileEntity(par2, par3, par4);
 		if (!par1World.isRemote) {
-			if (MeteorsMod.proxy.metHandlers.get(par1World.provider.dimensionId).meteorShields.remove(shield)) {
+			if (MeteorsMod.proxy.metHandlers.get(par1World.provider.dimensionId).getShieldManager().meteorShields.remove(shield)) {
 				//MeteorsMod.log.info("METEOR SHIELD SHOULD BE REMOVED");
 			}
 			par1World.playSoundEffect(par2 + 0.5D, par3 + 0.5D, par4 + 0.5D, "meteors:shield.powerdown", 1.0F, 1.0F);

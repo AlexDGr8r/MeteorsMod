@@ -4,10 +4,10 @@ import io.netty.buffer.ByteBuf;
 import net.meteor.common.ClientHandler;
 import net.meteor.common.EnumMeteor;
 import net.meteor.common.HandlerAchievement;
-import net.meteor.common.HandlerMeteor;
 import net.meteor.common.IMeteorShield;
 import net.meteor.common.MeteorItems;
 import net.meteor.common.MeteorsMod;
+import net.meteor.common.climate.HandlerMeteor;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -112,7 +112,7 @@ public class EntitySummoner extends EntityThrowable implements IEntityAdditional
 					}
 				}
 			} else if ((!MeteorsMod.instance.allowSummonedMeteorGrief) && (player != null)) {
-				IMeteorShield shield = MeteorsMod.proxy.metHandlers.get(worldObj.provider.dimensionId).getClosestShieldInRange(this.chunkCoordX, this.chunkCoordZ);
+				IMeteorShield shield = MeteorsMod.proxy.metHandlers.get(worldObj.provider.dimensionId).getShieldManager().getClosestShieldInRange(this.chunkCoordX, this.chunkCoordZ);
 				if (shield != null && (!player.getCommandSenderName().equalsIgnoreCase(shield.getOwner()))) {
 					canHit = false;
 					player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("MeteorSummoner.landProtected")));

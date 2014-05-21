@@ -3,7 +3,7 @@ package net.meteor.common.packets;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import net.meteor.common.ClientHandler;
-import net.meteor.common.GhostMeteor;
+import net.meteor.common.climate.GhostMeteor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChunkCoordinates;
 

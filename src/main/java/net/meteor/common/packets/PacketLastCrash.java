@@ -3,7 +3,7 @@ package net.meteor.common.packets;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import net.meteor.common.ClientHandler;
-import net.meteor.common.CrashLocation;
+import net.meteor.common.climate.CrashLocation;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class PacketLastCrash extends AbstractPacket {

@@ -1,8 +1,8 @@
 package net.meteor.common.tileentity;
 
-import net.meteor.common.GhostMeteor;
-import net.meteor.common.HandlerMeteor;
 import net.meteor.common.MeteorsMod;
+import net.meteor.common.climate.GhostMeteor;
+import net.meteor.common.climate.HandlerMeteor;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
@@ -34,7 +34,7 @@ public class TileEntityMeteorTimer extends TileEntity {
 			if (metHandler == null) {
 				this.metHandler = MeteorsMod.proxy.metHandlers.get(worldObj.provider.dimensionId);
 			}
-			GhostMeteor gMet = this.metHandler.getNearestTimeMeteor();
+			GhostMeteor gMet = this.metHandler.getForecast().getNearestTimeMeteor();
 			int ticksLeft;
 			if (gMet != null) {
 				ticksLeft = gMet.getRemainingTicks();

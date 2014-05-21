@@ -2,6 +2,8 @@ package net.meteor.common;
 
 import java.util.ArrayList;
 
+import net.meteor.common.climate.CrashLocation;
+import net.meteor.common.climate.HandlerMeteor;
 import net.meteor.common.packets.PacketGhostMeteor;
 import net.meteor.common.packets.PacketLastCrash;
 import net.meteor.common.packets.PacketPipeline;
@@ -84,8 +86,8 @@ public class ClientHandler
 				HandlerMeteor metHandler = MeteorsMod.proxy.metHandlers.get(event.world.provider.dimensionId);
 				packetPipeline.sendTo(new PacketGhostMeteor(), player);		// Clear Ghost Meteors
 				metHandler.sendGhostMeteorPackets(player);
-				packetPipeline.sendTo(new PacketLastCrash(metHandler.getLastCrashLocation()), player);
-				packetPipeline.sendTo(new PacketSoonestMeteor(metHandler.getNearestTimeMeteor()), player);
+				packetPipeline.sendTo(new PacketLastCrash(metHandler.getForecast().getLastCrashLocation()), player);
+				packetPipeline.sendTo(new PacketSoonestMeteor(metHandler.getForecast().getNearestTimeMeteor()), player);
 			}
 		}
 	}

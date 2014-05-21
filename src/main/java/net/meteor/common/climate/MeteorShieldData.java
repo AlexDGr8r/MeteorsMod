@@ -1,4 +1,7 @@
-package net.meteor.common;
+package net.meteor.common.climate;
+
+import net.meteor.common.IMeteorShield;
+import net.meteor.common.MeteorsMod;
 
 public class MeteorShieldData implements IMeteorShield
 {

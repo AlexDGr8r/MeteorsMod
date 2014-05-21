@@ -2,9 +2,9 @@ package net.meteor.common.command;
 
 import java.util.Iterator;
 
-import net.meteor.common.HandlerMeteor;
 import net.meteor.common.IMeteorShield;
 import net.meteor.common.MeteorsMod;
+import net.meteor.common.climate.HandlerMeteor;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
@@ -33,7 +33,7 @@ public class CommandDebugShields extends CommandBase {
 			World world = var1.getEntityWorld();
 			HandlerMeteor metH = MeteorsMod.proxy.metHandlers.get(world.provider.dimensionId);
 			if (metH != null) {
-				Iterator<IMeteorShield> iter = metH.meteorShields.iterator();
+				Iterator<IMeteorShield> iter = metH.getShieldManager().meteorShields.iterator();
 				while (iter.hasNext()) {
 					IMeteorShield shield = iter.next();
 					var1.addChatMessage(new ChatComponentText("x:" + shield.getX() + " y:" + shield.getY() + " z:" + shield.getZ() + " r:" + shield.getRange() + " o:" + shield.getOwner()));

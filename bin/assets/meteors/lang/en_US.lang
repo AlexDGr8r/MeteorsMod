@@ -108,6 +108,7 @@ MeteorSummoner.landProtected=This land is protected by another player!
 MeteorSummoner.cannotSummon=You are not allowed to summon meteors!
 
 itemGroup.Meteor=Falling Meteors
+itemGroup.Falling Meteors Mod=Falling Meteors
 
 achievement.pageMeteors=Falling Meteors
 achievement.shieldCrafted=We're Covered

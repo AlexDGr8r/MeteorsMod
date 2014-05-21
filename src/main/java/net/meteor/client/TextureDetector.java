@@ -1,7 +1,7 @@
 package net.meteor.client;
 
 import net.meteor.common.ClientHandler;
-import net.meteor.common.CrashLocation;
+import net.meteor.common.climate.CrashLocation;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureUtil;

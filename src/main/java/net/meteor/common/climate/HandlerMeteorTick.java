@@ -1,7 +1,9 @@
-package net.meteor.common;
+package net.meteor.common.climate;
 
 import java.util.Random;
 
+import net.meteor.common.EnumMeteor;
+import net.meteor.common.MeteorsMod;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
@@ -71,6 +73,10 @@ public class HandlerMeteorTick
 
 	private int getNewTickGoal() {
 		return random.nextInt(MeteorsMod.instance.RandTicksUntilMeteorSpawn + 1) + MeteorsMod.instance.MinTicksUntilMeteorSpawn;
+	}
+	
+	public int getSecondsUntilNewMeteor() {
+		return tickGoal - ticks;
 	}
 
 }

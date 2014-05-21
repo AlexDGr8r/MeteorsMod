@@ -2,7 +2,7 @@ package net.meteor.common.item;
 
 import java.util.List;
 
-import net.meteor.common.HandlerMeteor;
+import net.meteor.common.climate.HandlerMeteor;
 import net.meteor.common.entity.EntitySummoner;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;

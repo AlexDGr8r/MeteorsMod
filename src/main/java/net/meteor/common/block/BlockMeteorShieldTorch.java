@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Random;
 
 import net.meteor.common.ClientProxy;
-import net.meteor.common.HandlerMeteor;
 import net.meteor.common.IMeteorShield;
 import net.meteor.common.MeteorBlocks;
 import net.meteor.common.MeteorsMod;
+import net.meteor.common.climate.HandlerMeteor;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockTorch;
 import net.minecraft.entity.player.EntityPlayer;
@@ -100,7 +100,7 @@ public class BlockMeteorShieldTorch extends BlockTorch
 
 	private void checkArea(World world, int i, int j, int k) {
 		Chunk chunk = world.getChunkFromBlockCoords(i, k);
-		boolean isSafeChunk = MeteorsMod.proxy.metHandlers.get(world.provider.dimensionId).getClosestShieldInRange(i, k) != null;
+		boolean isSafeChunk = MeteorsMod.proxy.metHandlers.get(world.provider.dimensionId).getShieldManager().getClosestShieldInRange(i, k) != null;
 		if (this.torchActive) {
 			if (!isSafeChunk)
 				world.setBlock(i, j, k, MeteorBlocks.torchMeteorShieldIdle, world.getBlockMetadata(i, j, k), 3);
@@ -115,7 +115,7 @@ public class BlockMeteorShieldTorch extends BlockTorch
 		if (!world.isRemote) {
 			checkArea(world, i, j, k);
 			HandlerMeteor meteorHandler = MeteorsMod.proxy.metHandlers.get(world.provider.dimensionId);
-			List<IMeteorShield> shields = meteorHandler.getShieldsInRange(i, k);
+			List<IMeteorShield> shields = meteorHandler.getShieldManager().getShieldsInRange(i, k);
 			if (!shields.isEmpty()) {
 				player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("ProtectionTorch.landOwnership")));
 				List owners = new ArrayList();
