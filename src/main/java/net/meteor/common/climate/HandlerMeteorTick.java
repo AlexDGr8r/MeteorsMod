@@ -58,7 +58,17 @@ public class HandlerMeteorTick
 										meteorHandler.readyNewMeteor(x, z, HandlerMeteor.getMeteorSize(), random.nextInt(mod.RandTicksUntilMeteorCrashes + 1) + mod.MinTicksUntilMeteorCrashes, HandlerMeteor.getMeteorType());
 									}
 								}
-
+							}
+							
+							if (random.nextBoolean() && world.playerEntities.size() > 0) {
+								int x = world.rand.nextInt(mod.meteorFallDistance);
+								int z = world.rand.nextInt(mod.meteorFallDistance);
+								if (world.rand.nextBoolean()) x = -x;
+								if (world.rand.nextBoolean()) z = -z;
+								EntityPlayer player = (EntityPlayer) world.playerEntities.get(world.rand.nextInt(world.playerEntities.size()));
+								x = (int)(x + player.posX);
+								z = (int)(z + player.posZ);
+								
 							}
 
 							this.ticks = 0;

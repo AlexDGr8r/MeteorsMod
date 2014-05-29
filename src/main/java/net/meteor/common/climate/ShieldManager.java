@@ -107,7 +107,7 @@ public class ShieldManager {
 					}
 					break;
 				case 2:
-					items.add(new ItemStack(MeteorItems.itemFrezaCrystal, random.nextInt(3 * gMeteor.size) + 1));
+					items.add(new ItemStack(MeteorItems.itemKreknoChip, random.nextInt(3 * gMeteor.size) + 1));
 					if (gMeteor.size >= MeteorsMod.instance.MinMeteorSizeForPortal) {
 						if (r < 20) {
 							items.add(new ItemStack(Items.netherbrick, random.nextInt(4 * gMeteor.size) + 1));

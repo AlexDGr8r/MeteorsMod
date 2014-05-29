@@ -116,6 +116,12 @@ implements IEntityAdditionalSpawnData
 				}
 			}
 		}
+		
+		prevRotationPitch = rotationPitch;
+		prevRotationYaw = rotationYaw;
+		rotationPitch = (float)((rotationPitch + 3D) % 360D);
+		rotationYaw = (float)((rotationPitch + 3D) % 360D);
+		
 		if (this.spawnPauseTicks > 0) {
 			this.spawnPauseTicks -= 1;
 			return;
@@ -131,10 +137,6 @@ implements IEntityAdditionalSpawnData
 		motionY -= 0.039999999105930328D;
 		moveEntity(motionX, motionY, motionZ);
 		motionY *= 0.98000001907348633D;
-		prevRotationPitch = rotationPitch;
-		prevRotationYaw = rotationYaw;
-		rotationPitch = (float)((rotationPitch + 3D) % 360D);
-		rotationYaw = (float)((rotationPitch + 3D) % 360D);
 
 		if (onGround) {
 			setDead();

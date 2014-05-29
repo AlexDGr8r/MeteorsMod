@@ -8,6 +8,7 @@ import net.meteor.common.climate.HandlerWorld;
 import net.meteor.common.command.CommandDebugMeteors;
 import net.meteor.common.command.CommandDebugShields;
 import net.meteor.common.command.CommandKittyAttack;
+import net.meteor.common.command.CommandSpawnMeteor;
 import net.meteor.common.enchantment.EnchantmentColdTouch;
 import net.meteor.common.enchantment.EnchantmentMagnetized;
 import net.meteor.common.entity.EntityAlienCreeper;
@@ -203,6 +204,7 @@ implements IWorldGenerator
 		evt.registerServerCommand(new CommandKittyAttack());
 		evt.registerServerCommand(new CommandDebugShields());
 		evt.registerServerCommand(new CommandDebugMeteors());
+		evt.registerServerCommand(new CommandSpawnMeteor());
 	}
 
 	private void registerEntities() {
