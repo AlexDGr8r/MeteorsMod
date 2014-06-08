@@ -176,7 +176,7 @@ implements IEntityAdditionalSpawnData
 
 	protected Explosion explode() {
 		float f = (float) (this.size * MeteorsMod.instance.ImpactExplosionMultiplier);
-		return worldObj.newExplosion(null, posX, posY, posZ, f, meteorType.getFieryExplosion(), true);
+		return worldObj.newExplosion(this, posX, posY, posZ, f, meteorType.getFieryExplosion(), true);
 	}
 
 	protected CrashMeteorite getWorldGen() {

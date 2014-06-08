@@ -8,10 +8,12 @@ import net.meteor.common.climate.HandlerWorld;
 import net.meteor.common.command.CommandDebugMeteors;
 import net.meteor.common.command.CommandDebugShields;
 import net.meteor.common.command.CommandKittyAttack;
+import net.meteor.common.command.CommandSpawnComet;
 import net.meteor.common.command.CommandSpawnMeteor;
 import net.meteor.common.enchantment.EnchantmentColdTouch;
 import net.meteor.common.enchantment.EnchantmentMagnetized;
 import net.meteor.common.entity.EntityAlienCreeper;
+import net.meteor.common.entity.EntityComet;
 import net.meteor.common.entity.EntityCometKitty;
 import net.meteor.common.entity.EntityMeteor;
 import net.meteor.common.entity.EntitySummoner;
@@ -87,6 +89,7 @@ implements IWorldGenerator
 	public int MinMeteorSizeForPortal;
 	public double ImpactExplosionMultiplier;
 	public int ImpactSpread;
+	public int cometFallChance;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -161,6 +164,7 @@ implements IWorldGenerator
 		chunkChecks 		= config.get("Chunk Generation Checks", 4);
 		oreGenSize  		= config.get("Meteor Ore Gen Size", 6);
 		meteorShieldSound 	= config.get("Meteor Shield Humming Noise Enabled", true);
+		cometFallChance		= config.get("Comet Fall Chance", 20);
 		int configTicks 	= config.get("Meteor Fall Deterrence", 25) * 100;
 		int mSpawn = (int)(configTicks * 0.25D);
 		int mCrash = (int)(configTicks * 0.75D);
@@ -205,6 +209,7 @@ implements IWorldGenerator
 		evt.registerServerCommand(new CommandDebugShields());
 		evt.registerServerCommand(new CommandDebugMeteors());
 		evt.registerServerCommand(new CommandSpawnMeteor());
+		evt.registerServerCommand(new CommandSpawnComet());
 	}
 
 	private void registerEntities() {
@@ -217,6 +222,8 @@ implements IWorldGenerator
 		EntityRegistry.registerModEntity(EntityCometKitty.class, "CometKitty", 4, this, 80, 3, true);
 		EntityRegistry.registerGlobalEntityID(EntitySummoner.class, "MeteorSummoner", EntityRegistry.findGlobalUniqueEntityId());
 		EntityRegistry.registerModEntity(EntitySummoner.class, "MeteorSummoner", 2, this, 64, 8, true);
+		EntityRegistry.registerGlobalEntityID(EntityComet.class, "FallingComet", EntityRegistry.findGlobalUniqueEntityId());
+		EntityRegistry.registerModEntity(EntityComet.class, "FallingComet", 5, this, 64, 8, true);
 	}
 
 	@Override

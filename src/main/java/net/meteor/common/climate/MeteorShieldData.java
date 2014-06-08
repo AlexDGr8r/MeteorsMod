@@ -2,6 +2,8 @@ package net.meteor.common.climate;
 
 import net.meteor.common.IMeteorShield;
 import net.meteor.common.MeteorsMod;
+import net.meteor.common.entity.EntityComet;
+import net.minecraft.nbt.NBTTagCompound;
 
 public class MeteorShieldData implements IMeteorShield
 {
@@ -10,6 +12,9 @@ public class MeteorShieldData implements IMeteorShield
 	private int z;
 	private int powerLevel;
 	private int range;
+	private int cometX;
+	private int cometZ;
+	private int cometType = -1;
 	private String owner;
 
 	public MeteorShieldData(int x, int y, int z, int p, String o)

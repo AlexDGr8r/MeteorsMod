@@ -1,5 +1,7 @@
 package net.meteor.client.block;
 
+import org.lwjgl.opengl.GL11;
+
 import net.meteor.client.tileentity.TileEntityMeteorTimerRenderer;
 import net.meteor.common.MeteorsMod;
 import net.minecraft.client.Minecraft;

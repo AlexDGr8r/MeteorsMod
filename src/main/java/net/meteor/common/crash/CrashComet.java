@@ -3,6 +3,7 @@ package net.meteor.common.crash;
 import java.util.Random;
 
 import net.meteor.common.EnumMeteor;
+import net.meteor.common.entity.EntityCometKitty;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -17,6 +18,12 @@ public class CrashComet extends WorldGenerator {
 
 	@Override
 	public boolean generate(World world, Random random, int i, int j, int k) {
+		
+		if (meteorType == EnumMeteor.KITTY) {
+			EntityCometKitty kitty = new EntityCometKitty(world);
+			kitty.setPosition(i, j + 1, k);
+			world.spawnEntityInWorld(kitty);
+		}
 
 		int chance = 15;
 		int blocksPlaced = 0;

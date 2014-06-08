@@ -6,11 +6,13 @@ import java.util.Random;
 
 import net.meteor.common.ClientHandler;
 import net.meteor.common.ClientProxy;
+import net.meteor.common.EnumMeteor;
 import net.meteor.common.IMeteorShield;
 import net.meteor.common.MeteorItems;
 import net.meteor.common.MeteorsMod;
 import net.meteor.common.climate.HandlerMeteor;
 import net.meteor.common.climate.MeteorShieldData;
+import net.meteor.common.entity.EntityComet;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -40,6 +42,9 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory, IM
 
 	private int range;
 	private int powerLevel;
+	private int cometX;
+	private int cometZ;
+	private int cometType = -1;
 
 	public int age;
 
@@ -95,6 +100,11 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory, IM
 			powerLevel = 1;
 		}
 	}
+	
+	public EnumMeteor getCometType() {
+		if (cometType == -1) return EnumMeteor.METEORITE;
+		return EnumMeteor.getTypeFromID(cometType);
+	}
 
 	public List<String> getDisplayInfo() {
 		List<String> info = new ArrayList<String>();
@@ -105,8 +115,15 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory, IM
 			info.add("Power Level: " + powerLevel + " / 5");
 			info.add("Range: " + range + " blocks");
 		}
-		info.add("");
 		info.add("Owner: " + owner);
+		if (cometType != -1) {
+			EnumMeteor type = EnumMeteor.getTypeFromID(cometType);
+			info.add("Comet Entered Orbit at:");
+			info.add("X: " + cometX);
+			info.add("Z: " + cometZ);
+		} else {
+			info.add("No Comets Detected");
+		}
 		return info;
 	}
 
@@ -165,6 +182,14 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory, IM
 		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 		this.markDirty();
 	}
+	
+	public void detectComet(EntityComet comet) {
+		this.cometX = (int)comet.posX;
+		this.cometZ = (int)comet.posZ;
+		this.cometType = comet.meteorType.getID();
+		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+		this.markDirty();
+	}
 
 	@SideOnly(Side.CLIENT)
 	private void GenerateParticles(World world, int x, int y, int z, Random random)
@@ -204,6 +229,12 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory, IM
 		
 		this.powerLevel = nbt.getInteger("powerLevel");
 		this.range = MeteorsMod.instance.ShieldRadiusMultiplier * powerLevel;
+		
+		if (nbt.hasKey("cometType")) {
+			this.cometType = nbt.getInteger("cometType");
+			this.cometX = nbt.getInteger("cometX");
+			this.cometZ = nbt.getInteger("cometZ");
+		}
 
 		NBTTagList nbttaglist = nbt.getTagList("Items", 10);
 		this.inv = new ItemStack[this.getSizeInventory()];
@@ -224,6 +255,11 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory, IM
 		super.writeToNBT(nbt);
 		nbt.setString("owner", this.owner);
 		nbt.setInteger("powerLevel", powerLevel);
+		if (cometType != -1) {
+			nbt.setInteger("cometType", cometType);
+			nbt.setInteger("cometX", cometX);
+			nbt.setInteger("cometZ", cometZ);
+		}
 
 		NBTTagList nbttaglist = new NBTTagList();
 		for (int i = 0; i < inv.length; i++) {

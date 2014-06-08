@@ -7,12 +7,14 @@ import net.meteor.client.effect.EntityMeteorShieldParticleFX;
 import net.meteor.client.effect.EntityMeteordustFX;
 import net.meteor.client.model.ModelCometKitty;
 import net.meteor.client.render.RenderAlienCreeper;
+import net.meteor.client.render.RenderComet;
 import net.meteor.client.render.RenderCometKitty;
 import net.meteor.client.render.RenderMeteor;
 import net.meteor.client.render.RenderSummoner;
 import net.meteor.client.tileentity.TileEntityMeteorShieldRenderer;
 import net.meteor.client.tileentity.TileEntityMeteorTimerRenderer;
 import net.meteor.common.entity.EntityAlienCreeper;
+import net.meteor.common.entity.EntityComet;
 import net.meteor.common.entity.EntityCometKitty;
 import net.meteor.common.entity.EntityMeteor;
 import net.meteor.common.entity.EntitySummoner;
@@ -45,6 +47,7 @@ public class ClientProxy extends CommonProxy
 		RenderingRegistry.registerEntityRenderingHandler(EntityAlienCreeper.class, new RenderAlienCreeper());
 		RenderingRegistry.registerEntityRenderingHandler(EntityCometKitty.class, new RenderCometKitty(new ModelCometKitty(), 0.4F));
 		RenderingRegistry.registerEntityRenderingHandler(EntitySummoner.class, new RenderSummoner());
+		RenderingRegistry.registerEntityRenderingHandler(EntityComet.class, new RenderComet());
 		
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(MeteorBlocks.blockMeteorShield), new ShieldItemRenderer());
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(MeteorBlocks.blockMeteorTimer), new TimerItemRenderer());

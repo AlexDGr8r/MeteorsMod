@@ -3,6 +3,7 @@ package net.meteor.client.render;
 import java.util.HashMap;
 
 import net.meteor.client.model.ModelMeteor;
+import net.meteor.common.MeteorsMod;
 import net.meteor.common.entity.EntityMeteor;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
@@ -19,14 +20,14 @@ public class RenderMeteor extends Render {
 	private ModelMeteor modelMeteor;
 	private int metID = 0;
 	
-	private static HashMap<Integer, ResourceLocation> skins = new HashMap<Integer, ResourceLocation>();
+	public static final HashMap<Integer, ResourceLocation> skins = new HashMap<Integer, ResourceLocation>();
 	
 	static {
-		skins.put(0, new ResourceLocation("meteors", "textures/entities/fallingMeteor.png"));
-		skins.put(1, new ResourceLocation("meteors", "textures/entities/frezaMeteor.png"));
-		skins.put(2, new ResourceLocation("meteors", "textures/entities/kreknoMeteor.png"));
-		skins.put(3, new ResourceLocation("meteors", "textures/entities/unknownMeteor.png"));
-		skins.put(4, new ResourceLocation("meteors", "textures/entities/kitty.png"));
+		skins.put(0, new ResourceLocation(MeteorsMod.MOD_ID, "textures/entities/fallingMeteor.png"));
+		skins.put(1, new ResourceLocation(MeteorsMod.MOD_ID, "textures/entities/frezaMeteor.png"));
+		skins.put(2, new ResourceLocation(MeteorsMod.MOD_ID, "textures/entities/kreknoMeteor.png"));
+		skins.put(3, new ResourceLocation(MeteorsMod.MOD_ID, "textures/entities/unknownMeteor.png"));
+		skins.put(4, new ResourceLocation(MeteorsMod.MOD_ID, "textures/entities/kitty.png"));
 	}
 
 	public RenderMeteor() {
@@ -47,7 +48,7 @@ public class RenderMeteor extends Render {
 		this.bindTexture(skins.get(metID));
 		float f2 = 1.0F * (float)entityMeteor.size;
 		GL11.glScalef(f2, f2, f2);
-		modelMeteor.renderWithSize(entityMeteor, 0.0625F);
+		modelMeteor.renderWithSize(entityMeteor.size, 0.0625F);
 		GL11.glPopMatrix();
 	}
 

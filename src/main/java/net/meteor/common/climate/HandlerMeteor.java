@@ -261,6 +261,14 @@ public class HandlerMeteor
 		}
 		return defaultType;
 	}
+	
+	public static EnumMeteor getCometType() {
+		EnumMeteor type = getMeteorType();
+		if (type == EnumMeteor.UNKNOWN) {
+			return EnumMeteor.getTypeFromID(random.nextInt(3));
+		}
+		return type;
+	}
 
 	public void sendGhostMeteorPackets(EntityPlayerMP player) {
 		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {

@@ -128,8 +128,7 @@ public class ModelMeteor extends ModelBase
 		Block14.render(f5);
 	}
 
-	public void renderWithSize(EntityMeteor entityMeteor, float f5) {
-		int mSize = entityMeteor.size;
+	public void renderWithSize(int mSize, float f5) {
 		if (mSize == 1) {
 			SmallMet.render(f5);
 			return;
