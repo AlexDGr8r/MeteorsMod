@@ -25,7 +25,7 @@ public class CommandDebugMeteors extends CommandBase {
 
 	@Override
 	public String getCommandUsage(ICommandSender var1) {
-		return "/listMeteors";
+		return "/listMeteors [clear]";
 	}
 
 	@Override
@@ -33,8 +33,14 @@ public class CommandDebugMeteors extends CommandBase {
 		World world = var1.getEntityWorld();
 		HandlerMeteor metH = MeteorsMod.proxy.metHandlers.get(world.provider.dimensionId);
 		if (metH != null) {
-			
 			MeteorForecast forecast = metH.getForecast();
+			
+			if (var2.length >= 1 && var2[0].equalsIgnoreCase("clear")) {
+				forecast.clearMeteors();
+				var1.addChatMessage(new ChatComponentText("Meteors Cleared"));
+				return;
+			}
+			
 			int secs = forecast.getSecondsUntilNewMeteor();
 			var1.addChatMessage(new ChatComponentText(secs + " Seconds Until Possible New Meteor"));
 			

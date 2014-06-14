@@ -61,5 +61,9 @@ public class MeteorForecast {
 			MeteorsMod.packetPipeline.sendToDimension(new PacketSoonestMeteor(gMeteor), theWorld.provider.dimensionId);
 		}
 	}
+	
+	public void clearMeteors() {
+		ghostMets.clear();
+	}
 
 }

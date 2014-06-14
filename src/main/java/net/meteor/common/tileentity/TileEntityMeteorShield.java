@@ -108,6 +108,7 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory, IM
 
 	public List<String> getDisplayInfo() {
 		List<String> info = new ArrayList<String>();
+		
 		if (powerLevel == 0) {
 			info.add("Charging...");
 			info.add("Charged: " + (int)((float)age / (float)CHARGE_TIME * 100) + "%");
@@ -115,15 +116,20 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory, IM
 			info.add("Power Level: " + powerLevel + " / 5");
 			info.add("Range: " + range + " blocks");
 		}
+		
 		info.add("Owner: " + owner);
-		if (cometType != -1) {
-			EnumMeteor type = EnumMeteor.getTypeFromID(cometType);
-			info.add("Comet Entered Orbit at:");
-			info.add("X: " + cometX);
-			info.add("Z: " + cometZ);
-		} else {
-			info.add("No Comets Detected");
+		
+		if (powerLevel != 0) {
+			if (cometType != -1) {
+				EnumMeteor type = EnumMeteor.getTypeFromID(cometType);
+				info.add("Comet Entered Orbit at:");
+				info.add("X: " + cometX);
+				info.add("Z: " + cometZ);
+			} else {
+				info.add("No Comets Detected");
+			}
 		}
+		
 		return info;
 	}
 

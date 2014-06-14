@@ -66,20 +66,18 @@ public class GuiMeteorShield extends GuiContainer {
 		for (int i = 0; i < 3; i++) {
 			this.fontRendererObj.drawString(displayInfo.get(i), 74, 4 + (i * fontRendererObj.FONT_HEIGHT + 8), -1);
 		}
-		this.fontRendererObj.drawString(displayInfo.get(3), 74, 50, -1);
+		if (displayInfo.size() > 3) {
+			this.fontRendererObj.drawString(displayInfo.get(3), 74, 50, -1);
+		}
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		if (displayInfo.size() > 4) {
 			this.fontRendererObj.drawString(displayInfo.get(4), 80, 67, -1);
 	        this.fontRendererObj.drawString(displayInfo.get(5), 150, 67, -1);
 	        float f2 = 1F / f;
 	        GL11.glScalef(f2, f2, 1.0F);
-			GL11.glEnable(GL11.GL_LIGHTING);
-	        GL11.glEnable(GL11.GL_CULL_FACE);
 	        
 	        RenderItem renderItem = new RenderItem();
 	        renderItem.renderItemAndEffectIntoGUI(this.mc.fontRenderer, this.mc.getTextureManager(), shield.getCometType().getRepresentingItem(), 148, 37);
-	        
-	        GL11.glDisable(GL11.GL_LIGHTING);
 	        
 	        if (func_146978_c(148, 37, 16, 16, p_146979_1_, p_146979_2_)) {
 	        	int k1 = this.guiLeft;
@@ -94,6 +92,9 @@ public class GuiMeteorShield extends GuiContainer {
 	            info.add(type.getChatColor() + name);
 	        	this.func_146283_a(info, p_146979_1_, p_146979_2_);
 	        }
+		} else {
+			float f2 = 1F / f;
+	        GL11.glScalef(f2, f2, 1.0F);
 		}
 	}
 

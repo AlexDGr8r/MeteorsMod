@@ -75,6 +75,7 @@ public class BlockMeteorTimer extends BlockContainerMeteorsMod {
 			} else {
 				player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("MeteorTimer.modeChange.one")));
 			}
+			world.markBlockForUpdate(i, j, k);
 		}
 		
 		return true;

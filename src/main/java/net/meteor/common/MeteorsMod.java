@@ -32,6 +32,7 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
@@ -40,14 +41,14 @@ import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid=MeteorsMod.MOD_ID, name=MeteorsMod.MOD_NAME, version=MeteorsMod.VERSION)
+@Mod(modid=MeteorsMod.MOD_ID, name=MeteorsMod.MOD_NAME, version=MeteorsMod.VERSION, dependencies="after:Waila")
 public class MeteorsMod
 implements IWorldGenerator
 {
 	
 	public static final String MOD_ID 	= "meteors";
 	public static final String MOD_NAME = "Falling Meteors";
-	public static final String VERSION 	= "2.12"; 		// Switch to automatic versioning later on
+	public static final String VERSION 	= "2.12.1"; 		// Switch to automatic versioning later on
 	
 	public static final boolean loggable = true;		// For Debugging Purposes Only
 
@@ -141,6 +142,8 @@ implements IWorldGenerator
 		cHandler.registerPackets();
 		MinecraftForge.EVENT_BUS.register(cHandler);
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new HandlerGui());
+		
+		FMLInterModComms.sendMessage("Waila", "register", "net.meteor.plugin.waila.Waila.register");
 	}
 	
 	@EventHandler
