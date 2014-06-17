@@ -1,11 +1,10 @@
 package net.meteor.plugin.waila;
 
+import mcp.mobius.waila.api.IWailaRegistrar;
 import net.meteor.common.block.BlockFrezarite;
 import net.meteor.common.block.BlockMeteor;
 import net.meteor.common.block.BlockMeteorShield;
 import net.meteor.common.block.BlockMeteorTimer;
-import net.meteor.common.block.BlockRareFallenMeteor;
-import mcp.mobius.waila.api.IWailaRegistrar;
 
 public class Waila {
 	

@@ -7,7 +7,6 @@ import net.meteor.common.IMeteorShield;
 import net.meteor.common.MeteorsMod;
 import net.meteor.common.climate.HandlerMeteor;
 import net.meteor.common.entity.EntityComet;
-import net.meteor.common.entity.EntityMeteor;
 import net.meteor.common.tileentity.TileEntityMeteorShield;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;

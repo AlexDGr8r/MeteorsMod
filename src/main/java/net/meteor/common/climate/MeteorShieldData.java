@@ -2,8 +2,6 @@ package net.meteor.common.climate;
 
 import net.meteor.common.IMeteorShield;
 import net.meteor.common.MeteorsMod;
-import net.meteor.common.entity.EntityComet;
-import net.minecraft.nbt.NBTTagCompound;
 
 public class MeteorShieldData implements IMeteorShield
 {

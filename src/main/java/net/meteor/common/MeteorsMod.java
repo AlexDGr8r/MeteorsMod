@@ -48,7 +48,7 @@ implements IWorldGenerator
 	
 	public static final String MOD_ID 	= "meteors";
 	public static final String MOD_NAME = "Falling Meteors";
-	public static final String VERSION 	= "2.12.1"; 		// Switch to automatic versioning later on
+	public static final String VERSION 	= "2.12.2"; 		// Switch to automatic versioning later on
 	
 	public static final boolean loggable = true;		// For Debugging Purposes Only
 

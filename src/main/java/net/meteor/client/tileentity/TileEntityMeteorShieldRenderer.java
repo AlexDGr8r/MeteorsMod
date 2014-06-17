@@ -30,6 +30,9 @@ public class TileEntityMeteorShieldRenderer extends TileEntitySpecialRenderer
 	public void renderAModelAt(TileEntityMeteorShield shield, double par2, double par4, double par6, float par8) {
 
 		int level = shield.getPowerLevel();
+		if (!shield.getWorldObj().isAirBlock(shield.xCoord, shield.yCoord + 1, shield.zCoord)) {
+			level = 0;
+		}
 		int meta = shield.getBlockMetadata();
 
 		GL11.glPushMatrix();

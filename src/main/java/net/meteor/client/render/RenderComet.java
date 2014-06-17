@@ -1,13 +1,12 @@
 package net.meteor.client.render;
 
-import org.lwjgl.opengl.GL11;
-
 import net.meteor.client.model.ModelMeteor;
 import net.meteor.common.entity.EntityComet;
-import net.meteor.common.entity.EntityMeteor;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
+
+import org.lwjgl.opengl.GL11;
 
 public class RenderComet extends Render {
 

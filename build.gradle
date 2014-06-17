@@ -11,28 +11,30 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.1-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
     }
 }
 
 apply plugin: 'forge'
 
-version = "1.7.2-2.12.1"
+version = "1.7.2-2.12.2"
 group= "net.meteor" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "meteors"
 
 dependencies {
-	compile files("./CodeChickenLib-1.7.2-1.1.1.81-dev.jar")
-	compile files("./NotEnoughItems-1.7.2-1.0.1-dev.jar")
 	compile files("./Waila-1.5.2a_1.7.2.jar")
 }
 
 minecraft {
-    version = "1.7.2-10.12.0.1024"
+    version = "1.7.2-10.12.2.1121"
     assetDir = "eclipse/assets"
 }
 processResources
 {
+	// this will ensure that this task is redone when the versions change.
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
     // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'

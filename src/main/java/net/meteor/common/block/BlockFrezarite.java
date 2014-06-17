@@ -101,7 +101,7 @@ public class BlockFrezarite extends BlockMeteorsMod
 		if ((meta > 0) && (temp > 0.15F)) {
 			world.setBlockMetadataWithNotify(i, j, k, --meta, 2);
 			if (meta <= 0) {
-				world.setBlock(i, j, k, Blocks.water, 0, 3);
+				world.setBlock(i, j, k, Blocks.water);
 				world.playSound((double)((float)i + 0.5F), (double)((float)j + 0.5F), (double)((float)k + 0.5F), "random.glass", 1.0F + random.nextFloat(), random.nextFloat() * 0.7F + 0.3F, false);
 			}
 		}

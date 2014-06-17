@@ -2,11 +2,11 @@ package net.meteor.plugin.waila;
 
 import java.util.List;
 
-import net.meteor.common.tileentity.TileEntityMeteorTimer;
-import net.minecraft.item.ItemStack;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
+import net.meteor.common.tileentity.TileEntityMeteorTimer;
+import net.minecraft.item.ItemStack;
 
 public class TimerDataProvider implements IWailaDataProvider {
 

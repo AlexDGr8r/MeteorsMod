@@ -14,7 +14,7 @@ import net.meteor.common.climate.HandlerMeteor;
 import net.meteor.common.climate.MeteorShieldData;
 import net.meteor.common.entity.EntityComet;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -32,7 +32,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class TileEntityMeteorShield extends TileEntity implements IInventory, IMeteorShield
+public class TileEntityMeteorShield extends TileEntity implements ISidedInventory, IMeteorShield
 {
 
 	public static final int CHARGE_TIME = 1600;
@@ -444,6 +444,7 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory, IM
 		return this.owner;
 	}
 
+	@Override
 	public int getPowerLevel() {
 		return this.powerLevel;
 	}
@@ -461,6 +462,26 @@ public class TileEntityMeteorShield extends TileEntity implements IInventory, IM
 	public void onChunkUnload() {
 		HandlerMeteor metHandler = MeteorsMod.proxy.metHandlers.get(worldObj.provider.dimensionId);
 		metHandler.getShieldManager().addShield(new MeteorShieldData(xCoord, yCoord, zCoord, powerLevel, owner));
+	}
+
+	@Override
+	public int[] getAccessibleSlotsFromSide(int side) {
+		int[] slots = new int[8];
+		for (int i = 0; i < 8; i++) {
+			slots[i] = i + 5;
+		}
+		
+		return slots;
+	}
+
+	@Override
+	public boolean canInsertItem(int slot, ItemStack item, int side) {
+		return isItemValidForSlot(slot, item);
+	}
+
+	@Override
+	public boolean canExtractItem(int slot, ItemStack item, int side) {
+		return slot > 4;
 	}
 
 }

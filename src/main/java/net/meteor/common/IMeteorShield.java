@@ -1,7 +1,5 @@
 package net.meteor.common;
 
-import net.meteor.common.entity.EntityComet;
-import net.minecraft.nbt.NBTTagCompound;
 
 public interface IMeteorShield {
 	

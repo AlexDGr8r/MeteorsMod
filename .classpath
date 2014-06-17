@@ -3,7 +3,7 @@
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/AlexDGr8r/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.2-10.12.0.1024/forgeSrc-1.7.2-10.12.0.1024.jar" sourcepath="C:/Users/AlexDGr8r/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.2-10.12.0.1024/forgeSrc-1.7.2-10.12.0.1024-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/AlexDGr8r/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.2-10.12.2.1121/forgeSrc-1.7.2-10.12.2.1121.jar" sourcepath="C:/Users/AlexDGr8r/.gradle/caches/minecraft/net/minecraftforge/forge/1.7.2-10.12.2.1121/forgeSrc-1.7.2-10.12.2.1121-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="C:/Users/AlexDGr8r/.gradle/caches/modules-2/files-2.1/net.minecraft/launchwrapper/1.9/116f2aad5b0c68353ebed66cd463517db6522f7e/launchwrapper-1.9.jar" sourcepath="C:/Users/AlexDGr8r/.gradle/caches/modules-2/files-2.1/net.minecraft/launchwrapper/1.9/ed9a416b94de54fc9bd8f8da04739e9fd1548e2a/launchwrapper-1.9-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="C:/Users/AlexDGr8r/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-debug-all/4.1/dd6ba5c392d4102458494e29f54f70ac534ec2a2/asm-debug-all-4.1.jar" sourcepath="C:/Users/AlexDGr8r/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-debug-all/4.1/1c218d5a0b8b932a1528b74069aa6973dcfcea74/asm-debug-all-4.1-sources.jar">
 		<attributes>
@@ -136,10 +136,6 @@
 			<attribute name="javadoc_location" value="jar:file:/C:/Users/AlexDGr8r/.gradle/caches/modules-2/files-2.1/org.scala-lang/scala-reflect/2.10.2/6bcae4ac7f8f165926785b5faf957f69405b73ed/scala-reflect-2.10.2-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/AlexDGr8r/Documents/GitHub/1.7 Forge/CodeChickenLib-1.7.2-1.1.1.81-dev.jar"/>
-	<classpathentry kind="lib" path="C:/Users/AlexDGr8r/Documents/GitHub/1.7 Forge/Waila-1.5.2a_1.7.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/AlexDGr8r/Documents/GitHub/1.7 Forge/NotEnoughItems-1.7.2-1.0.1-dev.jar"/>
-	<classpathentry kind="lib" path="C:/Users/AlexDGr8r/Documents/GitHub/1.7 Forge/CodeChickenCore-1.7.2-1.0.0-universal.jar"/>
-	<classpathentry kind="lib" path="C:/Users/AlexDGr8r/Documents/GitHub/1.7 Forge/NotEnoughItems-1.7.2-1.0.1-universal.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/AlexDGr8r/Documents/GitHub/1.7 Forge/Waila-1.5.2a_1.7.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

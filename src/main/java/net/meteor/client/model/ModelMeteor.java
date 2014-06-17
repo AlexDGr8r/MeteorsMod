@@ -1,6 +1,5 @@
 package net.meteor.client.model;
 
-import net.meteor.common.entity.EntityMeteor;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;

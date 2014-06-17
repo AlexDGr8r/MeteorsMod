@@ -1,14 +1,14 @@
 package net.meteor.common.entity;
 
 import io.netty.buffer.ByteBuf;
-import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.meteor.common.EnumMeteor;
 import net.meteor.common.crash.CrashComet;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class EntityComet extends Entity implements IEntityAdditionalSpawnData {
 	

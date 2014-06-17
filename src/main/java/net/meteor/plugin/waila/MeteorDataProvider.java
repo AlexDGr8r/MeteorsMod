@@ -2,15 +2,13 @@ package net.meteor.plugin.waila;
 
 import java.util.List;
 
-import net.meteor.common.block.BlockFrezarite;
-import net.meteor.common.block.BlockMeteor;
-import net.meteor.common.block.BlockRareFallenMeteor;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
 import mcp.mobius.waila.api.SpecialChars;
+import net.meteor.common.block.BlockFrezarite;
+import net.meteor.common.block.BlockMeteor;
+import net.minecraft.item.ItemStack;
 
 public class MeteorDataProvider implements IWailaDataProvider {
 

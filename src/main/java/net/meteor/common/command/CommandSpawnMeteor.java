@@ -5,7 +5,6 @@ import net.meteor.common.entity.EntityMeteor;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class CommandSpawnMeteor extends CommandBase {
