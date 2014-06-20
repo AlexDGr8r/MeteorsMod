@@ -1,0 +1,115 @@
+tile.MeteorOre.name=Meteor
+tile.Meteor.name=Fallen Meteor
+tile.MeteorRare.name=Zeldzaam Fallen Meteor
+tile.MeteorShield.name=Meteor Shield
+tile.ProtectedLandTester.name=Beschermd Terrein Tester
+tile.ProtectedLandTesterActive.name=Beschermd Terrein Tester
+tile.Frezarite.name=Frezarite
+tile.Kreknorite.name=Kreknorite
+tile.MeteorTimer.name=Meteor Timer
+tile.blockRedGem.name=Blok van Red Meteor Gem
+
+item.MeteorChips.name=Meteor Chip
+item.RedMeteorGem.name=Red Meteor Gem
+item.MeteorSummoner.random.name=Meteor Summoner
+item.MeteorSummoner.meteorite.name=Meteoriet Meteor Summoner
+item.MeteorSummoner.frezarite.name=Frezarite Meteor Summoner
+item.MeteorSummoner.kreknorite.name=Kreknorite Meteor Summoner
+item.MeteorSummoner.unknown.name=Onbekende Meteor Summoner
+item.MeteorSummoner.kitty.name=Kitty Comet Summoner
+item.MeteoriteHelmet.name=Meteoriet Helm
+item.MeteoriteChest.name=Meteoriet Chestplate
+item.MeteoriteLegs.name=Meteoriet Leggings
+item.MeteoriteBoots.name=Meteoriet Boots
+item.MeteoriteAxe.name=Meteoriet Axe
+item.MeteoriteSpade.name=Meteoriet Spade
+item.MeteoriteSword.name=Meteoriet Sword
+item.MeteoritePickaxe.name=Meteoriet Houweel
+item.MeteoriteHoe.name=Meteoriet Schoffel
+item.FrezariteHelmet.name=Frezarite Helm
+item.FrezariteChest.name=Frezarite Chestplate
+item.FrezariteLegs.name=Frezarite Leggings
+item.FrezariteBoots.name=Frezarite Boots
+item.FrezariteCrystal.name=Frezarite Crystal
+item.FrezaritePickaxe.name=Frezarite Houweel
+item.FrezariteSpade.name=Frezarite Spade
+item.FrezariteSword.name=Frezarite Sword
+item.FrezariteAxe.name=Frezarite Axe
+item.FrezariteHoe.name=Frezarite Schoffel
+item.KreknoriteChip.name=Kreknorite Chip
+item.KreknoriteHelmet.name=Kreknorite Helm
+item.KreknoriteChest.name=Kreknorite Chestplate
+item.KreknoriteLegs.name=Kreknorite Leggings
+item.KreknoriteBoots.name=Kreknorite Boots
+item.KreknoriteSword.name=Kreknorite Sword
+item.VanillaIceCream.name=vanille-ijs
+item.ChocolateIceCream.name=Chocolate Ice Cream
+item.MeteorDetectorProximity.name=Meteor Proximity Detector
+item.MeteorDetectorTime.name=Meteor Tijd Detector
+item.MeteorDetectorCrash.name=Meteor Crash Detector
+
+entity.AlienCreeper.name=Alien Creeper
+entity.CometKitty.name=Comet Kitty
+
+MeteorShield.charging=Meteor Shield opladen!
+MeteorShield.noUpgrade=Upgrading dit Meteor Shield doet niets!
+# Voorbeeld output voor hieronder: Meteor Shield nu op 80%
+MeteorShield.PowerUpgradePercentage=Meteor Shield nu bij
+MeteorShield.meteorBlocked=Uw Meteor Shield beveiligd je land van een meteoor.
+
+MeteorTimer.modeChange.one=Power Mode: Meteor Timer zal nu stak een redstone signaal met de sterkte op basis van hoe dicht de meteoor is te crashen.
+MeteorTimer.modeChange.two=Quick Mode: Meteor Timer zal nu alleen maar stak een redstone signaal wanneer een meteoor is gewoon over te crashen.
+
+ProtectionTorch.landOwnership=Dit land is beschermd door:
+
+enchantment.Magnetization=Magnetisatie
+enchantment.Cold Touch=Cold Touch
+enchantment.addEnch.one=Klik met de rechtermuisknop terwijl in de hand
+enchantment.addEnch.two=aan betovering toe te voegen
+enchantment.frezAxe.one=Verhoogt onderwater
+enchantment.frezAxe.two=snijsnelheid
+enchantment.frezHoe.one=Automatisch wateren
+enchantment.frezHoe.two=landbouwgrond bij gebruik
+enchantment.frezPickaxe.one=Verhoogt onderwater
+enchantment.frezPickaxe.two=mijnbouw snelheid
+enchantment.frezSpade.one=Verhoogt onderwater
+enchantment.frezSpade.two=graven snelheid
+enchantment.frezSword.one=Bevriest vijanden, waardoor
+enchantment.frezSword.two=hen te vertragen.
+
+Meteor.netherPortalCreation=Een portaal naar de Nether is gemaakt!
+Meteor.kittiesDetected.one=levende wezens ontdekt in het luchtruim!
+Meteor.kittiesDetected.two=Bereid je voor meerdere effecten!
+Meteor.crashed=Een meteoor is gecrasht!
+
+MeteorSummoner.incomingMeteor=Incoming meteoor!
+MeteorSummoner.wrongDimension=Kan niet meteoren in deze dimensie op te roepen.
+MeteorSummoner.landProtected=Dit land wordt beschermd door een andere speler!
+
+itemGroup.Meteor=Falling Meteors
+
+achievement.pageMeteors=Falling Meteors
+achievement.shieldCrafted=We zijn bedekt
+achievement.shieldCrafted.desc=Craft een Meteor Shield behulp meteoriet chips.
+achievement.meteorBlocked=Meteor Vernietigd!
+achievement.meteorBlocked.desc=Gebruik een Meteor Shield om een ​​meteoor te blokkeren van het vernietigen van het land.
+achievement.shieldFullyUpgraded=Upgrade Compleet
+achievement.shieldFullyUpgraded.desc=Volledig upgrade van een Meteor Shield met zeldzame Rode Meteor Gems.
+achievement.attractedDrop=Magnetized
+achievement.attractedDrop.desc=Aantrekken van magnetische materialen met behulp Meteoriet armor of gereedschappen.
+achievement.craftedKreknoSword=vlammen van woede
+achievement.craftedKreknoSword.desc=Craft een Kreknorite Flame Sword behulp Kreknorite Chips.
+achievement.craftedDetector=Well Informed
+achievement.craftedDetector.desc=Craft elke vorm van detector: Meteorite, Frezarite of Kreknorite
+achievement.foundMeteor=Maak kennis met een Meteor
+achievement.foundMeteor.desc=Gebruik een detector om een ​​crash site te vinden en in de buurt van de meteoor als het valt.
+achievement.craftedMeteorTimer=Tijdige opsporing
+achievement.craftedMeteorTimer.desc=Craft een Meteor Timer om te weten wanneer een meteoor is het punt te vallen.
+achievement.summonMeteor=Drop the Rock!
+achievement.summonMeteor.desc=Summoner een meteoor met een meteoor summoner.
+achievement.cometKittyEvent=Buitenlandse Feline
+achievement.cometKittyEvent.desc=Beleef de herfst van vele katachtigen.
+achievement.kittyTame=Vriendelijke Feline
+achievement.kittyTame.desc=Tame a Comet Kitty voor een brandveilig metgezel.
+achievement.materialGather=Niet van deze wereld
+achievement.materialGather.desc=Verzamel erts uit een gevallen meteoor. 
