@@ -4,7 +4,11 @@ build/*
 eclipse/*
 gradle/*
 gradlew
+/src/api/*
+/bin/*
+/lib/*
 
 *.bat
 *.sh
 *.jar
+*.class

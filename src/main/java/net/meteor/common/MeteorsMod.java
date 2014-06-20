@@ -18,6 +18,7 @@ import net.meteor.common.entity.EntityCometKitty;
 import net.meteor.common.entity.EntityMeteor;
 import net.meteor.common.entity.EntitySummoner;
 import net.meteor.common.packets.PacketPipeline;
+import net.meteor.plugin.thaumcraft.Thaumcraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.util.MathHelper;
@@ -28,6 +29,7 @@ import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.IWorldGenerator;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
@@ -41,7 +43,7 @@ import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid=MeteorsMod.MOD_ID, name=MeteorsMod.MOD_NAME, version=MeteorsMod.VERSION, dependencies="after:Waila")
+@Mod(modid=MeteorsMod.MOD_ID, name=MeteorsMod.MOD_NAME, version=MeteorsMod.VERSION, dependencies="after:Waila;after:Baubles;after:Thaumcraft")
 public class MeteorsMod
 implements IWorldGenerator
 {
@@ -142,8 +144,7 @@ implements IWorldGenerator
 		cHandler.registerPackets();
 		MinecraftForge.EVENT_BUS.register(cHandler);
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new HandlerGui());
-		
-		FMLInterModComms.sendMessage("Waila", "register", "net.meteor.plugin.waila.Waila.register");
+		loadPlugins();
 	}
 	
 	@EventHandler
@@ -227,6 +228,15 @@ implements IWorldGenerator
 		EntityRegistry.registerModEntity(EntitySummoner.class, "MeteorSummoner", 2, this, 64, 8, true);
 		EntityRegistry.registerGlobalEntityID(EntityComet.class, "FallingComet", EntityRegistry.findGlobalUniqueEntityId());
 		EntityRegistry.registerModEntity(EntityComet.class, "FallingComet", 5, this, 64, 8, true);
+	}
+	
+	private void loadPlugins() {
+		if (Loader.isModLoaded("Waila")) {
+			FMLInterModComms.sendMessage("Waila", "register", "net.meteor.plugin.waila.Waila.register");
+		}
+		if (Loader.isModLoaded("Thaumcraft")) {
+			Thaumcraft.incorporateThaumcraft();
+		}
 	}
 
 	@Override
