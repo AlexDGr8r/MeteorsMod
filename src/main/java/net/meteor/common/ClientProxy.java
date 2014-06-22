@@ -20,11 +20,14 @@ import net.meteor.common.entity.EntityMeteor;
 import net.meteor.common.entity.EntitySummoner;
 import net.meteor.common.tileentity.TileEntityMeteorShield;
 import net.meteor.common.tileentity.TileEntityMeteorTimer;
+import net.meteor.plugin.baubles.Baubles;
+import net.meteor.plugin.baubles.MagnetizationOverlay;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
@@ -51,6 +54,10 @@ public class ClientProxy extends CommonProxy
 		
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(MeteorBlocks.blockMeteorShield), new ShieldItemRenderer());
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(MeteorBlocks.blockMeteorTimer), new TimerItemRenderer());
+		
+		if (Baubles.isBaublesLoaded()) {
+			MinecraftForge.EVENT_BUS.register(new MagnetizationOverlay());
+		}
 	}
 
 	public static void spawnParticle(String s, double d, double d1, double d2, double d3, double d4, double d5, World worldObj, int opt)

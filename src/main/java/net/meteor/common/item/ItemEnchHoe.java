@@ -2,10 +2,12 @@ package net.meteor.common.item;
 
 import net.meteor.common.MeteorsMod;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
 
 public class ItemEnchHoe extends ItemHoe
 {

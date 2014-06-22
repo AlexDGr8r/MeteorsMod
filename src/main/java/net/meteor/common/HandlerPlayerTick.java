@@ -2,6 +2,7 @@ package net.meteor.common;
 
 import java.util.List;
 
+import net.meteor.plugin.baubles.Baubles;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,7 +18,7 @@ import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
 
 public class HandlerPlayerTick
 {
-
+	
 	@SubscribeEvent
 	public void onPlayerTick(PlayerTickEvent event) {
 		EntityPlayer player = event.player;
@@ -77,8 +78,12 @@ public class HandlerPlayerTick
 	}
 
 	public static boolean isPlayerMagnetized(EntityPlayer player) {
-		return EnchantmentHelper.getMaxEnchantmentLevel(MeteorsMod.Magnetization.effectId, player.getLastActiveItems()) > 0 || 
-				EnchantmentHelper.getEnchantmentLevel(MeteorsMod.Magnetization.effectId, player.getHeldItem()) > 0;
+		boolean gearMagnetized =  EnchantmentHelper.getMaxEnchantmentLevel(MeteorsMod.Magnetization.effectId, player.getLastActiveItems()) > 0 ||  EnchantmentHelper.getEnchantmentLevel(MeteorsMod.Magnetization.effectId, player.getHeldItem()) > 0;
+		if (Baubles.isBaublesLoaded()) {
+			return Baubles.canAttractItems(player, gearMagnetized);
+		} else {
+			return gearMagnetized;
+		}
 	}
 
 	private void updateEntityItem(EntityItem en) {

@@ -18,6 +18,7 @@ import net.meteor.common.entity.EntityCometKitty;
 import net.meteor.common.entity.EntityMeteor;
 import net.meteor.common.entity.EntitySummoner;
 import net.meteor.common.packets.PacketPipeline;
+import net.meteor.plugin.baubles.Baubles;
 import net.meteor.plugin.thaumcraft.Thaumcraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
@@ -50,7 +51,7 @@ implements IWorldGenerator
 	
 	public static final String MOD_ID 	= "meteors";
 	public static final String MOD_NAME = "Falling Meteors";
-	public static final String VERSION 	= "2.12.2"; 		// Switch to automatic versioning later on
+	public static final String VERSION 	= "2.12.3"; 		// Switch to automatic versioning later on
 	
 	public static final boolean loggable = true;		// For Debugging Purposes Only
 
@@ -102,6 +103,7 @@ implements IWorldGenerator
 		MeteorBlocks.registerBlocks();
 		MeteorItems.registerItems();
 		MeteorItems.readyItems();
+		loadPlugins();
 		
 		HandlerMeteor.defaultType = EnumMeteor.METEORITE;
 		if (!this.meteoriteEnabled) {
@@ -133,7 +135,6 @@ implements IWorldGenerator
 
 		MinecraftForge.EVENT_BUS.register(new HandlerPlayerBreakSpeed());
 		MinecraftForge.EVENT_BUS.register(new HandlerWorld());
-
 		FMLCommonHandler.instance().bus().register(recipeHandler);
 		FMLCommonHandler.instance().bus().register(achHandler);
 		GameRegistry.registerFuelHandler(recipeHandler);
@@ -144,7 +145,6 @@ implements IWorldGenerator
 		cHandler.registerPackets();
 		MinecraftForge.EVENT_BUS.register(cHandler);
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new HandlerGui());
-		loadPlugins();
 	}
 	
 	@EventHandler
@@ -233,6 +233,9 @@ implements IWorldGenerator
 	private void loadPlugins() {
 		if (Loader.isModLoaded("Waila")) {
 			FMLInterModComms.sendMessage("Waila", "register", "net.meteor.plugin.waila.Waila.register");
+		}
+		if (Loader.isModLoaded("Baubles")) {
+			Baubles.setupBaubleItems();
 		}
 		if (Loader.isModLoaded("Thaumcraft")) {
 			Thaumcraft.incorporateThaumcraft();

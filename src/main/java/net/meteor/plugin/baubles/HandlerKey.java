@@ -1,0 +1,41 @@
+package net.meteor.plugin.baubles;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+
+import org.lwjgl.input.Keyboard;
+
+import baubles.api.BaublesApi;
+import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
+
+public class HandlerKey {
+	
+	private KeyBinding toggleMagnetism;
+	
+	public void init() {
+		toggleMagnetism = new KeyBinding("key.toggleMagnetism", Keyboard.KEY_Y, "key.categories.meteors");
+		ClientRegistry.registerKeyBinding(toggleMagnetism);
+	}
+	
+	@SubscribeEvent
+	public void onKeyInput(KeyInputEvent event) {
+		if (toggleMagnetism.isPressed()) {
+			IInventory inv = BaublesApi.getBaubles(Minecraft.getMinecraft().thePlayer);
+			ItemStack stack = inv.getStackInSlot(3);
+			if (stack != null) {
+				if (stack.getItem() == Baubles.MagnetismController) {
+					boolean val = !ItemMagnetismController.getNBTData(stack);
+					ItemMagnetismController.setNBTData(stack, val);
+					Baubles.renderDisplayTicks = Minecraft.getMinecraft().theWorld.getTotalWorldTime() + 100L;
+					Baubles.renderDisplay = true;
+					Baubles.enabledMagnetism = val;
+				}
+			}
+		}
+	}
+
+}

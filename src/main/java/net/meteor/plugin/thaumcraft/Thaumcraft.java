@@ -6,7 +6,6 @@ import net.minecraft.item.ItemStack;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
-import cpw.mods.fml.common.Loader;
 
 public class Thaumcraft {
 	
@@ -54,8 +53,6 @@ public class Thaumcraft {
 		ThaumcraftApi.registerComplexObjectTag(new ItemStack(MeteorItems.KreknoriteHelmet), new AspectList());
 		ThaumcraftApi.registerComplexObjectTag(new ItemStack(MeteorItems.KreknoriteLegs), new AspectList());
 		ThaumcraftApi.registerComplexObjectTag(new ItemStack(MeteorItems.KreknoriteSword), new AspectList());
-		ThaumcraftApi.registerComplexObjectTag(new ItemStack(MeteorItems.itemChocolateIceCream), new AspectList());
-		ThaumcraftApi.registerComplexObjectTag(new ItemStack(MeteorItems.itemVanillaIceCream), new AspectList());
 		ThaumcraftApi.registerComplexObjectTag(new ItemStack(MeteorItems.itemMeteorCrashDetector), new AspectList());
 		ThaumcraftApi.registerComplexObjectTag(new ItemStack(MeteorItems.itemMeteorProximityDetector), new AspectList());
 		ThaumcraftApi.registerComplexObjectTag(new ItemStack(MeteorItems.itemMeteorTimeDetector), new AspectList());
