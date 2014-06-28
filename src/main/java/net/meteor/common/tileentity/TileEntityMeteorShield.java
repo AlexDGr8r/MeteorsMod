@@ -337,7 +337,7 @@ public class TileEntityMeteorShield extends TileEntity implements ISidedInventor
 		if (itemstack == null) {
 			inv[i] = null;
 			if (i > 0 && i < 5 && powerLevel > 1) {
-				this.downgradeRange(powerLevel - 1);
+				this.updateRange();
 			}
 		} else if (isItemValidForSlot(i, itemstack)) {
 			if (i < 5 && itemstack.stackSize > 1) {
@@ -349,7 +349,7 @@ public class TileEntityMeteorShield extends TileEntity implements ISidedInventor
 				this.markDirty();
 			} else if (i > 0 && i < 5) {
 				inv[i] = itemstack;
-				upgradeRange(powerLevel + 1);
+				this.updateRange();
 			}
 		}
 	}
@@ -390,27 +390,32 @@ public class TileEntityMeteorShield extends TileEntity implements ISidedInventor
 
 	@Override
 	public void closeInventory() {}
-
-	private void upgradeRange(int power) {
-		this.powerLevel = power;
-		this.range = MeteorsMod.instance.ShieldRadiusMultiplier * power;
-		this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-		this.worldObj.playSoundEffect(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D, "meteors:shield.powerup", 1.0F, power / 10.0F + 0.5F);
-
-		if (MeteorsMod.instance.ShieldRadiusMultiplier <= 0 && !worldObj.isRemote) {
-			EntityPlayer player = ((WorldServer)worldObj).func_73046_m().getConfigurationManager().getPlayerForUsername(owner);
-			if (player != null) {
-				player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("MeteorShield.noUpgrade")));
-			}	
+	
+	private void updateRange() {
+		int powerCrystals = 0;
+		for (int i = 1; i <= 4; i++) {
+			if (inv[i] != null && inv[i].getItem() == MeteorItems.itemRedMeteorGem) {
+				powerCrystals++;
+			}
 		}
-		this.markDirty();
-	}
-
-	private void downgradeRange(int power) {
-		this.powerLevel = power;
-		this.range = MeteorsMod.instance.ShieldRadiusMultiplier * power;
+		
+		int oldLevel = this.powerLevel;
+		this.powerLevel = 1 + powerCrystals;
+		this.range = MeteorsMod.instance.ShieldRadiusMultiplier * powerLevel;
 		this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-		// TODO sound for power down
+		
+		if (powerLevel > oldLevel) {
+			this.worldObj.playSoundEffect(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D, "meteors:shield.powerup", 1.0F, powerLevel / 10.0F + 0.5F);
+			if (MeteorsMod.instance.ShieldRadiusMultiplier <= 0 && !worldObj.isRemote) {
+				EntityPlayer player = ((WorldServer)worldObj).func_73046_m().getConfigurationManager().getPlayerForUsername(owner);
+				if (player != null) {
+					player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("MeteorShield.noUpgrade")));
+				}	
+			}
+		} else if (powerLevel < oldLevel) {
+			// TODO Add sound for power down
+		}
+		
 		this.markDirty();
 	}
 
