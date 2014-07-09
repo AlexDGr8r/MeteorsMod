@@ -4,11 +4,7 @@ import java.util.ArrayList;
 
 import net.meteor.common.climate.CrashLocation;
 import net.meteor.common.climate.HandlerMeteor;
-import net.meteor.common.packets.PacketGhostMeteor;
-import net.meteor.common.packets.PacketLastCrash;
-import net.meteor.common.packets.PacketPipeline;
-import net.meteor.common.packets.PacketSettings;
-import net.meteor.common.packets.PacketSoonestMeteor;
+import net.meteor.common.packets.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ChatComponentText;
@@ -40,6 +36,7 @@ public class ClientHandler
 		this.packetPipeline.registerPacket(PacketLastCrash.class);
 		this.packetPipeline.registerPacket(PacketSettings.class);
 		this.packetPipeline.registerPacket(PacketSoonestMeteor.class);
+		this.packetPipeline.registerPacket(PacketBlockedMeteor.class);
 	}
 
 	public static ChunkCoordinates getClosestIncomingMeteor(double pX, double pZ) {

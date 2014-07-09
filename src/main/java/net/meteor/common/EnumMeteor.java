@@ -12,11 +12,11 @@ import net.minecraft.util.ResourceLocation;
 public enum EnumMeteor
 implements Serializable
 {
-	METEORITE(0, MeteorBlocks.blockMeteor, MeteorBlocks.blockRareMeteor, true, "met", EnumChatFormatting.LIGHT_PURPLE, new ItemStack(MeteorBlocks.blockMeteor, 1, 1)), 
-	FREZARITE(1, MeteorBlocks.blockFrezarite, Blocks.ice, false, "freza", EnumChatFormatting.AQUA, new ItemStack(MeteorBlocks.blockFrezarite, 1, 1)), 
-	KREKNORITE(2, MeteorBlocks.blockKreknorite, Blocks.lava, true, "krekno", EnumChatFormatting.RED, new ItemStack(MeteorBlocks.blockKreknorite, 1, 1)), 
-	UNKNOWN(3, Blocks.air, Blocks.air, true, "unk", EnumChatFormatting.GRAY, new ItemStack(Blocks.chest, 1)), 
-	KITTY(4, Blocks.air, Blocks.air, false, "kitty", EnumChatFormatting.GREEN, new ItemStack(Items.fish, 1));
+	METEORITE(0, MeteorBlocks.blockMeteor, MeteorBlocks.blockRareMeteor, true, "met", EnumChatFormatting.LIGHT_PURPLE, new ItemStack(MeteorBlocks.blockMeteor, 1, 1), MeteorBlocks.blockMeteor), 
+	FREZARITE(1, MeteorBlocks.blockFrezarite, Blocks.ice, false, "freza", EnumChatFormatting.AQUA, new ItemStack(MeteorBlocks.blockFrezarite, 1, 1), MeteorBlocks.blockFrezarite), 
+	KREKNORITE(2, MeteorBlocks.blockKreknorite, Blocks.lava, true, "krekno", EnumChatFormatting.RED, new ItemStack(MeteorBlocks.blockKreknorite, 1, 1), MeteorBlocks.blockKreknorite), 
+	UNKNOWN(3, Blocks.air, Blocks.air, true, "unk", EnumChatFormatting.GRAY, new ItemStack(Blocks.chest, 1), Blocks.glowstone), 
+	KITTY(4, Blocks.air, Blocks.air, false, "kitty", EnumChatFormatting.GREEN, new ItemStack(Items.fish, 1), MeteorBlocks.blockMeteor);
 
 	private final int ID;
 	private final Block material;
@@ -25,8 +25,9 @@ implements Serializable
 	private final String beamTex;
 	private final EnumChatFormatting chatColor;
 	private final ItemStack representingItem;
+	private final Block representingBlock;
 
-	private EnumMeteor(int id, Block mat, Block rMat, boolean fiery, String bTex, EnumChatFormatting color, ItemStack item) { 
+	private EnumMeteor(int id, Block mat, Block rMat, boolean fiery, String bTex, EnumChatFormatting color, ItemStack item, Block block) { 
 		this.ID = id;
 		this.material = mat;
 		this.rareMaterial = rMat;
@@ -34,6 +35,7 @@ implements Serializable
 		this.beamTex = bTex; 
 		this.chatColor = color;
 		this.representingItem = item;
+		this.representingBlock = block;
 	}
 
 	public Block getMaterial()
@@ -59,6 +61,10 @@ implements Serializable
 	
 	public ItemStack getRepresentingItem() {
 		return this.representingItem;
+	}
+	
+	public Block getRepresentingBlock() {
+		return this.representingBlock;
 	}
 
 	public static EnumMeteor getTypeFromID(int i) {

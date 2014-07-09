@@ -5,12 +5,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import net.meteor.common.IMeteorShield;
 import net.meteor.common.MeteorItems;
 import net.meteor.common.MeteorsMod;
 import net.meteor.common.crash.CrashUnknown;
 import net.meteor.common.entity.EntityCometKitty;
+import net.meteor.common.packets.PacketBlockedMeteor;
 import net.meteor.common.tileentity.TileEntityMeteorShield;
+import net.minecraft.block.Block;
 import net.minecraft.entity.EntityList;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -92,6 +95,9 @@ public class ShieldManager {
 	public void sendMeteorMaterialsToShield(IMeteorShield shield, GhostMeteor gMeteor) {
 		TileEntityMeteorShield tShield = (TileEntityMeteorShield) theWorld.getTileEntity(shield.getX(), shield.getY(), shield.getZ());
 		if (tShield != null) {
+			
+			MeteorsMod.packetPipeline.sendToAllAround(new PacketBlockedMeteor(shield.getX(), shield.getY(), shield.getZ(), gMeteor.type), new TargetPoint(theWorld.provider.dimensionId, shield.getX(), shield.getY(), shield.getZ(), 64));
+			
 			List<ItemStack> items = new ArrayList<ItemStack>();
 			int r = random.nextInt(100);
 			switch (gMeteor.type.getID()) {
