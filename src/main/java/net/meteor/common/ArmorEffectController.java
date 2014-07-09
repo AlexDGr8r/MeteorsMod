@@ -23,10 +23,11 @@ public class ArmorEffectController
 		}
 	}
 
+	// TODO Always check for correct field name in each update
 	private static void setFieldBool(Class class1, Object instance, boolean value) throws IllegalArgumentException, IllegalAccessException
 	{
 		try {
-			Field field = class1.getDeclaredField("field_70178_ae");
+			Field field = class1.getDeclaredField("field_70178_ae"); // note that in order to test this in deobfuscated environment, change to "isImmuneToFire"
 			field.setAccessible(true);
 			field.setBoolean(instance, value);
 		} catch (NoSuchFieldException e) {

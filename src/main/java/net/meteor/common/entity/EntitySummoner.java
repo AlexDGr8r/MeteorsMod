@@ -8,6 +8,7 @@ import net.meteor.common.IMeteorShield;
 import net.meteor.common.MeteorItems;
 import net.meteor.common.MeteorsMod;
 import net.meteor.common.climate.HandlerMeteor;
+import net.meteor.common.climate.HandlerWorld;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -81,7 +82,7 @@ public class EntitySummoner extends EntityThrowable implements IEntityAdditional
 
 		EntityPlayer player = (EntityPlayer)this.getThrower();
 
-		if (this.worldObj.provider.dimensionId != 0) {
+		if (this.worldObj.getGameRules().getGameRuleBooleanValue(HandlerWorld.METEORS_FALL_GAMERULE)) {  // TODO change to game rule dependency
 			if ((player != null) && (!this.worldObj.isRemote)) {
 				player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("MeteorSummoner.wrongDimension")));
 				if (!player.capabilities.isCreativeMode) {
@@ -101,7 +102,7 @@ public class EntitySummoner extends EntityThrowable implements IEntityAdditional
 
 			boolean canHit = true;
 
-			if (!worldObj.getGameRules().getGameRuleBooleanValue("summonMeteors")) {
+			if (!worldObj.getGameRules().getGameRuleBooleanValue(HandlerWorld.SUMMON_METEORS_GAMERULE)) {
 				canHit = false;
 				player.addChatMessage(ClientHandler.createMessage(StatCollector.translateToLocal("MeteorSummoner.cannotSummon"), EnumChatFormatting.RED));
 				if (!player.capabilities.isCreativeMode) {
@@ -112,7 +113,7 @@ public class EntitySummoner extends EntityThrowable implements IEntityAdditional
 					}
 				}
 			} else if ((!MeteorsMod.instance.allowSummonedMeteorGrief) && (player != null)) {
-				IMeteorShield shield = MeteorsMod.proxy.metHandlers.get(worldObj.provider.dimensionId).getShieldManager().getClosestShieldInRange(this.chunkCoordX, this.chunkCoordZ);
+				IMeteorShield shield = MeteorsMod.proxy.metHandlers.get(worldObj.provider.dimensionId).getShieldManager().getClosestShieldInRange((int)this.posX, (int)this.posZ);
 				if (shield != null && (!player.getCommandSenderName().equalsIgnoreCase(shield.getOwner()))) {
 					canHit = false;
 					player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("MeteorSummoner.landProtected")));

@@ -99,7 +99,6 @@ public class BlockMeteorShieldTorch extends BlockTorch
 	}
 
 	private void checkArea(World world, int i, int j, int k) {
-		Chunk chunk = world.getChunkFromBlockCoords(i, k);
 		boolean isSafeChunk = MeteorsMod.proxy.metHandlers.get(world.provider.dimensionId).getShieldManager().getClosestShieldInRange(i, k) != null;
 		if (this.torchActive) {
 			if (!isSafeChunk)

@@ -86,10 +86,6 @@ implements IEntityAdditionalSpawnData
 	@Override
 	public void onUpdate()
 	{
-		if (!this.worldObj.provider.isSurfaceWorld()) {
-			this.setDead();
-			return;
-		}
 		if (!this.summoned) {
 			if (!worldObj.isRemote) {
 				HandlerMeteor metHandler = MeteorsMod.proxy.metHandlers.get(worldObj.provider.dimensionId);

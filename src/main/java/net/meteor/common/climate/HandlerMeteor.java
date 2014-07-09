@@ -30,10 +30,10 @@ public class HandlerMeteor
 {
 	private WorldServer theWorld;
 	private String worldName;
-	private HandlerMeteorTick tickHandler;
+	private ClimateUpdater climateUpdater;
 	private GhostMeteorData gMetData;
 	private CrashedChunkSetData ccSetData;
-	private MeteorForecast forecast;
+	private final MeteorForecast forecast;
 	private ShieldManager shieldManager;
 
 	private static Random random = new Random();
@@ -43,24 +43,20 @@ public class HandlerMeteor
 
 	public static EnumMeteor defaultType;
 
-	public HandlerMeteor(WorldEvent.Load event) {
-		if (!(event.world instanceof WorldServer) || event.world.provider.dimensionId != 0) {
-			return;
-		}
+	public HandlerMeteor(WorldEvent.Load event, HandlerMeteorTick worldTickHandler) {
 		MeteorsMod.instance.setClientStartConfig();
 		this.theWorld = (WorldServer) event.world;
 		this.gMetData = GhostMeteorData.forWorld(theWorld, this);
 		this.ccSetData = CrashedChunkSetData.forWorld(theWorld, this);
 		this.worldName = theWorld.getWorldInfo().getWorldName();
-		this.tickHandler = new HandlerMeteorTick(this, worldName);
-		FMLCommonHandler.instance().bus().register(tickHandler);
-		
-		this.forecast = new MeteorForecast(tickHandler, ghostMets, ccSetData.getLoadedCrashLocation(), theWorld);
+		this.climateUpdater = new ClimateUpdater(this);
+		this.forecast = new MeteorForecast(climateUpdater, ghostMets, ccSetData.getLoadedCrashLocation(), theWorld);
 		this.shieldManager = new ShieldManager(theWorld);
+		worldTickHandler.registerUpdater(theWorld.provider.dimensionId, climateUpdater);
 	}
 
 	public void updateMeteors() {
-		if ((this.theWorld == null) || this.theWorld.provider.dimensionId != 0) {
+		if (this.theWorld == null) {
 			return;
 		}
 

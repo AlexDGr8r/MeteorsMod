@@ -13,13 +13,13 @@ public class EnchantmentMagnetized extends Enchantment
 	@Override
 	public int getMinEnchantability(int par1)
 	{
-		return 40;
+		return 15 + (par1 - 1) * 9;
 	}
 
 	@Override
 	public int getMaxEnchantability(int par1)
 	{
-		return super.getMinEnchantability(par1) + 20;
+		return super.getMinEnchantability(par1) + 50;
 	}
 
 	@Override

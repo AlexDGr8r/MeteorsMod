@@ -5,18 +5,19 @@ import java.util.ArrayList;
 import net.meteor.common.EnumMeteor;
 import net.meteor.common.MeteorsMod;
 import net.meteor.common.packets.PacketSoonestMeteor;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 
 public class MeteorForecast {
 	
-	private WorldServer theWorld;
-	private HandlerMeteorTick worldTick;
+	private World theWorld;
+	private ClimateUpdater worldTick;
 	private ArrayList<GhostMeteor> ghostMets;
 	private CrashLocation lastCrash = null;
 	
-	public MeteorForecast(HandlerMeteorTick wTick, ArrayList<GhostMeteor> gMets, CrashLocation lCrash, WorldServer world) {
+	public MeteorForecast(ClimateUpdater wTick, ArrayList<GhostMeteor> gMets, CrashLocation lCrash, World world) {
 		this.worldTick = wTick;
 		this.ghostMets = gMets;
 		this.lastCrash = lCrash;

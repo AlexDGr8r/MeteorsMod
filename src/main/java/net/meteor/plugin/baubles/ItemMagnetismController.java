@@ -64,6 +64,7 @@ public class ItemMagnetismController extends ItemMeteorsMod implements IBauble {
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List info, boolean advTooltip) {
 		info.add("Magnetization: " + (getNBTData(stack) ? EnumChatFormatting.GREEN + "On" : EnumChatFormatting.RED + "Off")); // TODO localize
+		info.add("");
 	}
 	
 	public static void setNBTData(ItemStack itemstack, boolean val) {

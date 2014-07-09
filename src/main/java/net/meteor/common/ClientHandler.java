@@ -86,6 +86,9 @@ public class ClientHandler
 				HandlerMeteor metHandler = MeteorsMod.proxy.metHandlers.get(event.world.provider.dimensionId);
 				packetPipeline.sendTo(new PacketGhostMeteor(), player);		// Clear Ghost Meteors
 				metHandler.sendGhostMeteorPackets(player);
+				if (metHandler.getForecast() == null) {
+					MeteorsMod.log.info("FORECAST WAS NULL");
+				}
 				packetPipeline.sendTo(new PacketLastCrash(metHandler.getForecast().getLastCrashLocation()), player);
 				packetPipeline.sendTo(new PacketSoonestMeteor(metHandler.getForecast().getNearestTimeMeteor()), player);
 			}

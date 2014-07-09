@@ -16,18 +16,19 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 
 public class ShieldManager {
 	
-	private WorldServer theWorld;
+	private World theWorld;
 	private MeteorShieldSavedData shieldSavedData;
 	
 	private static Random random = new Random();
 	
 	public ArrayList<IMeteorShield> meteorShields = new ArrayList<IMeteorShield>();
 	
-	public ShieldManager(WorldServer w) {
+	public ShieldManager(World w) {
 		this.theWorld = w;
 		this.shieldSavedData = MeteorShieldSavedData.forWorld(theWorld, this);
 	}

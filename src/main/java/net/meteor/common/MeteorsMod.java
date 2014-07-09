@@ -94,6 +94,7 @@ implements IWorldGenerator
 	public double ImpactExplosionMultiplier;
 	public int ImpactSpread;
 	public int cometFallChance;
+	public int[] whitelistedDimensions;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -155,21 +156,22 @@ implements IWorldGenerator
 	private void loadStaticConfigurationValues() {
 		ModConfig config = ModConfig.instance;
 		// Enchantments 
-		Magnetization = new EnchantmentMagnetized(config.get("Magnetization Enchantment ID", 157), 3).setName("Magnetization");
-		ColdTouch 	  = new EnchantmentColdTouch(config.get("Cold Touch Enchantment ID", 158), 3).setName("Cold Touch");
+		Magnetization = new EnchantmentMagnetized(config.get("Magnetization Enchantment ID", 157), 2).setName("Magnetization");
+		ColdTouch 	  = new EnchantmentColdTouch(config.get("Cold Touch Enchantment ID", 158), 2).setName("Cold Touch");
 		// General Configuration
-		meteorFallDistance	= config.get("Meteor Fall Radius", 350);
-		kittyAttackChance	= config.get("Kitty Attack Chance", 1);
-		textNotifyCrash		= config.get("Text Crash Notification", false);
-		meteoriteEnabled	= config.get("Meteorite Meteor Enabled", true);
-		frezariteEnabled	= config.get("Frezarite Meteor Enabled", true);
-		kreknoriteEnabled	= config.get("Kreknorite Meteor Enabled", true);
-		unknownEnabled		= config.get("Unknown Meteor Enabled", true);
-		chunkChecks 		= config.get("Chunk Generation Checks", 4);
-		oreGenSize  		= config.get("Meteor Ore Gen Size", 6);
-		meteorShieldSound 	= config.get("Meteor Shield Humming Noise Enabled", true);
-		cometFallChance		= config.get("Comet Fall Chance", 20);
-		int configTicks 	= config.get("Meteor Fall Deterrence", 25) * 100;
+		meteorFallDistance		= config.get("Meteor Fall Radius", 350);
+		kittyAttackChance		= config.get("Kitty Attack Chance", 1, "Ranges from 0 to 100");
+		textNotifyCrash			= config.get("Text Crash Notification", false);
+		meteoriteEnabled		= config.get("Meteorite Meteor Enabled", true);
+		frezariteEnabled		= config.get("Frezarite Meteor Enabled", true);
+		kreknoriteEnabled		= config.get("Kreknorite Meteor Enabled", true);
+		unknownEnabled			= config.get("Unknown Meteor Enabled", true);
+		chunkChecks 			= config.get("Chunk Generation Checks", 4);
+		oreGenSize  			= config.get("Meteor Ore Gen Size", 6);
+		meteorShieldSound 		= config.get("Meteor Shield Humming Noise Enabled", true);
+		cometFallChance			= config.get("Comet Fall Chance", 20, "Ranges from 0 to 100");
+		whitelistedDimensions 	= config.get("Whitelisted Dimensions", new int[] {0, 1}, "Dimensions that meteors are allowed to naturally fall in");
+		int configTicks 		= config.get("Meteor Fall Deterrence", 25, "For more info, refer here: http://fallingmeteorsmod.wikia.com/wiki/Falling_Meteors#Configuration") * 100;
 		int mSpawn = (int)(configTicks * 0.25D);
 		int mCrash = (int)(configTicks * 0.75D);
 		this.MinTicksUntilMeteorSpawn = ((int)(mSpawn * 0.25D));
@@ -255,6 +257,15 @@ implements IWorldGenerator
 				(new WorldGenMinable(MeteorBlocks.blockMeteorOre, this.oreGenSize)).generate(world, rand, randX, randY, randZ);
 			}
 		}
+	}
+	
+	public boolean isDimensionWhitelisted(int dim) {
+		for (int i = 0; i < whitelistedDimensions.length; i++) {
+			if (dim == whitelistedDimensions[i]) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public static void whatSide(Side side, String s)

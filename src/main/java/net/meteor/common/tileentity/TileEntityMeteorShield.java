@@ -481,7 +481,7 @@ public class TileEntityMeteorShield extends TileEntity implements ISidedInventor
 
 	@Override
 	public boolean canInsertItem(int slot, ItemStack item, int side) {
-		return isItemValidForSlot(slot, item);
+		return slot < 5 && isItemValidForSlot(slot, item);
 	}
 
 	@Override
