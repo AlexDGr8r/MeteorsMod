@@ -6,6 +6,7 @@ import net.meteor.common.MeteorsMod;
 import net.meteor.common.item.ItemEnchArmor;
 import net.meteor.common.item.ItemMeteorsMod;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -28,7 +29,7 @@ public class ItemMagnetismController extends ItemMeteorsMod implements IBauble {
 	public ItemMagnetismController() {
 		super();
 		setMaxStackSize(1);
-		setEnch(MeteorsMod.Magnetization, 1);
+		setEnch(MeteorsMod.Magnetization, 3);
 	}
 
 	@Override
@@ -85,12 +86,12 @@ public class ItemMagnetismController extends ItemMeteorsMod implements IBauble {
 		return true;
 	}
 	
-	public static boolean isMagnetizationEnabled(EntityPlayer player, boolean def) {
+	public static int isMagnetizationEnabled(EntityPlayer player, int def) {
 		IInventory inv = BaublesApi.getBaubles(player);
 		ItemStack stack = inv.getStackInSlot(3);
 		if (stack != null) {
 			if (stack.getItem() == Baubles.MagnetismController) {
-				return getNBTData(stack);
+				return (getNBTData(stack) ? Math.max(EnchantmentHelper.getEnchantmentLevel(MeteorsMod.Magnetization.effectId, stack), def) : 0);
 			}
 		}
 		return def;

@@ -34,11 +34,10 @@ public class HandlerPlayerTick
 			ArmorEffectController.setImmuneToFire(player, false);
 		}
 
-		boolean wearingLegs = EnchantmentHelper.getEnchantmentLevel(MeteorsMod.ColdTouch.effectId, inv.armorItemInSlot(1)) > 0;
-		boolean wearingBoots = EnchantmentHelper.getEnchantmentLevel(MeteorsMod.ColdTouch.effectId, inv.armorItemInSlot(0)) > 0;
-		if ((wearingLegs || wearingBoots) && !player.isInWater())
+		int totalLevel = EnchantmentHelper.getEnchantmentLevel(MeteorsMod.ColdTouch.effectId, inv.armorItemInSlot(1)) + EnchantmentHelper.getEnchantmentLevel(MeteorsMod.ColdTouch.effectId, inv.armorItemInSlot(0));
+		if (totalLevel > 0 && !player.isInWater())
 		{
-			if (wearingLegs && wearingBoots && player.isSprinting())
+			if (totalLevel > 1 && player.isSprinting())
 			{
 				int l = MathHelper.floor_double(player.posX);
 				int j1 = MathHelper.floor_double(player.posY - 2.0D);
@@ -64,10 +63,14 @@ public class HandlerPlayerTick
 			}
 		}
 
-		List entities = world.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(player.posX - 16.0D, player.posY - 16.0D, player.posZ - 16.0D, player.posX + 16.0D, player.posY + 16.0D, player.posZ + 16.0D));
-		for (int i1 = 0; i1 < entities.size(); i1++)
-			if ((entities.get(i1) instanceof EntityItem))
-				updateEntityItem((EntityItem)entities.get(i1));
+		int enchLevel = getMagnetizationLevel(player);
+		if (enchLevel > 0) {
+			double distance = 8 * enchLevel;
+			List entities = world.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(player.posX - distance, player.posY - distance, player.posZ - distance, player.posX + distance, player.posY + distance, player.posZ + distance));
+			for (int i1 = 0; i1 < entities.size(); i1++)
+				if ((entities.get(i1) instanceof EntityItem))
+					updateEntityItem((EntityItem)entities.get(i1), player, distance);
+		}
 	}
 
 	private static boolean isWearing(Item item, ItemStack itemStack) {
@@ -77,20 +80,17 @@ public class HandlerPlayerTick
 		return false;
 	}
 
-	public static boolean isPlayerMagnetized(EntityPlayer player) {
-		boolean gearMagnetized =  EnchantmentHelper.getMaxEnchantmentLevel(MeteorsMod.Magnetization.effectId, player.getLastActiveItems()) > 0 ||  EnchantmentHelper.getEnchantmentLevel(MeteorsMod.Magnetization.effectId, player.getHeldItem()) > 0;
+	public static int getMagnetizationLevel(EntityPlayer player) {
+		int enchLevel = Math.max(EnchantmentHelper.getMaxEnchantmentLevel(MeteorsMod.Magnetization.effectId, player.getLastActiveItems()), EnchantmentHelper.getEnchantmentLevel(MeteorsMod.Magnetization.effectId, player.getHeldItem()));
 		if (Baubles.isBaublesLoaded()) {
-			return Baubles.canAttractItems(player, gearMagnetized);
+			return Baubles.canAttractItems(player, enchLevel);
 		} else {
-			return gearMagnetized;
+			return enchLevel;
 		}
 	}
 
-	private void updateEntityItem(EntityItem en) {
-		double closeness = 16.0D;
-		EntityPlayer player = en.worldObj.getClosestPlayerToEntity(en, closeness);
-
-		if ((player != null) && isPlayerMagnetized(player)) {
+	private void updateEntityItem(EntityItem en, EntityPlayer player, double closeness) {
+		if (player != null) {
 			double var3 = (player.posX - en.posX) / closeness;
 			double var5 = (player.posY + player.getEyeHeight() - en.posY) / closeness;
 			double var7 = (player.posZ - en.posZ) / closeness;

@@ -38,7 +38,7 @@ public class HandlerAchievement
 	public void notifyPickup(ItemPickupEvent event) {
 		
 		EntityPlayer player = event.player;
-		if (HandlerPlayerTick.isPlayerMagnetized(player)) {
+		if (HandlerPlayerTick.getMagnetizationLevel(player) > 0) {
 			player.triggerAchievement(attractedDrop);
 		}
 		

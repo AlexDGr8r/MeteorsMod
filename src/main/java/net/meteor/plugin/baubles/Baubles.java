@@ -49,8 +49,8 @@ public class Baubles {
 		return baublesLoaded;
 	}
 	
-	public static boolean canAttractItems(EntityPlayer player, boolean gearMagnetized) {
-		return ItemMagnetismController.isMagnetizationEnabled(player, gearMagnetized);
+	public static int canAttractItems(EntityPlayer player, int enchLevel) {
+		return ItemMagnetismController.isMagnetizationEnabled(player, enchLevel);
 	}
 
 }
