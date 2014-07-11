@@ -17,5 +17,7 @@ public class CommonProxy
 	}
 
 	public void loadStuff() {}
+	
+	public void preInit() {}
 
 }

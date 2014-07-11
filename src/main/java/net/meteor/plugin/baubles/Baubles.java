@@ -39,7 +39,9 @@ public class Baubles {
 			" s ", "lml", Character.valueOf('s'), Items.string, Character.valueOf('l'), Items.leather,
 			Character.valueOf('m'), MagneticFieldDisruptor
 		});
-		
+	}
+	
+	public static void setupBaubleClient() {
 		keyHandler = new HandlerKey();
 		keyHandler.init();
 		FMLCommonHandler.instance().bus().register(keyHandler);

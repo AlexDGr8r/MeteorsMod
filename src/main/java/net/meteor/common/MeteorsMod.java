@@ -120,6 +120,7 @@ implements IWorldGenerator
 		}
 		
 		this.achHandler = new HandlerAchievement();
+		proxy.preInit();
 	}
 	
 	@EventHandler

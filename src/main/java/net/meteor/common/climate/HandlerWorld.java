@@ -30,7 +30,7 @@ public class HandlerWorld {
 	
 	private void addRules(World world) {
 		GameRules rules = world.getGameRules();
-		addRule(rules, METEORS_FALL_GAMERULE, (world.provider.isSurfaceWorld() ? "true" : "false"));
+		addRule(rules, METEORS_FALL_GAMERULE, "true");
 		addRule(rules, SUMMON_METEORS_GAMERULE, "true");
 	}
 	

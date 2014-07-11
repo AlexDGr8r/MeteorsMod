@@ -10,6 +10,9 @@ import net.meteor.common.packets.PacketLastCrash;
 import net.meteor.common.packets.PacketPipeline;
 import net.meteor.common.packets.PacketSettings;
 import net.meteor.common.packets.PacketSoonestMeteor;
+import net.meteor.plugin.baubles.Baubles;
+import net.meteor.plugin.baubles.PacketToggleMagnetism;
+import net.meteor.plugin.baubles.PacketTogglePlayerMagnetism;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ChatComponentText;
@@ -42,6 +45,10 @@ public class ClientHandler
 		this.packetPipeline.registerPacket(PacketSettings.class);
 		this.packetPipeline.registerPacket(PacketSoonestMeteor.class);
 		this.packetPipeline.registerPacket(PacketBlockedMeteor.class);
+		if (Baubles.isBaublesLoaded()) {
+			this.packetPipeline.registerPacket(PacketToggleMagnetism.class);
+			this.packetPipeline.registerPacket(PacketTogglePlayerMagnetism.class);
+		}
 	}
 
 	public static ChunkCoordinates getClosestIncomingMeteor(double pX, double pZ) {

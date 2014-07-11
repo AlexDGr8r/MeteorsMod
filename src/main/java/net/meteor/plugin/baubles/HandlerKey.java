@@ -1,5 +1,6 @@
 package net.meteor.plugin.baubles;
 
+import net.meteor.common.MeteorsMod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.inventory.IInventory;
@@ -28,11 +29,7 @@ public class HandlerKey {
 			ItemStack stack = inv.getStackInSlot(3);
 			if (stack != null) {
 				if (stack.getItem() == Baubles.MagnetismController) {
-					boolean val = !ItemMagnetismController.getNBTData(stack);
-					ItemMagnetismController.setNBTData(stack, val);
-					Baubles.renderDisplayTicks = Minecraft.getMinecraft().theWorld.getTotalWorldTime() + 100L;
-					Baubles.renderDisplay = true;
-					Baubles.enabledMagnetism = val;
+					MeteorsMod.packetPipeline.sendToServer(new PacketToggleMagnetism());
 				}
 			}
 		}

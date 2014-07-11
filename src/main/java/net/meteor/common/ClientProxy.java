@@ -59,6 +59,13 @@ public class ClientProxy extends CommonProxy
 			MinecraftForge.EVENT_BUS.register(new MagnetizationOverlay());
 		}
 	}
+	
+	@Override
+	public void preInit() {
+		if (Baubles.isBaublesLoaded()) {
+			Baubles.setupBaubleClient();
+		}
+	}
 
 	public static void spawnParticle(String s, double d, double d1, double d2, double d3, double d4, double d5, World worldObj, int opt)
 	{
