@@ -51,7 +51,7 @@ implements IWorldGenerator
 	
 	public static final String MOD_ID 	= "meteors";
 	public static final String MOD_NAME = "Falling Meteors";
-	public static final String VERSION 	= "2.12.3"; 		// Switch to automatic versioning later on
+	public static final String VERSION 	= "2.13"; 		// Switch to automatic versioning later on
 	
 	public static final boolean loggable = true;		// For Debugging Purposes Only
 
@@ -156,21 +156,21 @@ implements IWorldGenerator
 	private void loadStaticConfigurationValues() {
 		ModConfig config = ModConfig.instance;
 		// Enchantments 
-		Magnetization = new EnchantmentMagnetized(config.get("Magnetization Enchantment ID", 157), 2).setName("Magnetization");
-		ColdTouch 	  = new EnchantmentColdTouch(config.get("Cold Touch Enchantment ID", 158), 2).setName("Cold Touch");
+		Magnetization = new EnchantmentMagnetized(config.get("ENCHANTMENTS", "Magnetization Enchantment ID", 157, ""), 2).setName("Magnetization");
+		ColdTouch 	  = new EnchantmentColdTouch(config.get("ENCHANTMENTS", "Cold Touch Enchantment ID", 158, ""), 2).setName("Cold Touch");
 		// General Configuration
-		meteorFallDistance		= config.get("Meteor Fall Radius", 350);
+		meteorFallDistance		= config.get("Meteor Fall Radius", 350, "When determining where a meteor falls, it chooses within this radius (blocks) of a random player.");
 		kittyAttackChance		= config.get("Kitty Attack Chance", 1, "Ranges from 0 to 100");
-		textNotifyCrash			= config.get("Text Crash Notification", false);
-		meteoriteEnabled		= config.get("Meteorite Meteor Enabled", true);
-		frezariteEnabled		= config.get("Frezarite Meteor Enabled", true);
-		kreknoriteEnabled		= config.get("Kreknorite Meteor Enabled", true);
-		unknownEnabled			= config.get("Unknown Meteor Enabled", true);
-		chunkChecks 			= config.get("Chunk Generation Checks", 4);
-		oreGenSize  			= config.get("Meteor Ore Gen Size", 6);
-		meteorShieldSound 		= config.get("Meteor Shield Humming Noise Enabled", true);
+		textNotifyCrash			= config.get("Text Crash Notification", false, "Pops up a chat message when a meteor falls.");
+		meteoriteEnabled		= config.get("Meteorite Meteor Enabled", true, "Allow Meteorite Meteors to Fall?");
+		frezariteEnabled		= config.get("Frezarite Meteor Enabled", true, "Allow Frezarite Meteors to Fall?");
+		kreknoriteEnabled		= config.get("Kreknorite Meteor Enabled", true, "Allow Kreknorite Meteors to Fall?");
+		unknownEnabled			= config.get("Unknown Meteor Enabled", true, "Allow Unknown Meteors to Fall?");
+		chunkChecks 			= config.get("Chunk Generation Checks", 4, "How many veins of meteorite ore per chunk?");
+		oreGenSize  			= config.get("Meteor Ore Gen Size", 6, "How much ore per vein?");
+		meteorShieldSound 		= config.get("Meteor Shield Humming Noise Enabled", true, "Allows a humming sound for the Meteor Shield too happen on occasion.");
 		cometFallChance			= config.get("Comet Fall Chance", 20, "Ranges from 0 to 100");
-		whitelistedDimensions 	= config.get("Whitelisted Dimensions", new int[] {0, 1}, "Dimensions that meteors are allowed to naturally fall in");
+		whitelistedDimensions 	= config.get("Whitelisted Dimensions", new int[] {0, 1, 7}, "Dimensions that meteors are allowed to naturally fall in. 0 = Surface, 1 = The End, 7 = Twilight Forest");
 		int configTicks 		= config.get("Meteor Fall Deterrence", 25, "For more info, refer here: http://fallingmeteorsmod.wikia.com/wiki/Falling_Meteors#Configuration") * 100;
 		int mSpawn = (int)(configTicks * 0.25D);
 		int mCrash = (int)(configTicks * 0.75D);
@@ -183,11 +183,11 @@ implements IWorldGenerator
 
 	// Values loaded every new world Load and initially when mod is constructed
 	public void setClientStartConfig() {
-		this.meteorsFallOnlyAtNight = ModConfig.instance.get("Meteors Only Fall at Night", true);
-		this.allowSummonedMeteorGrief = ModConfig.instance.get("Allow Summoned Meteor Grief", false);
-		this.ShieldRadiusMultiplier = ModConfig.instance.get("Shield Radius in Blocks", 64);
-		this.MinMeteorSize = ModConfig.instance.get("Minimum Meteor Size", 1);
-		this.MaxMeteorSize = ModConfig.instance.get("Maximum Meteor Size", 3);
+		this.meteorsFallOnlyAtNight = ModConfig.instance.get("Meteors Only Fall at Night", true, "The amount of time left until a meteor falls will only tick down at night.");
+		this.allowSummonedMeteorGrief = ModConfig.instance.get("Allow Summoned Meteor Grief", false, "Players can't summon meteors on land protected by other players with a Meteor Shield");
+		this.ShieldRadiusMultiplier = ModConfig.instance.get("Shield Radius in Blocks", 64, "The range of the meteor shield is determined by this times the shield's power level.");
+		this.MinMeteorSize = ModConfig.instance.get("Minimum Meteor Size", 1, "Minimum Size of a falling meteor. Ranges from 1 to 3.");
+		this.MaxMeteorSize = ModConfig.instance.get("Maximum Meteor Size", 3, "Maximum Size of a falling meteor. Ranges from 1 to 3.");
 		this.MinMeteorSize = MathHelper.clamp_int(this.MinMeteorSize, 1, 3);
 		this.MaxMeteorSize = MathHelper.clamp_int(this.MaxMeteorSize, 1, 3);
 		if (this.MinMeteorSize > this.MaxMeteorSize)
@@ -195,16 +195,16 @@ implements IWorldGenerator
 		else if (this.MaxMeteorSize < this.MinMeteorSize) {
 			this.MaxMeteorSize = this.MinMeteorSize;
 		}
-		this.MinMeteorSizeForPortal = ModConfig.instance.get("Minimum Meteor Size To Spawn Nether Portal", 2);
+		this.MinMeteorSizeForPortal = ModConfig.instance.get("Minimum Meteor Size To Spawn Nether Portal", 2, "When a Kreknorite Meteor falls, if the meteor is this size or bigger, it will generate a nether portal.");
 		if (this.MinMeteorSizeForPortal < this.MinMeteorSize)
 			this.MinMeteorSizeForPortal = this.MinMeteorSize;
-		this.ImpactExplosionMultiplier = ModConfig.instance.get("Meteor Impact Explosion Multiplier", 5.0D);
+		this.ImpactExplosionMultiplier = ModConfig.instance.get("Meteor Impact Explosion Multiplier", 5.0D, "This times the meteor's size is how big the explosion will be.");
 		if (this.ImpactExplosionMultiplier > 20.0) {
 			this.ImpactExplosionMultiplier = 20.0;
 		} else if (this.ImpactExplosionMultiplier < 0.0) {
 			this.ImpactExplosionMultiplier = 0.0;
 		}
-		this.ImpactSpread = MathHelper.clamp_int(ModConfig.instance.get("Meteor Impact Spread", 4), 0, 8);
+		this.ImpactSpread = MathHelper.abs_int(ModConfig.instance.get("Meteor Impact Spread", 4, "This times the meteor size determines how big of an impact the meteor's crater will have to spread ore."));
 	}
 
 	

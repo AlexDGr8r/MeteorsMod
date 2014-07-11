@@ -1,17 +1,7 @@
 package net.meteor.common.climate;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
 
-import net.meteor.common.EnumMeteor;
-import net.meteor.common.IMeteorShield;
-import net.meteor.common.MeteorsMod;
-import net.meteor.common.entity.EntityComet;
-import net.meteor.common.tileentity.TileEntityMeteorShield;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.ChunkCoordIntPair;
-import net.minecraft.world.World;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.WorldTickEvent;
 

@@ -4,7 +4,12 @@ import java.util.ArrayList;
 
 import net.meteor.common.climate.CrashLocation;
 import net.meteor.common.climate.HandlerMeteor;
-import net.meteor.common.packets.*;
+import net.meteor.common.packets.PacketBlockedMeteor;
+import net.meteor.common.packets.PacketGhostMeteor;
+import net.meteor.common.packets.PacketLastCrash;
+import net.meteor.common.packets.PacketPipeline;
+import net.meteor.common.packets.PacketSettings;
+import net.meteor.common.packets.PacketSoonestMeteor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ChatComponentText;

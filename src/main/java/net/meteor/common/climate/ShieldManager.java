@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import net.meteor.common.IMeteorShield;
 import net.meteor.common.MeteorItems;
 import net.meteor.common.MeteorsMod;
@@ -13,14 +12,13 @@ import net.meteor.common.crash.CrashUnknown;
 import net.meteor.common.entity.EntityCometKitty;
 import net.meteor.common.packets.PacketBlockedMeteor;
 import net.meteor.common.tileentity.TileEntityMeteorShield;
-import net.minecraft.block.Block;
 import net.minecraft.entity.EntityList;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
+import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 
 public class ShieldManager {
 	

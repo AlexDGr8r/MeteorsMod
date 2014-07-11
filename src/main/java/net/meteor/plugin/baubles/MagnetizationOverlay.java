@@ -1,9 +1,9 @@
 package net.meteor.plugin.baubles;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class MagnetizationOverlay {
 	

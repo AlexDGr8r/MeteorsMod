@@ -3,7 +3,6 @@ package net.meteor.common.packets;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import net.meteor.common.EnumMeteor;
-import net.meteor.common.IMeteorShield;
 import net.meteor.common.MeteorsMod;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;

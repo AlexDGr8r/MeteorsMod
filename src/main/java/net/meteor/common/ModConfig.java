@@ -27,13 +27,15 @@ public class ModConfig {
 	
 	/**
 	 * General Configuration Value
+	 * @param category category
 	 * @param key Key
 	 * @param defVal Default Value
+	 * @param comment Comment to be added to property
 	 * @return Value in the configuration or the default value specified if not found.
 	 */
-	public int get(String key, int defVal) {
+	public int get(String category, String key, int defVal, String comment) {
 		load();
-		int i = config.get(Configuration.CATEGORY_GENERAL, key, defVal).getInt();
+		int i = config.get(category, key, defVal, comment).getInt();
 		this.config.save();
 		return i;
 	}
@@ -46,21 +48,20 @@ public class ModConfig {
 	 * @return Value in the configuration or the default value specified if not found.
 	 */
 	public int get(String key, int defVal, String comment) {
-		load();
-		int i = config.get(Configuration.CATEGORY_GENERAL, key, defVal, comment).getInt();
-		this.config.save();
-		return i;
+		return get(Configuration.CATEGORY_GENERAL, key, defVal, comment);
 	}
 	
 	/**
 	 * General Configuration Value
+	 * @param category category
 	 * @param key Key
 	 * @param defVal Default Value
+	 * @param comment Comment to be added to property
 	 * @return Value in the configuration or the default value specified if not found.
 	 */
-	public int[] get(String key, int[] defVal) {
+	public int[] get(String category, String key, int[] defVal, String comment) {
 		load();
-		int[] i = config.get(Configuration.CATEGORY_GENERAL, key, defVal).getIntList();
+		int[] i = config.get(category, key, defVal, comment).getIntList();
 		this.config.save();
 		return i;
 	}
@@ -73,21 +74,20 @@ public class ModConfig {
 	 * @return Value in the configuration or the default value specified if not found.
 	 */
 	public int[] get(String key, int[] defVal, String comment) {
-		load();
-		int[] i = config.get(Configuration.CATEGORY_GENERAL, key, defVal, comment).getIntList();
-		this.config.save();
-		return i;
+		return get(Configuration.CATEGORY_GENERAL, key, defVal, comment);
 	}
 	
 	/**
 	 * General Configuration Value
+	 * @param category category
 	 * @param key Key
 	 * @param defVal Default Value
+	 * @param comment Comment to be added to property
 	 * @return Value in the configuration or the default value specified if not found.
 	 */
-	public boolean get(String key, boolean defVal) {
+	public boolean get(String category, String key, boolean defVal, String comment) {
 		load();
-		boolean b = config.get(Configuration.CATEGORY_GENERAL, key, defVal).getBoolean(defVal);
+		boolean b = config.get(category, key, defVal, comment).getBoolean(defVal);
 		this.config.save();
 		return b;
 	}
@@ -100,21 +100,20 @@ public class ModConfig {
 	 * @return Value in the configuration or the default value specified if not found.
 	 */
 	public boolean get(String key, boolean defVal, String comment) {
-		load();
-		boolean b = config.get(Configuration.CATEGORY_GENERAL, key, defVal, comment).getBoolean(defVal);
-		this.config.save();
-		return b;
+		return get(Configuration.CATEGORY_GENERAL, key, defVal, comment);
 	}
 	
 	/**
 	 * General Configuration Value
+	 * @param category category
 	 * @param key Key
 	 * @param defVal Default Value
+	 * @param comment Comment to be added to property
 	 * @return Value in the configuration or the default value specified if not found.
 	 */
-	public double get(String key, double defVal) {
+	public double get(String category, String key, double defVal, String comment) {
 		load();
-		double d = config.get(Configuration.CATEGORY_GENERAL, key, defVal).getDouble(defVal);
+		double d = config.get(category, key, defVal, comment).getDouble(defVal);
 		this.config.save();
 		return d;
 	}
@@ -127,10 +126,7 @@ public class ModConfig {
 	 * @return Value in the configuration or the default value specified if not found.
 	 */
 	public double get(String key, double defVal, String comment) {
-		load();
-		double d = config.get(Configuration.CATEGORY_GENERAL, key, defVal, comment).getDouble(defVal);
-		this.config.save();
-		return d;
+		return get(Configuration.CATEGORY_GENERAL, key, defVal, comment);
 	}
 
 }

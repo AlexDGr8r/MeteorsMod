@@ -3,7 +3,6 @@ package net.meteor.plugin.baubles;
 import java.util.List;
 
 import net.meteor.common.MeteorsMod;
-import net.meteor.common.item.ItemEnchArmor;
 import net.meteor.common.item.ItemMeteorsMod;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
