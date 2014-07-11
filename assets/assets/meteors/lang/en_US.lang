@@ -55,6 +55,8 @@ item.MeteorDetectorCrash.name=Meteor Crash Detector
 item.MeteoriteIngot.name=Meteorite Ingot
 item.FrozenIron.name=Frozen Iron
 item.KreknoriteIngot.name=Kreknorite Ingot
+item.MagnetizationController.name=Magnetization Controller
+item.MagneticFieldDisruptor.name=Magnetic Field Disruptor
 
 entity.AlienCreeper.name=Alien Creeper
 entity.CometKitty.name=Comet Kitty
@@ -137,3 +139,6 @@ achievement.materialGather=Not of This World
 achievement.materialGather.desc=Gather ore from a fallen meteor.
 achievement.meteorManipulator=True Power
 achievement.meteorManipulator.desc=Find a Red Meteor Gem from a Meteorite Meteor
+
+key.toggleMagnetism=Toggle Magnetism
+key.categories.meteors=Meteors
