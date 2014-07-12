@@ -4,12 +4,10 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import net.meteor.common.MeteorsMod;
 import net.meteor.common.packets.AbstractPacket;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.WorldServer;
 import baubles.api.BaublesApi;
 
 public class PacketToggleMagnetism extends AbstractPacket {
