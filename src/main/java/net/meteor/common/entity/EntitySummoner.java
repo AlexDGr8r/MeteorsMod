@@ -82,7 +82,7 @@ public class EntitySummoner extends EntityThrowable implements IEntityAdditional
 
 		EntityPlayer player = (EntityPlayer)this.getThrower();
 
-		if (this.worldObj.getGameRules().getGameRuleBooleanValue(HandlerWorld.METEORS_FALL_GAMERULE) && MeteorsMod.instance.isDimensionWhitelisted(worldObj.provider.dimensionId)) {
+		if (!MeteorsMod.instance.isDimensionWhitelisted(worldObj.provider.dimensionId)) {
 			if ((player != null) && (!this.worldObj.isRemote)) {
 				player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("MeteorSummoner.wrongDimension")));
 				if (!player.capabilities.isCreativeMode) {

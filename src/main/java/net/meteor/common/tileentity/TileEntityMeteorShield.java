@@ -297,7 +297,7 @@ public class TileEntityMeteorShield extends TileEntity implements ISidedInventor
 	@Override
 	@SideOnly(Side.CLIENT)
 	public AxisAlignedBB getRenderBoundingBox() {
-		return AxisAlignedBB.getAABBPool().getAABB(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1.5, zCoord + 1);
+		return AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 1.5, zCoord + 1);
 	}
 
 	@Override
@@ -407,7 +407,7 @@ public class TileEntityMeteorShield extends TileEntity implements ISidedInventor
 		if (powerLevel > oldLevel) {
 			this.worldObj.playSoundEffect(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D, "meteors:shield.powerup", 1.0F, powerLevel / 10.0F + 0.5F);
 			if (MeteorsMod.instance.ShieldRadiusMultiplier <= 0 && !worldObj.isRemote) {
-				EntityPlayer player = ((WorldServer)worldObj).func_73046_m().getConfigurationManager().getPlayerForUsername(owner);
+				EntityPlayer player = ((WorldServer)worldObj).func_73046_m().getConfigurationManager().func_152612_a(owner);
 				if (player != null) {
 					player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("MeteorShield.noUpgrade")));
 				}	

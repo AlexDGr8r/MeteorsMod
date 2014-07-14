@@ -92,7 +92,7 @@ implements IEntityAdditionalSpawnData
 				IMeteorShield shield = metHandler.getShieldManager().getClosestShieldInRange((int)posX, (int)posZ);
 				if (shield != null) {
 					String owner = shield.getOwner();
-					EntityPlayer playerOwner = ((WorldServer)worldObj).func_73046_m().getConfigurationManager().getPlayerForUsername(owner);
+					EntityPlayer playerOwner = ((WorldServer)worldObj).func_73046_m().getConfigurationManager().func_152612_a(owner);
 					if (playerOwner != null) {
 						playerOwner.addChatMessage(ClientHandler.createMessage(StatCollector.translateToLocal("MeteorShield.meteorBlocked"), EnumChatFormatting.GREEN));
 						playerOwner.addStat(HandlerAchievement.meteorBlocked, 1);

@@ -74,7 +74,7 @@ public class HandlerMeteor
 						IMeteorShield shield = shieldManager.getClosestShieldInRange(gMeteor.x, gMeteor.z);
 						if (shield != null) {
 							String owner = shield.getOwner();
-							EntityPlayer player = theWorld.func_73046_m().getConfigurationManager().getPlayerForUsername(owner);
+							EntityPlayer player = theWorld.func_73046_m().getConfigurationManager().func_152612_a(owner);
 							if (player != null) {
 								player.addChatMessage(ClientHandler.createMessage(StatCollector.translateToLocal("MeteorShield.meteorBlocked"), EnumChatFormatting.GREEN));
 								player.addStat(HandlerAchievement.meteorBlocked, 1);
@@ -112,7 +112,7 @@ public class HandlerMeteor
 					IMeteorShield shield = shieldManager.getClosestShieldInRange(x, z);
 					if (shield != null) {
 						String owner = shield.getOwner();
-						EntityPlayer playerOwner = theWorld.func_73046_m().getConfigurationManager().getPlayerForUsername(owner);
+						EntityPlayer playerOwner = theWorld.func_73046_m().getConfigurationManager().func_152612_a(owner);
 						if (playerOwner != null) {
 							playerOwner.addChatMessage(ClientHandler.createMessage(StatCollector.translateToLocal("MeteorShield.meteorBlocked"), EnumChatFormatting.GREEN));
 							playerOwner.addStat(HandlerAchievement.meteorBlocked, 1);

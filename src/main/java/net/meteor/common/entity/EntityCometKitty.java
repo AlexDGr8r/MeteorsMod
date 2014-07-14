@@ -35,7 +35,7 @@ public class EntityCometKitty extends EntityOcelot
 
 		if (this.isTamed())
 		{
-			var2.setOwner(this.getOwnerName());
+			var2.func_152115_b(this.func_152113_b());
 			var2.setTamed(true);
 			var2.setTameSkin(this.getTameSkin());
 		}
@@ -51,8 +51,8 @@ public class EntityCometKitty extends EntityOcelot
     }
 	
 	@Override
-	public void setOwner(String par1Str) {
-		super.setOwner(par1Str);
+	public void func_152115_b(String par1Str) {
+		super.func_152115_b(par1Str);
 		EntityPlayer player = this.worldObj.getPlayerEntityByName(par1Str);
 		if (player != null) {
 			player.addStat(HandlerAchievement.kittyTame, 1);

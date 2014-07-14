@@ -17,7 +17,7 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "1.7.2-2.13"
+version = "1.7.10-2.13"
 group= "net.meteor" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "meteors"
 
@@ -26,7 +26,7 @@ dependencies {
 }
 
 minecraft {
-    version = "1.7.2-10.12.2.1121"
+    version = "1.7.10-10.13.0.1180"
     assetDir = "eclipse/assets"
 }
 processResources
