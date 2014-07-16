@@ -64,6 +64,8 @@ public class BlockMeteorShield extends BlockContainerMeteorsMod
         {
         	par1World.setBlockMetadataWithNotify(par2, par3, par4, 2, 2);
         }
+        
+        super.onBlockPlacedBy(par1World, par2, par3, par4, par5EntityLiving, itemstack);
 	}
 
 	@Override

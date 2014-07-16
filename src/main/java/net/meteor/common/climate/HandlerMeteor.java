@@ -29,7 +29,6 @@ import cpw.mods.fml.relauncher.Side;
 public class HandlerMeteor
 {
 	private WorldServer theWorld;
-	private String worldName;
 	private ClimateUpdater climateUpdater;
 	private GhostMeteorData gMetData;
 	private CrashedChunkSetData ccSetData;
@@ -48,7 +47,6 @@ public class HandlerMeteor
 		this.theWorld = (WorldServer) event.world;
 		this.gMetData = GhostMeteorData.forWorld(theWorld, this);
 		this.ccSetData = CrashedChunkSetData.forWorld(theWorld, this);
-		this.worldName = theWorld.getWorldInfo().getWorldName();
 		this.climateUpdater = new ClimateUpdater(this);
 		this.forecast = new MeteorForecast(climateUpdater, ghostMets, ccSetData.getLoadedCrashLocation(), theWorld);
 		this.shieldManager = new ShieldManager(theWorld);
@@ -74,7 +72,7 @@ public class HandlerMeteor
 						IMeteorShield shield = shieldManager.getClosestShieldInRange(gMeteor.x, gMeteor.z);
 						if (shield != null) {
 							String owner = shield.getOwner();
-							EntityPlayer player = theWorld.func_73046_m().getConfigurationManager().func_152612_a(owner);
+							EntityPlayer player = theWorld.getPlayerEntityByName(owner);
 							if (player != null) {
 								player.addChatMessage(ClientHandler.createMessage(StatCollector.translateToLocal("MeteorShield.meteorBlocked"), EnumChatFormatting.GREEN));
 								player.addStat(HandlerAchievement.meteorBlocked, 1);
@@ -112,7 +110,7 @@ public class HandlerMeteor
 					IMeteorShield shield = shieldManager.getClosestShieldInRange(x, z);
 					if (shield != null) {
 						String owner = shield.getOwner();
-						EntityPlayer playerOwner = theWorld.func_73046_m().getConfigurationManager().func_152612_a(owner);
+						EntityPlayer playerOwner = theWorld.getPlayerEntityByName(owner);
 						if (playerOwner != null) {
 							playerOwner.addChatMessage(ClientHandler.createMessage(StatCollector.translateToLocal("MeteorShield.meteorBlocked"), EnumChatFormatting.GREEN));
 							playerOwner.addStat(HandlerAchievement.meteorBlocked, 1);
@@ -181,12 +179,6 @@ public class HandlerMeteor
 			}
 		}
 		return true;
-	}
-
-	private double getDistance(int x1, int z1, int x2, int z2) {
-		int x = x1 - x2;
-		int z = z1 - z2;
-		return MathHelper.sqrt_double(x * x + z * z);
 	}
 
 	public void readyNewMeteor(int x, int z, int size, int tGoal, EnumMeteor type) {

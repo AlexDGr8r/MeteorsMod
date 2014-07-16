@@ -407,7 +407,7 @@ public class TileEntityMeteorShield extends TileEntity implements ISidedInventor
 		if (powerLevel > oldLevel) {
 			this.worldObj.playSoundEffect(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D, "meteors:shield.powerup", 1.0F, powerLevel / 10.0F + 0.5F);
 			if (MeteorsMod.instance.ShieldRadiusMultiplier <= 0 && !worldObj.isRemote) {
-				EntityPlayer player = ((WorldServer)worldObj).func_73046_m().getConfigurationManager().func_152612_a(owner);
+				EntityPlayer player = worldObj.getPlayerEntityByName(owner);
 				if (player != null) {
 					player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("MeteorShield.noUpgrade")));
 				}	
@@ -465,8 +465,10 @@ public class TileEntityMeteorShield extends TileEntity implements ISidedInventor
 
 	@Override
 	public void onChunkUnload() {
-		HandlerMeteor metHandler = MeteorsMod.proxy.metHandlers.get(worldObj.provider.dimensionId);
-		metHandler.getShieldManager().addShield(new MeteorShieldData(xCoord, yCoord, zCoord, powerLevel, owner));
+		if (!this.worldObj.isRemote) {
+			HandlerMeteor metHandler = MeteorsMod.proxy.metHandlers.get(worldObj.provider.dimensionId);
+			metHandler.getShieldManager().addShield(new MeteorShieldData(xCoord, yCoord, zCoord, powerLevel, owner));
+		}
 	}
 
 	@Override

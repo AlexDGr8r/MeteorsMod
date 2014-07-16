@@ -60,7 +60,6 @@ public class PacketBlockedMeteor extends AbstractPacket {
             double d7 = (double)(MathHelper.cos(f3) * 0.2F) * d5 * d5 * (d3 + 0.2D);
             double d8 = (double)(MathHelper.sin(f3) * 0.2F) * d5 * d5 * (d3 + 0.2D);
             world.spawnParticle("blockcrack_" + Block.getIdFromBlock(block) + "_1", (double)((float)x + 0.5F), (double)((float)y + 1.0F), (double)((float)z + 0.5F), d7, d6, d8);
-            MeteorsMod.log.info("Particle should've spawned");
         }
 	}
 

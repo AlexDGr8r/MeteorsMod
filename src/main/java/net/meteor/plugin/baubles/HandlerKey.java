@@ -15,7 +15,7 @@ import cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
 
 public class HandlerKey {
 	
-	private KeyBinding toggleMagnetism;
+	private static KeyBinding toggleMagnetism;
 	
 	public void init() {
 		toggleMagnetism = new KeyBinding("key.toggleMagnetism", Keyboard.KEY_Y, "key.categories.meteors");
@@ -33,6 +33,10 @@ public class HandlerKey {
 				}
 			}
 		}
+	}
+	
+	public static String getKey() {
+		return Keyboard.getKeyName(toggleMagnetism.getKeyCode());
 	}
 
 }
