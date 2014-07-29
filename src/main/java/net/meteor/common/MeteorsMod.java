@@ -1,7 +1,8 @@
 package net.meteor.common;
 
 import java.util.Random;
-import java.util.logging.Logger;
+
+import org.apache.logging.log4j.Logger;
 
 import net.meteor.common.climate.HandlerMeteor;
 import net.meteor.common.climate.HandlerWorld;
@@ -51,11 +52,11 @@ implements IWorldGenerator
 	
 	public static final String MOD_ID 	= "meteors";
 	public static final String MOD_NAME = "Falling Meteors";
-	public static final String VERSION 	= "2.13.1"; 		// Switch to automatic versioning later on
+	public static final String VERSION 	= "2.13.2"; 		// Switch to automatic versioning later on
 	
 	public static final boolean loggable = false;		// For Debugging Purposes Only TODO change to false when releasing
 
-	public static final Logger log = Logger.getLogger("Falling Meteors Mod");
+	public static Logger log;
 
 	public static final PacketPipeline packetPipeline = new PacketPipeline();
 	
@@ -98,6 +99,7 @@ implements IWorldGenerator
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+		log = event.getModLog();
 		ModConfig.instance.load(event.getSuggestedConfigurationFile());
 		loadStaticConfigurationValues();
 		
@@ -236,12 +238,18 @@ implements IWorldGenerator
 	private void loadPlugins() {
 		if (Loader.isModLoaded("Waila")) {
 			FMLInterModComms.sendMessage("Waila", "register", "net.meteor.plugin.waila.Waila.register");
+		} else {
+			log.info("Waila not found. Waila integration disabled.");
 		}
 		if (Loader.isModLoaded("Baubles")) {
 			Baubles.setupBaubleItems();
+		} else {
+			log.info("Baubles not found. Baubles integration disabled.");
 		}
 		if (Loader.isModLoaded("Thaumcraft")) {
 			Thaumcraft.incorporateThaumcraft();
+		} else {
+			log.info("Thaumcraft not found. Thaumcraft integration disabled.");
 		}
 	}
 

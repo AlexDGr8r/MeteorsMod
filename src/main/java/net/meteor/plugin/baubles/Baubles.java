@@ -1,6 +1,7 @@
 package net.meteor.plugin.baubles;
 
 import net.meteor.common.MeteorItems;
+import net.meteor.common.MeteorsMod;
 import net.meteor.common.item.ItemMeteorsMod;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -39,6 +40,8 @@ public class Baubles {
 			" s ", "lml", Character.valueOf('s'), Items.string, Character.valueOf('l'), Items.leather,
 			Character.valueOf('m'), MagneticFieldDisruptor
 		});
+		
+		MeteorsMod.log.info("Baubles mod found. Baubles integration enabled.");
 	}
 	
 	public static void setupBaubleClient() {

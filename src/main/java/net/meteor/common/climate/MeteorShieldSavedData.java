@@ -44,8 +44,9 @@ public class MeteorShieldSavedData extends WorldSavedData {
 			int z = sNBT.getInteger("z");
 			int power = sNBT.getInteger("power");
 			String owner = sNBT.getString("owner");
+			boolean bComets = sNBT.getBoolean("blockComets");
 			
-			manager.addShield(new MeteorShieldData(x, y, z, power, owner));
+			manager.addShield(new MeteorShieldData(x, y, z, power, owner, bComets));
 		}
 		loaded = true;
 	}
@@ -62,6 +63,7 @@ public class MeteorShieldSavedData extends WorldSavedData {
 			sNBT.setInteger("z", shield.getZ());
 			sNBT.setInteger("power", shield.getPowerLevel());
 			sNBT.setString("owner", shield.getOwner());
+			sNBT.setBoolean("blockComets", shield.getPreventComets());
 			nbt.setTag("s" + i, sNBT);
 		}
 	}

@@ -42,10 +42,10 @@ public class TimerItemRenderer implements IItemRenderer {
 		
 		switch (type) {
 		case ENTITY:
-			timerRend.renderMeteorTimer(null, -0.5F, 0, -0.5F, 0, false);
+			timerRend.renderMeteorTimer(null, -0.5F, 0, -0.5F, 0, false, false);
 			break;
 		default: 
-			timerRend.renderMeteorTimer(null, 0, 0, 0, 0, false);
+			timerRend.renderMeteorTimer(null, 0, 0, 0, 0, false, false);
 			break;
 		}
 		

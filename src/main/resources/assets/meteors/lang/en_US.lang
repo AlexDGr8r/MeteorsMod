@@ -142,3 +142,6 @@ achievement.meteorManipulator.desc=Find a Red Meteor Gem from a Meteorite Meteor
 
 key.toggleMagnetism=Toggle Magnetism
 key.categories.meteors=Meteors
+
+# %s is replaced by options.on or options.off
+gui.toggleCometButton=Block Comets: %s

@@ -13,6 +13,7 @@ import net.meteor.common.block.BlockRedMeteorGem;
 import net.meteor.common.item.ItemBlockMeteorsMod;
 import net.meteor.common.item.ItemBlockMeteorsModMetadata;
 import net.minecraft.block.Block;
+import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class MeteorBlocks {
@@ -41,6 +42,9 @@ public class MeteorBlocks {
 		GameRegistry.registerBlock(blockMeteorTimer, ItemBlockMeteorsMod.class, "BlockMeteorTimer");
 		GameRegistry.registerBlock(blockRedMeteorGem, ItemBlockMeteorsMod.class, "BlockRedMeteorGem");
 		GameRegistry.registerBlock(blockDecorator, ItemBlockMeteorsModMetadata.class, "BlockMeteorDecoration");
+		
+		// Ore Dictionary
+		OreDictionary.registerOre("oreMeteorite", blockMeteorOre);
 	}
 
 }

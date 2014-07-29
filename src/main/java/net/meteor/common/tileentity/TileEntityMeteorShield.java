@@ -32,14 +32,14 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class TileEntityMeteorShield extends TileEntity implements ISidedInventory, IMeteorShield
+public class TileEntityMeteorShield extends TileEntityNetworkBase implements ISidedInventory, IMeteorShield
 {
 
 	public static final int CHARGE_TIME = 1600;
 
 	private boolean shieldedChunks;
+	private boolean blockComets;
 	public String owner;
-
 	private int range;
 	private int powerLevel;
 	private int cometX;
@@ -56,6 +56,7 @@ public class TileEntityMeteorShield extends TileEntity implements ISidedInventor
 		this.powerLevel = 0;
 		this.age = 0;
 		this.shieldedChunks = false;
+		this.blockComets = false;
 		this.inv = new ItemStack[13];
 	}
 
@@ -101,6 +102,10 @@ public class TileEntityMeteorShield extends TileEntity implements ISidedInventor
 		}
 	}
 	
+	public boolean getPreventComets() {
+		return this.blockComets;
+	}
+	
 	public EnumMeteor getCometType() {
 		if (cometType == -1) return EnumMeteor.METEORITE;
 		return EnumMeteor.getTypeFromID(cometType);
@@ -120,13 +125,17 @@ public class TileEntityMeteorShield extends TileEntity implements ISidedInventor
 		info.add("Owner: " + owner);
 		
 		if (powerLevel != 0) {
-			if (cometType != -1) {
-				EnumMeteor type = EnumMeteor.getTypeFromID(cometType);
-				info.add("Comet Entered Orbit at:");
-				info.add("X: " + cometX);
-				info.add("Z: " + cometZ);
+			if (blockComets) {
+				info.add("Comets are currently being blocked.");
 			} else {
-				info.add("No Comets Detected");
+				if (cometType != -1) {
+					EnumMeteor type = EnumMeteor.getTypeFromID(cometType);
+					info.add("Comet Entered Orbit at:");
+					info.add("X: " + cometX);
+					info.add("Z: " + cometZ);
+				} else {
+					info.add("No Comets Detected");
+				}
 			}
 		}
 		
@@ -235,6 +244,7 @@ public class TileEntityMeteorShield extends TileEntity implements ISidedInventor
 		
 		this.powerLevel = nbt.getInteger("powerLevel");
 		this.range = MeteorsMod.instance.ShieldRadiusMultiplier * powerLevel;
+		this.blockComets = nbt.getBoolean("blockComets");
 		
 		if (nbt.hasKey("cometType")) {
 			this.cometType = nbt.getInteger("cometType");
@@ -261,6 +271,7 @@ public class TileEntityMeteorShield extends TileEntity implements ISidedInventor
 		super.writeToNBT(nbt);
 		nbt.setString("owner", this.owner);
 		nbt.setInteger("powerLevel", powerLevel);
+		nbt.setBoolean("blockComets", blockComets);
 		if (cometType != -1) {
 			nbt.setInteger("cometType", cometType);
 			nbt.setInteger("cometX", cometX);
@@ -467,8 +478,9 @@ public class TileEntityMeteorShield extends TileEntity implements ISidedInventor
 	public void onChunkUnload() {
 		if (!this.worldObj.isRemote) {
 			HandlerMeteor metHandler = MeteorsMod.proxy.metHandlers.get(worldObj.provider.dimensionId);
-			metHandler.getShieldManager().addShield(new MeteorShieldData(xCoord, yCoord, zCoord, powerLevel, owner));
+			metHandler.getShieldManager().addShield(new MeteorShieldData(xCoord, yCoord, zCoord, powerLevel, owner, blockComets));
 		}
+		this.invalidate();
 	}
 
 	@Override
@@ -489,6 +501,13 @@ public class TileEntityMeteorShield extends TileEntity implements ISidedInventor
 	@Override
 	public boolean canExtractItem(int slot, ItemStack item, int side) {
 		return slot > 4;
+	}
+
+	@Override
+	public void onButtonPress(int id) {
+		if (id == 0) {
+			this.blockComets = !blockComets;
+		}
 	}
 
 }

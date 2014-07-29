@@ -21,12 +21,23 @@ version = "1.7.10-2.13.1"
 group= "net.meteor" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "meteors"
 
+repositories {
+    maven { // The repo from which to get waila
+        name "Mobius Repo"
+        url "http://mobiusstrip.eu/maven"
+    }
+    maven { // the repo from which to get NEI and stuff
+        name 'CB Repo'
+        url "http://chickenbones.net/maven/"
+    }
+}
+
 dependencies {
-	compile files("./Waila-1.5.2a_1.7.2.jar")
+	compile "mcp.mobius.waila:Waila:1.5.3_1.7.10"
 }
 
 minecraft {
-    version = "1.7.10-10.13.0.1180"
+    version = "1.7.10-10.13.0.1186"
     assetDir = "eclipse/assets"
 }
 processResources

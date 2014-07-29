@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import net.meteor.common.climate.CrashLocation;
 import net.meteor.common.climate.HandlerMeteor;
 import net.meteor.common.packets.PacketBlockedMeteor;
+import net.meteor.common.packets.PacketButtonPress;
 import net.meteor.common.packets.PacketGhostMeteor;
 import net.meteor.common.packets.PacketLastCrash;
 import net.meteor.common.packets.PacketPipeline;
@@ -45,6 +46,7 @@ public class ClientHandler
 		this.packetPipeline.registerPacket(PacketSettings.class);
 		this.packetPipeline.registerPacket(PacketSoonestMeteor.class);
 		this.packetPipeline.registerPacket(PacketBlockedMeteor.class);
+		this.packetPipeline.registerPacket(PacketButtonPress.class);
 		if (Baubles.isBaublesLoaded()) {
 			this.packetPipeline.registerPacket(PacketToggleMagnetism.class);
 			this.packetPipeline.registerPacket(PacketTogglePlayerMagnetism.class);

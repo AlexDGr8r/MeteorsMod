@@ -55,16 +55,31 @@ public class CommandSpawnComet extends CommandBase {
 			
 			HandlerMeteor meteorHandler = MeteorsMod.proxy.metHandlers.get(world.provider.dimensionId);
 			List<IMeteorShield> shields = meteorHandler.getShieldManager().getShieldsInRange((int)x, (int)z);
+			boolean blocked = false;
+			
 			for (int i = 0; i < shields.size(); i++) {
 				IMeteorShield ims = shields.get(i);
-				TileEntityMeteorShield shield = (TileEntityMeteorShield)world.getTileEntity(ims.getX(), ims.getY(), ims.getZ());
-				if (shield != null) {
-					shield.detectComet(comet);
+				if (ims.getPreventComets()) {
+					blocked = true;
+					break;
 				}
 			}
 			
-			world.spawnEntityInWorld(comet);
-			var1.addChatMessage(new ChatComponentText("Comet spawned."));
+			if (!blocked) {
+				for (int i = 0; i < shields.size(); i++) {
+					IMeteorShield ims = shields.get(i);
+					TileEntityMeteorShield shield = (TileEntityMeteorShield)world.getTileEntity(ims.getX(), ims.getY(), ims.getZ());
+					if (shield != null) {
+						shield.detectComet(comet);
+					}
+				}
+				
+				world.spawnEntityInWorld(comet);
+				var1.addChatMessage(new ChatComponentText("Comet spawned."));
+			} else {
+				var1.addChatMessage(new ChatComponentText("Comet was blocked by a Meteor Shield."));
+			}
+			
 		} catch (Exception e) {
 			var1.addChatMessage(new ChatComponentText(e.getMessage()));
 			var1.addChatMessage(new ChatComponentText("Usage: " + getCommandUsage(var1)));

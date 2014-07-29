@@ -2,6 +2,7 @@ package net.meteor.plugin.thaumcraft;
 
 import net.meteor.common.MeteorBlocks;
 import net.meteor.common.MeteorItems;
+import net.meteor.common.MeteorsMod;
 import net.minecraft.item.ItemStack;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
@@ -12,6 +13,7 @@ public class Thaumcraft {
 	public static void incorporateThaumcraft() {
 		registerEntityScans();
 		registerItemScans();
+		MeteorsMod.log.info("Thaumcraft mod found. Thaumcraft integration enabled.");
 	}
 	
 	private static void registerItemScans() {

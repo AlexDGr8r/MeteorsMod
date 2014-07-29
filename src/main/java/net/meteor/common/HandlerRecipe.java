@@ -227,21 +227,24 @@ public class HandlerRecipe implements IFuelHandler {
 		});
 
 		GameRegistry.addRecipe(new ItemStack(MeteorItems.itemMeteorSummoner, 1, 1), new Object[] { 
-			"mmm", "msm", "mmm", Character.valueOf('m'), MeteorItems.MeteoriteIngot, Character.valueOf('s'), MeteorItems.itemMeteorSummoner 
+			"mbm", "bsb", "mbm", Character.valueOf('m'), MeteorItems.MeteoriteIngot, Character.valueOf('s'), MeteorItems.itemMeteorSummoner,
+			Character.valueOf('b'), new ItemStack(MeteorBlocks.blockDecorator, 1, 0)
 		});
 
 		GameRegistry.addRecipe(new ItemStack(MeteorItems.itemMeteorSummoner, 1, 2), new Object[] { 
-			"mmm", "msm", "mmm", Character.valueOf('m'), MeteorItems.FrozenIron, Character.valueOf('s'), MeteorItems.itemMeteorSummoner 
+			"mbm", "bsb", "mbm", Character.valueOf('m'), MeteorItems.FrozenIron, Character.valueOf('s'), MeteorItems.itemMeteorSummoner,
+			Character.valueOf('b'), new ItemStack(MeteorBlocks.blockDecorator, 1, 1)
 		});
 
 		GameRegistry.addRecipe(new ItemStack(MeteorItems.itemMeteorSummoner, 1, 3), new Object[] { 
-			"mmm", "msm", "mmm", Character.valueOf('m'), MeteorItems.KreknoriteIngot, Character.valueOf('s'), MeteorItems.itemMeteorSummoner 
+			"mbm", "bsb", "mbm", Character.valueOf('m'), MeteorItems.KreknoriteIngot, Character.valueOf('s'), MeteorItems.itemMeteorSummoner,
+			Character.valueOf('b'), new ItemStack(MeteorBlocks.blockDecorator, 1, 2)
 		});
 
 		GameRegistry.addRecipe(new ItemStack(MeteorItems.itemMeteorSummoner, 1, 4), new Object[] { 
-			"rmr", "ksk", "rfr", Character.valueOf('m'), MeteorItems.MeteoriteIngot, Character.valueOf('s'), MeteorItems.itemMeteorSummoner, 
-			Character.valueOf('k'), MeteorItems.KreknoriteIngot, Character.valueOf('f'), MeteorItems.FrozenIron, Character.valueOf('r'),
-			MeteorItems.itemRedMeteorGem
+			"rmr", "ksk", "rfr", Character.valueOf('m'), new ItemStack(MeteorBlocks.blockDecorator, 1, 0), Character.valueOf('s'), MeteorItems.itemMeteorSummoner, 
+			Character.valueOf('k'), new ItemStack(MeteorBlocks.blockDecorator, 1, 2), Character.valueOf('f'), new ItemStack(MeteorBlocks.blockDecorator, 1, 1),
+			Character.valueOf('r'), MeteorItems.itemRedMeteorGem
 		});
 
 		GameRegistry.addRecipe(new ItemStack(MeteorItems.itemMeteorSummoner, 1, 5), new Object[] { 

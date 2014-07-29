@@ -14,8 +14,9 @@ public class MeteorShieldData implements IMeteorShield
 	private int cometZ;
 	private int cometType = -1;
 	private String owner;
+	private boolean blockComets;
 
-	public MeteorShieldData(int x, int y, int z, int p, String o)
+	public MeteorShieldData(int x, int y, int z, int p, String o, boolean bComets)
 	{
 		this.x = x;
 		this.y = y;
@@ -23,6 +24,7 @@ public class MeteorShieldData implements IMeteorShield
 		this.powerLevel = p;
 		this.range = powerLevel * MeteorsMod.instance.ShieldRadiusMultiplier;
 		this.owner = o;
+		this.blockComets = bComets;
 	}
 
 	public boolean equals(Object o)
@@ -65,6 +67,11 @@ public class MeteorShieldData implements IMeteorShield
 	@Override
 	public String getOwner() {
 		return owner;
+	}
+
+	@Override
+	public boolean getPreventComets() {
+		return blockComets;
 	}
 
 }

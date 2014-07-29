@@ -60,6 +60,7 @@ public class ClimateUpdater {
 							}
 							
 							if (random.nextInt(100) < MeteorsMod.instance.cometFallChance && world.playerEntities.size() > 0) {
+								
 								int x = world.rand.nextInt(mod.meteorFallDistance / 4);
 								int z = world.rand.nextInt(mod.meteorFallDistance / 4);
 								if (world.rand.nextBoolean()) x = -x;
@@ -69,16 +70,28 @@ public class ClimateUpdater {
 								z = (int)(z + player.posZ);
 								EntityComet comet = new EntityComet(world, x, z, HandlerMeteor.getCometType());
 								
+								boolean blocked = false;
 								List<IMeteorShield> shields = meteorHandler.getShieldManager().getShieldsInRange(x, z);
 								for (int i = 0; i < shields.size(); i++) {
 									IMeteorShield ims = shields.get(i);
-									TileEntityMeteorShield shield = (TileEntityMeteorShield)world.getTileEntity(ims.getX(), ims.getY(), ims.getZ());
-									if (shield != null) {
-										shield.detectComet(comet);
+									if (ims.getPreventComets()) {
+										blocked = true;
+										break;
 									}
 								}
 								
-								world.spawnEntityInWorld(comet);
+								if (!blocked) {
+									for (int i = 0; i < shields.size(); i++) {
+										IMeteorShield ims = shields.get(i);
+										TileEntityMeteorShield shield = (TileEntityMeteorShield)world.getTileEntity(ims.getX(), ims.getY(), ims.getZ());
+										if (shield != null) {
+											shield.detectComet(comet);
+										}
+									}
+									
+									world.spawnEntityInWorld(comet);
+								}
+								
 							}
 
 							this.ticks = 0;

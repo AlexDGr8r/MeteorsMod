@@ -1,6 +1,7 @@
 package net.meteor.plugin.waila;
 
 import mcp.mobius.waila.api.IWailaRegistrar;
+import net.meteor.common.MeteorsMod;
 import net.meteor.common.block.BlockFrezarite;
 import net.meteor.common.block.BlockMeteor;
 import net.meteor.common.block.BlockMeteorShield;
@@ -20,6 +21,8 @@ public class Waila {
 		reg.registerBodyProvider(new MeteorDataProvider(), BlockMeteor.class);
 		reg.registerBodyProvider(new MeteorDataProvider(), BlockFrezarite.class);
 		reg.registerBodyProvider(new ShieldDataProvider(), BlockMeteorShield.class);
+		
+		MeteorsMod.log.info("Waila mod found. Waila integration enabled.");
 		
 	}
 

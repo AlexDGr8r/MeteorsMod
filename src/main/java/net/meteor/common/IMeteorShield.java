@@ -16,5 +16,7 @@ public interface IMeteorShield {
 	public boolean isTileEntity();
 	
 	public String getOwner();
+	
+	public boolean getPreventComets();
 
 }

@@ -21,6 +21,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class MeteorItems {
@@ -29,7 +30,7 @@ public class MeteorItems {
 	public static final ArmorMaterial FrezariteArmor = EnumHelper.addArmorMaterial("FREZARITE", 7, new int[] { 2, 5, 3, 1 }, 20);
 	public static final ArmorMaterial KreknoriteArmor = EnumHelper.addArmorMaterial("KREKNORITE", 40, new int[] { 3, 8, 6, 3 }, 10);
 
-	public static final ToolMaterial MeteoriteTool = EnumHelper.addToolMaterial("METEORITE", 3, 900, 10.0F, 4, 15);
+	public static final ToolMaterial MeteoriteTool = EnumHelper.addToolMaterial("METEORITE", 3, 900, 10.0F, 2, 15);
 	public static final ToolMaterial FrezariteTool = EnumHelper.addToolMaterial("FREZARITE", 2, 225, 7.0F, 2, 20);
 	
 	public static final Item itemMeteorChips 			= new ItemMeteorsMod().setMaxStackSize(64).setUnlocalizedName("MeteorChips").setTextureName("MeteorChips");
@@ -117,6 +118,11 @@ public class MeteorItems {
 		GameRegistry.registerItem(MeteoriteIngot, "MeteoriteIngot");
 		GameRegistry.registerItem(FrozenIron, "FrozenIron");
 		GameRegistry.registerItem(KreknoriteIngot, "KreknoriteIngot");
+		
+		// Ore Dictionary
+		OreDictionary.registerOre("ingotMeteorite", MeteoriteIngot);
+		OreDictionary.registerOre("ingotFrozenIron", FrozenIron);
+		OreDictionary.registerOre("ingotKreknorite", KreknoriteIngot);
 	}
 	
 }
