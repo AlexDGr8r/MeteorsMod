@@ -8,7 +8,6 @@ import net.meteor.common.packets.PacketBlockedMeteor;
 import net.meteor.common.packets.PacketButtonPress;
 import net.meteor.common.packets.PacketGhostMeteor;
 import net.meteor.common.packets.PacketLastCrash;
-import net.meteor.common.packets.PacketPipeline;
 import net.meteor.common.packets.PacketSettings;
 import net.meteor.common.packets.PacketSoonestMeteor;
 import net.meteor.plugin.baubles.Baubles;
@@ -34,22 +33,16 @@ public class ClientHandler
 	public static ChunkCoordinates nearestTimeLocation = null;
 	public static ArrayList<ChunkCoordinates> ghostMetLocs = new ArrayList<ChunkCoordinates>(); // TODO Privatize
 	
-	private PacketPipeline packetPipeline;
-	
-	public ClientHandler(PacketPipeline pipeline) {
-		this.packetPipeline = pipeline;
-	}
-	
 	public void registerPackets() {
-		this.packetPipeline.registerPacket(PacketGhostMeteor.class);
-		this.packetPipeline.registerPacket(PacketLastCrash.class);
-		this.packetPipeline.registerPacket(PacketSettings.class);
-		this.packetPipeline.registerPacket(PacketSoonestMeteor.class);
-		this.packetPipeline.registerPacket(PacketBlockedMeteor.class);
-		this.packetPipeline.registerPacket(PacketButtonPress.class);
+		MeteorsMod.network.registerMessage(PacketBlockedMeteor.Handler.class, PacketBlockedMeteor.class, 0, Side.CLIENT);
+		MeteorsMod.network.registerMessage(PacketButtonPress.Handler.class, PacketButtonPress.class, 1, Side.SERVER);
+		MeteorsMod.network.registerMessage(PacketGhostMeteor.Handler.class, PacketGhostMeteor.class, 2, Side.CLIENT);
+		MeteorsMod.network.registerMessage(PacketLastCrash.Handler.class, PacketLastCrash.class, 3, Side.CLIENT);
+		MeteorsMod.network.registerMessage(PacketSettings.Handler.class, PacketSettings.class, 4, Side.CLIENT);
+		MeteorsMod.network.registerMessage(PacketSoonestMeteor.Handler.class, PacketSoonestMeteor.class, 5, Side.CLIENT);
 		if (Baubles.isBaublesLoaded()) {
-			this.packetPipeline.registerPacket(PacketToggleMagnetism.class);
-			this.packetPipeline.registerPacket(PacketTogglePlayerMagnetism.class);
+			MeteorsMod.network.registerMessage(PacketToggleMagnetism.Handler.class, PacketToggleMagnetism.class, 6, Side.SERVER);
+			MeteorsMod.network.registerMessage(PacketTogglePlayerMagnetism.Handler.class, PacketTogglePlayerMagnetism.class, 7, Side.CLIENT);
 		}
 	}
 
@@ -86,7 +79,7 @@ public class ClientHandler
 	public void playerLoggedIn(PlayerLoggedInEvent event)
 	{
 		EntityPlayerMP player = (EntityPlayerMP) event.player;
-		packetPipeline.sendTo(new PacketSettings(), player);
+		MeteorsMod.network.sendTo(new PacketSettings(), player);
 	}
 	
 	@SubscribeEvent
@@ -95,13 +88,13 @@ public class ClientHandler
 			if (event.entity instanceof EntityPlayer) {
 				EntityPlayerMP player = (EntityPlayerMP) event.entity;
 				HandlerMeteor metHandler = MeteorsMod.proxy.metHandlers.get(event.world.provider.dimensionId);
-				packetPipeline.sendTo(new PacketGhostMeteor(), player);		// Clear Ghost Meteors
+				MeteorsMod.network.sendTo(new PacketGhostMeteor(), player);		// Clear Ghost Meteors
 				metHandler.sendGhostMeteorPackets(player);
 				if (metHandler.getForecast() == null) {
 					MeteorsMod.log.info("FORECAST WAS NULL");
 				}
-				packetPipeline.sendTo(new PacketLastCrash(metHandler.getForecast().getLastCrashLocation()), player);
-				packetPipeline.sendTo(new PacketSoonestMeteor(metHandler.getForecast().getNearestTimeMeteor()), player);
+				MeteorsMod.network.sendTo(new PacketLastCrash(metHandler.getForecast().getLastCrashLocation()), player);
+				MeteorsMod.network.sendTo(new PacketSoonestMeteor(metHandler.getForecast().getNearestTimeMeteor()), player);
 			}
 		}
 	}

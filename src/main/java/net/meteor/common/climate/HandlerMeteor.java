@@ -18,7 +18,6 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.WorldServer;
@@ -146,7 +145,7 @@ public class HandlerMeteor
 
 		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
 			forecast.setLastCrashLocation(new CrashLocation(x, y, z, true, forecast.getLastCrashLocation()));
-			MeteorsMod.packetPipeline.sendToDimension(new PacketLastCrash(forecast.getLastCrashLocation()), theWorld.provider.dimensionId);
+			MeteorsMod.network.sendToDimension(new PacketLastCrash(forecast.getLastCrashLocation()), theWorld.provider.dimensionId);
 			if (MeteorsMod.instance.textNotifyCrash) {
 				theWorld.func_73046_m().getConfigurationManager().sendChatMsg(new ChatComponentText(StatCollector.translateToLocal("Meteor.crashed")));
 			}
@@ -254,20 +253,20 @@ public class HandlerMeteor
 			ArrayList<GhostMeteor> mets = this.ghostMets;
 			for (int i = 0; i < mets.size(); i++) {
 				GhostMeteor met = mets.get(i);
-				MeteorsMod.packetPipeline.sendTo(new PacketGhostMeteor(true, met), player);
+				MeteorsMod.network.sendTo(new PacketGhostMeteor(true, met), player);
 			}
 		}
 	}
 
 	private void sendGhostMeteorAddPacket(GhostMeteor met) {
 		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
-			MeteorsMod.packetPipeline.sendToDimension(new PacketGhostMeteor(true, met), theWorld.provider.dimensionId);
+			MeteorsMod.network.sendToDimension(new PacketGhostMeteor(true, met), theWorld.provider.dimensionId);
 		}
 	}
 
 	private void sendGhostMeteorRemovePacket(GhostMeteor met) {
 		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
-			MeteorsMod.packetPipeline.sendToDimension(new PacketGhostMeteor(false, met), theWorld.provider.dimensionId);
+			MeteorsMod.network.sendToDimension(new PacketGhostMeteor(false, met), theWorld.provider.dimensionId);
 		}
 	}
 

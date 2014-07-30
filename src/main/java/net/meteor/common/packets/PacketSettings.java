@@ -1,11 +1,12 @@
 package net.meteor.common.packets;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandlerContext;
 import net.meteor.common.MeteorsMod;
-import net.minecraft.entity.player.EntityPlayer;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
+import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
-public class PacketSettings extends AbstractPacket {
+public class PacketSettings implements IMessage {
 	
 	private boolean meteorGrief;
 	private boolean fallAtNight;
@@ -14,17 +15,7 @@ public class PacketSettings extends AbstractPacket {
 	private int shieldRadiusMultiplier;
 
 	@Override
-	public void encodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
-		MeteorsMod mod = MeteorsMod.instance;
-		buffer.writeBoolean(mod.allowSummonedMeteorGrief);
-		buffer.writeBoolean(mod.meteorsFallOnlyAtNight);
-		buffer.writeInt(mod.MinMeteorSize);
-		buffer.writeInt(mod.MaxMeteorSize);
-		buffer.writeInt(mod.ShieldRadiusMultiplier);
-	}
-
-	@Override
-	public void decodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
+	public void fromBytes(ByteBuf buffer) {
 		this.meteorGrief = buffer.readBoolean();
 		this.fallAtNight = buffer.readBoolean();
 		this.minSize = buffer.readInt();
@@ -33,16 +24,29 @@ public class PacketSettings extends AbstractPacket {
 	}
 
 	@Override
-	public void handleClientSide(EntityPlayer player) {
+	public void toBytes(ByteBuf buffer) {
 		MeteorsMod mod = MeteorsMod.instance;
-		mod.allowSummonedMeteorGrief = this.meteorGrief;
-		mod.meteorsFallOnlyAtNight = this.fallAtNight;
-		mod.MinMeteorSize = this.minSize;
-		mod.MaxMeteorSize = this.maxSize;
-		mod.ShieldRadiusMultiplier = this.shieldRadiusMultiplier;
+		buffer.writeBoolean(mod.allowSummonedMeteorGrief);
+		buffer.writeBoolean(mod.meteorsFallOnlyAtNight);
+		buffer.writeInt(mod.MinMeteorSize);
+		buffer.writeInt(mod.MaxMeteorSize);
+		buffer.writeInt(mod.ShieldRadiusMultiplier);
 	}
+	
+	// Client Side
+	public static class Handler implements IMessageHandler<PacketSettings, IMessage> {
 
-	@Override
-	public void handleServerSide(EntityPlayer player) {}
+		@Override
+		public IMessage onMessage(PacketSettings message, MessageContext ctx) {
+			MeteorsMod mod = MeteorsMod.instance;
+			mod.allowSummonedMeteorGrief = message.meteorGrief;
+			mod.meteorsFallOnlyAtNight = message.fallAtNight;
+			mod.MinMeteorSize = message.minSize;
+			mod.MaxMeteorSize = message.maxSize;
+			mod.ShieldRadiusMultiplier = message.shieldRadiusMultiplier;
+			return null;
+		}
+		
+	}
 
 }

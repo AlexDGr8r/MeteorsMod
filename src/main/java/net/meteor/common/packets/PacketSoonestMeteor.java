@@ -1,13 +1,14 @@
 package net.meteor.common.packets;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandlerContext;
 import net.meteor.common.ClientHandler;
 import net.meteor.common.climate.GhostMeteor;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChunkCoordinates;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
+import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
-public class PacketSoonestMeteor extends AbstractPacket {
+public class PacketSoonestMeteor implements IMessage {
 	
 	private ChunkCoordinates soonestMeteorLoc;
 	
@@ -22,14 +23,7 @@ public class PacketSoonestMeteor extends AbstractPacket {
 	}
 
 	@Override
-	public void encodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
-		buffer.writeInt(soonestMeteorLoc.posX);
-		buffer.writeInt(soonestMeteorLoc.posY);
-		buffer.writeInt(soonestMeteorLoc.posZ);
-	}
-
-	@Override
-	public void decodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
+	public void fromBytes(ByteBuf buffer) {
 		int x, y, z;
 		x = buffer.readInt();
 		y = buffer.readInt();
@@ -42,11 +36,21 @@ public class PacketSoonestMeteor extends AbstractPacket {
 	}
 
 	@Override
-	public void handleClientSide(EntityPlayer player) {
-		ClientHandler.nearestTimeLocation = this.soonestMeteorLoc;
+	public void toBytes(ByteBuf buffer) {
+		buffer.writeInt(soonestMeteorLoc.posX);
+		buffer.writeInt(soonestMeteorLoc.posY);
+		buffer.writeInt(soonestMeteorLoc.posZ);
 	}
+	
+	// Client Side
+	public static class Handler implements IMessageHandler<PacketSoonestMeteor, IMessage> {
 
-	@Override
-	public void handleServerSide(EntityPlayer player) {}
+		@Override
+		public IMessage onMessage(PacketSoonestMeteor message, MessageContext ctx) {
+			ClientHandler.nearestTimeLocation = message.soonestMeteorLoc;
+			return null;
+		}
+		
+	}
 
 }

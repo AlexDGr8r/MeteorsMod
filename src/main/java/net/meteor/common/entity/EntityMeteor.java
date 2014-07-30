@@ -26,7 +26,6 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -104,7 +103,7 @@ implements IEntityAdditionalSpawnData
 					CrashLocation lastCrash = metHandler.getForecast().getLastCrashLocation();
 					if (lastCrash != null && lastCrash.x == originX && lastCrash.z == originZ) {
 						metHandler.getForecast().setLastCrashLocation(null);
-						MeteorsMod.packetPipeline.sendToDimension(new PacketLastCrash(new CrashLocation(-1, -1, -1, false, null)), worldObj.provider.dimensionId);
+						MeteorsMod.network.sendToDimension(new PacketLastCrash(new CrashLocation(-1, -1, -1, false, null)), worldObj.provider.dimensionId);
 					}
 					
 					this.setDead();
@@ -151,7 +150,7 @@ implements IEntityAdditionalSpawnData
 						CrashLocation cc = metHandler.getForecast().getLastCrashLocation();
 						if (cc != null && originX == cc.x && originZ == cc.z) {
 							metHandler.getForecast().setLastCrashLocation(new CrashLocation((int)posX, (int)posY, (int)posZ, false, cc.prevCrash));
-							MeteorsMod.packetPipeline.sendToDimension(new PacketLastCrash(metHandler.getForecast().getLastCrashLocation()), worldObj.provider.dimensionId);
+							MeteorsMod.network.sendToDimension(new PacketLastCrash(metHandler.getForecast().getLastCrashLocation()), worldObj.provider.dimensionId);
 						}
 					}
 					

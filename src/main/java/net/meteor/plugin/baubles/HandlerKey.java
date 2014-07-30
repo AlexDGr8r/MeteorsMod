@@ -29,7 +29,7 @@ public class HandlerKey {
 			ItemStack stack = inv.getStackInSlot(3);
 			if (stack != null) {
 				if (stack.getItem() == Baubles.MagnetismController) {
-					MeteorsMod.packetPipeline.sendToServer(new PacketToggleMagnetism());
+					MeteorsMod.network.sendToServer(new PacketToggleMagnetism());
 				}
 			}
 		}

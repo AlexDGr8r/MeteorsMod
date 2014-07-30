@@ -2,8 +2,6 @@ package net.meteor.common;
 
 import java.util.Random;
 
-import org.apache.logging.log4j.Logger;
-
 import net.meteor.common.climate.HandlerMeteor;
 import net.meteor.common.climate.HandlerWorld;
 import net.meteor.common.command.CommandDebugMeteors;
@@ -18,7 +16,6 @@ import net.meteor.common.entity.EntityComet;
 import net.meteor.common.entity.EntityCometKitty;
 import net.meteor.common.entity.EntityMeteor;
 import net.meteor.common.entity.EntitySummoner;
-import net.meteor.common.packets.PacketPipeline;
 import net.meteor.plugin.baubles.Baubles;
 import net.meteor.plugin.thaumcraft.Thaumcraft;
 import net.minecraft.creativetab.CreativeTabs;
@@ -29,6 +26,9 @@ import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.ChunkProviderGenerate;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraftforge.common.MinecraftForge;
+
+import org.apache.logging.log4j.Logger;
+
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.IWorldGenerator;
 import cpw.mods.fml.common.Loader;
@@ -41,6 +41,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -58,7 +59,7 @@ implements IWorldGenerator
 
 	public static Logger log;
 
-	public static final PacketPipeline packetPipeline = new PacketPipeline();
+	public static SimpleNetworkWrapper network;
 	
 	public static Enchantment Magnetization;
 	public static Enchantment ColdTouch;
@@ -144,17 +145,15 @@ implements IWorldGenerator
 		GameRegistry.registerFuelHandler(recipeHandler);
 		GameRegistry.registerWorldGenerator(this, 1);
 		FMLCommonHandler.instance().bus().register(new HandlerPlayerTick());
-		ClientHandler cHandler = new ClientHandler(packetPipeline);
-		packetPipeline.initalise();
+		network = NetworkRegistry.INSTANCE.newSimpleChannel("METEORS");
+		ClientHandler cHandler = new ClientHandler();
 		cHandler.registerPackets();
 		MinecraftForge.EVENT_BUS.register(cHandler);
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new HandlerGui());
 	}
 	
 	@EventHandler
-	public void postInit(FMLPostInitializationEvent event) {
-		packetPipeline.postInitialise();
-	}
+	public void postInit(FMLPostInitializationEvent event) {}
 
 	private void loadStaticConfigurationValues() {
 		ModConfig config = ModConfig.instance;

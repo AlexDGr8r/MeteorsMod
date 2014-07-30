@@ -1,14 +1,15 @@
 package net.meteor.common.packets;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandlerContext;
 import net.meteor.common.tileentity.TileEntityNetworkBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
+import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
-public class PacketButtonPress extends AbstractPacket {
+public class PacketButtonPress implements IMessage {
 	
 	private TileEntityNetworkBase tileEntity;
 	private int buttonID;
@@ -20,19 +21,8 @@ public class PacketButtonPress extends AbstractPacket {
 		this.buttonID = buttonID;
 	}
 
-	// Always Client Side
 	@Override
-	public void encodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
-		buffer.writeInt(tileEntity.getWorldObj().provider.dimensionId);
-		buffer.writeInt(tileEntity.xCoord);
-		buffer.writeInt(tileEntity.yCoord);
-		buffer.writeInt(tileEntity.zCoord);
-		buffer.writeInt(buttonID);
-	}
-
-	// Always Server Side
-	@Override
-	public void decodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
+	public void fromBytes(ByteBuf buffer) {
 		int dim = buffer.readInt();
 		int x = buffer.readInt();
 		int y = buffer.readInt();
@@ -49,14 +39,26 @@ public class PacketButtonPress extends AbstractPacket {
 	}
 
 	@Override
-	public void handleClientSide(EntityPlayer player) {}
+	public void toBytes(ByteBuf buffer) {
+		buffer.writeInt(tileEntity.getWorldObj().provider.dimensionId);
+		buffer.writeInt(tileEntity.xCoord);
+		buffer.writeInt(tileEntity.yCoord);
+		buffer.writeInt(tileEntity.zCoord);
+		buffer.writeInt(buttonID);
+	}
+	
+	// Server side
+	public static class Handler implements IMessageHandler<PacketButtonPress, IMessage> {
 
-	@Override
-	public void handleServerSide(EntityPlayer player) {
-		if (tileEntity != null) {
-			tileEntity.onButtonPress(buttonID);
-			tileEntity.postButtonPress(buttonID);
+		@Override
+		public IMessage onMessage(PacketButtonPress message, MessageContext ctx) {
+			if (message.tileEntity != null) {
+				message.tileEntity.onButtonPress(message.buttonID);
+				message.tileEntity.postButtonPress(message.buttonID);
+			}
+			return null;
 		}
+		
 	}
 
 }

@@ -3,10 +3,8 @@ package net.meteor.client.tileentity;
 import java.util.Random;
 
 import net.meteor.client.model.ModelMeteorTimer;
-import net.meteor.common.MeteorBlocks;
 import net.meteor.common.MeteorsMod;
 import net.meteor.common.tileentity.TileEntityMeteorTimer;
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -14,12 +12,9 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Vec3;
 
 import org.lwjgl.opengl.GL11;
 
@@ -67,7 +62,7 @@ public class TileEntityMeteorTimerRenderer extends TileEntitySpecialRenderer {
 		GL11.glPopMatrix();
 
 		if (displayInfo) {
-			drawStringAbove(timer, d0 + 0.5D, d1 + 0.5D, d2 + 0.5D);
+			drawStringAbove(timer, d0 + 0.5D, d1 + 0.65D, d2 + 0.5D);
 		}
 	}
 

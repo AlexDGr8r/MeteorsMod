@@ -16,6 +16,7 @@ import net.minecraft.entity.EntityList;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
@@ -35,17 +36,19 @@ public class ShieldManager {
 	}
 	
 	public void addShield(IMeteorShield shield) {
-		for (int i = 0; i < meteorShields.size(); i++) {
-			IMeteorShield shield2 = meteorShields.get(i);
-			if (shield.equals(shield2)) {
-				meteorShields.remove(i);
-				meteorShields.add(shield);
-//				MeteorsMod.log.info("METEOR SHIELD REPLACED X:" + shield.getX() + " Y:" + shield.getY() + " Z:" + shield.getZ() + " O:" + shield.getOwner());
-				return;
+		TileEntity tile = theWorld.getTileEntity(shield.getX(), shield.getY(), shield.getZ());
+		if (tile != null && tile instanceof TileEntityMeteorShield) {
+			for (int i = 0; i < meteorShields.size(); i++) {
+				IMeteorShield shield2 = meteorShields.get(i);
+				if (shield.equals(shield2)) {
+					meteorShields.remove(i);
+					meteorShields.add(shield);
+					return;
+				}
 			}
+			meteorShields.add(shield);
 		}
-		meteorShields.add(shield);
-//		MeteorsMod.log.info("METEOR SHIELD ADDED X:" + shield.getX() + " Y:" + shield.getY() + " Z:" + shield.getZ() + " O:" + shield.getOwner());
+		
 	}
 	
 	public IMeteorShield getClosestShield(int x, int z) {
@@ -94,7 +97,7 @@ public class ShieldManager {
 		TileEntityMeteorShield tShield = (TileEntityMeteorShield) theWorld.getTileEntity(shield.getX(), shield.getY(), shield.getZ());
 		if (tShield != null) {
 			
-			MeteorsMod.packetPipeline.sendToAllAround(new PacketBlockedMeteor(shield.getX(), shield.getY(), shield.getZ(), gMeteor.type), new TargetPoint(theWorld.provider.dimensionId, shield.getX(), shield.getY(), shield.getZ(), 64));
+			MeteorsMod.network.sendToAllAround(new PacketBlockedMeteor(shield.getX(), shield.getY(), shield.getZ(), gMeteor.type), new TargetPoint(theWorld.provider.dimensionId, shield.getX(), shield.getY(), shield.getZ(), 64));
 			
 			List<ItemStack> items = new ArrayList<ItemStack>();
 			int r = random.nextInt(100);

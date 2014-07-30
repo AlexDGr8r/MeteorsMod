@@ -1,13 +1,14 @@
 package net.meteor.common.packets;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandlerContext;
 import net.meteor.common.ClientHandler;
 import net.meteor.common.climate.GhostMeteor;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChunkCoordinates;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
+import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
-public class PacketGhostMeteor extends AbstractPacket {
+public class PacketGhostMeteor implements IMessage {
 	
 	private boolean addGhostMeteor;
 	private int x;
@@ -31,15 +32,7 @@ public class PacketGhostMeteor extends AbstractPacket {
 	}
 
 	@Override
-	public void encodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
-		buffer.writeBoolean(addGhostMeteor);
-		buffer.writeInt(x);
-		buffer.writeInt(y);
-		buffer.writeInt(z);
-	}
-
-	@Override
-	public void decodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
+	public void fromBytes(ByteBuf buffer) {
 		this.addGhostMeteor = buffer.readBoolean();
 		this.x = buffer.readInt();
 		this.y = buffer.readInt();
@@ -47,24 +40,35 @@ public class PacketGhostMeteor extends AbstractPacket {
 	}
 
 	@Override
-	public void handleClientSide(EntityPlayer player) {
-		ChunkCoordinates cc = new ChunkCoordinates(x, y, z);
-		if (this.addGhostMeteor) {
-			ClientHandler.ghostMetLocs.add(cc);
-		} else if (cc.posX == -1 && cc.posY == -1 && cc.posZ == -1) {
-			ClientHandler.ghostMetLocs.clear();
-		} else {
-			for (int i = 0; i < ClientHandler.ghostMetLocs.size(); i++) {
-				ChunkCoordinates cc2 = ClientHandler.ghostMetLocs.get(i);
-				if (cc2.posX == cc.posX && cc2.posZ == cc.posZ) {
-					ClientHandler.ghostMetLocs.remove(i);
-					break;
+	public void toBytes(ByteBuf buffer) {
+		buffer.writeBoolean(addGhostMeteor);
+		buffer.writeInt(x);
+		buffer.writeInt(y);
+		buffer.writeInt(z);
+	}
+	
+	// Client Side
+	public static class Handler implements IMessageHandler<PacketGhostMeteor, IMessage> {
+
+		@Override
+		public IMessage onMessage(PacketGhostMeteor message, MessageContext ctx) {
+			ChunkCoordinates cc = new ChunkCoordinates(message.x, message.y, message.z);
+			if (message.addGhostMeteor) {
+				ClientHandler.ghostMetLocs.add(cc);
+			} else if (cc.posX == -1 && cc.posY == -1 && cc.posZ == -1) {
+				ClientHandler.ghostMetLocs.clear();
+			} else {
+				for (int i = 0; i < ClientHandler.ghostMetLocs.size(); i++) {
+					ChunkCoordinates cc2 = ClientHandler.ghostMetLocs.get(i);
+					if (cc2.posX == cc.posX && cc2.posZ == cc.posZ) {
+						ClientHandler.ghostMetLocs.remove(i);
+						break;
+					}
 				}
 			}
+			return null;
 		}
+		
 	}
-
-	@Override
-	public void handleServerSide(EntityPlayer player) {}
 
 }

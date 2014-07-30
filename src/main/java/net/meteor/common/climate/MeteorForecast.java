@@ -58,7 +58,7 @@ public class MeteorForecast {
 	public void updateNearestTimeForClients() {
 		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
 			GhostMeteor gMeteor = getNearestTimeMeteor();
-			MeteorsMod.packetPipeline.sendToDimension(new PacketSoonestMeteor(gMeteor), theWorld.provider.dimensionId);
+			MeteorsMod.network.sendToDimension(new PacketSoonestMeteor(gMeteor), theWorld.provider.dimensionId);
 		}
 	}
 	
