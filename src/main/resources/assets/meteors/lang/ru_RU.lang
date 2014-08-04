@@ -1,0 +1,147 @@
+tile.MeteorOre.name=Метеоритная руда
+tile.Meteor.name=Упавший метеор
+tile.MeteorRare.name=Редкий упавший метеор
+tile.MeteorShield.name=Метеоритный щит
+tile.ProtectedLandTester.name=Испытатель защищённой земли
+tile.ProtectedLandTesterActive.name=Испытатель защищённой земли
+tile.Frezarite.name=Фрезарит
+tile.Kreknorite.name=Крекнорит
+tile.MeteorTimer.name=Метеоритный таймер
+tile.blockRedGem.name=Блок красного метеоритного камня
+tile.meteorDecor.0.name=Метеоритный блок
+tile.meteorDecor.1.name=Замёрзший железный блок
+tile.meteorDecor.2.name=Крекноритовый блок
+
+item.MeteorChips.name=Метеоритный обломок
+item.RedMeteorGem.name=Красный метеоритный камень
+item.RedMeteorGem.desc.one=Энергия в этом камне, по-видимому,
+item.RedMeteorGem.desc.two=имеет возможность управлять метеорами.
+item.MeteorSummoner.random.name=Призыватель метеора
+item.MeteorSummoner.meteorite.name=Призыватель метеоритного метеора
+item.MeteorSummoner.frezarite.name=Призыватель фрезаритового метеора
+item.MeteorSummoner.kreknorite.name=Призыватель крекноритового метеора
+item.MeteorSummoner.unknown.name=Призыватель неизвестного метеора
+item.MeteorSummoner.kitty.name=Призыватель китти-кометы
+item.MeteoriteHelmet.name=Метеоритный шлем
+item.MeteoriteChest.name=Метеоритная кираса
+item.MeteoriteLegs.name=Метеоритные поножи
+item.MeteoriteBoots.name=Метеоритные ботинки
+item.MeteoriteAxe.name=Метеоритный топор
+item.MeteoriteSpade.name=Метеоритная лопата
+item.MeteoriteSword.name=Метеоритный меч
+item.MeteoritePickaxe.name=Метеоритная кирка
+item.MeteoriteHoe.name=Метеоритная мотыга
+item.FrezariteHelmet.name=Фрезаритовый шлем
+item.FrezariteChest.name=Фрезаритовая кираса
+item.FrezariteLegs.name=Фрезаритовые поножи
+item.FrezariteBoots.name=Фрезаритовые ботинки
+item.FrezariteCrystal.name=Фрезаритовый кристалл
+item.FrezaritePickaxe.name=Фрезаритовая кирка
+item.FrezariteSpade.name=Фрезаритовая лопата
+item.FrezariteSword.name=Фрезаритовый меч
+item.FrezariteAxe.name=Фрезаритовый топор
+item.FrezariteHoe.name=Фрезаритовая мотыга
+item.KreknoriteChip.name=Крекноритовый обломок
+item.KreknoriteHelmet.name=Крекноритовый шлем
+item.KreknoriteChest.name=Крекноритовая кираса
+item.KreknoriteLegs.name=Крекноритовые поножи
+item.KreknoriteBoots.name=Крекноритовые ботинки
+item.KreknoriteSword.name=Крекноритовый меч
+item.VanillaIceCream.name=Ванильное мороженое
+item.ChocolateIceCream.name=Шоколадное мороженое
+item.MeteorDetectorProximity.name=Детектор приближения метеора
+item.MeteorDetectorTime.name=Детектор приближения метеора по времени
+item.MeteorDetectorCrash.name=Детектор места падения метеора
+item.MeteoriteIngot.name=Метеоритный слиток
+item.FrozenIron.name=Замёрзшее железо
+item.KreknoriteIngot.name=Крекноритовый слиток
+item.MagnetizationController.name=Контроллер намагничивания
+item.MagneticFieldDisruptor.name=Разрушитель магнитного поля
+
+entity.AlienCreeper.name=Чужой крипер
+entity.CometKitty.name=Китти-комета
+entity.KreknoHound.name=Крекно гончая
+
+MeteorShield.charging=Метеоритный щит заряжается!
+MeteorShield.noUpgrade=Улучшение метеоритного щита ничего не изменит!
+# Example output for below: Meteor Shield now at 80%
+MeteorShield.PowerUpgradePercentage=Метеоритный щит заряжен на
+MeteorShield.meteorBlocked=Ваш метеоритный щит защищает Вашу землю от метеоров.
+MeteorShield.howToUpgrade=Красные метеоритные камни из метеоритов должно сделать щит сильнее.
+
+Detector.scanning=Сканирование
+Detector.detected=Метеор обнаружен!
+Detector.time=Обнаруживает следующий приближающийся метеор.
+Detector.proximity=Обнаруживает ближайший приближающийся метеор.
+Detector.crash=Обнаруживает последнее место падения.
+CrashDetector.noActivity=Сейсмическая активность не зафиксирована!
+CrashDetector.zoneLocated=Место падения обнаружено!
+
+MeteorTimer.modeChange.one=Силовой режим: Метеоритный таймер теперь будет излучать сигнал красного камня с силой, на основе того, как близко метеор упадёт.
+MeteorTimer.modeChange.two=Быстрый режим: Метеоритный таймер теперь будет излучать сигнал красного камня тогда, когда метеор вот-вот упадёт.
+
+ProtectionTorch.landOwnership=Эта местность защищена:
+ProtectionTorch.usage=Одноразовое использование!
+
+enchantment.Magnetization=Намагничивание
+enchantment.Cold Touch=Холодное касание
+enchantment.addEnch.one=ПКМ, когда в руке,
+enchantment.addEnch.two=чтобы добавить зачарование
+enchantment.frezAxe.one=Увеличивает подводную
+enchantment.frezAxe.two=скорость рубки
+enchantment.frezHoe.one=Автоматически увлажняет водой
+enchantment.frezHoe.two=почву при использовании
+enchantment.frezPickaxe.one=Увеличивает подводную
+enchantment.frezPickaxe.two=скорость добычи
+enchantment.frezSpade.one=Увеличивает подводную
+enchantment.frezSpade.two=скорость копания
+enchantment.frezSword.one=Замораживает врагов, тем самым
+enchantment.frezSword.two=замедляя их.
+
+Meteor.netherPortalCreation=Портал в Нижний мир был создан!
+Meteor.kittiesDetected.one=Живые сущности обнаружены в космосе!
+Meteor.kittiesDetected.two=Приготовьтесь к многократным ударам!
+Meteor.kittiesIncoming=Китти-комета приближается!!!
+Meteor.crashed=Метеор упал!
+
+MeteorSummoner.incomingMeteor=Приближается метеор!!!
+MeteorSummoner.wrongDimension=Нельзя призвать метеоры в это измерение.
+MeteorSummoner.landProtected=Эта территория защищена другим игроком!
+MeteorSummoner.cannotSummon=Вам не разрешено вызывать метеоры!
+
+itemGroup.Meteor=Falling Meteors
+itemGroup.Falling Meteors Mod=Falling Meteors
+
+achievement.pageMeteors=Falling Meteors
+achievement.shieldCrafted=Мы защищены
+achievement.shieldCrafted.desc=Сделайте метеоритный щит, используя обломки метеорита.
+achievement.meteorBlocked=Метеор уничтожен!
+achievement.meteorBlocked.desc=Используйте метеоритный щит, чтобы не дать метеору уничтожить Вашу территорию.
+achievement.shieldFullyUpgraded=Улучшение завершено
+achievement.shieldFullyUpgraded.desc=Полностью улучшите метеоритный щит, используя редкий красный метеоритный камень.
+achievement.attractedDrop=Примагничен
+achievement.attractedDrop.desc=Привлеките магнитные материалы, используя метеоритную броню или инструменты.
+achievement.craftedKreknoSword=Пламя ярости
+achievement.craftedKreknoSword.desc=Сделайте крекноритовый пламенный меч, используя крекноритовые обломки.
+achievement.craftedDetector=Хорошо информирован
+achievement.craftedDetector.desc=Сделайте любой детектор: Метеоритный, фрезаритовый, или крекноритовый
+achievement.foundMeteor=Познакомьтесь с метеором
+achievement.foundMeteor.desc=Используйте детектор для обнаружения места падения и будьте рядом с метеором, когда он упадёт.
+achievement.craftedMeteorTimer=Своевременное обнаружение
+achievement.craftedMeteorTimer.desc=Сделайте метеоритный таймер, чтобы знать, когда метеор собирается упасть.
+achievement.summonMeteor=Бросьте камень!
+achievement.summonMeteor.desc=Призовите метеор с помощью призывателя метеоров.
+achievement.cometKittyEvent=Иностранные кошки
+achievement.cometKittyEvent.desc=Испытайте падение множества кошек.
+achievement.kittyTame=Дружелюбная кошка
+achievement.kittyTame.desc=Приручите китти-комету в качестве огнестойкого компаньона.
+achievement.materialGather=Не от мира сего
+achievement.materialGather.desc=Найдите руду из упавшего метеора.
+achievement.meteorManipulator=Настоящая энергия
+achievement.meteorManipulator.desc=Найдите красный метеоритный камень из метеоритного метеора
+
+key.toggleMagnetism=Переключить магнетизм
+key.categories.meteors=Метеоры
+
+# %s is replaced by options.on or options.off
+gui.toggleCometButton=Блокирование комет: %s
