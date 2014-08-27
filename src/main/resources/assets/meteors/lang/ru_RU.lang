@@ -58,9 +58,9 @@ item.KreknoriteIngot.name=Крекноритовый слиток
 item.MagnetizationController.name=Контроллер намагничивания
 item.MagneticFieldDisruptor.name=Разрушитель магнитного поля
 
-entity.AlienCreeper.name=Чужой крипер
+entity.AlienCreeper.name=Крипер-пришелец
 entity.CometKitty.name=Китти-комета
-entity.KreknoHound.name=Крекно гончая
+entity.KreknoHound.name=Крекно-гончая
 
 MeteorShield.charging=Метеоритный щит заряжается!
 MeteorShield.noUpgrade=Улучшение метеоритного щита ничего не изменит!
@@ -131,7 +131,7 @@ achievement.craftedMeteorTimer=Своевременное обнаружение
 achievement.craftedMeteorTimer.desc=Сделайте метеоритный таймер, чтобы знать, когда метеор собирается упасть.
 achievement.summonMeteor=Бросьте камень!
 achievement.summonMeteor.desc=Призовите метеор с помощью призывателя метеоров.
-achievement.cometKittyEvent=Иностранные кошки
+achievement.cometKittyEvent=Чужие кошки
 achievement.cometKittyEvent.desc=Испытайте падение множества кошек.
 achievement.kittyTame=Дружелюбная кошка
 achievement.kittyTame.desc=Приручите китти-комету в качестве огнестойкого компаньона.
