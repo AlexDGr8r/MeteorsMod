@@ -113,26 +113,25 @@ public class TileEntityMeteorShield extends TileEntityNetworkBase implements ISi
 		List<String> info = new ArrayList<String>();
 		
 		if (powerLevel == 0) {
-			info.add("Charging...");
-			info.add("Charged: " + (int)((float)age / (float)CHARGE_TIME * 100) + "%");
+			info.add(StatCollector.translateToLocal("info.meteorShield.charging"));
+			info.add(StatCollector.translateToLocalFormatted("info.meteorShield.charged", (int)((float)age / (float)CHARGE_TIME * 100)));
 		} else {
-			info.add("Power Level: " + powerLevel + " / 5");
-			info.add("Range: " + range + " blocks");
+			info.add(StatCollector.translateToLocalFormatted("info.meteorShield.powerLevel", powerLevel, 5));
+			info.add(StatCollector.translateToLocalFormatted("info.meteorShield.range", range));
 		}
 		
-		info.add("Owner: " + owner);
+		info.add(StatCollector.translateToLocalFormatted("info.meteorShield.owner", owner));
 		
 		if (powerLevel != 0) {
 			if (blockComets) {
-				info.add("Comets are currently being blocked.");
+				info.add(StatCollector.translateToLocal("info.meteorShield.cometsBeingBlocked"));
 			} else {
 				if (cometType != -1) {
-					EnumMeteor type = EnumMeteor.getTypeFromID(cometType);
-					info.add("Comet Entered Orbit at:");
-					info.add("X: " + cometX);
-					info.add("Z: " + cometZ);
+					info.add(StatCollector.translateToLocal("info.meteorShield.cometEnteredOrbit"));
+					info.add(StatCollector.translateToLocalFormatted("info.meteorShield.cometX", cometX));
+					info.add(StatCollector.translateToLocalFormatted("info.meteorShield.cometZ", cometZ));
 				} else {
-					info.add("No Comets Detected");
+					info.add(StatCollector.translateToLocal("info.meteorShield.noComets"));
 				}
 			}
 		}
@@ -391,7 +390,7 @@ public class TileEntityMeteorShield extends TileEntityNetworkBase implements ISi
 
 	@Override
 	public boolean hasCustomInventoryName() {
-		return false; // TODO localize later
+		return false;
 	}
 
 	@Override

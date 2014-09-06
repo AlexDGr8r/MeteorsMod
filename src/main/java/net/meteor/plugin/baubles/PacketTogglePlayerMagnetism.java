@@ -1,7 +1,6 @@
 package net.meteor.plugin.baubles;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -10,6 +9,8 @@ import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class PacketTogglePlayerMagnetism implements IMessage {
 	
@@ -36,7 +37,7 @@ public class PacketTogglePlayerMagnetism implements IMessage {
 
 		@Override
 		public IMessage onMessage(PacketTogglePlayerMagnetism message, MessageContext ctx) {
-			EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+			EntityPlayer player = getClientPlayer();
 			EntityPlayer p = player.worldObj.getPlayerEntityByName(message.playerName);
 			if (p != null) {
 				IInventory inv = BaublesApi.getBaubles(p);
@@ -46,7 +47,7 @@ public class PacketTogglePlayerMagnetism implements IMessage {
 						boolean val = !ItemMagnetismController.getNBTData(stack);
 						ItemMagnetismController.setNBTData(stack, val);
 						if (player.getCommandSenderName().equals(message.playerName)) {
-							Baubles.renderDisplayTicks = Minecraft.getMinecraft().theWorld.getTotalWorldTime() + 100L;
+							Baubles.renderDisplayTicks = player.worldObj.getTotalWorldTime() + 100L;
 							Baubles.renderDisplay = true;
 							Baubles.enabledMagnetism = val;
 						}
@@ -54,6 +55,11 @@ public class PacketTogglePlayerMagnetism implements IMessage {
 				}
 			}
 			return null;
+		}
+		
+		@SideOnly(Side.CLIENT)
+		public EntityPlayer getClientPlayer() {
+			return net.minecraft.client.Minecraft.getMinecraft().thePlayer;
 		}
 		
 	}

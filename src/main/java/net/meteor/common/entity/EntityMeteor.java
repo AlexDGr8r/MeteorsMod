@@ -6,6 +6,7 @@ import java.util.List;
 
 import net.meteor.common.ClientHandler;
 import net.meteor.common.EnumMeteor;
+import net.meteor.common.ExplosionMeteor;
 import net.meteor.common.HandlerAchievement;
 import net.meteor.common.IMeteorShield;
 import net.meteor.common.MeteorsMod;
@@ -171,7 +172,12 @@ implements IEntityAdditionalSpawnData
 
 	protected Explosion explode() {
 		float f = (float) (this.size * MeteorsMod.instance.ImpactExplosionMultiplier);
-		return worldObj.newExplosion(this, posX, posY, posZ, f, meteorType.getFieryExplosion(), true);
+		Explosion explosion = new ExplosionMeteor(worldObj, this, posX, posY, posZ, f);
+        explosion.isFlaming = meteorType.getFieryExplosion();
+        explosion.isSmoking = true;
+        explosion.doExplosionA();
+        explosion.doExplosionB(true);
+        return explosion;
 	}
 
 	protected CrashMeteorite getWorldGen() {

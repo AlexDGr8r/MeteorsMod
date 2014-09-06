@@ -15,6 +15,9 @@ public class PacketLastCrash implements IMessage {
 	
 	public PacketLastCrash(CrashLocation loc) {
 		this.lastCrashLoc = loc;
+		if (lastCrashLoc == null) {
+			this.lastCrashLoc = new CrashLocation(-1, -1, -1, false, null);
+		}
 	}
 
 	@Override

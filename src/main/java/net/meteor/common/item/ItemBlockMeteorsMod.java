@@ -22,6 +22,7 @@ public class ItemBlockMeteorsMod extends ItemBlock
 		this.setCreativeTab(MeteorsMod.meteorTab);
 	}
 	
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
 		if (this == Item.getItemFromBlock(MeteorBlocks.torchMeteorShieldActive)) {

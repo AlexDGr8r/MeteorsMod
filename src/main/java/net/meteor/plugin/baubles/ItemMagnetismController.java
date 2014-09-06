@@ -12,6 +12,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
 import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
 import baubles.api.IBauble;
@@ -63,9 +64,10 @@ public class ItemMagnetismController extends ItemMeteorsMod implements IBauble {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List info, boolean advTooltip) {
-		info.add("Magnetization: " + (getNBTData(stack) ? EnumChatFormatting.GREEN + "On" : EnumChatFormatting.RED + "Off")); // TODO localize
-		info.add(EnumChatFormatting.DARK_GRAY + "Press '" + HandlerKey.getKey() + "' while equipped to");
-		info.add(EnumChatFormatting.DARK_GRAY + "toggle ON or OFF.");
+		String state = getNBTData(stack) ? EnumChatFormatting.GREEN + StatCollector.translateToLocal("options.on") : EnumChatFormatting.RED + StatCollector.translateToLocal("options.off");
+		info.add(StatCollector.translateToLocalFormatted("info.magnetisationController.state", state));
+		info.add(EnumChatFormatting.DARK_GRAY + StatCollector.translateToLocalFormatted("info.magnetisationController.one", HandlerKey.getKey()));
+		info.add(EnumChatFormatting.DARK_GRAY + StatCollector.translateToLocal("info.magnetisationController.two"));
 		info.add("");
 	}
 	

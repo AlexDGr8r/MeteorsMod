@@ -257,9 +257,10 @@ public class HandlerRecipe implements IFuelHandler {
 			Character.valueOf('f'), Items.cooked_fished
 		});
 		
-		GameRegistry.addShapelessRecipe(new ItemStack(MeteorItems.FrozenIron), new Object[] {
-			Items.iron_ingot, MeteorItems.itemFrezaCrystal
-		});
+		GameRegistry.addRecipe(new ItemStack(MeteorBlocks.blockFreezer, 1), new Object[] {
+			"ifi", "fbf", "ifi", Character.valueOf('i'), Items.iron_ingot, Character.valueOf('f'), MeteorItems.itemFrezaCrystal,
+			Character.valueOf('b'), Items.bucket
+		}); 
 		
 		// ============= Smelting Recipes =============
 		GameRegistry.addSmelting(MeteorItems.itemMeteorChips, new ItemStack(MeteorItems.MeteoriteIngot), 0.7F);

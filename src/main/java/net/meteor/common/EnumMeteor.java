@@ -8,6 +8,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 
 public enum EnumMeteor
 implements Serializable
@@ -82,8 +83,10 @@ implements Serializable
 		}
 		return METEORITE;
 	}
-
-	public ResourceLocation getBeamTexture() {
-		return new ResourceLocation("meteors", "textures/entities/" + beamTex + "beam.png");
+	
+	public static String getLocalName(EnumMeteor type) {
+		String name = "meteor." + type.toString().toLowerCase() + ".name";
+		return StatCollector.translateToLocal(name);
 	}
+	
 }

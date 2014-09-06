@@ -2,6 +2,7 @@ package net.meteor.common;
 
 import net.meteor.common.block.BlockDecoration;
 import net.meteor.common.block.BlockFrezarite;
+import net.meteor.common.block.BlockFreezingMachine;
 import net.meteor.common.block.BlockKreknorite;
 import net.meteor.common.block.BlockMeteor;
 import net.meteor.common.block.BlockMeteorOre;
@@ -10,8 +11,11 @@ import net.meteor.common.block.BlockMeteorShieldTorch;
 import net.meteor.common.block.BlockMeteorTimer;
 import net.meteor.common.block.BlockRareFallenMeteor;
 import net.meteor.common.block.BlockRedMeteorGem;
+import net.meteor.common.block.BlockSlippery;
+import net.meteor.common.block.BlockSlipperyStairs;
 import net.meteor.common.item.ItemBlockMeteorsMod;
 import net.meteor.common.item.ItemBlockMeteorsModMetadata;
+import net.meteor.common.item.ItemBlockSlippery;
 import net.minecraft.block.Block;
 import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -29,6 +33,15 @@ public class MeteorBlocks {
 	public static final Block blockMeteorTimer			= new BlockMeteorTimer().setHardness(0.0F).setStepSound(Block.soundTypeWood).setBlockName("MeteorTimer").setBlockTextureName("MeteorTimer");
 	public static final Block blockRedMeteorGem			= new BlockRedMeteorGem().setHardness(5.0F).setResistance(10.0F).setStepSound(Block.soundTypeMetal).setBlockName("blockRedGem").setBlockTextureName("blockRedGem");
 	public static final Block blockDecorator			= new BlockDecoration("meteorite_block", "frezarite_block", "kreknorite_block").setBlockName("meteorDecor").setStepSound(Block.soundTypeMetal).setHardness(5.0F).setResistance(10.0F);
+	public static final Block blockFreezer				= new BlockFreezingMachine().setBlockName("freezingMachine").setHardness(3.5F).setStepSound(Block.soundTypeMetal);
+	public static final Block blockSlippery				= new BlockSlippery(0.98F).setHardness(1.0F).setBlockName("slipperyBlock").setStepSound(Block.soundTypeGlass);
+	public static final Block blockSlipperyTwo			= new BlockSlippery(1.03F).setHardness(1.0F).setBlockName("slipperyBlock").setStepSound(Block.soundTypeGlass);
+	public static final Block blockSlipperyThree		= new BlockSlippery(1.07F).setHardness(1.0F).setBlockName("slipperyBlock").setStepSound(Block.soundTypeGlass);
+	public static final Block blockSlipperyFour			= new BlockSlippery(1.10F).setHardness(1.0F).setBlockName("slipperyBlock").setStepSound(Block.soundTypeGlass);
+	public static final Block blockSlipperyStairs		= new BlockSlipperyStairs(0.98F).setHardness(1.0F).setBlockName("slipperyBlock").setStepSound(Block.soundTypeGlass);
+	public static final Block blockSlipperyStairsTwo	= new BlockSlipperyStairs(1.03F).setHardness(1.0F).setBlockName("slipperyBlock").setStepSound(Block.soundTypeGlass);
+	public static final Block blockSlipperyStairsThree	= new BlockSlipperyStairs(1.07F).setHardness(1.0F).setBlockName("slipperyBlock").setStepSound(Block.soundTypeGlass);
+	public static final Block blockSlipperyStairsFour	= new BlockSlipperyStairs(1.10F).setHardness(1.0F).setBlockName("slipperyBlock").setStepSound(Block.soundTypeGlass);
 	
 	public static void registerBlocks() {
 		GameRegistry.registerBlock(blockMeteorOre, ItemBlockMeteorsMod.class, "BlockMeteorOre");
@@ -42,6 +55,15 @@ public class MeteorBlocks {
 		GameRegistry.registerBlock(blockMeteorTimer, ItemBlockMeteorsMod.class, "BlockMeteorTimer");
 		GameRegistry.registerBlock(blockRedMeteorGem, ItemBlockMeteorsMod.class, "BlockRedMeteorGem");
 		GameRegistry.registerBlock(blockDecorator, ItemBlockMeteorsModMetadata.class, "BlockMeteorDecoration");
+		GameRegistry.registerBlock(blockFreezer, ItemBlockMeteorsMod.class, "BlockFreezer");
+		GameRegistry.registerBlock(blockSlippery, ItemBlockSlippery.class, "BlockSlippery");
+		GameRegistry.registerBlock(blockSlipperyTwo, ItemBlockSlippery.class, "BlockSlipperyTwo");
+		GameRegistry.registerBlock(blockSlipperyThree, ItemBlockSlippery.class, "BlockSlipperyThree");
+		GameRegistry.registerBlock(blockSlipperyFour, ItemBlockSlippery.class, "BlockSlipperyFour");
+		GameRegistry.registerBlock(blockSlipperyStairs, ItemBlockSlippery.class, "BlockSlipperyStairs");
+		GameRegistry.registerBlock(blockSlipperyStairsTwo, ItemBlockSlippery.class, "BlockSlipperyStairsTwo");
+		GameRegistry.registerBlock(blockSlipperyStairsThree, ItemBlockSlippery.class, "BlockSlipperyStairsThree");
+		GameRegistry.registerBlock(blockSlipperyStairsFour, ItemBlockSlippery.class, "BlockSlipperyStairsFour");
 		
 		// Ore Dictionary
 		OreDictionary.registerOre("oreMeteorite", blockMeteorOre);

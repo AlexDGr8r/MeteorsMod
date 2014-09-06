@@ -10,6 +10,7 @@ public class PacketSettings implements IMessage {
 	
 	private boolean meteorGrief;
 	private boolean fallAtNight;
+	private boolean slipperyBlocks;
 	private int minSize;
 	private int maxSize;
 	private int shieldRadiusMultiplier;
@@ -18,6 +19,7 @@ public class PacketSettings implements IMessage {
 	public void fromBytes(ByteBuf buffer) {
 		this.meteorGrief = buffer.readBoolean();
 		this.fallAtNight = buffer.readBoolean();
+		this.slipperyBlocks = buffer.readBoolean();
 		this.minSize = buffer.readInt();
 		this.maxSize = buffer.readInt();
 		this.shieldRadiusMultiplier = buffer.readInt();
@@ -28,6 +30,7 @@ public class PacketSettings implements IMessage {
 		MeteorsMod mod = MeteorsMod.instance;
 		buffer.writeBoolean(mod.allowSummonedMeteorGrief);
 		buffer.writeBoolean(mod.meteorsFallOnlyAtNight);
+		buffer.writeBoolean(mod.slipperyBlocksEnabled);
 		buffer.writeInt(mod.MinMeteorSize);
 		buffer.writeInt(mod.MaxMeteorSize);
 		buffer.writeInt(mod.ShieldRadiusMultiplier);
@@ -41,6 +44,7 @@ public class PacketSettings implements IMessage {
 			MeteorsMod mod = MeteorsMod.instance;
 			mod.allowSummonedMeteorGrief = message.meteorGrief;
 			mod.meteorsFallOnlyAtNight = message.fallAtNight;
+			mod.slipperyBlocksEnabled = message.slipperyBlocks;
 			mod.MinMeteorSize = message.minSize;
 			mod.MaxMeteorSize = message.maxSize;
 			mod.ShieldRadiusMultiplier = message.shieldRadiusMultiplier;

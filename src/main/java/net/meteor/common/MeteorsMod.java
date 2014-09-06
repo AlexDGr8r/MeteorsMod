@@ -53,7 +53,7 @@ implements IWorldGenerator
 	
 	public static final String MOD_ID 	= "meteors";
 	public static final String MOD_NAME = "Falling Meteors";
-	public static final String VERSION 	= "2.13.2"; 		// Switch to automatic versioning later on
+	public static final String VERSION 	= "2.14"; 		// Switch to automatic versioning later on
 	
 	public static final boolean loggable = false;		// For Debugging Purposes Only TODO change to false when releasing
 
@@ -97,6 +97,7 @@ implements IWorldGenerator
 	public int ImpactSpread;
 	public int cometFallChance;
 	public int[] whitelistedDimensions;
+	public boolean slipperyBlocksEnabled;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -123,6 +124,10 @@ implements IWorldGenerator
 		}
 		
 		this.achHandler = new HandlerAchievement();
+		network = NetworkRegistry.INSTANCE.newSimpleChannel("METEORS");
+		ClientHandler cHandler = new ClientHandler();
+		cHandler.registerPackets();
+		MinecraftForge.EVENT_BUS.register(cHandler);
 		proxy.preInit();
 	}
 	
@@ -140,15 +145,13 @@ implements IWorldGenerator
 
 		MinecraftForge.EVENT_BUS.register(new HandlerPlayerBreakSpeed());
 		MinecraftForge.EVENT_BUS.register(new HandlerWorld());
+		MinecraftForge.EVENT_BUS.register(new TooltipProvider());
 		FMLCommonHandler.instance().bus().register(recipeHandler);
 		FMLCommonHandler.instance().bus().register(achHandler);
 		GameRegistry.registerFuelHandler(recipeHandler);
 		GameRegistry.registerWorldGenerator(this, 1);
 		FMLCommonHandler.instance().bus().register(new HandlerPlayerTick());
-		network = NetworkRegistry.INSTANCE.newSimpleChannel("METEORS");
-		ClientHandler cHandler = new ClientHandler();
-		cHandler.registerPackets();
-		MinecraftForge.EVENT_BUS.register(cHandler);
+		
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new HandlerGui());
 	}
 	
@@ -207,6 +210,7 @@ implements IWorldGenerator
 			this.ImpactExplosionMultiplier = 0.0;
 		}
 		this.ImpactSpread = MathHelper.abs_int(ModConfig.instance.get("Meteor Impact Spread", 4, "This times the meteor size determines how big of an impact the meteor's crater will have to spread ore."));
+		this.slipperyBlocksEnabled = ModConfig.instance.get("Slippery Blocks Enabled", true, "Setting to false will disallow the creation of Slippery Blocks with the Freezer.");
 	}
 
 	

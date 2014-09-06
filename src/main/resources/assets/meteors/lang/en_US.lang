@@ -11,12 +11,14 @@ tile.blockRedGem.name=Block of Red Meteor Gem
 tile.meteorDecor.0.name=Meteorite Block
 tile.meteorDecor.1.name=Frozen Iron Block
 tile.meteorDecor.2.name=Kreknorite Block
+tile.slipperyBlock.name=Slippery %s
+tile.freezingMachine.name=Freezer
 
 item.MeteorChips.name=Meteor Chip
 item.RedMeteorGem.name=Red Meteor Gem
 item.RedMeteorGem.desc.one=The energy in this gem appears to
 item.RedMeteorGem.desc.two=have the ability to manipulate Meteors.
-item.MeteorSummoner.random.name=Meteor Summoner
+item.MeteorSummoner.random.name=Meteor Summoner (Random)
 item.MeteorSummoner.meteorite.name=Meteorite Meteor Summoner
 item.MeteorSummoner.frezarite.name=Frezarite Meteor Summoner
 item.MeteorSummoner.kreknorite.name=Kreknorite Meteor Summoner
@@ -60,12 +62,9 @@ item.MagneticFieldDisruptor.name=Magnetic Field Disruptor
 
 entity.AlienCreeper.name=Alien Creeper
 entity.CometKitty.name=Comet Kitty
-entity.KreknoHound.name=Krekno Hound
 
 MeteorShield.charging=Meteor Shield Charging!
 MeteorShield.noUpgrade=Upgrading this Meteor Shield does nothing!
-# Example output for below: Meteor Shield now at 80%
-MeteorShield.PowerUpgradePercentage=Meteor Shield now at
 MeteorShield.meteorBlocked=Your Meteor Shield protected your land from a meteor.
 MeteorShield.howToUpgrade=Red Meteor Gems from Meteorites should make the shield stronger.
 
@@ -145,3 +144,39 @@ key.categories.meteors=Meteors
 
 # %s is replaced by options.on or options.off
 gui.toggleCometButton=Block Comets: %s
+
+info.slipperyBlock.one=%sx Slippery
+info.freezeTime=Freeze Time %s
+info.magnetisationController.state=Magnetization: %s
+info.magnetisationController.one=Press '%s' while equipped to
+info.magnetisationController.two=toggle ON or OFF
+info.magnetisationController.enabled=Magnetization §aEnabled
+info.magnetisationController.disabled=Magnetization §cDisabled
+info.meteorShield.charging=Charging...
+info.meteorShield.charged=Charged: %s%%
+info.meteorShield.powerLevel=Power Level: %s / %s
+info.meteorShield.range=Range: %s blocks
+info.meteorShield.owner=Owner: %s
+info.meteorShield.cometsBeingBlocked=Comets are currently being blocked.
+info.meteorShield.cometEnteredOrbit=Comet Entered Orbit at:
+info.meteorShield.cometX=X: %s
+info.meteorShield.cometZ=Z: %s
+info.meteorShield.noComets=No Comets Detected
+info.meteorShield.cometType=Comet Type:
+info.freezer.itemMode=Item Mode
+info.freezer.itemMode.desc=Only uses Item in top%sslot while freezing.
+info.freezer.fluidMode=Fluid Mode
+info.freezer.fluidMode.desc=Only uses the Fluid%swhile freezing.
+info.freezer.bothMode=Item and Fluid Mode
+info.freezer.bothMode.desc=Requires both an item and%sa fluid before freezing.
+info.freezer.eitherMode=Item and/or Fluid Mode
+info.freezer.eitherMode.desc=Freeze anything if%sresources are available.
+info.kreknoriteArmorBonus=Set Bonus: §6Fire Immunity
+
+meteor.meteorite.name=Meteorite
+meteor.frezarite.name=Frezarite
+meteor.kreknorite.name=Kreknorite
+meteor.unknown.name=Unknown
+meteor.kitty.name=Kitty Comet
+
+death.attack.meteor=%1$s was impaled by a meteor

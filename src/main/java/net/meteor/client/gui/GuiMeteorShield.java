@@ -99,10 +99,8 @@ public class GuiMeteorShield extends GuiContainer {
 		            p_146979_2_ -= l1;
 		            EnumMeteor type = shield.getCometType();
 		            ArrayList info = new ArrayList();
-		            info.add("Comet Type:");
-		            String name = type.toString().toLowerCase();
-		            name = name.substring(0, 1).toUpperCase() + name.substring(1);
-		            info.add(type.getChatColor() + name);
+		            info.add(StatCollector.translateToLocal("info.meteorShield.cometType"));
+		            info.add(type.getChatColor() + EnumMeteor.getLocalName(type));
 		        	this.func_146283_a(info, p_146979_1_, p_146979_2_);
 		        }
 			}

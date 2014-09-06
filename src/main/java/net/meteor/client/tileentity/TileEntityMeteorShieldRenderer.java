@@ -3,8 +3,10 @@ package net.meteor.client.tileentity;
 import net.meteor.client.model.ModelMeteorShield;
 import net.meteor.common.MeteorsMod;
 import net.meteor.common.tileentity.TileEntityMeteorShield;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityBeacon;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
@@ -28,13 +30,19 @@ public class TileEntityMeteorShieldRenderer extends TileEntitySpecialRenderer
 	}
 
 	public void renderAModelAt(TileEntityMeteorShield shield, double par2, double par4, double par6, float par8) {
-
+		
+		if (shield.getWorldObj().getTileEntity(shield.xCoord, shield.yCoord, shield.zCoord) == null) {
+			return;
+		}
+		
 		int level = shield.getPowerLevel();
 		if (!shield.getWorldObj().isAirBlock(shield.xCoord, shield.yCoord + 1, shield.zCoord)) {
 			level = 0;
 		}
 		int meta = shield.getBlockMetadata();
-
+		
+		GL11.glEnable(GL11.GL_CULL_FACE);
+		GL11.glDisable(GL11.GL_BLEND);
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float)par2 + 0.5F, (float)par4 + 1.5F, (float)par6 + 0.5F);
 		this.bindTexture(shieldTexture);
@@ -46,4 +54,5 @@ public class TileEntityMeteorShieldRenderer extends TileEntitySpecialRenderer
 		GL11.glPopMatrix();
 
 	}
+	
 }
