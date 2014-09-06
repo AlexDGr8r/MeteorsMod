@@ -15,6 +15,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
 
@@ -80,7 +81,7 @@ public class TileEntityMeteorTimerRenderer extends TileEntitySpecialRenderer {
 
 			if (d3 < (double)(f2 * f2))
 			{
-				String s = timer.quickMode ? "Quick Mode" : "Power Mode";
+				String s = timer.quickMode ? StatCollector.translateToLocal("info.meteorTimer.quickMode") : StatCollector.translateToLocal("info.meteorTimer.powerMode");
 				FontRenderer fontrenderer = this.func_147498_b();
 				GL11.glPushMatrix();
 				GL11.glTranslatef((float)x + 0.0F, (float)y + 0.5F, (float)z);

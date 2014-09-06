@@ -268,6 +268,15 @@ implements IWorldGenerator
 				int randZ = z + rand.nextInt(16);
 				(new WorldGenMinable(MeteorBlocks.blockMeteorOre, this.oreGenSize)).generate(world, rand, randX, randY, randZ);
 			}
+			
+			for (int i = 0; i < this.chunkChecks; i++) {
+				int randX = x + rand.nextInt(16);
+				int randY = rand.nextInt(20) + 32;
+				int randZ = z + rand.nextInt(16);
+				if (world.getBiomeGenForCoords(randX, randZ).temperature <= 0.15F) {
+					(new WorldGenMinable(MeteorBlocks.blockFrezariteOre, this.oreGenSize)).generate(world, rand, randX, randY, randZ);
+				}
+			}
 		}
 	}
 	

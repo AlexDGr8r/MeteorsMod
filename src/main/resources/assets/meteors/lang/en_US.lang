@@ -13,6 +13,7 @@ tile.meteorDecor.1.name=Frozen Iron Block
 tile.meteorDecor.2.name=Kreknorite Block
 tile.slipperyBlock.name=Slippery %s
 tile.freezingMachine.name=Freezer
+tile.FrezariteOre.name=Frezarite Ore
 
 item.MeteorChips.name=Meteor Chip
 item.RedMeteorGem.name=Red Meteor Gem
@@ -171,6 +172,8 @@ info.freezer.bothMode=Item and Fluid Mode
 info.freezer.bothMode.desc=Requires both an item and%sa fluid before freezing.
 info.freezer.eitherMode=Item and/or Fluid Mode
 info.freezer.eitherMode.desc=Freeze anything if%sresources are available.
+info.meteorTimer.quickMode=Quick Mode
+info.meteorTimer.powerMode=Power Mode
 info.kreknoriteArmorBonus=Set Bonus: §6Fire Immunity
 
 meteor.meteorite.name=Meteorite

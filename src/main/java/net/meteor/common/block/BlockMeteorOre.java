@@ -8,10 +8,13 @@ import net.minecraft.item.Item;
 
 public class BlockMeteorOre extends BlockMeteorsMod
 {
-	public BlockMeteorOre()
+	private final Item droppedItem;
+	
+	public BlockMeteorOre(Item droppedItem)
 	{
 		super(Material.iron);
 		this.setHarvestLevel("pickaxe", 2);
+		this.droppedItem = droppedItem;
 	}
 
 	@Override
@@ -23,7 +26,7 @@ public class BlockMeteorOre extends BlockMeteorsMod
 	@Override
 	public Item getItemDropped(int i, Random random, int j)
 	{
-		return MeteorItems.itemMeteorChips;
+		return this.droppedItem;
 	}
 	
 }
