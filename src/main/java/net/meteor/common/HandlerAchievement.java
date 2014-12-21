@@ -1,6 +1,7 @@
 package net.meteor.common;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -13,9 +14,9 @@ public class HandlerAchievement
 {
 	public static final Achievement materialGather = new AchievementMeteorsMod("metMaterialGather", "materialGather", 0, 0, MeteorItems.itemMeteorChips, null).registerStat();
 	public static final Achievement meteorManipulator = new AchievementMeteorsMod("metMeteorManipulator", "meteorManipulator", 2, 0, MeteorItems.itemRedMeteorGem, null).registerStat();
-	public static final Achievement shieldCrafted = new AchievementMeteorsMod("metShieldCrafted", "shieldCrafted", 0, 2, MeteorBlocks.blockMeteorShield, materialGather).registerStat();
+	public static final Achievement shieldCrafted = new AchievementMeteorsMod("metShieldCrafted", "shieldCrafted", -2, 2, MeteorBlocks.blockMeteorShield, materialGather).registerStat();
 	public static final Achievement shieldFullyUpgraded = new AchievementMeteorsMod("metShieldFullyUpgraded", "shieldFullyUpgraded", 4, 1, MeteorItems.itemRedMeteorGem, meteorManipulator).registerStat();
-	public static final Achievement meteorBlocked = new AchievementMeteorsMod("metMeteorBlocked", "meteorBlocked", -2, 4, MeteorBlocks.torchMeteorShieldActive, shieldCrafted).registerStat();
+	public static final Achievement meteorBlocked = new AchievementMeteorsMod("metMeteorBlocked", "meteorBlocked", -3, 4, MeteorBlocks.torchMeteorShieldActive, shieldCrafted).registerStat();
 	public static final Achievement attractedDrop = new AchievementMeteorsMod("metAttractedDrop", "attractedDrop", -2, 0, MeteorItems.MeteoritePickaxe, materialGather).registerStat();
 	public static final Achievement craftedKreknoSword = new AchievementMeteorsMod("metCraftedKreknoSword", "craftedKreknoSword", -4, 0, MeteorItems.KreknoriteSword, attractedDrop).registerStat();
 	public static final Achievement craftedDetector = new AchievementMeteorsMod("metCraftedDetector", "craftedDetector", 0, -2, MeteorItems.itemMeteorProximityDetector, materialGather).registerStat();
@@ -24,12 +25,16 @@ public class HandlerAchievement
 	public static final Achievement summonMeteor = new AchievementMeteorsMod("metSummonMeteor", "summonMeteor", 4, -1, MeteorItems.itemMeteorSummoner, meteorManipulator).registerStat();
 	public static final Achievement kittyEvent = new AchievementMeteorsMod("metCometKittyEvent", "cometKittyEvent", 4, -4, new ItemStack(MeteorItems.itemMeteorSummoner, 1, 5), craftedMeteorTimer).registerStat();
 	public static final Achievement kittyTame = new AchievementMeteorsMod("metKittyTame", "kittyTame", 6, -4, Items.fish, kittyEvent).registerStat();
+	public static final Achievement craftedFreezer = new AchievementMeteorsMod("metFreezerCrafted", "freezerCrafted", 3, 3, MeteorBlocks.blockFreezer, materialGather).registerStat();
+	public static final Achievement freezeWater = new AchievementMeteorsMod("metFreezeWater", "freezeWater", 4, 5, Blocks.ice, craftedFreezer).registerStat();
+	public static final Achievement freezeBlocks = new AchievementMeteorsMod("metFreezeBlocks", "freezeBlocks", 3, 5, MeteorBlocks.blockSlippery, craftedFreezer).registerStat();
 	
 	public void readyAchievements()
 	{
 		AchievementPage page = new AchPageMeteorsMod("achievement.pageMeteors", new Achievement[] { 
 				materialGather, shieldCrafted, shieldFullyUpgraded, meteorBlocked, attractedDrop, craftedKreknoSword,
-				craftedDetector, foundMeteor, craftedMeteorTimer, summonMeteor, kittyEvent, kittyTame, meteorManipulator
+				craftedDetector, foundMeteor, craftedMeteorTimer, summonMeteor, kittyEvent, kittyTame, meteorManipulator,
+				craftedFreezer, freezeWater, freezeBlocks
 		});
 		AchievementPage.registerAchievementPage(page);
 	}

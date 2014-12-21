@@ -61,6 +61,7 @@ public class Thaumcraft {
 		ThaumcraftApi.registerComplexObjectTag(new ItemStack(MeteorBlocks.blockMeteorShield), new AspectList());
 		ThaumcraftApi.registerComplexObjectTag(new ItemStack(MeteorBlocks.torchMeteorShieldActive), new AspectList());
 		ThaumcraftApi.registerComplexObjectTag(new ItemStack(MeteorBlocks.blockMeteorTimer), new AspectList());
+		ThaumcraftApi.registerComplexObjectTag(new ItemStack(MeteorBlocks.blockFreezer), new AspectList());
 	}
 	
 	private static void registerEntityScans() {

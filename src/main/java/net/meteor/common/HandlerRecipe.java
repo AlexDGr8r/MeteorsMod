@@ -29,6 +29,8 @@ public class HandlerRecipe implements IFuelHandler {
 			player.addStat(HandlerAchievement.craftedDetector, 1);
 		} else if (item == Item.getItemFromBlock(MeteorBlocks.blockMeteorTimer)) {
 			player.addStat(HandlerAchievement.craftedMeteorTimer, 1);
+		} else if (item == Item.getItemFromBlock(MeteorBlocks.blockFreezer)) {
+			player.addStat(HandlerAchievement.craftedFreezer, 1);
 		}
 			
 	}

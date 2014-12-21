@@ -18,9 +18,11 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -100,6 +102,24 @@ public class BlockSlippery extends BlockContainerMeteorsMod {
 	@Override
 	public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side) {
 		return true;
+	}
+	
+	@Override
+	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
+		Item item = getItem(world, x, y, z);
+
+        if (item == null)
+        {
+            return null;
+        }
+        
+        BlockSlippery block = (BlockSlippery)world.getBlock(x, y, z);
+        ItemStack stack = new ItemStack(item, 1, world.getBlockMetadata(x, y, z));
+        NBTTagCompound nbt = stack.hasTagCompound() ? stack.getTagCompound() : new NBTTagCompound();
+        TileEntitySlippery tileEntity = (TileEntitySlippery)world.getTileEntity(x, y, z);
+		nbt.setString(ItemBlockSlippery.FACADE_BLOCK_KEY, tileEntity.getFacadeBlockName());
+		stack.setTagCompound(nbt);
+		return stack;
 	}
 	
 	public static boolean canBeSlippery(Block block) {

@@ -43,7 +43,9 @@ public class TileEntitySlipperyRenderer extends TileEntitySpecialRenderer {
 		tess.draw();
 		tess.setTranslation(0, 0, 0);
 		GL11.glPopMatrix();
-		RenderHelper.enableGUIStandardItemLighting();
+		RenderHelper.enableStandardItemLighting();
+		GL11.glDisable(GL11.GL_BLEND);
+		
 	}
 
 }

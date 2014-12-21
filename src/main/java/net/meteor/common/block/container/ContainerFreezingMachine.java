@@ -31,7 +31,7 @@ public class ContainerFreezingMachine extends Container {
 		this.iceMaker = iceMaker;
 		this.addSlotToContainer(new Slot(iceMaker, 0, 73, 17));
 		this.addSlotToContainer(new Slot(iceMaker, 1, 73, 53));
-		this.addSlotToContainer(new SlotTakeOnly(iceMaker, 2, 133, 35));
+		this.addSlotToContainer(new SlotTakeOnly(iceMaker, 2, 133, 35, inventoryPlayer.player));
 		this.addSlotToContainer(new Slot(iceMaker, 3, 38, 7));
 		this.addSlotToContainer(new SlotTakeOnly(iceMaker, 4, 38, 60));
 		int i;

@@ -82,7 +82,7 @@ public class FreezerRecipes {
 		public boolean hasRequiredMaterials(ItemStack item, Fluid fluid, int fluidAmount) {
 			if (fluidAmount >= fluidAmountNeeded) {
 				if (requiresFluid() && this.fluid == fluid) {
-					return requiresItem() ? this.itemNeeded.isItemEqual(item) : true;
+					return requiresItem() ? (item != null ? this.itemNeeded.isItemEqual(item) : false) : true;
 				} else if (requiresItem() && item != null) {
 					return this.itemNeeded.isItemEqual(item);
 				}
@@ -166,7 +166,7 @@ public class FreezerRecipes {
 	}
 	
 	private FreezerRecipes() {
-		addRecipe(Blocks.ice, new ItemStack(Blocks.packed_ice, 1));
+		addRecipe(new ItemStack(Blocks.ice, 1), FluidRegistry.WATER, 1000, new ItemStack(Blocks.packed_ice, 1));
 		addRecipe(Items.iron_ingot, new ItemStack(MeteorItems.FrozenIron, 1));
 		addRecipe(new SlipperyRecipe());
 		addRecipe(FluidRegistry.WATER, 1000, new ItemStack(Blocks.ice, 1));

@@ -143,7 +143,6 @@ public class TileEntityMeteorShield extends TileEntityNetworkBase implements ISi
 		
 		for (int i = 0; i < items.size(); i++) {
 			ItemStack par1ItemStack = items.get(i);
-			System.out.println(par1ItemStack);
 			ItemStack itemstack1;
 			int k = 5;
 			if (par1ItemStack.isStackable())

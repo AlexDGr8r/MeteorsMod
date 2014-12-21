@@ -36,6 +36,7 @@ public class TileEntityFreezingMachine extends TileEntityNetworkBase implements 
 	private static int[] acccessibleSlots = {0, 1, 2, 3, 4};
 
 	private ItemStack[] inv = new ItemStack[getSizeInventory()];
+	private ItemStack lastKnownItem = null;
 	private FluidTank tank = new FluidTank(FluidContainerRegistry.BUCKET_VOLUME * 10);
 	private RecipeType acceptedRecipeType = RecipeType.either;
 
@@ -339,6 +340,8 @@ public class TileEntityFreezingMachine extends TileEntityNetworkBase implements 
 
 				if (this.isFreezing() && this.canFreeze())
 				{
+					
+					
 					++this.cookTime;
 
 					if (this.cookTime == 200)
@@ -390,10 +393,32 @@ public class TileEntityFreezingMachine extends TileEntityNetworkBase implements 
 	private boolean canFreeze() {
 		FreezerRecipe recipe = FreezerRecipes.instance().getFreezingResult(this.inv[0], tank.getFluid(), this.acceptedRecipeType);
 		if (recipe == null) return false;
-		if (this.inv[2] == null) return true;
-		if (!this.inv[2].isItemEqual(recipe.getResult(inv[0]))) return false;
-		int result = inv[2].stackSize + recipe.getResult(inv[0]).stackSize;
-		return result <= getInventoryStackLimit() && result <= this.inv[2].getMaxStackSize();
+		ItemStack result = recipe.getResult(inv[0]);
+		if (this.inv[2] == null) {
+			if (this.lastKnownItem == null) {
+				this.lastKnownItem = result;
+			} else if (!result.isItemEqual(this.lastKnownItem)) {
+				this.cookTime = 0;
+				this.lastKnownItem = result;
+				this.markDirty();
+				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+			}
+			return true;
+		}
+		if (!this.inv[2].isItemEqual(result)) return false;
+		int resultSize = inv[2].stackSize + result.stackSize;
+		if (resultSize <= getInventoryStackLimit() && resultSize <= this.inv[2].getMaxStackSize()) {
+			if (this.lastKnownItem == null) {
+				this.lastKnownItem = result;
+			} else if (!result.isItemEqual(this.lastKnownItem)) {
+				this.cookTime = 0;
+				this.lastKnownItem = result;
+				this.markDirty();
+				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+			}
+			return true;
+		}
+		return false;
 	}
 
 	public void freezeItem() {
