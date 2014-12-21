@@ -83,9 +83,6 @@ public class ContainerMeteorShield extends Container {
             		if (slot1 != null && shield.isItemValidForSlot(i, new ItemStack(MeteorItems.itemRedMeteorGem, 1))) {
             			slot1.putStack(new ItemStack(MeteorItems.itemRedMeteorGem, 1));
             			itemstack1.stackSize--;
-            			if (shield.getBlockMetadata() == 4) {
-            				par1EntityPlayer.addStat(HandlerAchievement.shieldFullyUpgraded, 1);
-            			}
             		}
             	}
             	itemstack = null;

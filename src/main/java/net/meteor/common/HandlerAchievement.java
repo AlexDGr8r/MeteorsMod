@@ -26,15 +26,16 @@ public class HandlerAchievement
 	public static final Achievement kittyEvent = new AchievementMeteorsMod("metCometKittyEvent", "cometKittyEvent", 4, -4, new ItemStack(MeteorItems.itemMeteorSummoner, 1, 5), craftedMeteorTimer).registerStat();
 	public static final Achievement kittyTame = new AchievementMeteorsMod("metKittyTame", "kittyTame", 6, -4, Items.fish, kittyEvent).registerStat();
 	public static final Achievement craftedFreezer = new AchievementMeteorsMod("metFreezerCrafted", "freezerCrafted", 3, 3, MeteorBlocks.blockFreezer, materialGather).registerStat();
-	public static final Achievement freezeWater = new AchievementMeteorsMod("metFreezeWater", "freezeWater", 4, 5, Blocks.ice, craftedFreezer).registerStat();
+	public static final Achievement freezeWater = new AchievementMeteorsMod("metFreezeWater", "freezeWater", 5, 3, Blocks.ice, craftedFreezer).registerStat();
 	public static final Achievement freezeBlocks = new AchievementMeteorsMod("metFreezeBlocks", "freezeBlocks", 3, 5, MeteorBlocks.blockSlippery, craftedFreezer).registerStat();
+	public static final Achievement freezeIce = new AchievementMeteorsMod("metFreezeIce", "freezeIce", 7, 3, Blocks.packed_ice, freezeWater).registerStat();
 	
 	public void readyAchievements()
 	{
 		AchievementPage page = new AchPageMeteorsMod("achievement.pageMeteors", new Achievement[] { 
 				materialGather, shieldCrafted, shieldFullyUpgraded, meteorBlocked, attractedDrop, craftedKreknoSword,
 				craftedDetector, foundMeteor, craftedMeteorTimer, summonMeteor, kittyEvent, kittyTame, meteorManipulator,
-				craftedFreezer, freezeWater, freezeBlocks
+				craftedFreezer, freezeWater, freezeBlocks, freezeIce
 		});
 		AchievementPage.registerAchievementPage(page);
 	}

@@ -139,6 +139,14 @@ achievement.materialGather=Not of This World
 achievement.materialGather.desc=Gather ore from a fallen meteor.
 achievement.meteorManipulator=True Power
 achievement.meteorManipulator.desc=Find a Red Meteor Gem from a Meteorite Meteor
+achievement.freezerCrafted=A Cool Machine
+achievement.freezerCrafted.desc=Craft the Freezer machine
+achievement.freezeBlocks=Slip and Slide
+achievement.freezeBlocks.desc=Create a slippery block using the Freezer (water needed)
+achievement.freezeWater=Chilled Cube
+achievement.freezeWater.desc=Make ice using the Freezer
+achievement.freezeIce=Compact Cold Cube
+achievement.freezeIce.desc=Make Packed Ice using the Freezer (ice needed)
 
 key.toggleMagnetism=Toggle Magnetism
 key.categories.meteors=Meteors

@@ -1,6 +1,7 @@
 package net.meteor.common.command;
 
 import net.meteor.common.EnumMeteor;
+import net.meteor.common.MeteorsMod;
 import net.meteor.common.entity.EntityMeteor;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
@@ -55,6 +56,9 @@ public class CommandSpawnMeteor extends CommandBase {
 			meteor.prevPosY = meteor.posY;
 			meteor.spawnPauseTicks = delay;
 			world.spawnEntityInWorld(meteor);
+			if (!MeteorsMod.instance.isDimensionWhitelisted(world.provider.dimensionId)) {
+				var1.addChatMessage(new ChatComponentText("The Meteor isn't techincally allowed in this dimension, but I'll spawn it for you anyway."));
+			}
 			var1.addChatMessage(new ChatComponentText("Meteor spawned."));
 		} catch (Exception e) {
 			var1.addChatMessage(new ChatComponentText(e.getMessage()));

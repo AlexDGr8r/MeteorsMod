@@ -7,6 +7,7 @@ import java.util.Random;
 import net.meteor.common.ClientHandler;
 import net.meteor.common.ClientProxy;
 import net.meteor.common.EnumMeteor;
+import net.meteor.common.HandlerAchievement;
 import net.meteor.common.IMeteorShield;
 import net.meteor.common.MeteorItems;
 import net.meteor.common.MeteorsMod;
@@ -413,8 +414,11 @@ public class TileEntityMeteorShield extends TileEntityNetworkBase implements ISi
 		
 		if (powerLevel > oldLevel) {
 			this.worldObj.playSoundEffect(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D, "meteors:shield.powerup", 1.0F, powerLevel / 10.0F + 0.5F);
+			EntityPlayer player = worldObj.getPlayerEntityByName(owner);
+			if (powerLevel == 5) {
+				player.addStat(HandlerAchievement.shieldFullyUpgraded, 1);
+			}
 			if (MeteorsMod.instance.ShieldRadiusMultiplier <= 0 && !worldObj.isRemote) {
-				EntityPlayer player = worldObj.getPlayerEntityByName(owner);
 				if (player != null) {
 					player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("MeteorShield.noUpgrade")));
 				}	
