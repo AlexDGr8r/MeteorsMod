@@ -1,0 +1,185 @@
+tile.MeteorOre.name=陨石矿石
+tile.Meteor.name=陨石
+tile.MeteorRare.name=稀有陨石
+tile.MeteorShield.name=陨石护盾
+tile.ProtectedLandTester.name=陨石测定火把
+tile.ProtectedLandTesterActive.name=陨石测定火把
+tile.Frezarite.name=冰霜陨石
+tile.Kreknorite.name=炽焰陨石
+tile.MeteorTimer.name=陨石定时器
+tile.blockRedGem.name=红色陨石晶体块
+tile.meteorDecor.0.name=陨石快
+tile.meteorDecor.1.name=冰霜铁块
+tile.meteorDecor.2.name=炽焰陨石块
+tile.slipperyBlock.name=滑溜的 %s
+tile.freezingMachine.name=制冷机
+tile.FrezariteOre.name=冰霜矿石
+
+item.MeteorChips.name=陨石碎片
+item.RedMeteorGem.name=红色陨石水晶
+item.RedMeteorGem.desc.one=这个水晶里蕴含的力量
+item.RedMeteorGem.desc.two=能让你操纵陨石
+item.MeteorSummoner.random.name=陨石召唤石
+item.MeteorSummoner.meteorite.name=普通陨石召唤石
+item.MeteorSummoner.frezarite.name=冰霜陨石召唤石
+item.MeteorSummoner.kreknorite.name=炽焰陨石召唤石
+item.MeteorSummoner.unknown.name=未知陨石召唤石
+item.MeteorSummoner.kitty.name=猫咪陨石召唤石
+item.MeteoriteHelmet.name=陨石头盔
+item.MeteoriteChest.name=陨石胸甲
+item.MeteoriteLegs.name=陨石护腿
+item.MeteoriteBoots.name=陨石靴子
+item.MeteoriteAxe.name=陨石斧
+item.MeteoriteSpade.name=陨石锹
+item.MeteoriteSword.name=陨石剑
+item.MeteoritePickaxe.name=陨石镐
+item.MeteoriteHoe.name=陨石锄
+item.FrezariteHelmet.name=冰霜头盔
+item.FrezariteChest.name=冰霜胸甲
+item.FrezariteLegs.name=冰霜护腿
+item.FrezariteBoots.name=冰霜靴子
+item.FrezariteCrystal.name=冰霜水晶
+item.FrezaritePickaxe.name=冰霜镐
+item.FrezariteSpade.name=冰霜锹
+item.FrezariteSword.name=冰霜之剑
+item.FrezariteAxe.name=冰霜斧
+item.FrezariteHoe.name=冰霜锄
+item.KreknoriteChip.name=炽焰陨石碎片
+item.KreknoriteHelmet.name=炽焰头盔
+item.KreknoriteChest.name=炽焰胸甲
+item.KreknoriteLegs.name=炽焰护腿
+item.KreknoriteBoots.name=炽焰靴子
+item.KreknoriteSword.name=炽焰之剑
+item.VanillaIceCream.name=冰淇淋
+item.ChocolateIceCream.name=巧克力冰淇淋
+item.MeteorDetectorProximity.name=陨石接近感应器
+item.MeteorDetectorTime.name=陨石预测仪
+item.MeteorDetectorCrash.name=陨落区侦测仪
+item.MeteoriteIngot.name=陨石锭
+item.FrozenIron.name=冰霜铁
+item.KreknoriteIngot.name=炽焰锭
+item.MagnetizationController.name=磁力腰带
+item.MagneticFieldDisruptor.name=磁场分裂器
+
+entity.AlienCreeper.name=外星爬行者
+entity.CometKitty.name=陨石猫
+
+MeteorShield.charging=陨石护盾充能中!
+MeteorShield.noUpgrade=你不能再升级陨石护盾了!
+MeteorShield.meteorBlocked=陨石护盾可以让你的领地免受陨石的坠落破坏.
+MeteorShield.howToUpgrade=红色陨石水晶可以让陨石护盾拥有更强的力量.
+
+Detector.scanning=侦测中
+Detector.detected=侦测到陨石!
+Detector.time=侦测到下次将会坠落的陨石.
+Detector.proximity=侦测到最近的陨落区.
+Detector.crash=侦测到上一次陨石坠落区域.
+CrashDetector.noActivity=未侦测到陨石活动!
+CrashDetector.zoneLocated=陨落区已定位!
+
+MeteorTimer.modeChange.one=强度模式: 陨石定时器会侦测其与陨石坠落位置的远近来发出不同强度的红石信号
+MeteorTimer.modeChange.two=迅速模式: 陨石定时器会在陨石坠落后发出一次红石信号
+
+ProtectionTorch.landOwnership=这片领地的所有者:
+ProtectionTorch.usage=一次性使用!
+
+enchantment.Magnetization=磁力吸引
+enchantment.Cold Touch=寒冰之触
+enchantment.addEnch.one=手持并右键
+enchantment.addEnch.two=来添加附魔效果
+enchantment.frezAxe.one=+水下挖掘
+enchantment.frezAxe.two=+伐木加速
+enchantment.frezHoe.one=使用时
+enchantment.frezHoe.two=自动灌溉耕地
+enchantment.frezPickaxe.one=+水下挖掘
+enchantment.frezPickaxe.two=+挖掘加速
+enchantment.frezSpade.one=+水下挖掘
+enchantment.frezSpade.two=+挖掘加速
+enchantment.frezSword.one=冻结生物
+enchantment.frezSword.two=使它们的速度减缓
+
+Meteor.netherPortalCreation=一道通往下界的传送门被打开了!
+Meteor.kittiesDetected.one=上空陨石发现生命体!
+Meteor.kittiesDetected.two=准备应对陨石的双重碰撞!
+Meteor.kittiesIncoming=陨石猫来了!!!
+Meteor.crashed=一颗陨石坠落了!
+
+MeteorSummoner.incomingMeteor=陨石即将坠落!!!
+MeteorSummoner.wrongDimension=你无法在这个世界召唤陨石
+MeteorSummoner.landProtected=这片领地被另一个玩家所保护!
+MeteorSummoner.cannotSummon=你无法召唤陨石!
+
+itemGroup.Meteor=陨石
+itemGroup.Falling Meteors Mod=陨石
+
+achievement.pageMeteors=陨石
+achievement.shieldCrafted=掩护物
+achievement.shieldCrafted.desc=使用陨石碎片合成一个陨石护盾
+achievement.meteorBlocked=摧毁陨石!
+achievement.meteorBlocked.desc=使用陨石护盾阻止陨石破坏你的领地
+achievement.shieldFullyUpgraded=终极护盾
+achievement.shieldFullyUpgraded.desc=使用稀有的红色陨石水晶对你的陨石护盾进行最终的升级
+achievement.attractedDrop=磁化效应
+achievement.attractedDrop.desc=使用陨石装备或工具吸引磁性物品
+achievement.craftedKreknoSword=怒火之剑
+achievement.craftedKreknoSword.desc=使用炽焰陨石碎片合成一把炽焰之剑
+achievement.craftedDetector=消息灵通
+achievement.craftedDetector.desc=合成任意一种陨石侦测仪: 普通陨石, 冰霜陨石, 或是炽焰陨石
+achievement.foundMeteor=遇见陨石
+achievement.foundMeteor.desc=使用预测仪定位陨石的坠落地点, 并在它坠落时守在旁边
+achievement.craftedMeteorTimer=即时检测
+achievement.craftedMeteorTimer.desc=合成一个陨石定时器, 让它提醒你何时有陨石坠落
+achievement.summonMeteor=扔块石头!
+achievement.summonMeteor.desc=使用陨石召唤石召唤一颗陨石
+achievement.cometKittyEvent=外来猫咪
+achievement.cometKittyEvent.desc=遇见陨石中的猫
+achievement.kittyTame=友好的猫咪
+achievement.kittyTame.desc=驯服一只不怕火的陨石猫, 让她成为你的伙伴
+achievement.materialGather=天外来物
+achievement.materialGather.desc=采集一块蕴藏在陨石中的矿石
+achievement.meteorManipulator=最强之力
+achievement.meteorManipulator.desc=从普通陨石残骸中找到红色陨石水晶
+
+key.toggleMagnetism=切换磁力腰带状态
+key.categories.meteors=陨石
+
+# %s is replaced by options.on or options.off
+gui.toggleCometButton=仅阻挡该种陨石: %s
+
+info.slipperyBlock.one=%s倍滑溜程度
+info.freezeTime=冰冻时间 %s
+info.magnetisationController.state=磁力: %s
+info.magnetisationController.one=装备后按 '%s' 
+info.magnetisationController.two=来切换打开或关闭
+info.magnetisationController.enabled=磁力腰带 §a开启
+info.magnetisationController.disabled=磁力腰带 §c关闭
+info.meteorShield.charging=充能中...
+info.meteorShield.charged=充能进度: %s%%
+info.meteorShield.powerLevel=力量等级: %s / %s
+info.meteorShield.range=保护范围: %s 个方块
+info.meteorShield.owner=所有者: %s
+info.meteorShield.cometsBeingBlocked=成功阻挡陨石
+info.meteorShield.cometEnteredOrbit=陨石已进入坠落轨道:
+info.meteorShield.cometX=X: %s
+info.meteorShield.cometZ=Z: %s
+info.meteorShield.noComets=未侦测到陨石
+info.meteorShield.cometType=陨石种类:
+info.freezer.itemMode=物品模式
+info.freezer.itemMode.desc=仅使用顶部"%s"格子内的物品进行冰冻
+info.freezer.fluidMode=流体模式
+info.freezer.fluidMode.desc=仅使用流体"%s"进行冰冻.
+info.freezer.bothMode=物品&流体模式
+info.freezer.bothMode.desc=同时使用物品以及流体"%s"进行冰冻
+info.freezer.eitherMode=物品/流体模式
+info.freezer.eitherMode.desc=当资源"%s"足够时对任何物品进行冰冻
+info.meteorTimer.quickMode=迅速模式
+info.meteorTimer.powerMode=强度模式
+info.kreknoriteArmorBonus=加成: §6火焰免疫
+
+meteor.meteorite.name=陨石
+meteor.frezarite.name=冰霜陨石
+meteor.kreknorite.name=炽焰陨石
+meteor.unknown.name=未知陨石
+meteor.kitty.name=猫咪陨石
+
+death.attack.meteor=%1$s 被陨石砸死了
