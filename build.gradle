@@ -17,7 +17,7 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "1.7.10-2.14-BETA"
+version = "1.7.10-2.14"
 group= "net.meteor" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "meteors"
 

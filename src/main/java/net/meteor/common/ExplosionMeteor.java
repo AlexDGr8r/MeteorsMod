@@ -20,6 +20,7 @@ import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
+// It's amazing that I'll do all this for a little death message
 public class ExplosionMeteor extends Explosion {
 	
 	public static final DamageSource meteorExplosionDamage = new DamageSource("meteor").setDifficultyScaled();

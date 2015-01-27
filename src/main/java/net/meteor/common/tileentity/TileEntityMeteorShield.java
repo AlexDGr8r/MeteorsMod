@@ -415,7 +415,7 @@ public class TileEntityMeteorShield extends TileEntityNetworkBase implements ISi
 		if (powerLevel > oldLevel) {
 			this.worldObj.playSoundEffect(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D, "meteors:shield.powerup", 1.0F, powerLevel / 10.0F + 0.5F);
 			EntityPlayer player = worldObj.getPlayerEntityByName(owner);
-			if (powerLevel == 5) {
+			if (powerLevel == 5 && player != null) {
 				player.addStat(HandlerAchievement.shieldFullyUpgraded, 1);
 			}
 			if (MeteorsMod.instance.ShieldRadiusMultiplier <= 0 && !worldObj.isRemote) {

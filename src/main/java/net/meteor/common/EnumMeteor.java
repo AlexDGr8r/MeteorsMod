@@ -17,7 +17,8 @@ implements Serializable
 	FREZARITE(1, MeteorBlocks.blockFrezarite, Blocks.ice, false, "freza", EnumChatFormatting.AQUA, new ItemStack(MeteorBlocks.blockFrezarite, 1, 1), MeteorBlocks.blockFrezarite), 
 	KREKNORITE(2, MeteorBlocks.blockKreknorite, Blocks.lava, true, "krekno", EnumChatFormatting.RED, new ItemStack(MeteorBlocks.blockKreknorite, 1, 1), MeteorBlocks.blockKreknorite), 
 	UNKNOWN(3, Blocks.air, Blocks.air, true, "unk", EnumChatFormatting.GRAY, new ItemStack(Blocks.chest, 1), Blocks.glowstone), 
-	KITTY(4, Blocks.air, Blocks.air, false, "kitty", EnumChatFormatting.GREEN, new ItemStack(Items.fish, 1), MeteorBlocks.blockMeteor);
+	KITTY(4, Blocks.air, Blocks.air, false, "kitty", EnumChatFormatting.GREEN, new ItemStack(Items.fish, 1), MeteorBlocks.blockMeteor),
+	CUSTOM(5, Blocks.air, Blocks.air, false, "custom", EnumChatFormatting.GOLD, new ItemStack(Blocks.stone, 1), Blocks.stone);
 
 	private final int ID;
 	private final Block material;
