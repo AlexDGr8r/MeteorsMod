@@ -1,11 +1,9 @@
 package net.meteor.common;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import net.meteor.common.block.BlockSlippery;
@@ -13,7 +11,6 @@ import net.meteor.common.block.BlockSlipperyStairs;
 import net.meteor.common.item.ItemBlockSlippery;
 import net.meteor.common.tileentity.TileEntitySlippery;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockSlab;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;

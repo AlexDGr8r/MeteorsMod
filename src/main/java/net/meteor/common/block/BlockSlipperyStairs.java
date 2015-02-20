@@ -2,7 +2,6 @@ package net.meteor.common.block;
 
 import java.util.Random;
 
-import net.meteor.common.MeteorsMod;
 import net.meteor.common.item.ItemBlockSlippery;
 import net.meteor.common.tileentity.TileEntitySlippery;
 import net.minecraft.block.Block;

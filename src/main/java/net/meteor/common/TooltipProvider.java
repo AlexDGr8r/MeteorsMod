@@ -1,9 +1,9 @@
 package net.meteor.common;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.meteor.common.tileentity.TileEntityFreezingMachine;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class TooltipProvider {
 	

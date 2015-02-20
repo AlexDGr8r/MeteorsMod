@@ -1,8 +1,8 @@
 package net.meteor.common;
 
 import net.meteor.common.block.BlockDecoration;
-import net.meteor.common.block.BlockFrezarite;
 import net.meteor.common.block.BlockFreezingMachine;
+import net.meteor.common.block.BlockFrezarite;
 import net.meteor.common.block.BlockKreknorite;
 import net.meteor.common.block.BlockMeteor;
 import net.meteor.common.block.BlockMeteorOre;

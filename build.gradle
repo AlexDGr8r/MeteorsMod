@@ -17,7 +17,7 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "1.7.10-2.14"
+version = "1.7.10-2.14.2"
 group= "net.meteor" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "meteors"
 
@@ -33,12 +33,12 @@ repositories {
 }
 
 dependencies {
-	compile "mcp.mobius.waila:Waila:1.5.3_1.7.10"
+	compile "mcp.mobius.waila:Waila:1.5.9_1.7.10"
 	compile files("./Baubles-deobf-1.7.10-1.0.1.7.jar") // If Azanor has a maven repo, I'll change it over
 }
 
 minecraft {
-    version = "1.7.10-10.13.0.1208"
+    version = "1.7.10-10.13.2.1291"
     assetDir = "eclipse/assets"
 }
 processResources

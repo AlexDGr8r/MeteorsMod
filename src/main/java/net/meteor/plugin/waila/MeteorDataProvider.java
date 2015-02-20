@@ -8,7 +8,11 @@ import mcp.mobius.waila.api.IWailaDataProvider;
 import mcp.mobius.waila.api.SpecialChars;
 import net.meteor.common.block.BlockFrezarite;
 import net.meteor.common.block.BlockMeteor;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 
 public class MeteorDataProvider implements IWailaDataProvider {
 
@@ -48,6 +52,12 @@ public class MeteorDataProvider implements IWailaDataProvider {
 	@Override
 	public List<String> getWailaTail(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
 		return currenttip;
+	}
+
+	@Override
+	public NBTTagCompound getNBTData(EntityPlayerMP player, TileEntity te,
+			NBTTagCompound tag, World world, int x, int y, int z) {
+		return null;
 	}
 	
 }

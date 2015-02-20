@@ -1,15 +1,14 @@
 package net.meteor.client.block;
 
-import org.lwjgl.opengl.GL11;
-
 import net.meteor.common.item.ItemBlockSlippery;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
+
+import org.lwjgl.opengl.GL11;
 
 public class SlipperyItemRenderer implements IItemRenderer {
 

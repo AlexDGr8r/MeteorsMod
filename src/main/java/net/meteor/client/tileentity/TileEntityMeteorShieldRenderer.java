@@ -3,10 +3,8 @@ package net.meteor.client.tileentity;
 import net.meteor.client.model.ModelMeteorShield;
 import net.meteor.common.MeteorsMod;
 import net.meteor.common.tileentity.TileEntityMeteorShield;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityBeacon;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;

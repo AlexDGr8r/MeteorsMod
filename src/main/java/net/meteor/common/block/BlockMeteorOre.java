@@ -2,7 +2,6 @@ package net.meteor.common.block;
 
 import java.util.Random;
 
-import net.meteor.common.MeteorItems;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 

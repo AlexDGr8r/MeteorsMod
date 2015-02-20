@@ -41,12 +41,14 @@ public class SlotTakeOnly extends Slot {
 	@Override
 	protected void onCrafting(ItemStack item) {
 		
-		if (item.getItem() == Item.getItemFromBlock(Blocks.ice)) {
-			this.thePlayer.addStat(HandlerAchievement.freezeWater, 1);
-		} else if (item.getItem() == Item.getItemFromBlock(Blocks.packed_ice)) {
-			this.thePlayer.addStat(HandlerAchievement.freezeIce, 1);
-		} else if (Block.getBlockFromItem(item.getItem()) instanceof BlockSlippery || Block.getBlockFromItem(item.getItem()) instanceof BlockSlipperyStairs) {
-			this.thePlayer.addStat(HandlerAchievement.freezeBlocks, 1);
+		if (item != null && this.thePlayer != null) {
+			if (item.getItem() == Item.getItemFromBlock(Blocks.ice)) {
+				this.thePlayer.addStat(HandlerAchievement.freezeWater, 1);
+			} else if (item.getItem() == Item.getItemFromBlock(Blocks.packed_ice)) {
+				this.thePlayer.addStat(HandlerAchievement.freezeIce, 1);
+			} else if (Block.getBlockFromItem(item.getItem()) instanceof BlockSlippery || Block.getBlockFromItem(item.getItem()) instanceof BlockSlipperyStairs) {
+				this.thePlayer.addStat(HandlerAchievement.freezeBlocks, 1);
+			}
 		}
 		
 		super.onCrafting(item);

@@ -1,6 +1,5 @@
 package net.meteor.common.block.container;
 
-import net.meteor.common.HandlerAchievement;
 import net.meteor.common.MeteorItems;
 import net.meteor.common.tileentity.TileEntityMeteorShield;
 import net.minecraft.entity.player.EntityPlayer;

@@ -1,8 +1,5 @@
 package net.meteor.common.tileentity;
 
-import cpw.mods.fml.common.registry.GameData;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.meteor.common.item.ItemBlockSlippery;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -12,6 +9,9 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import cpw.mods.fml.common.registry.GameData;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class TileEntitySlippery extends TileEntity {
 	

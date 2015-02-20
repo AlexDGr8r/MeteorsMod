@@ -3,19 +3,15 @@ package net.meteor.client.gui;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.lwjgl.opengl.GL11;
-
 import net.meteor.common.FreezerRecipes.RecipeType;
 import net.meteor.common.MeteorsMod;
 import net.meteor.common.block.container.ContainerFreezingMachine;
 import net.meteor.common.tileentity.TileEntityFreezingMachine;
 import net.meteor.common.util.Util;
-import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
@@ -24,6 +20,8 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
+
+import org.lwjgl.opengl.GL11;
 
 public class GuiFreezingMachine extends GuiContainer {
 	
