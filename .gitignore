@@ -1,5 +1,6 @@
 .gradle/*
 .settings/*
+backup of assets/*
 build/*
 eclipse/*
 gradle/*
