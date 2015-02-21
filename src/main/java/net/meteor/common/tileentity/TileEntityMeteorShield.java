@@ -358,13 +358,15 @@ public class TileEntityMeteorShield extends TileEntityNetworkBase implements ISi
 			} else if (i > 0 && i < 5) {
 				inv[i] = itemstack;
 				this.updateRange();
+			} else {
+				inv[i] = itemstack;
 			}
 		}
 	}
 
 	@Override
 	public int getInventoryStackLimit() {
-		return 1;
+		return 64;
 	}
 
 	@Override
@@ -374,13 +376,13 @@ public class TileEntityMeteorShield extends TileEntityNetworkBase implements ISi
 
 	@Override
 	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-		if (itemstack.getItem() == MeteorItems.itemRedMeteorGem) {
-			return powerLevel > 0 && i > 0 && i < 5 && powerLevel < 5 && inv[i] == null;
-		} else if (itemstack.getItem() == MeteorItems.itemMeteorChips) {
-			return i == 0 && powerLevel == 0;
+		if (itemstack.getItem() == MeteorItems.itemRedMeteorGem && i > 0 && i < 5) {
+			return powerLevel > 0 && powerLevel < 5 && inv[i] == null;
+		} else if (itemstack.getItem() == MeteorItems.itemMeteorChips && i == 0) {
+			return powerLevel == 0;
 		}
 
-		return false;
+		return true;
 	}
 
 	@Override
