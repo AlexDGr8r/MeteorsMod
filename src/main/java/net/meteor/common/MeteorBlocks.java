@@ -70,6 +70,8 @@ public class MeteorBlocks {
 		// Ore Dictionary
 		OreDictionary.registerOre("oreMeteorite", blockMeteorOre);
 		OreDictionary.registerOre("oreFrezarite", blockFrezariteOre);
+		OreDictionary.registerOre("blockMeteorite", new ItemStack(blockDecorator, 1, 0));
+		OreDictionary.registerOre("blockFrezarite", new ItemStack(blockDecorator, 1, 1));
 	}
 
 }
