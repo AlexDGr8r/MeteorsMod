@@ -22,7 +22,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class BlockMeteor extends BlockMeteorsMod
 {
 	
-	private IIcon hotTex;
+	protected IIcon hotTex;
 	protected Random rand = new Random();
 	
 	public BlockMeteor()
