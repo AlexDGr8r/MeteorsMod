@@ -17,9 +17,8 @@ public class ItemFoodMeteorsMod extends ItemFood
         this(p_i45340_1_, 0.6F, p_i45340_2_);
     }
 	
-	@Override
-	public Item setTextureName(String s) {
-		return super.setTextureName(MeteorsMod.MOD_ID + ":" + s);
+	public Item setTexture(String s) {
+		return this.setTextureName(MeteorsMod.MOD_ID + ":" + s);
 	}
 	
 }

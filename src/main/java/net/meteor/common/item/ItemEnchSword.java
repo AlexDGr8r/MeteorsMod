@@ -35,9 +35,8 @@ public class ItemEnchSword extends ItemSword
 		return super.getDamage(stack);
 	}
 	
-	@Override
-	public Item setTextureName(String s) {
-		return super.setTextureName(MeteorsMod.MOD_ID + ":" + s);
+	public ItemEnchSword setTexture(String s) {
+		return (ItemEnchSword) this.setTextureName(MeteorsMod.MOD_ID + ":" + s);
 	}
 	
 	private boolean isRestricted(ItemStack item) {

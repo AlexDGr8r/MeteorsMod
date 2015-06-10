@@ -39,9 +39,8 @@ public class ItemFrezaritePickaxe extends ItemPickaxe
 		return 0;
 	}
 	
-	@Override
-	public Item setTextureName(String s) {
-		return super.setTextureName(MeteorsMod.MOD_ID + ":" + s);
+	public Item setTexture(String s) {
+		return this.setTextureName(MeteorsMod.MOD_ID + ":" + s);
 	}
 	
 }

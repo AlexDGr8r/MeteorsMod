@@ -38,7 +38,7 @@ public class TileEntityMeteorShield extends TileEntityNetworkBase implements ISi
 
 	private boolean shieldedChunks;
 	private boolean blockComets;
-	public String owner;
+	public String owner = "None";
 	private int range;
 	private int powerLevel;
 	private int cometX;

@@ -17,6 +17,7 @@ import net.meteor.common.item.ItemBlockMeteorsMod;
 import net.meteor.common.item.ItemBlockMeteorsModMetadata;
 import net.meteor.common.item.ItemBlockSlippery;
 import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -72,6 +73,8 @@ public class MeteorBlocks {
 		OreDictionary.registerOre("oreFrezarite", blockFrezariteOre);
 		OreDictionary.registerOre("blockMeteorite", new ItemStack(blockDecorator, 1, 0));
 		OreDictionary.registerOre("blockFrezarite", new ItemStack(blockDecorator, 1, 1));
+		OreDictionary.registerOre("blockKreknorite", new ItemStack(blockDecorator, 1, 2));
+		OreDictionary.registerOre("blockRedMeteorGem", blockRedMeteorGem);
 	}
 
 }

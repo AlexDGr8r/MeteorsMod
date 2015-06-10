@@ -35,9 +35,8 @@ public class ItemEnchHoe extends ItemHoe
 		return super.getDamage(stack);
 	}
 	
-	@Override
-	public Item setTextureName(String s) {
-		return super.setTextureName(MeteorsMod.MOD_ID + ":" + s);
+	public ItemEnchHoe setTexture(String s) {
+		return (ItemEnchHoe) this.setTextureName(MeteorsMod.MOD_ID + ":" + s);
 	}
 	
 	private boolean isRestricted(ItemStack item) {

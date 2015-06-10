@@ -39,9 +39,8 @@ public class ItemMetArmor extends ItemArmor
 		}
 	}
 	
-	@Override
-	public Item setTextureName(String s) {
-		return super.setTextureName(MeteorsMod.MOD_ID + ":" + s);
+	public ItemMetArmor setTexture(String s) {
+		return (ItemMetArmor)this.setTextureName(MeteorsMod.MOD_ID + ":" + s);
 	}
 	
 	@SideOnly(Side.CLIENT)
